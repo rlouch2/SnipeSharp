@@ -11,6 +11,20 @@ namespace SnipeSharp.Endpoints.ExtendedManagers
         {
         }
 
+        public T GetByAssetTag(string name)
+        {
+            var response = _reqManager.Get($"{_endPoint}/bytag/{name}");
+            var result = JsonConvert.DeserializeObject<T>(response);
+            return result;
+        }
+
+        public T GetBySerial(string serial)
+        {
+            var response = _reqManager.Get($"{_endPoint}/byserial/{serial}");
+            var result = JsonConvert.DeserializeObject<T>(response);
+            return result;
+        }
+
         public IRequestResponse Checkout(ICommonEndpointModel item)
         {
             IRequestResponse result;
