@@ -5,7 +5,6 @@ namespace SnipeSharp.Endpoints.Models
 {
     public class License : CommonEndpointModel
     {
- 
         [JsonProperty("company")]
         public Company Company { get; set; }
 

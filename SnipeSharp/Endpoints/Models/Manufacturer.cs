@@ -4,8 +4,6 @@ using SnipeSharp.Common;
 
 namespace SnipeSharp.Endpoints.Models
 {
-
-
     public class Manufacturer : CommonEndpointModel
     {
         [JsonProperty("url")]
@@ -32,6 +30,5 @@ namespace SnipeSharp.Endpoints.Models
 
         [JsonProperty("licenses_count")]
         public long LicensesCount { get; set; }
-
     }
 }

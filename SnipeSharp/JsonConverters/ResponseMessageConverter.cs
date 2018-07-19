@@ -8,15 +8,11 @@ namespace SnipeSharp.JsonConverters
 {
     public class ResponseMessageConverter : JsonConverter
     {
-        public override bool CanConvert(Type objectType)
-        {           
-            return true;
-        }
+        public override bool CanConvert(Type objectType) => true;
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-
-            JToken token = JToken.Load(reader);
+            var token = JToken.Load(reader);
 
             if (token.Type == JTokenType.Object)
             {
@@ -25,9 +21,9 @@ namespace SnipeSharp.JsonConverters
 
             if (token.Type == JTokenType.String)
             {
-                Message message = new Message()
+                var message = new Message
                 {
-                    General = new List<string>()
+                    General = new List<string>
                     {
                         token.ToObject<string>()
                     }
@@ -39,9 +35,6 @@ namespace SnipeSharp.JsonConverters
             return new object();
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
     }
 }

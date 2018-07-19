@@ -23,7 +23,7 @@ namespace SnipeSharp.JsonConverters
             // There's probably a better way to deal with this case.  Will deal with it later.  For now we're shoe horning an IRequestResponse into an ICommonResponseObject
             if (item.Type != JTokenType.Array && item.Value<string>("status") != null)
             {
-                CommonEndpointModel result = new CommonEndpointModel()
+                var result = new CommonEndpointModel
                 {
                     Name = string.Format("ERROR: {0}", item.Value<string>("messages"))
                 };
@@ -32,7 +32,7 @@ namespace SnipeSharp.JsonConverters
             }
 
             // Convert to dict so we can easily check if keys exist
-            IDictionary<string, JToken> dictionary = (JObject)item;          
+            var dictionary = (IDictionary<string, JToken>) (JObject) item;
 
             // Manufacturer
             if (dictionary.ContainsKey("support_url"))
@@ -122,7 +122,6 @@ namespace SnipeSharp.JsonConverters
 
             return item.ToObject<CommonEndpointModel>();
             //throw new FailedToDetectObjectException();
-
         }
     }
 }

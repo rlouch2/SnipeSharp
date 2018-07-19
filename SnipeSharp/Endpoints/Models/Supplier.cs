@@ -49,6 +49,5 @@ namespace SnipeSharp.Endpoints.Models
         [OptionalRequestHeader("notes")]
         [JsonProperty("notes")]
         public string Notes { get; set; }
-
     }
 }

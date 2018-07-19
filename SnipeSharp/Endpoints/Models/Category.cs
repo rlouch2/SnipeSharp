@@ -55,7 +55,5 @@ namespace SnipeSharp.Endpoints.Models
 
         [JsonProperty("components_count")]
         public long? ComponentsCount { get; set; }
-
-
     }
 }

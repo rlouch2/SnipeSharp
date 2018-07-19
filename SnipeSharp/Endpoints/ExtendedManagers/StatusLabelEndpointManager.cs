@@ -12,8 +12,8 @@ namespace SnipeSharp.Endpoints.ExtendedManagers
 
         public ResponseCollection<StatusLabel> GetAssignedAssets(ICommonEndpointModel statusLabel)
         {
-            string response = _reqManager.Get(string.Format("{0}/{1}/assetlist", _endPoint, statusLabel.Id));
-            ResponseCollection<StatusLabel> results = JsonConvert.DeserializeObject<ResponseCollection<StatusLabel>>(response);
+            var response = _reqManager.Get($"{_endPoint}/{statusLabel.Id}/assetlist");
+            var results = JsonConvert.DeserializeObject<ResponseCollection<StatusLabel>>(response);
             return results;
         }
     }

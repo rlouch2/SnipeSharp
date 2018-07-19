@@ -43,16 +43,14 @@ namespace SnipeSharp.Endpoints.Models
         /// <returns>Dictionary of header values</returns>
         public virtual Dictionary<string, string> BuildQueryString()
         {
-            Dictionary<string, string> values = new Dictionary<string, string>();
+            var values = new Dictionary<string, string>();
 
             // TODO: Revisit this.  Look at loop in SearchFilter
-            foreach (PropertyInfo prop in this.GetType().GetProperties())
+            foreach (var prop in this.GetType().GetProperties())
             {
-                foreach (CustomAttributeData attData in prop.GetCustomAttributesData())
+                foreach (var attData in prop.GetCustomAttributesData())
                 {
-
-                    string typeName = attData.Constructor.DeclaringType.Name;
-
+                    var typeName = attData.Constructor.DeclaringType.Name;
                     if (typeName == "RequiredRequestHeader" || typeName == "OptionalRequestHeader")
                     {
                         var propValue = prop.GetValue(this)?.ToString();
@@ -65,8 +63,7 @@ namespace SnipeSharp.Endpoints.Models
 
                         if (propValue != null)
                         {
-
-                            string attName = attData.ConstructorArguments.First().ToString().Replace("\"", "");
+                            var attName = attData.ConstructorArguments.First().ToString().Replace("\"", "");
 
                             values.Add(attName, propValue);
                         }

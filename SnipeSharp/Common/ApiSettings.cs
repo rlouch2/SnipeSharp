@@ -34,8 +34,6 @@ namespace SnipeSharp.Common
             }
         }
 
-
-
         public ApiSettings()
         {
         }

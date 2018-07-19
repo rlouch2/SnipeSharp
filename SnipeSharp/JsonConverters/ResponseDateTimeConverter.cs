@@ -26,18 +26,15 @@ namespace SnipeSharp.JsonConverters
     /// </summary>
     class ResponseDateTimeConverter : JsonConverter
     {
-        public override bool CanConvert(Type objectType)
-        {
-            return true;
-        }
+        public override bool CanConvert(Type objectType) => true;
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JToken token = JToken.Load(reader);
+            var token = JToken.Load(reader);
 
             if (token.Type == JTokenType.String)
             {
-                return new ResponseDate()
+                return new ResponseDate
                 {
                     DateTime = token.ToObject<string>()
                 };
@@ -51,9 +48,6 @@ namespace SnipeSharp.JsonConverters
             return null;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
     }
 }

@@ -13,19 +13,16 @@ namespace SnipeSharp.Endpoints.ExtendedManagers
 
         public IRequestResponse Checkout(ICommonEndpointModel item)
         {
-            IRequestResponse result;
-            string response = _reqManager.Post(string.Format("{0}/{1}/checkout", _endPoint, item.Id), item);
-            result = JsonConvert.DeserializeObject<RequestResponse>(response);
+            var response = _reqManager.Post($"{_endPoint}/{item.Id}/checkout", item);
+            var result = JsonConvert.DeserializeObject<RequestResponse>(response);
             return result;
         }
 
         public IRequestResponse Checkin(ICommonEndpointModel item)
         {
-            IRequestResponse result;
-            string response = _reqManager.Post(string.Format("{0}/{1}/checkin",_endPoint, item.Id), item);
-            result = JsonConvert.DeserializeObject<RequestResponse>(response);
+            var response = _reqManager.Post($"{_endPoint}/{item.Id}/checkin", item);
+            var result = JsonConvert.DeserializeObject<RequestResponse>(response);
             return result;
         }
-
     }
 }

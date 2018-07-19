@@ -26,9 +26,9 @@ namespace SnipeSharp.Common
         public string Delete(string path)
         {
             CheckApiTokenAndUrl();
-            RestRequest req = new RestRequest(Method.DELETE); 
+            var req = new RestRequest(Method.DELETE); 
             req.Resource = path;
-            IRestResponse res = Client.Execute(req);
+            var res = Client.Execute(req);
 
             return res.Content;
         }
@@ -36,10 +36,10 @@ namespace SnipeSharp.Common
         public string Get(string path)
         {
             CheckApiTokenAndUrl();
-            RestRequest req = new RestRequest();
+            var req = new RestRequest();
             req.Resource = path; // Test
             req.Timeout = 200000;
-            IRestResponse res = Client.Execute(req);
+            var res = Client.Execute(req);
 
             return res.Content;
         }
@@ -47,7 +47,7 @@ namespace SnipeSharp.Common
         public string Get(string path, ISearchFilter filter)
         {
             CheckApiTokenAndUrl();
-            RestRequest req = new RestRequest();
+            var req = new RestRequest();
             req.Resource = path;
             req.Timeout = 200000; // TODO: We should probably breakup large requests
             foreach (KeyValuePair<string, string> kvp in filter.GetQueryString())
@@ -55,7 +55,7 @@ namespace SnipeSharp.Common
                 req.AddParameter(kvp.Key, kvp.Value);
             }
 
-            IRestResponse res = Client.Execute(req);
+            var res = Client.Execute(req);
 
             return res.Content;
         }
@@ -63,17 +63,17 @@ namespace SnipeSharp.Common
         public string Post(string path, ICommonEndpointModel item)
         {
             CheckApiTokenAndUrl();
-            RestRequest req = new RestRequest(Method.POST);
+            var req = new RestRequest(Method.POST);
             req.Resource = path;
 
-            Dictionary<string, string> parameters = item.BuildQueryString();
+            var parameters = item.BuildQueryString();
 
             foreach (KeyValuePair<string, string> kvp in parameters)
             {
                 req.AddParameter(kvp.Key, kvp.Value);
             }
             // TODO: Add error checking
-            IRestResponse res = Client.Execute(req);
+            var res = Client.Execute(req);
 
             return res.Content;
         }
@@ -82,17 +82,17 @@ namespace SnipeSharp.Common
         {
             // TODO: Make one method for post and put.
             CheckApiTokenAndUrl();
-            RestRequest req = new RestRequest(Method.PUT);
+            var req = new RestRequest(Method.PUT);
             req.Resource = path;
 
-            Dictionary<string, string> parameters = item.BuildQueryString();
+            var parameters = item.BuildQueryString();
 
             foreach (KeyValuePair<string, string> kvp in parameters)
             {
                 req.AddParameter(kvp.Key, kvp.Value);
             }
             // TODO: Add  error checking
-            IRestResponse res = Client.Execute(req);
+            var res = Client.Execute(req);
 
             return res.Content;
         }
