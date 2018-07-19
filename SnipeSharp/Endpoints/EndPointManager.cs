@@ -12,7 +12,7 @@ namespace SnipeSharp.Endpoints
     /// Generic class that can represent each of the different models returned by each endpoint. 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EndPointManager<T> where T : CommonEndpointModel 
+    public class EndPointManager<T> : IEndpointManager<T> where T : CommonEndpointModel
     {
         protected IRequestManager _reqManager;
         protected string _endPoint;
@@ -32,7 +32,7 @@ namespace SnipeSharp.Endpoints
         /// Gets all objects from the endpoint
         /// </summary>
         /// <returns></returns>
-        public ResponseCollection<T> GetAll()
+        public IResponseCollection<T> GetAll()
         {
 
             // Figure out how many rows the results will return so we can splitup requests
@@ -73,7 +73,7 @@ namespace SnipeSharp.Endpoints
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ResponseCollection<T> FindAll(ISearchFilter filter)
+        public IResponseCollection<T> FindAll(ISearchFilter filter)
         {
             var result = PerformLookup<ResponseCollection<T>>(_endPoint, filter);
 
@@ -151,14 +151,14 @@ namespace SnipeSharp.Endpoints
         /// </summary>
         /// <param name="toCreate"></param>
         /// <returns></returns>
-        public IRequestResponse Create(ICommonEndpointModel toCreate)
+        public IRequestResponse Create(T toCreate)
         {
             var res = _reqManager.Post(_endPoint, toCreate);
             var response = JsonConvert.DeserializeObject<RequestResponse>(res);
             return response;
         }
 
-        public IRequestResponse Update(ICommonEndpointModel toUpdate)
+        public IRequestResponse Update(T toUpdate)
         {
             var response = _reqManager.Put($"{_endPoint}/{toUpdate.Id}", toUpdate);
             var result = JsonConvert.DeserializeObject<RequestResponse>(response);
@@ -172,7 +172,7 @@ namespace SnipeSharp.Endpoints
             return result;
         }
 
-        public IRequestResponse Delete(ICommonEndpointModel toDelete) => Delete((int)toDelete.Id);
+        public IRequestResponse Delete(T toDelete) => Delete((int)toDelete.Id);
 
         /// <summary>
         /// Performs a lookup, returning null if there was an API error.
