@@ -8,7 +8,6 @@ namespace SnipeSharp.PowerShell
     {
         [Parameter(
             Mandatory = true,
-            ValueFromPipelineByPropertyName = true,
             Position = 1,
             HelpMessage = "API Token to use to connect to Snipe IT."
         )]
@@ -16,7 +15,6 @@ namespace SnipeSharp.PowerShell
 
         [Parameter(
             Mandatory = true,
-            ValueFromPipelineByPropertyName = true,
             Position = 0,
             HelpMessage = "The API URI for a Snipe IT instance."
         )]
@@ -29,6 +27,7 @@ namespace SnipeSharp.PowerShell
                     BaseUrl = this.Uri
                 }
             };
+            // TODO: test that it connects
         }
     }
 }
