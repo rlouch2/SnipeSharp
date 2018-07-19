@@ -58,7 +58,7 @@ namespace SnipeSharp.Endpoints.Models
                         // Abort in missing required headers
                         if (propValue == null && typeName == "RequiredRequestHeader")
                         {
-                            throw new RequiredValueIsNullException(string.Format("{0} Cannot Be Null", prop.Name));
+                            throw new RequiredValueIsNullException($"{prop.Name} Cannot Be Null");
                         }
 
                         if (propValue != null)

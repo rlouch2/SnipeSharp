@@ -160,14 +160,14 @@ namespace SnipeSharp.Endpoints
 
         public IRequestResponse Update(ICommonEndpointModel toUpdate)
         {
-            var response = _reqManager.Put(string.Format("{0}/{1}", _endPoint, toUpdate.Id), toUpdate);
+            var response = _reqManager.Put($"{_endPoint}/{toUpdate.Id}", toUpdate);
             var result = JsonConvert.DeserializeObject<RequestResponse>(response);
             return result;
         }
 
         public IRequestResponse Delete(int id)
         {
-            var response = _reqManager.Delete(string.Format("{0}/{1}", _endPoint, id.ToString()));
+            var response = _reqManager.Delete($"{_endPoint}/{id}");
             var result = JsonConvert.DeserializeObject<RequestResponse>(response);
             return result;
         }

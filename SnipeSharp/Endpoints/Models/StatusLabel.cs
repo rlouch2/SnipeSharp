@@ -28,7 +28,7 @@ namespace SnipeSharp.Endpoints.Models
                     _type = value;
                 } else
                 {
-                    throw new InvalidStatusLabelTypeException(string.Format("{0} Is an invalid status lable.  Use {1}", value, string.Join(", ", validTypes)));
+                    throw new InvalidStatusLabelTypeException($"{value} Is an invalid status lable.  Use {string.Join(", ", validTypes)}");
                 }
             }
         }

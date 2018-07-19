@@ -25,7 +25,7 @@ namespace SnipeSharp.JsonConverters
             {
                 var result = new CommonEndpointModel
                 {
-                    Name = string.Format("ERROR: {0}", item.Value<string>("messages"))
+                    Name = $"ERROR: {item.Value<string>("messages")}"
                 };
 
                 return result;
