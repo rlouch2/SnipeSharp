@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiHelper.cs" />
+    <Compile Include="BindingTypes\AssetIdentity.cs" />
     <Compile Include="Cmdlets\ConnectSnipeIT.cs" />
     <Compile Include="Cmdlets\DisconnectSnipeIT.cs" />
     <Compile Include="Cmdlets\GetAsset.cs" />
