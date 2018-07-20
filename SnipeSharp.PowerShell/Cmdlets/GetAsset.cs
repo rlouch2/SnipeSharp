@@ -6,9 +6,13 @@ using SnipeSharp.PowerShell.Enums;
 
 namespace SnipeSharp.PowerShell
 {
+    /// <summary>
+    /// <para type="synopsis">Gets an asset</para>
+    /// </summary>
     [Cmdlet(VerbsCommon.Get, "Asset",
         DefaultParameterSetName = "ByAssetTag"
     )]
+    [OutputType(typeof(Asset))]
     public class GetAsset: PSCmdlet
     {
         [Parameter(
