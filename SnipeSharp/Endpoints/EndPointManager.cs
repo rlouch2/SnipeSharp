@@ -40,9 +40,7 @@ namespace SnipeSharp.Endpoints
             // If there are more than 1000 assets split up the requests to avoid timeouts
             if (count.Total < 1000)
             {
-                string response = _reqManager.Get(_endPoint);
-                ResponseCollection<T> results = JsonConvert.DeserializeObject<ResponseCollection<T>>(response);
-                return results;
+                return FindAll(new SearchFilter { Limit = (int) count.Total });
 
             } else
             {
@@ -81,8 +79,27 @@ namespace SnipeSharp.Endpoints
         /// <returns></returns>
         public ResponseCollection<T> FindAll(ISearchFilter filter)
         {
-            string response = _reqManager.Get(_endPoint, filter);
-            ResponseCollection<T> results = JsonConvert.DeserializeObject<ResponseCollection<T>>(response);
+            var response = _reqManager.Get(_endPoint, filter);
+            var results = JsonConvert.DeserializeObject<ResponseCollection<T>>(response);
+
+            var baseOffset = filter.Offset == null ? 0 : filter.Offset;
+            // If there is no limit and there are more total than retrieved
+            if(filter.Limit == null && baseOffset + results.Rows.Count < results.Total)
+            {
+                filter.Limit = 1000;
+                filter.Offset = baseOffset + results.Rows.Count;
+                
+                while (baseOffset + results.Rows.Count < results.Total)
+                {
+                    response = _reqManager.Get(_endPoint, filter);
+                    var batch = JsonConvert.DeserializeObject<ResponseCollection<T>>(response);
+
+                    results.Rows.AddRange(batch.Rows);
+
+                    filter.Offset += 1000;
+                }
+            }
+
             return results;
         }
 
