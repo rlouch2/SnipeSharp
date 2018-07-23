@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Management.Automation;
 
-namespace SnipeSharp.PowerShell
+namespace SnipeSharp.PowerShell.Cmdlets
 {
     /// <summary>
     /// <para type="synopsis">Connects to Snipe IT.</para>

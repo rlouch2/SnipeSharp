@@ -6,7 +6,7 @@ using SnipeSharp.PowerShell.Enums;
 using SnipeSharp.PowerShell.BindingTypes;
 using System.Collections.Generic;
 
-namespace SnipeSharp.PowerShell
+namespace SnipeSharp.PowerShell.Cmdlets
 {
     /// <summary>
     /// <para type="synopsis">Gets an Snipe IT asset.</para>

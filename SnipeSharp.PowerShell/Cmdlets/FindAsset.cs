@@ -4,7 +4,7 @@ using SnipeSharp.Endpoints.Models;
 using SnipeSharp.Endpoints.SearchFilters;
 using SnipeSharp.PowerShell.Enums;
 
-namespace SnipeSharp.PowerShell
+namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, "Asset", SupportsPaging = true)]
     public class FindAsset: PSCmdlet
