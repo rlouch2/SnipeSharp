@@ -35,7 +35,7 @@
     <StartupObject />
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
-    <!--<XmlDoc2CmdletDocStrict>true</XmlDoc2CmdletDocStrict> TODO: get to a point where we can enable this-->
+    <XmlDoc2CmdletDocStrict>true</XmlDoc2CmdletDocStrict>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SnipeSharp\SnipeSharp.csproj" />

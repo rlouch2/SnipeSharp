@@ -32,6 +32,9 @@ namespace SnipeSharp.PowerShell
     [OutputType(typeof(Asset))]
     public class GetAsset: PSCmdlet
     {
+        /// <summary>
+        /// <para type="description">A device identity for an Asset.</para>
+        /// </summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = "ByIdentity",
@@ -50,18 +53,27 @@ namespace SnipeSharp.PowerShell
         )]
         public int[] InternalId { get; set; }
 
+        /// <summary>
+        /// <para type="description">The name of the Asset.</para>
+        /// </summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = "ByName"
         )]
         public string[] Name { get; set; }
 
+        /// <summary>
+        /// <para type="description">The asset tag for the Asset.</para>
+        /// </summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = "ByAssetTag"
         )]
         public string[] AssetTag { get; set; }
 
+        /// <summary>
+        /// <para type="description">The serial Id for the Asset.</para>
+        /// </summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = "BySerial"
