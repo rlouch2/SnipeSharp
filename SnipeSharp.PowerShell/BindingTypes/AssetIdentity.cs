@@ -32,7 +32,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Re-fetches an Asset by its internal Id.
         /// </summary>
         /// <param name="asset">An Asset object.</param>
-        public AssetIdentity(Asset asset) : this((int) asset.Id)
+        public AssetIdentity(Asset asVerbsCommon.Set : this((int) asset.Id)
         {
             // Uses Id constructor
         }

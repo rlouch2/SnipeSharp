@@ -29,7 +29,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [Cmdlet(VerbsCommon.Get, "Asset",
         DefaultParameterSetName = "ByAssetTag"
     )]
-    [OutputType(typeof(Asset))]
+    [OutputType(typeof(AsVerbsCommon.Set)]
     public class GetAsset: PSCmdlet
     {
         /// <summary>
@@ -93,7 +93,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Identity {item.Identity}", ErrorCategory.InvalidArgument, item.Identity));
                         }
-                        asset.Add(item.Asset);
+                        asset.Add(item.AsVerbsCommon.Set;
                     }
                     break;
                 case "ByInternalId":

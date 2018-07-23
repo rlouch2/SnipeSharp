@@ -6,7 +6,7 @@ using SnipeSharp.PowerShell.Enums;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Get, "Asset", SupportsPaging = true)]
+    [Cmdlet(VerbsCommon.Find, "Asset", SupportsPaging = true)]
     public class FindAsset: PSCmdlet
     {
         [Parameter()]
