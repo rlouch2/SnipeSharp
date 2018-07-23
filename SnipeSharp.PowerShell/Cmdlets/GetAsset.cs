@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     /// <summary>
-    /// <para type="synopsis">Gets an Snipe IT asset.</para>
+    /// <para type="synopsis">Gets a Snipe IT asset.</para>
     /// <para type="description">The Get-Asset cmdlet gets one or more asset objects.</para>
     /// <para type="description">The Identity, InteralId, Name, AssetTag, and Serial parameters specify the Snipe IT asset to get. InternalId is the Snipe IT-internal Id number. Identity is a catch-all accepting pipeline input and attempting conversion accordingly.</para>
     /// </summary>
@@ -83,7 +83,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            var asset = new List<Asset>();
             switch(ParameterSetName)
             {
                 case "ByIdentity":
@@ -92,60 +91,65 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         if(item.Asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Identity {item.Identity}", ErrorCategory.InvalidArgument, item.Identity));
+                        } else
+                        {
+                            WriteObject(item.Asset);
                         }
-                        asset.Add(item.AsVerbsCommon.Set;
                     }
                     break;
                 case "ByInternalId":
                     foreach(var item in InternalId)
                     {
-                        var assetItem = ApiHelper.Instance.AssetManager.Get(item);
-                        if(assetItem == null)
+                        var asset = ApiHelper.Instance.AssetManager.Get(item);
+                        if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by internal Id {item}", ErrorCategory.InvalidArgument, item));
+                        } else
+                        {
+                            WriteObject(asset);
                         }
-                        asset.Add(assetItem);
                     }
                     break;
                 case "ByAssetTag":
                     foreach(var item in AssetTag)
                     {
-                        var assetItem = ApiHelper.Instance.AssetManager.GetByAssetTag(item);
-                        if(assetItem == null)
+                        var asset = ApiHelper.Instance.AssetManager.GetByAssetTag(item);
+                        if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Asset Tag \"{item}\"", ErrorCategory.InvalidArgument, item));
+                        } else
+                        {
+                            WriteObject(asset);
                         }
-                        asset.Add(assetItem);
                     }
                     break;
                 case "ByName":
                     foreach(var item in Name)
                     {
-                        var assetItem = ApiHelper.Instance.AssetManager.Get(item);
-                        if(assetItem == null)
+                        var asset = ApiHelper.Instance.AssetManager.Get(item);
+                        if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Name \"{item}\"", ErrorCategory.InvalidArgument, item));
+                        } else
+                        {
+                            WriteObject(asset);
                         }
-                        asset.Add(assetItem);
                     }
                     break;
                 case "BySerial":
                     foreach(var item in Serial)
                     {
-                        var assetItem = ApiHelper.Instance.AssetManager.GetBySerial(item);
-                        if(assetItem == null)
+                        var asset = ApiHelper.Instance.AssetManager.GetBySerial(item);
+                        if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Serial \"{item}\"", ErrorCategory.InvalidArgument, item));
+                        } else
+                        {
+                            WriteObject(asset);
                         }
-                        asset.Add(assetItem);
                     }
                     break;
             }
-
-            if(asset == null)
-                throw new Exception("Asset not found");
-            else
-                WriteObject(asset, true);
         }
     }
 }
