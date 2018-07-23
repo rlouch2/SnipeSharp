@@ -1,6 +1,7 @@
 ﻿using System.Resources;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("SnipeSharp.PowerShell")]
 [assembly: AssemblyDescription("PowerShell component for SnipeSharp Snipe IT API Wrapper.")]
@@ -19,3 +20,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("0.0.1.0")]
 [assembly: AssemblyInformationalVersion("0.0.1")]
 [assembly: NeutralResourcesLanguage("en")]
+[assembly: InternalsVisibleTo("SnipeSharp.Tests")]

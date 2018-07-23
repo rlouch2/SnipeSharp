@@ -4,7 +4,7 @@ using SnipeSharp.Endpoints.Models;
 namespace SnipeSharp.PowerShell.BindingTypes
 {
     /// <summary>
-    /// Used to convert an Asset identity into an Asset object.
+    /// <para type="description">Used to convert an Asset identity into an Asset object.</para>
     /// </summary>
     public class AssetIdentity
     {
@@ -44,7 +44,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         internal Asset Asset { get; private set; }
 
         /// <summary>
-        /// The Identity used to fetch the Asset; for use in debugging.
+        /// The Identity used to fetch the Asset; for use in debugging and error reporting.
         /// </summary>
         /// <value>The Identity value used to fetch the Asset from the system represented as a string.</value>
         internal string Identity { get; private set; }
