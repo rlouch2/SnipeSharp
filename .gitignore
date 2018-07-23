@@ -265,6 +265,3 @@ __pycache__/
 /SnipeSharp/nuget.exe
 /SnipeSharp/tools/nuget.exe
 /SnipeSharp/tools/NugetPack.bat
-
-# VS Code
-.vscode
