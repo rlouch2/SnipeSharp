@@ -70,6 +70,7 @@
     <ItemGroup>
       <CopyFile Include="SnipeSharp.PowerShell.dll-format.ps1xml" />
       <CopyFile Include="SnipeSharp.PowerShell.dll-types.ps1xml" />
+      <CopyFile Include="SnipeSharp.Powershell.psd1" />
     </ItemGroup>
     <Copy SourceFiles="@(CopyFile)" DestinationFolder="$(OutDir)" />
   </Target>
