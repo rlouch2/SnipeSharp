@@ -44,37 +44,10 @@ namespace SnipeSharp.Endpoints
         /// <returns></returns>
         public IResponseCollection<T> GetAll()
         {
-
             // Figure out how many rows the results will return so we can split up requests
             var count = FindAll(new SearchFilter { Limit = 1 });
-
-            // If there are more than 1000 assets split up the requests to avoid timeouts
-            if (count.Total < 1000)
-            {
-                return FindAll(new SearchFilter { Limit = (int) count.Total });
-            } else
-            {
-                var finalResults = new ResponseCollection<T> {
-                    Total = count.Total,
-                    Rows = new List<T>()
-                };
-
-                var filter = new SearchFilter {
-                    Limit = 1000,
-                    Offset = 0
-                };
-
-                while (finalResults.Rows.Count < count.Total)
-                {
-                    var batch = FindAll(filter);
-
-                    finalResults.Rows.AddRange(batch.Rows);
-
-                    filter.Offset += 1000;
-                }
-
-                return finalResults;
-            }
+            // Let FindAll logic get everything for us.
+            return FindAll(null);
         }
 
 
