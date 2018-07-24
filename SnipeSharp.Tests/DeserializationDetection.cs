@@ -13,97 +13,97 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeAsset_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\asset.json");
+            var obj = File.ReadAllText("./Resources/asset.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Asset), result);
+            Assert.IsType<Asset>(result);
         }
 
         [Fact]
         public void DeserializeModel_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\model.json");
+            var obj = File.ReadAllText("./Resources/model.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Model), result);
+            Assert.IsType<Model>(result);
         }
 
         [Fact]
         public void DeserializeCompany_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\company.json");
+            var obj = File.ReadAllText("./Resources/company.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Company), result);
+            Assert.IsType<Company>(result);
         }
 
         [Fact]
         public void DeserializeLocation_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\location.json");
+            var obj = File.ReadAllText("./Resources/location.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Location), result);
+            Assert.IsType<Location>(result);
         }
 
         [Fact]
         public void DeserializeAccessory_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\accessory.json");
+            var obj = File.ReadAllText("./Resources/accessory.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Accessory), result);
+            Assert.IsType<Accessory>(result);
         }
 
         [Fact]
         public void DeserializeConsumable_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\consumable.json");
+            var obj = File.ReadAllText("./Resources/consumable.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Consumable), result);
+            Assert.IsType<Consumable>(result);
         }
 
         [Fact]
         public void DeserializeComponent_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\component.json");
+            var obj = File.ReadAllText("./Resources/component.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Component), result);
+            Assert.IsType<Component>(result);
         }
 
         [Fact]
         public void DeserializeUser_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\user.json");
+            var obj = File.ReadAllText("./Resources/user.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(User), result);
+            Assert.IsType<User>(result);
         }
 
         [Fact]
         public void DeserializeStatusLabel_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\statuslabel.json");
+            var obj = File.ReadAllText("./Resources/statuslabel.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(StatusLabel), result);
+            Assert.IsType<StatusLabel>(result);
         }
 
         [Fact]
         public void DeserializeStatusLicense_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\license.json");
+            var obj = File.ReadAllText("./Resources/license.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(License), result);
+            Assert.IsType<License>(result);
         }
 
         [Fact]
         public void DeserializeStatusCategory_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\category.json");
+            var obj = File.ReadAllText("./Resources/category.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Category), result);
+            Assert.IsType<Category>(result);
         }
 
         [Fact]
         public void DeserializeStatusManufacturer_ValidObject_ReturnAsset()
         {
-            var obj = File.ReadAllText(@"..\..\TestObjs\manufacturer.json");
+            var obj = File.ReadAllText("./Resources/manufacturer.json");
             var result = JsonConvert.DeserializeObject<ICommonEndpointModel>(obj, new DetectJsonObjectType());
-            Assert.IsType(typeof(Manufacturer), result);
+            Assert.IsType<Manufacturer>(result);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace SnipeSharp.Endpoints.SearchFilters
 
         public Dictionary<string, string> GetQueryString()
         {
-            string queryString = "";
+            //string queryString = "";
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
 
             foreach (PropertyInfo prop in GetType().GetProperties())
