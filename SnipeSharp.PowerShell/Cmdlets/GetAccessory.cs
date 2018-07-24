@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <para type="description">Whatever identifier is used, both accept pipeline input.</para>
     /// </summary>
     /// <example>
-    ///   <code>Get-Accessory Accessory4638</code>
+    ///   <code>Get-Accessory 12</code>
     ///   <para>Retrieve an accessory by its Internal Id.</para>
     /// </example>
     /// <example>

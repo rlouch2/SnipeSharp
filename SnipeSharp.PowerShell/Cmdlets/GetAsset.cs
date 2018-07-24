@@ -23,13 +23,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <example>
     ///   <code>1..100 | Get-Asset</code>
-    ///   <para>Retrieve the first 100 assets by their Snipe IT internal Id numbers.</para>
+    ///   <para>Retrieve the first 100 assets by their identities.</para>
     /// </example>
     /// <para type="link">Find-Asset</para>
     [Cmdlet(VerbsCommon.Get, "Asset",
         DefaultParameterSetName = "ByAssetTag"
     )]
-    [OutputType(typeof(AsVerbsCommon.Set)]
+    [OutputType(typeof(Asset))]
     public class GetAsset: PSCmdlet
     {
         /// <summary>
