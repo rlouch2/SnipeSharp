@@ -1,16 +1,15 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Common;
 using System.Reflection;
 using System.Net.Http;
+using Xunit;
 
 namespace SnipeSharp.Tests
 {
-    [TestClass]
     public class RequestManagerTests
     {
-        [TestMethod]
+        [Fact]
         [ExpectedException(typeof(NullApiTokenException), "No API Token Set")]
         public void CheckApiTokenAndUrl_NoTokenInApiSettings_ThrowException()
         {
@@ -19,7 +18,7 @@ namespace SnipeSharp.Tests
             snipe.ReqManager.CheckApiTokenAndUrl();
         }
 
-        [TestMethod]
+        [Fact]
         [ExpectedException(typeof(NullApiBaseUrlException), "No API Base Url Set.")]
         public void CheckApiTokenAndUrl_NoUrlInApiSettings_ThrowException()
         {
@@ -28,7 +27,7 @@ namespace SnipeSharp.Tests
             snipe.ReqManager.CheckApiTokenAndUrl();
         }
 
-        [TestMethod]
+        [Fact]
         public void CheckApiTokenAndUrl_SetHttpClientBaseAddress_SetCorrectly()
         {
             SnipeItApi snipe = new SnipeItApi();
@@ -45,7 +44,7 @@ namespace SnipeSharp.Tests
             Assert.AreEqual(url, value.BaseAddress);
         }
 
-        [TestMethod]
+        [Fact]
         public void CheckApiTokenAndUrl_SetAuthorizationHeader_SetCorrectly()
         {
             SnipeItApi snipe = new SnipeItApi();
