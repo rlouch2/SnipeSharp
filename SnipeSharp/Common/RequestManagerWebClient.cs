@@ -18,52 +18,20 @@ namespace SnipeSharp.Common
 
         public ApiSettings _apiSettings { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public string BuildBody()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CheckApiTokenAndUrl()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Checkin(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Delete(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Get(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Get(string path, ISearchFilter filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Post(string path, ICommonEndpointModel item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Put(string path, ICommonEndpointModel item)
-        {
-            throw new NotImplementedException();
-        }
+        public string BuildBody() => throw new NotImplementedException();
+        public void CheckApiTokenAndUrl() => throw new NotImplementedException();
+        public string Checkin(string path) => throw new NotImplementedException();
+        public string Delete(string path) => throw new NotImplementedException();
+        public string Get(string path) => throw new NotImplementedException();
+        public string Get(string path, ISearchFilter filter) => throw new NotImplementedException();
+        public string Post(string path, ICommonEndpointModel item) => throw new NotImplementedException();
+        public string Put(string path, ICommonEndpointModel item) => throw new NotImplementedException();
 
         public WebClient GetWebClient()
         {
-            WebClient client = new WebClient();
+            var client = new WebClient();
             client.Headers[HttpRequestHeader.Authorization] = "Bearer " + _apiSettings.ApiToken;
             client.Headers[HttpRequestHeader.Accept] = "application/json";
-
             return client;
         }
     }

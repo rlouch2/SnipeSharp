@@ -12,8 +12,8 @@ namespace SnipeSharp.Endpoints.ExtendedManagers
 
         public ResponseCollection<User> GetAssignedAssets(ICommonEndpointModel user)
         {
-            string response = _reqManager.Get(string.Format("{0}/{1}/assets", _endPoint, user.Id));
-            ResponseCollection<User> results = JsonConvert.DeserializeObject<ResponseCollection<User>>(response);
+            var response = _reqManager.Get($"{_endPoint}/{user.Id}/assets");
+            var results = JsonConvert.DeserializeObject<ResponseCollection<User>>(response);
             return results;
         }
     }

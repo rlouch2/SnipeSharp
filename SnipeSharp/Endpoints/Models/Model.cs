@@ -7,7 +7,6 @@ namespace SnipeSharp.Endpoints.Models
     [EndpointObjectNotFoundMessage("AssetModel not found")]
     public class Model : CommonEndpointModel
     {
-
         [JsonProperty("manufacturer")]
         [RequiredRequestHeader("manufacturer_id")]
         public Manufacturer Manufacturer { get; set; }
@@ -44,6 +43,5 @@ namespace SnipeSharp.Endpoints.Models
 
         [JsonProperty("deleted_at")]
         public ResponseDate DeletedAt { get; set; }
-
     }
 }

@@ -17,12 +17,10 @@ namespace SnipeSharp.Endpoints.SearchFilters
 
         public Dictionary<string, string> GetQueryString()
         {
-            //string queryString = "";
-            Dictionary<string, string> urlParams = new Dictionary<string, string>();
+            var urlParams = new Dictionary<string, string>();
 
             foreach (PropertyInfo prop in GetType().GetProperties())
             {
-                
                 var propValue = prop.GetValue(this)?.ToString();
 
                 if (propValue == null) continue;
@@ -41,12 +39,8 @@ namespace SnipeSharp.Endpoints.SearchFilters
                                                                                     .ToLower() : prop.Name.ToLower();
 
                 urlParams.Add(keyName, propValue);
-
             }
-
             return urlParams;
-
         }
-
     }
 }

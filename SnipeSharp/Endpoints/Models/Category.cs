@@ -28,7 +28,7 @@ namespace SnipeSharp.Endpoints.Models
                 }
                 else
                 {
-                    throw new InvalidCategoryTypeException(string.Format("{0} Is an invalid category type.  Use {1}", value, string.Join(", ", validTypes)));
+                    throw new InvalidCategoryTypeException($"{value} Is an invalid category type.  Use {string.Join(", ", validTypes)}");
                 }
             }
         }
@@ -56,7 +56,5 @@ namespace SnipeSharp.Endpoints.Models
 
         [JsonProperty("components_count")]
         public long? ComponentsCount { get; set; }
-
-
     }
 }

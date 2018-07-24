@@ -10,7 +10,6 @@ namespace SnipeSharp.Endpoints.Models
         string Name { get; set; }
         ResponseDate CreatedAt { get; set; }
         ResponseDate UpdatedAt { get; set; }
-        Dictionary<string, string> BuildQueryString(); // 
-
+        Dictionary<string, string> BuildQueryString();
     }
 }

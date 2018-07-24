@@ -8,7 +8,6 @@ namespace SnipeSharp.Common
 {
     public class RequestResponse : IRequestResponse
     {
-
         [JsonProperty("messages")]
         [JsonConverter(typeof(MessageConverter))]
         public Dictionary<string, string> Messages { get; set; }
@@ -22,7 +21,7 @@ namespace SnipeSharp.Common
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}", Status, Messages.First().Value);
+            return $"{Status}: {Messages.First().Value}";
         }
     }
 }

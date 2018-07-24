@@ -29,7 +29,7 @@ namespace SnipeSharp
         public IRequestManager ReqManager;
 
         public SnipeItApi()
-        {            
+        {
             ApiSettings = new ApiSettings();
             ReqManager = new RequestManagerRestSharp(ApiSettings);
             AssetManager = new AssetEndpointManager<Asset>(ReqManager, "hardware");
@@ -48,9 +48,6 @@ namespace SnipeSharp
             SupplierManager = new EndPointManager<Supplier>(ReqManager, "suppliers");
             DepreciationManager = new EndPointManager<Depreciation>(ReqManager, "depreciations");
             DepartmentManager = new EndPointManager<Department>(ReqManager, "departments");
-
-
         }
-
     }
 }

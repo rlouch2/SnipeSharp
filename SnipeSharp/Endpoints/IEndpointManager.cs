@@ -5,15 +5,15 @@ using SnipeSharp.Endpoints.SearchFilters;
 namespace SnipeSharp.Endpoints
 {
     // TODO: Not using currently.  Needs to figure out how to use with generics
-    public interface IEndpointManager<T>
+    public interface IEndpointManager<T> where T : ICommonEndpointModel
     {
         IResponseCollection<T> GetAll();
         IResponseCollection<T> FindAll(ISearchFilter filter);
-        ICommonEndpointModel FindOne(ISearchFilter filter);
-        ICommonEndpointModel Get(int id);
-        ICommonEndpointModel Get(string name);
-        IRequestResponse Create(ICommonEndpointModel toCreate);
-        IRequestResponse Update(ICommonEndpointModel toUpdate);
+        T FindOne(ISearchFilter filter);
+        T Get(int id);
+        T Get(string name);
+        IRequestResponse Create(T toCreate);
+        IRequestResponse Update(T toUpdate);
         IRequestResponse Delete(int id);
     }
 }

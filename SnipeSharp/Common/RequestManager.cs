@@ -33,7 +33,7 @@ namespace SnipeSharp.Common
             CheckApiTokenAndUrl();
 
             string result = "";
-            HttpResponseMessage response = Client.DeleteAsync(path).Result;
+            var response = Client.DeleteAsync(path).Result;
             if (response.IsSuccessStatusCode)
             {
                 result = response.Content.ReadAsStringAsync().Result;
@@ -48,7 +48,7 @@ namespace SnipeSharp.Common
             CheckApiTokenAndUrl();
 
             string result = "";
-            HttpResponseMessage response = Task.Run(() => Client.GetAsync(path)).Result;
+            var response = Task.Run(() => Client.GetAsync(path)).Result;
             if (response.IsSuccessStatusCode)
             {
                 result = response.Content.ReadAsStringAsync().Result;                
@@ -65,7 +65,7 @@ namespace SnipeSharp.Common
             string result = "";
 
             //HttpResponseMessage response = Client.GetAsync(path).Result;
-            HttpResponseMessage response = Task.Run(() => Client.GetAsync(path)).Result;
+            var response = Task.Run(() => Client.GetAsync(path)).Result;
             if (response.IsSuccessStatusCode)
             {
                 result = response.Content.ReadAsStringAsync().Result;
@@ -80,7 +80,7 @@ namespace SnipeSharp.Common
             CheckApiTokenAndUrl();
 
             //HttpResponseMessage response = Client.PostAsync(path, BuildQueryString(item)).Result;
-            HttpResponseMessage response = Task.Run(() => Client.PostAsync(path, BuildQueryString(item))).Result;
+            var response = Task.Run(() => Client.PostAsync(path, BuildQueryString(item))).Result;
             string result = null;
             if (response.IsSuccessStatusCode)
             {
@@ -95,7 +95,7 @@ namespace SnipeSharp.Common
 
             CheckApiTokenAndUrl();
 
-            HttpResponseMessage response = Client.PutAsync(path, BuildQueryString(item)).Result;
+            var response = Client.PutAsync(path, BuildQueryString(item)).Result;
             string result = null;
             if (response.IsSuccessStatusCode)
             {
@@ -108,7 +108,7 @@ namespace SnipeSharp.Common
 
         public string Checkin(string path)
         {
-            HttpResponseMessage response = Client.PostAsync(path, null).Result;
+            var response = Client.PostAsync(path, null).Result;
             string result = null;
             if (response.IsSuccessStatusCode)
             {
@@ -121,11 +121,11 @@ namespace SnipeSharp.Common
         public FormUrlEncodedContent BuildQueryString(ICommonEndpointModel item)
         {
 
-            Dictionary<string, string> values = new Dictionary<string, string>();
+            var values = new Dictionary<string, string>();
 
             // If it's an asset check if there's a checkout request.  Also process custom fields
 
-            Asset asset = item as Asset;
+            var asset = item as Asset;
             if (asset != null)
             {
                 // If an asset as this set we know it needs to be check out. 
@@ -143,7 +143,7 @@ namespace SnipeSharp.Common
 
                         if (result == null) continue;
 
-                        string keyname = result.ConstructorArguments.First().ToString().Replace("\"", "").ToLower();
+                        var keyname = result.ConstructorArguments.First().ToString().Replace("\"", "").ToLower();
 
                         values.Add(keyname, propValue);
                     }
@@ -162,9 +162,9 @@ namespace SnipeSharp.Common
             }
             
 
-            foreach (PropertyInfo prop in item.GetType().GetProperties())
+            foreach (var prop in item.GetType().GetProperties())
             {
-                foreach (CustomAttributeData attData in prop.GetCustomAttributesData())
+                foreach (var attData in prop.GetCustomAttributesData())
                 {
                     
                     string typeName = attData.Constructor.DeclaringType.Name;
@@ -176,24 +176,19 @@ namespace SnipeSharp.Common
                         // Abort in missing required headers
                         if (propValue == null && typeName == "RequiredRequestHeader")
                         {
-                            throw new RequiredValueIsNullException(string.Format("{0} Cannot Be Null", prop.Name));
+                            throw new RequiredValueIsNullException($"{prop.Name} Cannot Be Null");
                         }
 
                         if (propValue != null)
                         {
-                            
-                            string attName = attData.ConstructorArguments.First().ToString().Replace("\"", "");
-
+                            var attName = attData.ConstructorArguments.First().ToString().Replace("\"", "");
                             values.Add(attName, propValue.ToString());
                         }                        
                     } 
                 }
             }
 
-            
-
-            FormUrlEncodedContent content = new FormUrlEncodedContent(values);
-
+            var content = new FormUrlEncodedContent(values);
             return content;
         }
 

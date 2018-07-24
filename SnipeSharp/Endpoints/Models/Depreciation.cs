@@ -7,7 +7,6 @@ namespace SnipeSharp.Endpoints.Models
     [EndpointObjectNotFoundMessage("Depreciation not found")]
     public class Depreciation : CommonEndpointModel
     {
-
         private string _months;
 
         [JsonProperty("months")]
@@ -23,6 +22,5 @@ namespace SnipeSharp.Endpoints.Models
                 _months = (value != null) ? value : null;
             }
         }
-
     }
 }

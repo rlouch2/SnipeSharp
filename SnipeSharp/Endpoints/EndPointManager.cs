@@ -3,6 +3,7 @@ using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using SnipeSharp.Endpoints.Models;
 using SnipeSharp.Endpoints.SearchFilters;
+using SnipeSharp.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SnipeSharp.Endpoints
     /// Generic class that can represent each of the different models returned by each endpoint. 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EndPointManager<T> where T : CommonEndpointModel 
+    public class EndPointManager<T> : IEndpointManager<T> where T : CommonEndpointModel
     {
         protected IRequestManager _reqManager;
         protected string _endPoint;
@@ -39,44 +40,39 @@ namespace SnipeSharp.Endpoints
         /// Gets all objects from the endpoint
         /// </summary>
         /// <returns></returns>
-        public ResponseCollection<T> GetAll()
+        public IResponseCollection<T> GetAll()
         {
 
-            // Figure out how many rows the results will return so we can splitup requests
-            ResponseCollection<T> count = FindAll(new SearchFilter() { Limit = 1 });
+            // Figure out how many rows the results will return so we can split up requests
+            var count = FindAll(new SearchFilter { Limit = 1 });
 
             // If there are more than 1000 assets split up the requests to avoid timeouts
             if (count.Total < 1000)
             {
                 return FindAll(new SearchFilter { Limit = (int) count.Total });
-
             } else
             {
-                ResponseCollection<T> finalResults = new ResponseCollection<T>() {
-
+                var finalResults = new ResponseCollection<T> {
                     Total = count.Total,
                     Rows = new List<T>()
                 };
 
-                int offset = 0;
+                var filter = new SearchFilter {
+                    Limit = 1000,
+                    Offset = 0
+                };
 
                 while (finalResults.Rows.Count < count.Total)
                 {
-                    var batch = FindAll(new SearchFilter()
-                    {
-                        Limit = 1000,
-                        Offset = offset
-                    });
+                    var batch = FindAll(filter);
 
                     finalResults.Rows.AddRange(batch.Rows);
 
-                    offset = offset + 1000;
+                    filter.Offset += 1000;
                 }
 
                 return finalResults;
             }
-
-            
         }
 
 
@@ -85,30 +81,28 @@ namespace SnipeSharp.Endpoints
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ResponseCollection<T> FindAll(ISearchFilter filter)
+        public IResponseCollection<T> FindAll(ISearchFilter filter)
         {
-            var response = _reqManager.Get(_endPoint, filter);
-            var results = JsonConvert.DeserializeObject<ResponseCollection<T>>(response);
+            var result = PerformLookup<ResponseCollection<T>>(_endPoint, filter);
 
             var baseOffset = filter.Offset == null ? 0 : filter.Offset;
             // If there is no limit and there are more total than retrieved
-            if(filter.Limit == null && baseOffset + results.Rows.Count < results.Total)
+            if(filter.Limit == null && baseOffset + result.Rows.Count < result.Total)
             {
                 filter.Limit = 1000;
-                filter.Offset = baseOffset + results.Rows.Count;
+                filter.Offset = baseOffset + result.Rows.Count;
                 
-                while (baseOffset + results.Rows.Count < results.Total)
+                while (baseOffset + result.Rows.Count < result.Total)
                 {
-                    response = _reqManager.Get(_endPoint, filter);
-                    var batch = JsonConvert.DeserializeObject<ResponseCollection<T>>(response);
+                    var batch = PerformLookup<ResponseCollection<T>>(_endPoint, filter);
 
-                    results.Rows.AddRange(batch.Rows);
+                    result.Rows.AddRange(batch.Rows);
 
                     filter.Offset += 1000;
                 }
             }
 
-            return results;
+            return result;
         }
 
         /// <summary>
@@ -118,9 +112,8 @@ namespace SnipeSharp.Endpoints
         /// <returns></returns>
         public T FindOne(ISearchFilter filter)
         {
-            string response = _reqManager.Get(_endPoint, filter);
-            ResponseCollection<T> result = JsonConvert.DeserializeObject<ResponseCollection<T>>(response);
-            return (result.Rows != null && result.Rows.Count > 0) ? result.Rows[0] : default(T);
+            var result = PerformLookup<ResponseCollection<T>>(_endPoint, filter);
+            return (result.Rows != null) ? result.Rows[0] : default(T);
         }
 
         /// <summary>
@@ -128,17 +121,7 @@ namespace SnipeSharp.Endpoints
         /// </summary>
         /// <param name="id">ID of the object to find</param>
         /// <returns></returns>
-        public T Get(int id)
-        {
-            var response = _reqManager.Get(string.Format("{0}/{1}", _endPoint, id.ToString()));
-            // Parse the response as a message to see if there's a result.
-            var message = JsonConvert.DeserializeObject<RequestResponse>(response);
-            // If there isn't a result, return default(T).
-            if(message.Status == "error" && message.Messages.ContainsKey("general") && message.Messages["general"] == _notFoundMessage)
-                return default(T);
-            // We do have one, so re-deserialize the response as the type we want.
-            return JsonConvert.DeserializeObject<T>(response);
-        }
+        public T Get(int id) => PerformLookup<T>($"{_endPoint}/{id}");
 
         /// <summary>
         /// Attempts to find a given object by it's name. 
@@ -146,15 +129,28 @@ namespace SnipeSharp.Endpoints
         /// <param name="name">The name of the object we want to find</param>
         /// <returns></returns>
         /// 
-        public T Get(string name)
+        public T Get(string name) => Get(name, false);
+
+        /// <summary>
+        /// Attempts to find a given object by it's name. 
+        /// </summary>
+        /// <param name="name">The name of the object we want to find</param>
+        /// <param name="caseSensitive">Whether or not to compare names with case in mind</param>
+        /// <returns></returns>
+        /// 
+        public T Get(string name, bool caseSensitive)
         {
-            T result;
-            name = name.ToLower();
-            ResponseCollection<T> everything = GetAll();
+            var list = FindAll(new SearchFilter {
+                Search = name
+            }).Rows;
 
-            result = everything.Rows.Where(i => i.Name.ToLower() == name).FirstOrDefault();
-
-            return result;
+            if(caseSensitive)
+                return list.Where(i => i.Name == name).FirstOrDefault();
+            else
+            {
+                var lowerName = name.ToLower();
+                return list.Where(i => i.Name.ToLower() == lowerName).FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -162,37 +158,50 @@ namespace SnipeSharp.Endpoints
         /// </summary>
         /// <param name="toCreate"></param>
         /// <returns></returns>
-        public IRequestResponse Create(ICommonEndpointModel toCreate)
+        public IRequestResponse Create(T toCreate)
         {
-            IRequestResponse response;
-
-            string res = _reqManager.Post(_endPoint, toCreate);
-            response = JsonConvert.DeserializeObject<RequestResponse>(res);
+            var res = _reqManager.Post(_endPoint, toCreate);
+            var response = JsonConvert.DeserializeObject<RequestResponse>(res);
             return response;
         }
 
-        public IRequestResponse Update(ICommonEndpointModel toUpdate)
+        public IRequestResponse Update(T toUpdate)
         {
-            IRequestResponse result;
-            string response = _reqManager.Put(string.Format("{0}/{1}", _endPoint, toUpdate.Id), toUpdate);
-            result = JsonConvert.DeserializeObject<RequestResponse>(response);
+            var response = _reqManager.Put($"{_endPoint}/{toUpdate.Id}", toUpdate);
+            var result = JsonConvert.DeserializeObject<RequestResponse>(response);
             return result;
         }
 
         public IRequestResponse Delete(int id)
         {
-            IRequestResponse result;
-            string response = _reqManager.Delete(string.Format("{0}/{1}", _endPoint, id.ToString()));
-            result = JsonConvert.DeserializeObject<RequestResponse>(response);
+            var response = _reqManager.Delete($"{_endPoint}/{id}");
+            var result = JsonConvert.DeserializeObject<RequestResponse>(response);
             return result;
         }
 
-        public IRequestResponse Delete(ICommonEndpointModel toDelete)
+        public IRequestResponse Delete(T toDelete) => Delete((int)toDelete.Id);
+
+        /// <summary>
+        /// Performs a lookup, returning null if there was an API error.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        protected R PerformLookup<R>(string path) where R : class
         {
-            return Delete((int)toDelete.Id);
+            var response = _reqManager.Get(path);
+            return JsonConvert.DeserializeObject<R>(response);
         }
 
-        
-
+        /// <summary>
+        /// Performs a lookup, returning null if there was an API error.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        protected R PerformLookup<R>(string path, ISearchFilter filter) where R : class
+        {
+            var response = _reqManager.Get(path, filter);
+            return JsonConvert.DeserializeObject<R>(response);
+        }
     }
 }

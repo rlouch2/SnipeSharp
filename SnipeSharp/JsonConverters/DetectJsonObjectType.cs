@@ -14,14 +14,11 @@ namespace SnipeSharp.JsonConverters
     /// </summary>
     public class DetectJsonObjectType : JsonConverter
     {
-        public override bool CanConvert(Type objectType)
-        {
-            return true;
-        }
+        public override bool CanConvert(Type objectType) => true;
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JToken token = JToken.Load(reader);
+            var token = JToken.Load(reader);
 
             if (token.HasValues == false)
             {

@@ -27,7 +27,5 @@ namespace SnipeSharp.Endpoints.Models
 
         [JsonProperty("updated_at")]
         public ResponseDate UpdatedAt { get; set; }
-
-
     }
 }

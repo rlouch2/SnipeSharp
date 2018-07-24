@@ -7,7 +7,6 @@ namespace SnipeSharp.Endpoints.Models
     [EndpointObjectNotFoundMessage("License not found")]
     public class License : CommonEndpointModel
     {
- 
         [JsonProperty("company")]
         public Company Company { get; set; }
 

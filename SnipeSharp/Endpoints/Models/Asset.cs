@@ -133,9 +133,8 @@ namespace SnipeSharp.Endpoints.Models
             // On a checkout request we only need to return the headers from the checkout request itself, not he asset
             if (CheckoutRequest != null)
             {
-                Dictionary<string, string> values = new Dictionary<string, string>();
-
-                foreach (PropertyInfo prop in CheckoutRequest.GetType().GetProperties())
+                var values = new Dictionary<string, string>();
+                foreach (var prop in CheckoutRequest.GetType().GetProperties())
                 {
                     var propValue = prop.GetValue(CheckoutRequest)?.ToString();
 

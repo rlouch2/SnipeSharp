@@ -8,7 +8,6 @@ namespace SnipeSharp.Endpoints.Models
     [EndpointObjectNotFoundMessage("User not found")]
     public class User : CommonEndpointModel
     {
-
         [JsonProperty("name")]
         [OptionalRequestHeader("name")]
         public new string Name { get; set; }
