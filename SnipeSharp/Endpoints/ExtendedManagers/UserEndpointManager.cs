@@ -6,13 +6,13 @@ namespace SnipeSharp.Endpoints.ExtendedManagers
 {
     public class UserEndpointManager : EndPointManager<User>
     {
-        public UserEndpointManager(IRequestManager reqManager, string endPoint) : base(reqManager, "users")
+        public UserEndpointManager(IRequestManager reqManager) : base(reqManager)
         {
         }
 
-        public ResponseCollection<User> GetAssignedAssets(ICommonEndpointModel user)
+        public ResponseCollection<User> GetAssignedAssets(User user)
         {
-            var response = _reqManager.Get($"{_endPoint}/{user.Id}/assets");
+            var response = RequestManager.Get($"{BaseUri}/{user.Id}/assets");
             var results = JsonConvert.DeserializeObject<ResponseCollection<User>>(response);
             return results;
         }

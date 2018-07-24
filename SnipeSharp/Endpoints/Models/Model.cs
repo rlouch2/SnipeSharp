@@ -4,7 +4,7 @@ using SnipeSharp.Common;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("AssetModel not found")]
+    [EndPointInformation(BaseUri: "models", NotFoundMessage: "AssetModel not found")]
     public class Model : CommonEndpointModel
     {
         [JsonProperty("manufacturer")]

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("Company not found")]
+    [EndPointInformation(BaseUri: "companies", NotFoundMessage: "Company not found")]
     public class Company : CommonEndpointModel
     {
         [JsonProperty("image")]

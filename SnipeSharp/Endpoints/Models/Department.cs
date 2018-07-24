@@ -4,7 +4,7 @@ using SnipeSharp.Attributes;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("Department not found")]
+    [EndPointInformation(BaseUri: "departments", NotFoundMessage: "Department not found")]
     public class Department : CommonEndpointModel
     {
         [JsonProperty("company_id")]

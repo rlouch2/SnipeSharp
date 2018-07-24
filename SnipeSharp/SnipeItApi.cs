@@ -8,46 +8,46 @@ namespace SnipeSharp
     public class SnipeItApi
     {
         public ApiSettings ApiSettings { get; set; }
-        public AssetEndpointManager<Asset> AssetManager;
-        public EndPointManager<Company> CompanyManager;
-        public EndPointManager<Location> LocationManager;
-        public EndPointManager<Accessory> AccessoryManager;
-        public EndPointManager<Consumable> ConsumableManager;
-        public EndPointManager<Component> ComponentManager;
+        public AssetEndpointManager AssetManager;
+        public IEndPointManager<Company> CompanyManager;
+        public IEndPointManager<Location> LocationManager;
+        public IEndPointManager<Accessory> AccessoryManager;
+        public IEndPointManager<Consumable> ConsumableManager;
+        public IEndPointManager<Component> ComponentManager;
         public UserEndpointManager UserManager;
-        public EndPointManager<StatusLabel> StatusLabelManager;
-        public EndPointManager<Model> ModelManager;
-        public EndPointManager<License> LicenseManager;
-        public EndPointManager<Category> CategoryManager;
-        public EndPointManager<Manufacturer> ManufacturerManager;
-        public EndPointManager<FieldSet> FieldSetManager;
-        public StatusLabelEndpointManager<StatusLabel> StatusLabelsManager;
-        public EndPointManager<Supplier> SupplierManager;
-        public EndPointManager<Depreciation> DepreciationManager;
-        public EndPointManager<Department> DepartmentManager;
+        public IEndPointManager<StatusLabel> StatusLabelManager;
+        public IEndPointManager<Model> ModelManager;
+        public IEndPointManager<License> LicenseManager;
+        public IEndPointManager<Category> CategoryManager;
+        public IEndPointManager<Manufacturer> ManufacturerManager;
+        public IEndPointManager<FieldSet> FieldSetManager;
+        public StatusLabelEndpointManager StatusLabelsManager;
+        public IEndPointManager<Supplier> SupplierManager;
+        public IEndPointManager<Depreciation> DepreciationManager;
+        public IEndPointManager<Department> DepartmentManager;
         // Test 
         public IRequestManager ReqManager;
 
         public SnipeItApi()
         {
             ApiSettings = new ApiSettings();
-            ReqManager = new RequestManagerRestSharp(ApiSettings);
-            AssetManager = new AssetEndpointManager<Asset>(ReqManager, "hardware");
-            CompanyManager = new EndPointManager<Company>(ReqManager, "companies");
-            LocationManager = new EndPointManager<Location>(ReqManager, "locations");
-            AccessoryManager = new EndPointManager<Accessory>(ReqManager, "accessories");
-            ConsumableManager = new EndPointManager<Consumable>(ReqManager, "consumables");
-            ComponentManager = new EndPointManager<Component>(ReqManager, "components");
-            UserManager = new UserEndpointManager(ReqManager, "users");
-            StatusLabelManager = new StatusLabelEndpointManager<StatusLabel>(ReqManager, "statuslabels");
-            ModelManager = new EndPointManager<Model>(ReqManager, "models");
-            LicenseManager = new EndPointManager<License>(ReqManager, "licenses");
-            CategoryManager = new EndPointManager<Category>(ReqManager, "categories");
-            ManufacturerManager = new EndPointManager<Manufacturer>(ReqManager, "manufacturers");        
-            FieldSetManager = new EndPointManager<FieldSet>(ReqManager, "fieldsets");
-            SupplierManager = new EndPointManager<Supplier>(ReqManager, "suppliers");
-            DepreciationManager = new EndPointManager<Depreciation>(ReqManager, "depreciations");
-            DepartmentManager = new EndPointManager<Department>(ReqManager, "departments");
+            ReqManager = new RequestManagerRestSharp(this);
+            AssetManager = new AssetEndpointManager(ReqManager);
+            CompanyManager = new EndPointManager<Company>(ReqManager);
+            LocationManager = new EndPointManager<Location>(ReqManager);
+            AccessoryManager = new EndPointManager<Accessory>(ReqManager);
+            ConsumableManager = new EndPointManager<Consumable>(ReqManager);
+            ComponentManager = new EndPointManager<Component>(ReqManager);
+            UserManager = new UserEndpointManager(ReqManager);
+            StatusLabelManager = new StatusLabelEndpointManager(ReqManager);
+            ModelManager = new EndPointManager<Model>(ReqManager);
+            LicenseManager = new EndPointManager<License>(ReqManager);
+            CategoryManager = new EndPointManager<Category>(ReqManager);
+            ManufacturerManager = new EndPointManager<Manufacturer>(ReqManager);
+            FieldSetManager = new EndPointManager<FieldSet>(ReqManager);
+            SupplierManager = new EndPointManager<Supplier>(ReqManager);
+            DepreciationManager = new EndPointManager<Depreciation>(ReqManager);
+            DepartmentManager = new EndPointManager<Department>(ReqManager);
         }
     }
 }

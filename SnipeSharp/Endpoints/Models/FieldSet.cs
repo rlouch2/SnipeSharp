@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("Fieldset does not exist")]
+    [EndPointInformation(BaseUri: "fieldsets", NotFoundMessage: "Fieldset does not exist")]
     public class FieldSet : CommonEndpointModel
     {
         [JsonProperty("fields")]

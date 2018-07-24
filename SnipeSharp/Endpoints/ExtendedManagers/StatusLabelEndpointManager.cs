@@ -4,15 +4,15 @@ using SnipeSharp.Endpoints.Models;
 
 namespace SnipeSharp.Endpoints.ExtendedManagers
 {
-    public class StatusLabelEndpointManager<T> : EndPointManager<StatusLabel>
+    public class StatusLabelEndpointManager : EndPointManager<StatusLabel>
     {
-        public StatusLabelEndpointManager(IRequestManager reqManager, string endPoint) : base(reqManager, "statuslabels")
+        public StatusLabelEndpointManager(IRequestManager reqManager) : base(reqManager)
         {
         }
 
         public ResponseCollection<StatusLabel> GetAssignedAssets(ICommonEndpointModel statusLabel)
         {
-            var response = _reqManager.Get($"{_endPoint}/{statusLabel.Id}/assetlist");
+            var response = RequestManager.Get($"{BaseUri}/{statusLabel.Id}/assetlist");
             var results = JsonConvert.DeserializeObject<ResponseCollection<StatusLabel>>(response);
             return results;
         }

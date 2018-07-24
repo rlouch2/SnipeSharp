@@ -12,23 +12,22 @@ namespace SnipeSharp.Common
     class RequestManagerRestSharp : IRequestManager
     {
 
-        public ApiSettings _apiSettings { get; set; }
-        static RestClient Client;
+        internal readonly SnipeItApi Api;
+        internal readonly RestClient Client;
 
-        public RequestManagerRestSharp(ApiSettings apiSettings)
+        public RequestManagerRestSharp(SnipeItApi api)
         {
-            _apiSettings = apiSettings;
+            Api = api;
             Client = new RestClient();
             Client.AddDefaultHeader("Accept", "application/json");
-
         }
 
         public string Delete(string path)
         {
             CheckApiTokenAndUrl();
-            var req = new RestRequest(Method.DELETE); 
-            req.Resource = path;
-            var res = Client.Execute(req);
+            var res = Client.Execute(new RestRequest(Method.DELETE) {
+                Resource = path
+            });
 
             return res.Content;
         }
@@ -36,10 +35,10 @@ namespace SnipeSharp.Common
         public string Get(string path)
         {
             CheckApiTokenAndUrl();
-            var req = new RestRequest();
-            req.Resource = path; // Test
-            req.Timeout = 200000;
-            var res = Client.Execute(req);
+            var res = Client.Execute(new RestRequest {
+                Resource = path,
+                Timeout = 20000
+            });
 
             return res.Content;
         }
@@ -47,9 +46,10 @@ namespace SnipeSharp.Common
         public string Get(string path, ISearchFilter filter)
         {
             CheckApiTokenAndUrl();
-            var req = new RestRequest();
-            req.Resource = path;
-            req.Timeout = 200000; // TODO: We should probably breakup large requests
+            var req = new RestRequest {
+                Resource = path,
+                Timeout = 20000
+            };
             foreach (KeyValuePair<string, string> kvp in filter.GetQueryString())
             {
                 req.AddParameter(kvp.Key, kvp.Value);
@@ -63,8 +63,9 @@ namespace SnipeSharp.Common
         public string Post(string path, ICommonEndpointModel item)
         {
             CheckApiTokenAndUrl();
-            var req = new RestRequest(Method.POST);
-            req.Resource = path;
+            var req = new RestRequest(Method.POST) {
+                Resource = path
+            };
 
             var parameters = item.BuildQueryString();
 
@@ -72,7 +73,6 @@ namespace SnipeSharp.Common
             {
                 req.AddParameter(kvp.Key, kvp.Value);
             }
-            // TODO: Add error checking
             var res = Client.Execute(req);
 
             return res.Content;
@@ -82,8 +82,9 @@ namespace SnipeSharp.Common
         {
             // TODO: Make one method for post and put.
             CheckApiTokenAndUrl();
-            var req = new RestRequest(Method.PUT);
-            req.Resource = path;
+            var req = new RestRequest(Method.PUT) {
+                Resource = path
+            };
 
             var parameters = item.BuildQueryString();
 
@@ -100,24 +101,24 @@ namespace SnipeSharp.Common
         // Since the Token and URL can be set anytime after the SnipApi object is created we need to check for these before sending a request
         public void CheckApiTokenAndUrl()
         {
-            if (_apiSettings.BaseUrl == null)
+            if (Api.ApiSettings.BaseUrl == null)
             {
                 throw new NullApiBaseUrlException("No API Base Url Set.");
             }
 
-            if (_apiSettings.ApiToken == null)
+            if (Api.ApiSettings.ApiToken == null)
             {
                 throw new NullApiTokenException("No API Token Set");
             }
 
             if (Client.BaseUrl == null)
             {
-                Client.BaseUrl = _apiSettings.BaseUrl;
+                Client.BaseUrl = Api.ApiSettings.BaseUrl;
             }
 
             if (Client.Authenticator == null)
             {
-                Client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(_apiSettings.ApiToken, "Bearer");
+                Client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(Api.ApiSettings.ApiToken, "Bearer");
             }
         }
     }

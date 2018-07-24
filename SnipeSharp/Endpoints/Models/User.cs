@@ -5,7 +5,7 @@ using SnipeSharp.Attributes;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("User not found")]
+    [EndPointInformation(BaseUri: "users", NotFoundMessage: "User not found")]
     public class User : CommonEndpointModel
     {
         [JsonProperty("name")]

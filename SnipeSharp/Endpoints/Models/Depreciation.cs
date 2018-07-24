@@ -4,7 +4,7 @@ using SnipeSharp.Attributes;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("Depreciation not found")]
+    [EndPointInformation(BaseUri: "depreciations", NotFoundMessage: "Depreciation not found")]
     public class Depreciation : CommonEndpointModel
     {
         private string _months;

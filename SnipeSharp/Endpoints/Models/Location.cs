@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("Location not found")]
+    [EndPointInformation(BaseUri: "locations", NotFoundMessage: "Location not found")]
     public class Location : CommonEndpointModel
     {
         [JsonProperty("image")]

@@ -5,8 +5,7 @@ namespace SnipeSharp.Common
 {
     public interface IRequestManager
     {
-        // TODO: Implement bad return status handeling in implementations of this
-        ApiSettings _apiSettings { get; set; }
+        // TODO: Implement bad return status handling in implementations of this
         string Put(string path, ICommonEndpointModel item);
         string Get(string path);
         string Get(string path, ISearchFilter filter);

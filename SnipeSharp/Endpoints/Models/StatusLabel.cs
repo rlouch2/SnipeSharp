@@ -6,7 +6,7 @@ using SnipeSharp.Exceptions;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("Statuslabel not found")]
+    [EndPointInformation(BaseUri: "statuslabels", NotFoundMessage: "Statuslabel not found")]
     public class StatusLabel : CommonEndpointModel
     {
         private string _type;

@@ -4,7 +4,7 @@ using SnipeSharp.Common;
 
 namespace SnipeSharp.Endpoints.Models
 {
-    [EndpointObjectNotFoundMessage("License not found")]
+    [EndPointInformation(BaseUri: "licenses", NotFoundMessage: "License not found")]
     public class License : CommonEndpointModel
     {
         [JsonProperty("company")]
