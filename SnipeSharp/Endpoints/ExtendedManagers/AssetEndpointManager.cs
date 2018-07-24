@@ -11,9 +11,9 @@ namespace SnipeSharp.Endpoints.ExtendedManagers
         {
         }
 
-        public IRequestResponse CheckOut(ICommonEndpointModel item)
+        public IRequestResponse CheckOut(AssetCheckoutRequest request)
         {
-            var response = RequestManager.Post($"{BaseUri}/{item.Id}/checkout", item);
+            var response = RequestManager.Post($"{BaseUri}/{request.AssignedAsset.Id}/checkout", request);
             var result = JsonConvert.DeserializeObject<RequestResponse>(response);
             return result;
         }

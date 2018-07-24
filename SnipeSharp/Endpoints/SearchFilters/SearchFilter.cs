@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using SnipeSharp.Common;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using RestSharp.Serializers;
 
 /// <summary>
 /// The base class for all SearchFilter objects.  These properties are common to any filter we want to do on a get request for all endpoints.
@@ -15,32 +17,18 @@ namespace SnipeSharp.Endpoints.SearchFilters
         public string Sort { get; set; }
         public string Order { get; set; }
 
-        public Dictionary<string, string> GetQueryString()
-        {
-            var urlParams = new Dictionary<string, string>();
-
-            foreach (PropertyInfo prop in GetType().GetProperties())
-            {
-                var propValue = prop.GetValue(this)?.ToString();
-
-                if (propValue == null) continue;
-
-                var result = prop.GetCustomAttributesData()
-                                .Where(p => p.Constructor.DeclaringType.Name == "FilterParamName")
-                                    .FirstOrDefault();
-
-                // If there's no custom filter param name attrb use the default property name
-                // TODO: I think this is grabbing all properties regardless of if they're flagged
-                // Check and see if we are getting all props or just flagged ones
-                string keyName = (result != null) ? result.ConstructorArguments
-                                                                            .First()
-                                                                                .ToString()
-                                                                                    .Replace("\"", "")
-                                                                                    .ToLower() : prop.Name.ToLower();
-
-                urlParams.Add(keyName, propValue);
+        public Dictionary<string, string> QueryParameters {
+            get {
+                var values = new Dictionary<string, string>();
+                foreach(var property in this.GetType().GetProperties())
+                {
+                    var value = property.GetValue(this)?.ToString();
+                    if(value == null)
+                        continue;
+                    values[property.GetCustomAttribute<SerializeAsAttribute>()?.Name ?? property.Name.ToLower()] = value;
+                }
+                return values;
             }
-            return urlParams;
         }
     }
 }

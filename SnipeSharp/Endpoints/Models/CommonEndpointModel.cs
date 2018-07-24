@@ -44,37 +44,23 @@ namespace SnipeSharp.Endpoints.Models
         /// to send as request headers
         /// </summary>
         /// <returns>Dictionary of header values</returns>
-        public virtual Dictionary<string, string> BuildQueryString()
-        {
-            var values = new Dictionary<string, string>();
-
-            // TODO: Revisit this.  Look at loop in SearchFilter
-            foreach (var prop in this.GetType().GetProperties())
-            {
-                foreach (var attData in prop.GetCustomAttributesData())
+        // TODO: Get RestSharp to handle this for us.
+        public virtual Dictionary<string, string> QueryParameters {
+            get {
+                var values = new Dictionary<string, string>();
+                foreach(var property in this.GetType().GetProperties())
                 {
-                    var typeName = attData.Constructor.DeclaringType.Name;
-                    if (typeName == "RequiredRequestHeader" || typeName == "OptionalRequestHeader")
-                    {
-                        var propValue = prop.GetValue(this)?.ToString();
-
-                        // Abort in missing required headers
-                        if (propValue == null && typeName == "RequiredRequestHeader")
-                        {
-                            throw new RequiredValueIsNullException($"{prop.Name} Cannot Be Null");
-                        }
-
-                        if (propValue != null)
-                        {
-                            var attName = attData.ConstructorArguments.First().ToString().Replace("\"", "");
-
-                            values.Add(attName, propValue);
-                        }
-                    }
+                    var serializeAttribute = property.GetCustomAttribute<SerializeAsAttribute>();
+                    if(serializeAttribute == null)
+                        continue;
+                    var value = property.GetValue(this)?.ToString();
+                    if(null != property.GetCustomAttribute<RequiredField>() && value == null) // required but not present
+                        throw new RequiredValueIsNullException($"{property.Name} cannot be null");
+                    if(value != null)
+                        values[serializeAttribute.Name] = value;
                 }
+                return values;
             }
-
-            return values;
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using SnipeSharp.Attributes;
+﻿using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.SearchFilters
 {
     class AccessoriesSearchFilter : SearchFilter
     {
-        [FilterParamName("order_number")]
+        [SerializeAs(Name = "order_number")]
         public string OrderNumber { get; set; }
 
         public bool Expand { get; set; }

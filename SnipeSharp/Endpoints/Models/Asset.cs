@@ -1,6 +1,5 @@
 ﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
-using SnipeSharp.Endpoints.EndpointHelpers;
 using SnipeSharp.JsonConverters;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,53 +123,19 @@ namespace SnipeSharp.Endpoints.Models
         [JsonConverter(typeof(CustomFieldConverter))]
         public Dictionary<string,string> CustomFields { get; set; }
 
-        public AssetCheckoutRequest CheckoutRequest { get; set; }
-
         /// <summary>
         /// Loop through all properties of this model, looking for any tagged with our custom attributes that we need
         /// to send as request headers
         /// </summary>
         /// <returns>Dictionary of header values</returns>
-        public override Dictionary<string, string> BuildQueryString()
+        public override Dictionary<string, string> QueryParameters
         {
-            // Process checkout request if one exists. 
-            // On a checkout request we only need to return the headers from the checkout request itself, not he asset
-            if (CheckoutRequest != null)
-            {
-                var values = new Dictionary<string, string>();
-                foreach (var prop in CheckoutRequest.GetType().GetProperties())
-                {
-                    var propValue = prop.GetValue(CheckoutRequest)?.ToString();
-
-                    if (propValue == null) continue;
-
-                    var result = prop.GetCustomAttributesData()
-                                     .Where(p => p.Constructor.DeclaringType.Name == "OptionalRequestHeader")
-                                     .FirstOrDefault();
-
-                    if (result == null) continue;
-
-                    string keyname = result.ConstructorArguments.First().ToString().Replace("\"", "").ToLower();
-
-                    values.Add(keyname, propValue);
-
-                }
-
+            get {
+                var values = base.QueryParameters;
+                foreach(var pair in CustomFields)
+                    values[pair.Key] = pair.Value;
                 return values;
-            }            
-
-            var baseValues = base.BuildQueryString();
-
-            if (CustomFields != null)
-            {
-                foreach (KeyValuePair<string, string> kvp in CustomFields)
-                {
-                    baseValues.Add(kvp.Key, kvp.Value);
-                }
             }
-
-            return baseValues;
         }
-
     }
 }

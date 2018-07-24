@@ -43,14 +43,14 @@ namespace SnipeSharp.Common
             return res.Content;
         }
 
-        public string Get(string path, ISearchFilter filter)
+        public string Get(string path, IQueryParameterProvider filter)
         {
             CheckApiTokenAndUrl();
             var req = new RestRequest {
                 Resource = path,
                 Timeout = 20000
             };
-            foreach (KeyValuePair<string, string> kvp in filter.GetQueryString())
+            foreach (var kvp in filter.QueryParameters)
             {
                 req.AddParameter(kvp.Key, kvp.Value);
             }
@@ -60,16 +60,14 @@ namespace SnipeSharp.Common
             return res.Content;
         }
 
-        public string Post(string path, ICommonEndpointModel item)
+        public string Post(string path, IQueryParameterProvider item)
         {
             CheckApiTokenAndUrl();
             var req = new RestRequest(Method.POST) {
                 Resource = path
             };
 
-            var parameters = item.BuildQueryString();
-
-            foreach (KeyValuePair<string, string> kvp in parameters)
+            foreach (var kvp in item.QueryParameters)
             {
                 req.AddParameter(kvp.Key, kvp.Value);
             }
@@ -78,7 +76,7 @@ namespace SnipeSharp.Common
             return res.Content;
         }
 
-        public string Put(string path, ICommonEndpointModel item)
+        public string Put(string path, IQueryParameterProvider item)
         {
             // TODO: Make one method for post and put.
             CheckApiTokenAndUrl();
@@ -86,9 +84,7 @@ namespace SnipeSharp.Common
                 Resource = path
             };
 
-            var parameters = item.BuildQueryString();
-
-            foreach (KeyValuePair<string, string> kvp in parameters)
+            foreach (var kvp in item.QueryParameters)
             {
                 req.AddParameter(kvp.Key, kvp.Value);
             }
