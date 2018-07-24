@@ -1,54 +1,55 @@
 ﻿using SnipeSharp.Common;
-using Newtonsoft.Json;
 using SnipeSharp.Attributes;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "suppliers", NotFoundMessage: "Supplier not found")]
     public class Supplier : CommonEndpointModel
     {
-        [JsonProperty("name")]
-        [OptionalRequestHeader("name")]
+        [DeserializeAs(Name = "name")]
+        [SerializeAs(Name = "name")]
         public new string Name { get; set; }
 
-        [OptionalRequestHeader("address")]
-        [JsonProperty("address")]
+        [SerializeAs(Name = "address")]
+        [DeserializeAs(Name = "address")]
         public string Address { get; set; }
 
-        [OptionalRequestHeader("city")]
-        [JsonProperty("city")]
+        [SerializeAs(Name = "city")]
+        [DeserializeAs(Name = "city")]
         public string City { get; set; }
 
-        [OptionalRequestHeader("state")]
-        [JsonProperty("state")]
+        [SerializeAs(Name = "state")]
+        [DeserializeAs(Name = "state")]
         public string State { get; set; }
 
-        [OptionalRequestHeader("country")]
-        [JsonProperty("country")]
+        [SerializeAs(Name = "country")]
+        [DeserializeAs(Name = "country")]
         public string Country { get; set; }
 
-        [OptionalRequestHeader("zip")]
-        [JsonProperty("zip")]
+        [SerializeAs(Name = "zip")]
+        [DeserializeAs(Name = "zip")]
         public string Zip { get; set; }
 
-        [OptionalRequestHeader("fax")]
-        [JsonProperty("fax")]
+        [SerializeAs(Name = "fax")]
+        [DeserializeAs(Name = "fax")]
         public string Fax { get; set; }
 
-        [OptionalRequestHeader("phone")]
-        [JsonProperty("phone")]
+        [SerializeAs(Name = "phone")]
+        [DeserializeAs(Name = "phone")]
         public string Phone { get; set; }
 
-        [OptionalRequestHeader("email")]
-        [JsonProperty("email")]
+        [SerializeAs(Name = "email")]
+        [DeserializeAs(Name = "email")]
         public string Email { get; set; }
 
-        [OptionalRequestHeader("contact")]
-        [JsonProperty("contact")]
+        [SerializeAs(Name = "contact")]
+        [DeserializeAs(Name = "contact")]
         public string Contact { get; set; }
 
-        [OptionalRequestHeader("notes")]
-        [JsonProperty("notes")]
+        [SerializeAs(Name = "notes")]
+        [DeserializeAs(Name = "notes")]
         public string Notes { get; set; }
     }
 }

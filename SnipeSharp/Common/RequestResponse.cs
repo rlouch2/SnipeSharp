@@ -3,20 +3,21 @@ using SnipeSharp.Endpoints.Models;
 using SnipeSharp.JsonConverters;
 using System.Collections.Generic;
 using System.Linq;
+using RestSharp.Deserializers;
 
 namespace SnipeSharp.Common
 {
     public class RequestResponse : IRequestResponse
     {
-        [JsonProperty("messages")]
+        [DeserializeAs(Name = "messages")]
         [JsonConverter(typeof(MessageConverter))]
         public Dictionary<string, string> Messages { get; set; }
 
-        [JsonProperty("payload")]
+        [DeserializeAs(Name = "payload")]
         [JsonConverter(typeof(DetectJsonObjectType))]
         public ICommonEndpointModel Payload { get; set; }
 
-        [JsonProperty("status")]
+        [DeserializeAs(Name = "status")]
         public string Status { get; set; }
 
         public override string ToString()

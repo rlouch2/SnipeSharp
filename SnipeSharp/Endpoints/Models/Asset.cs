@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using SnipeSharp.Endpoints.EndpointHelpers;
 using SnipeSharp.JsonConverters;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
+using Newtonsoft.Json;
 
 namespace SnipeSharp.Endpoints.Models
 {
@@ -14,69 +16,71 @@ namespace SnipeSharp.Endpoints.Models
     public class Asset : CommonEndpointModel
     {
 
-        [JsonProperty("name")]
-        [OptionalRequestHeader("name")]
+        [DeserializeAs(Name = "name")]
+        [SerializeAs(Name = "name")]
         public new string Name { get; set; }
 
-        [JsonProperty("asset_tag")]
-        [RequiredRequestHeader("asset_tag")]
+        [DeserializeAs(Name = "asset_tag")]
+        [SerializeAs(Name = "asset_tag")]
+        [RequiredField]
         public string AssetTag { get; set; }
 
-        [JsonProperty("serial")]
-        [OptionalRequestHeader("serial")]
+        [DeserializeAs(Name = "serial")]
+        [SerializeAs(Name = "serial")]
         public string Serial { get; set; }
 
-        [JsonProperty("model")]
-        [OptionalRequestHeader("model_id")]
+        [DeserializeAs(Name = "model")]
+        [SerializeAs(Name = "model_id")]
         public Model Model { get; set; }
 
-        [JsonProperty("model_number")]
-        [OptionalRequestHeader("model_number")]
+        [DeserializeAs(Name = "model_number")]
+        [SerializeAs(Name = "model_number")]
         public string ModelNumber { get; set; }
 
-        [JsonProperty("status_label")]
-        [RequiredRequestHeader("status_id")]
+        [DeserializeAs(Name = "status_label")]
+        [SerializeAs(Name = "status_id")]
+        [RequiredField]
         public StatusLabel StatusLabel { get; set; }
 
-        [JsonProperty("category")]
-        [OptionalRequestHeader("category_id")]
+        [DeserializeAs(Name = "category")]
+        [SerializeAs(Name = "category_id")]
         public Category Category { get; set; }
 
-        [JsonProperty("manufacturer")]
-        [OptionalRequestHeader("manufacturer_id")]
+        [DeserializeAs(Name = "manufacturer")]
+        [SerializeAs(Name = "manufacturer_id")]
         public Manufacturer Manufacturer { get; set; }
 
-        [JsonProperty("supplier")]
-        [OptionalRequestHeader("supplier_id")]
+        [DeserializeAs(Name = "supplier")]
+        [SerializeAs(Name = "supplier_id")]
         public Supplier Supplier { get; set; }
 
-        [JsonProperty("notes")]
-        [OptionalRequestHeader("notes")]
+        [DeserializeAs(Name = "notes")]
+        [SerializeAs(Name = "notes")]
         public string Notes { get; set; }
 
-        [JsonProperty("company")]
-        [OptionalRequestHeader("company_id")]
+        [DeserializeAs(Name = "company")]
+        [SerializeAs(Name = "company_id")]
         public Company Company { get; set; }
 
-        [JsonProperty("location")]
-        [OptionalRequestHeader("location_id")]
+        [DeserializeAs(Name = "location")]
+        [SerializeAs(Name = "location_id")]
         public Location Location { get; set; }
 
-        [JsonProperty("rtd_location")]
-        [OptionalRequestHeader("rtd_location_id")]
+        [DeserializeAs(Name = "rtd_location")]
+        [SerializeAs(Name = "rtd_location_id")]
         public Location RtdLocation { get; set; }
 
-        [JsonProperty("image")]
+        [DeserializeAs(Name = "image")]
         public string Image { get; set; }
 
-        [JsonProperty("assigned_to")]
-        [OptionalRequestHeader("assigned_to")]
+        [DeserializeAs(Name = "assigned_to")]
+        [SerializeAs(Name = "assigned_to")]
         public User AssignedTo { get; set; }
 
         private string _warrantyMonths;
 
-        [JsonProperty("warranty_months")]
-        [OptionalRequestHeader("warranty_months")]
+        [DeserializeAs(Name = "warranty_months")]
+        [SerializeAs(Name = "warranty_months")]
         public string WarrantyMonths
         {
             get { return _warrantyMonths; }
@@ -87,36 +91,36 @@ namespace SnipeSharp.Endpoints.Models
             }
         }
 
-        [JsonProperty("warranty_expires")]
+        [DeserializeAs(Name = "warranty_expires")]
         public ResponseDate WarrantyExpires { get; set; }
 
-        [JsonProperty("deleted_at")]
+        [DeserializeAs(Name = "deleted_at")]
         public ResponseDate DeletedAt { get; set; }
 
-        [JsonProperty("purchase_date")]
-        [OptionalRequestHeader("purchase_date")]
+        [DeserializeAs(Name = "purchase_date")]
+        [SerializeAs(Name = "purchase_date")]
         [JsonConverter(typeof(ResponseDateTimeConverter))]
         public ResponseDate PurchaseDate { get; set; }
 
-        [JsonProperty("expected_checkin")]
+        [DeserializeAs(Name = "expected_checkin")]
         public ResponseDate ExpectedCheckin { get; set; }
 
-        [JsonProperty("last_checkout")]
-        [OptionalRequestHeader("last_checkout")]
+        [DeserializeAs(Name = "last_checkout")]
+        [SerializeAs(Name = "last_checkout")]
         public ResponseDate LastCheckout { get; set; }
 
-        [JsonProperty("purchase_cost")]
-        [OptionalRequestHeader("purchase_cost")]
+        [DeserializeAs(Name = "purchase_cost")]
+        [SerializeAs(Name = "purchase_cost")]
         public string PurchaseCost { get; set; }
 
-        [JsonProperty("user_can_checkout")]
+        [DeserializeAs(Name = "user_can_checkout")]
         public bool UserCanCheckout { get; set; }
 
-        [JsonProperty("order_number")]
-        [OptionalRequestHeader("order_number")]
+        [DeserializeAs(Name = "order_number")]
+        [SerializeAs(Name = "order_number")]
         public string OrderNumber { get; set; }
 
-        [JsonProperty("custom_fields")]
+        [DeserializeAs(Name = "custom_fields")]
         [JsonConverter(typeof(CustomFieldConverter))]
         public Dictionary<string,string> CustomFields { get; set; }
 

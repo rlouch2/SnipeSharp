@@ -1,61 +1,64 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "consumables", NotFoundMessage: "Consumable not found")]
     public class Consumable : CommonEndpointModel
     {
-        [JsonProperty("category")]
-        [RequiredRequestHeader("category_id")]
+        [DeserializeAs(Name = "category")]
+        [SerializeAs(Name = "category_id")]
+        [RequiredField]
         public Category Category { get; set; }
 
-        [JsonProperty("company")]
-        [OptionalRequestHeader("company_id")]
+        [DeserializeAs(Name = "company")]
+        [SerializeAs(Name = "company_id")]
         public Company Company { get; set; }
 
-        [JsonProperty("item_no")]
-        [OptionalRequestHeader("item_no")]
+        [DeserializeAs(Name = "item_no")]
+        [SerializeAs(Name = "item_no")]
         public string ItemNo { get; set; }
 
-        [JsonProperty("location")]
-        [OptionalRequestHeader("location_id")]
+        [DeserializeAs(Name = "location")]
+        [SerializeAs(Name = "location_id")]
         public Location Location { get; set; }
 
-        [JsonProperty("manufacturer")]
-        [OptionalRequestHeader("manufacturer_id")]
+        [DeserializeAs(Name = "manufacturer")]
+        [SerializeAs(Name = "manufacturer_id")]
         public Manufacturer Manufacturer { get; set; }
 
-        [JsonProperty("min_amt")]
-        [OptionalRequestHeader("min_amt")]
+        [DeserializeAs(Name = "min_amt")]
+        [SerializeAs(Name = "min_amt")]
         public long? MinAmt { get; set; }
 
-        [JsonProperty("model_number")]
-        [OptionalRequestHeader("model_number")]
+        [DeserializeAs(Name = "model_number")]
+        [SerializeAs(Name = "model_number")]
         public string ModelNumber { get; set; }
 
-        [JsonProperty("remaining")]
-        [OptionalRequestHeader("remaining")]
+        [DeserializeAs(Name = "remaining")]
+        [SerializeAs(Name = "remaining")]
         public long? Remaining { get; set; }
 
-        [JsonProperty("order_number")]
-        [OptionalRequestHeader("order_number")]
+        [DeserializeAs(Name = "order_number")]
+        [SerializeAs(Name = "order_number")]
         public string OrderNumber { get; set; }
 
-        [JsonProperty("purchase_cost")]
-        [OptionalRequestHeader("purchase_cost")]
+        [DeserializeAs(Name = "purchase_cost")]
+        [SerializeAs(Name = "purchase_cost")]
         public string PurchaseCost { get; set; }
 
-        [JsonProperty("purchase_date")]
-        [OptionalRequestHeader("purchase_date")]
+        [DeserializeAs(Name = "purchase_date")]
+        [SerializeAs(Name = "purchase_date")]
         public ResponseDate PurchaseDate { get; set; }
 
-        [JsonProperty("qty")]
-        [RequiredRequestHeader("qty")]
+        [DeserializeAs(Name = "qty")]
+        [SerializeAs(Name = "qty")]
+        [RequiredField]
         public long? Quantity { get; set; }
 
-        [JsonProperty("user_can_checkout")]
+        [DeserializeAs(Name = "user_can_checkout")]
         public bool UserCanCheckout { get; set; }
     }
 }

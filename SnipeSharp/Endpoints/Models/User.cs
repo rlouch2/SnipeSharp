@@ -1,114 +1,118 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Common;
+﻿using SnipeSharp.Common;
 using System.Collections.Generic;
 using SnipeSharp.Attributes;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "users", NotFoundMessage: "User not found")]
     public class User : CommonEndpointModel
     {
-        [JsonProperty("name")]
-        [OptionalRequestHeader("name")]
+        [DeserializeAs(Name = "name")]
+        [SerializeAs(Name = "name")]
         public new string Name { get; set; }
 
-        [JsonProperty("accessories_count")]
+        [DeserializeAs(Name = "accessories_count")]
         public long? AccessoriesCount { get; set; }
 
-        [JsonProperty("activated")]
-        [OptionalRequestHeader("activated")]
+        [DeserializeAs(Name = "activated")]
+        [SerializeAs(Name = "activated")]
         public bool Activated { get; set; }
 
-        [JsonProperty("address")]
-        [OptionalRequestHeader("address")]
+        [DeserializeAs(Name = "address")]
+        [SerializeAs(Name = "address")]
         public string Address { get; set; }
 
-        [JsonProperty("assets_count")]
+        [DeserializeAs(Name = "assets_count")]
         public long? AssetsCount { get; set; }
 
-        [JsonProperty("avatar")]
+        [DeserializeAs(Name = "avatar")]
         public string Avatar { get; set; }
 
-        [JsonProperty("city")]
-        [OptionalRequestHeader("city")]
+        [DeserializeAs(Name = "city")]
+        [SerializeAs(Name = "city")]
         public string City { get; set; }
 
-        [JsonProperty("company")]
-        [OptionalRequestHeader("company_id")]
+        [DeserializeAs(Name = "company")]
+        [SerializeAs(Name = "company_id")]
         public Company Company { get; set; }
 
-        [JsonProperty("consumables_count")]
+        [DeserializeAs(Name = "consumables_count")]
         public long ConsumablesCount { get; set; }
 
-        [JsonProperty("country")]
-        [OptionalRequestHeader("country")]
+        [DeserializeAs(Name = "country")]
+        [SerializeAs(Name = "country")]
         public string Country { get; set; }
 
-        [JsonProperty("email")]
-        [OptionalRequestHeader("email")]
+        [DeserializeAs(Name = "email")]
+        [SerializeAs(Name = "email")]
         public string Email { get; set; }
 
-        [JsonProperty("employee_num")]
-        [OptionalRequestHeader("employee_num")]
+        [DeserializeAs(Name = "employee_num")]
+        [SerializeAs(Name = "employee_num")]
         public string EmployeeNum { get; set; }
 
-        [JsonProperty("firstname")]
-        [RequiredRequestHeader("first_name")]
+        [DeserializeAs(Name = "firstname")]
+        [SerializeAs(Name = "first_name")]
+        [RequiredField]
         public string Firstname { get; set; }
 
-        [JsonProperty("jobtitle")]
-        [OptionalRequestHeader("jobtitle")]
+        [DeserializeAs(Name = "jobtitle")]
+        [SerializeAs(Name = "jobtitle")]
         public string Jobtitle { get; set; }
 
-        [JsonProperty("last_login")]
+        [DeserializeAs(Name = "last_login")]
         public ResponseDate LastLogin { get; set; }
 
-        [JsonProperty("lastname")]
-        [OptionalRequestHeader("last_name")]
+        [DeserializeAs(Name = "lastname")]
+        [SerializeAs(Name = "last_name")]
         public string Lastname { get; set; }
 
-        [JsonProperty("licenses_count")]
+        [DeserializeAs(Name = "licenses_count")]
         public long? LicensesCount { get; set; }
 
-        [JsonProperty("location")]
-        [OptionalRequestHeader("location_id")]
+        [DeserializeAs(Name = "location")]
+        [SerializeAs(Name = "location_id")]
         public Location Location { get; set; }
 
-        [JsonProperty("manager")]
-        [OptionalRequestHeader("manager_id")]
+        [DeserializeAs(Name = "manager")]
+        [SerializeAs(Name = "manager_id")]
         public User Manager { get; set; }
 
-        [JsonProperty("notes")]
-        [OptionalRequestHeader("notes")]
+        [DeserializeAs(Name = "notes")]
+        [SerializeAs(Name = "notes")]
         public string Notes { get; set; }
 
-        [JsonProperty("permissions")]
+        [DeserializeAs(Name = "permissions")]
         public Dictionary<string, string> Permissions { get; set; }
 
-        [JsonProperty("phone")]
-        [OptionalRequestHeader("phone")]
+        [DeserializeAs(Name = "phone")]
+        [SerializeAs(Name = "phone")]
         public string Phone { get; set; }
 
-        [JsonProperty("state")]
-        [OptionalRequestHeader("state")]
+        [DeserializeAs(Name = "state")]
+        [SerializeAs(Name = "state")]
         public string State { get; set; }
 
-        [JsonProperty("two_factor_activated")]
+        [DeserializeAs(Name = "two_factor_activated")]
         public bool TwoFactorActivated { get; set; }
 
-        [JsonProperty("username")]
-        [RequiredRequestHeader("username")]
+        [DeserializeAs(Name = "username")]
+        [SerializeAs(Name = "username")]
+        [RequiredField]
         public string Username { get; set; }
 
-        [JsonProperty("zip")]
-        [OptionalRequestHeader("zip")]
+        [DeserializeAs(Name = "zip")]
+        [SerializeAs(Name = "zip")]
         public object Zip { get; set; }
 
-        [RequiredRequestHeader("password")]
+        [SerializeAs(Name = "password")]
+        [RequiredField]
         public string Password { get; set; }
 
-        [JsonProperty("department")]
-        [OptionalRequestHeader("department_id")]
+        [DeserializeAs(Name = "department")]
+        [SerializeAs(Name = "department_id")]
         public Department Department { get; set; }
     }
 }

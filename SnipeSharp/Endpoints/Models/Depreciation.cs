@@ -1,6 +1,7 @@
 ﻿using SnipeSharp.Common;
-using Newtonsoft.Json;
 using SnipeSharp.Attributes;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
@@ -9,8 +10,9 @@ namespace SnipeSharp.Endpoints.Models
     {
         private string _months;
 
-        [JsonProperty("months")]
-        [RequiredRequestHeader("months")]
+        [DeserializeAs(Name = "months")]
+        [SerializeAs(Name = "months")]
+        [RequiredField]
         public string Months
         {
             get

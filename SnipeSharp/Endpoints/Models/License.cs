@@ -1,58 +1,59 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "licenses", NotFoundMessage: "License not found")]
     public class License : CommonEndpointModel
     {
-        [JsonProperty("company")]
+        [DeserializeAs(Name = "company")]
         public Company Company { get; set; }
 
-        [JsonProperty("expiration_date")]
+        [DeserializeAs(Name = "expiration_date")]
         public Date ExpirationDate { get; set; }
 
-        [JsonProperty("free_seats_count")]
+        [DeserializeAs(Name = "free_seats_count")]
         public long? FreeSeatsCount { get; set; }
 
-        [JsonProperty("license_email")]
+        [DeserializeAs(Name = "license_email")]
         public string LicenseEmail { get; set; }
 
-        [JsonProperty("license_name")]
+        [DeserializeAs(Name = "license_name")]
         public string LicenseName { get; set; }
 
-        [JsonProperty("maintained")]
+        [DeserializeAs(Name = "maintained")]
         public bool Maintained { get; set; }
 
-        [JsonProperty("manufacturer")]
+        [DeserializeAs(Name = "manufacturer")]
         public Manufacturer Manufacturer { get; set; }
 
-        [JsonProperty("notes")]
+        [DeserializeAs(Name = "notes")]
         public string Notes { get; set; }
 
-        [JsonProperty("order_number")]
+        [DeserializeAs(Name = "order_number")]
         public string OrderNumber { get; set; }
 
-        [JsonProperty("product_key")]
+        [DeserializeAs(Name = "product_key")]
         public string ProductKey { get; set; }
 
-        [JsonProperty("purchase_cost")]
+        [DeserializeAs(Name = "purchase_cost")]
         public string PurchaseCost { get; set; }
 
-        [JsonProperty("purchase_date")]
+        [DeserializeAs(Name = "purchase_date")]
         public Date PurchaseDate { get; set; }
 
-        [JsonProperty("purchase_order")]
+        [DeserializeAs(Name = "purchase_order")]
         public string PurchaseOrder { get; set; }
 
-        [JsonProperty("seats")]
+        [DeserializeAs(Name = "seats")]
         public long Seats { get; set; }
 
-        [JsonProperty("supplier")]
+        [DeserializeAs(Name = "supplier")]
         public Company Supplier { get; set; }
 
-        [JsonProperty("user_can_checkout")]
+        [DeserializeAs(Name = "user_can_checkout")]
         public bool UserCanCheckout { get; set; }
     }
 }

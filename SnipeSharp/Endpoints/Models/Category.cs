@@ -1,20 +1,22 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using System.Linq;
 using SnipeSharp.Exceptions;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "categories", NotFoundMessage: "Category not found")]
     public class Category : CommonEndpointModel
     {
-        [JsonProperty("image")]
+        [DeserializeAs(Name = "image")]
         public string Image { get; set; }
 
         private string _type;
 
-        [JsonProperty("type")]
-        [RequiredRequestHeader("category_type")]
+        [DeserializeAs(Name = "type")]
+        [SerializeAs(Name = "category_type")]
+        [RequiredField]
         public string Type
         { // TODO: We should probably remove this and rely on the API to say it's invalid
             get { return _type; }
@@ -33,28 +35,28 @@ namespace SnipeSharp.Endpoints.Models
             }
         }
 
-        [JsonProperty("eula")]
-        [OptionalRequestHeader("eula")]
+        [DeserializeAs(Name = "eula")]
+        [SerializeAs(Name = "eula")]
         public bool eula { get; set; }
 
-        [JsonProperty("checkin_email")]
-        [OptionalRequestHeader("checkin_email")]
+        [DeserializeAs(Name = "checkin_email")]
+        [SerializeAs(Name = "checkin_email")]
         public bool CheckinEmail { get; set; }
 
-        [JsonProperty("require_acceptance")]
-        [OptionalRequestHeader("required_acceptance")]
+        [DeserializeAs(Name = "require_acceptance")]
+        [SerializeAs(Name = "required_acceptance")]
         public bool RequireAcceptance { get; set; }
 
-        [JsonProperty("assets_count")]
+        [DeserializeAs(Name = "assets_count")]
         public long? AssetsCount { get; set; }
 
-        [JsonProperty("accessories_count")]
+        [DeserializeAs(Name = "accessories_count")]
         public long? AccessoriesCount { get; set; }
 
-        [JsonProperty("consumables_count")]
+        [DeserializeAs(Name = "consumables_count")]
         public long? ConsumablesCount { get; set; }
 
-        [JsonProperty("components_count")]
+        [DeserializeAs(Name = "components_count")]
         public long? ComponentsCount { get; set; }
     }
 }

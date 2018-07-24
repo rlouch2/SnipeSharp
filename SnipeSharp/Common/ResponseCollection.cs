@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Endpoints.Models;
+﻿using SnipeSharp.Endpoints.Models;
 using SnipeSharp.JsonConverters;
 using System.Collections.Generic;
+using RestSharp.Deserializers;
 
 namespace SnipeSharp.Common
 {
     public class ResponseCollection<T> : IResponseCollection<T>
     {
-        [JsonProperty("total")]
+        [DeserializeAs(Name = "total")]
         public long Total { get; set; }
 
-        [JsonProperty("rows")]
+        [DeserializeAs(Name = "rows")]
         //[JsonConverter(typeof(DetectJsonObjectType))]
         public List<T> Rows { get; set; }
     }

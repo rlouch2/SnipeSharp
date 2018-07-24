@@ -1,47 +1,50 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "models", NotFoundMessage: "AssetModel not found")]
     public class Model : CommonEndpointModel
     {
-        [JsonProperty("manufacturer")]
-        [RequiredRequestHeader("manufacturer_id")]
+        [DeserializeAs(Name = "manufacturer")]
+        [SerializeAs(Name = "manufacturer_id")]
+        [RequiredField]
         public Manufacturer Manufacturer { get; set; }
 
-        [JsonProperty("category")]
-        [RequiredRequestHeader("category_id")]
+        [DeserializeAs(Name = "category")]
+        [SerializeAs(Name = "category_id")]
+        [RequiredField]
         public Category Category { get; set; }
 
-        [JsonProperty("image")]
+        [DeserializeAs(Name = "image")]
         public string Image { get; set; }
 
-        [JsonProperty("model_number")]
-        [OptionalRequestHeader("model_number")]
+        [DeserializeAs(Name = "model_number")]
+        [SerializeAs(Name = "model_number")]
         public string ModelNumber { get; set; }
 
-        [JsonProperty("depreciation")]
-        [OptionalRequestHeader("depreciation_id")]
+        [DeserializeAs(Name = "depreciation")]
+        [SerializeAs(Name = "depreciation_id")]
         public Depreciation Depreciation { get; set; }
 
-        [JsonProperty("assets_count")]
+        [DeserializeAs(Name = "assets_count")]
         public long AssetsCount { get; set; }
 
-        [JsonProperty("eol")]
-        [OptionalRequestHeader("eol")]
+        [DeserializeAs(Name = "eol")]
+        [SerializeAs(Name = "eol")]
         public string Eol { get; set; }
 
-        [JsonProperty("notes")]
-        [OptionalRequestHeader("notes")]
+        [DeserializeAs(Name = "notes")]
+        [SerializeAs(Name = "notes")]
         public string Notes { get; set; }
 
-        [JsonProperty("fieldset")]
-        [OptionalRequestHeader("fieldset_id")]
+        [DeserializeAs(Name = "fieldset")]
+        [SerializeAs(Name = "fieldset_id")]
         public FieldSet FieldSet { get; set; }
 
-        [JsonProperty("deleted_at")]
+        [DeserializeAs(Name = "deleted_at")]
         public ResponseDate DeletedAt { get; set; }
     }
 }

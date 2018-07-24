@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using SnipeSharp.Common;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     public class CustomField
     {
-        [JsonProperty("name")]
+        [DeserializeAs(Name = "name")]
         public string Name { get; set; }
 
-        [JsonProperty("db_column_name")]
+        [DeserializeAs(Name = "db_column_name")]
         public string DbColumnName { get; set; }
 
-        [JsonProperty("format")]
+        [DeserializeAs(Name = "format")]
         public string Format { get; set; }
 
-        [JsonProperty("required")]
+        [DeserializeAs(Name = "required")]
         public int? Required { get; set; }
 
-        [JsonProperty("created_at")]
+        [DeserializeAs(Name = "created_at")]
         public ResponseDate CreatedAt { get; set; }
 
-        [JsonProperty("updated_at")]
+        [DeserializeAs(Name = "updated_at")]
         public ResponseDate UpdatedAt { get; set; }
     }
 }

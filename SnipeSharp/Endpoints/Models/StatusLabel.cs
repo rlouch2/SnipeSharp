@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using System.Linq;
 using SnipeSharp.Exceptions;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
@@ -11,8 +12,9 @@ namespace SnipeSharp.Endpoints.Models
     {
         private string _type;
 
-        [JsonProperty("type")]
-        [RequiredRequestHeader("type")]
+        [DeserializeAs(Name = "type")]
+        [SerializeAs(Name = "type")]
+        [RequiredField]
         public string Type
         {
             get
@@ -34,28 +36,31 @@ namespace SnipeSharp.Endpoints.Models
             }
         }
 
-        [JsonProperty("color")]
-        [OptionalRequestHeader("color")]
+        [DeserializeAs(Name = "color")]
+        [SerializeAs(Name = "color")]
         public string Color { get; set; }
 
-        [JsonProperty("show_in_nav")]
-        [OptionalRequestHeader("show_in_nav")]
+        [DeserializeAs(Name = "show_in_nav")]
+        [SerializeAs(Name = "show_in_nav")]
         public bool ShowInNav { get; set; }
 
-        [JsonProperty("assets_count")]
+        [DeserializeAs(Name = "assets_count")]
         public long? AssetsCount { get; set; }
 
-        [JsonProperty("notes")]
-        [OptionalRequestHeader("notes")]
+        [DeserializeAs(Name = "notes")]
+        [SerializeAs(Name = "notes")]
         public string Notes { get; set; }
 
-        [RequiredRequestHeader("deployable")]
+        [SerializeAs(Name = "deployable")]
+        [RequiredField]
         public bool Deployable { get; set; }
 
-        [RequiredRequestHeader("pending")]
+        [SerializeAs(Name = "pending")]
+        [RequiredField]
         public bool Pending { get; set; }
 
-        [RequiredRequestHeader("archived")]
+        [SerializeAs(Name = "archived")]
+        [RequiredField]
         public bool Archived { get; set; }
     }
 }

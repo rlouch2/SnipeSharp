@@ -1,49 +1,50 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using System.Collections.Generic;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "locations", NotFoundMessage: "Location not found")]
     public class Location : CommonEndpointModel
     {
-        [JsonProperty("image")]
+        [DeserializeAs(Name = "image")]
         public string Image { get; set; }
 
-        [JsonProperty("address")]
-        [OptionalRequestHeader("address")]
+        [DeserializeAs(Name = "address")]
+        [SerializeAs(Name = "address")]
         public string Address { get; set; }
 
-        [JsonProperty("city")]
+        [DeserializeAs(Name = "city")]
         public string City { get; set; }
 
-        [JsonProperty("state")]
-        [OptionalRequestHeader("state")]
+        [DeserializeAs(Name = "state")]
+        [SerializeAs(Name = "state")]
         public string State { get; set; }
 
-        [JsonProperty("country")]
-        [OptionalRequestHeader("country")]
+        [DeserializeAs(Name = "country")]
+        [SerializeAs(Name = "country")]
         public string Country { get; set; }
 
-        [JsonProperty("zip")]
-        [OptionalRequestHeader("zip")]
+        [DeserializeAs(Name = "zip")]
+        [SerializeAs(Name = "zip")]
         public string Zip { get; set; }
 
-        [JsonProperty("assets_count")]
+        [DeserializeAs(Name = "assets_count")]
         public long? AssetsCount { get; set; }
 
-        [JsonProperty("users_count")]
+        [DeserializeAs(Name = "users_count")]
         public long? UsersCount { get; set; }
 
-        [JsonProperty("parent")]
-        [OptionalRequestHeader("parent_id")]
+        [DeserializeAs(Name = "parent")]
+        [SerializeAs(Name = "parent_id")]
         public Location Parent { get; set; }
 
-        [JsonProperty("manager")]
+        [DeserializeAs(Name = "manager")]
         public User Manager { get; set; }
 
-        [JsonProperty("children")]
+        [DeserializeAs(Name = "children")]
         public List<Location> Children { get; set; }
     }
 }

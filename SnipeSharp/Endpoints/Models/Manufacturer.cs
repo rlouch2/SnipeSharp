@@ -1,35 +1,36 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.Models
 {
     [EndPointInformation(BaseUri: "manufacturers", NotFoundMessage: "Manufacturer not found")]
     public class Manufacturer : CommonEndpointModel
     {
-        [JsonProperty("url")]
-        [OptionalRequestHeader("url")]
+        [DeserializeAs(Name = "url")]
+        [SerializeAs(Name = "url")]
         public string Url { get; set; }
 
-        [JsonProperty("image")]
+        [DeserializeAs(Name = "image")]
         public string Image { get; set; }
 
-        [JsonProperty("support_url")]
-        [OptionalRequestHeader("support_url")]
+        [DeserializeAs(Name = "support_url")]
+        [SerializeAs(Name = "support_url")]
         public string SupportUrl { get; set; }
 
-        [JsonProperty("support_phone")]
-        [OptionalRequestHeader("support_phone")]
+        [DeserializeAs(Name = "support_phone")]
+        [SerializeAs(Name = "support_phone")]
         public string SupportPhone { get; set; }
 
-        [JsonProperty("support_email")]
-        [OptionalRequestHeader("support_email")]
+        [DeserializeAs(Name = "support_email")]
+        [SerializeAs(Name = "support_email")]
         public string SupportEmail { get; set; }
 
-        [JsonProperty("assets_count")]
+        [DeserializeAs(Name = "assets_count")]
         public long AssetsCount { get; set; }
 
-        [JsonProperty("licenses_count")]
+        [DeserializeAs(Name = "licenses_count")]
         public long LicensesCount { get; set; }
     }
 }

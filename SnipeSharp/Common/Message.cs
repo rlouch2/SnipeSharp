@@ -1,18 +1,18 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestSharp.Deserializers;
 
 namespace SnipeSharp.Common
 {
     public class Message
     {
-        [JsonProperty("name")]
+        [DeserializeAs(Name = "name")]
         public List<string> Name { get; set; }
 
-        [JsonProperty("general")]
+        [DeserializeAs(Name = "general")]
         public List<string> General { get; set; }
     }
 }

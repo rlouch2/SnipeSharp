@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.Attributes;
+﻿using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using SnipeSharp.Exceptions;
 using SnipeSharp.JsonConverters;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Represents the the base of all objects we get back the API.  This is the building block for all more 
@@ -15,18 +17,19 @@ namespace SnipeSharp.Endpoints.Models
 {
     public class CommonEndpointModel : ICommonEndpointModel
     {
-        [JsonProperty("id")]
+        [DeserializeAs(Name = "id")]
         public long Id { get; set; }
 
-        [JsonProperty("name")]
-        [RequiredRequestHeader("name")]
+        [DeserializeAs(Name = "name")]
+        [SerializeAs(Name = "name")]
+        [RequiredField]
         public string Name { get; set; }
 
-        [JsonProperty("created_at")]
+        [DeserializeAs(Name = "created_at")]
         [JsonConverter(typeof(ResponseDateTimeConverter))]
         public ResponseDate CreatedAt { get; set; }
 
-        [JsonProperty("updated_at")]
+        [DeserializeAs(Name = "updated_at")]
         [JsonConverter(typeof(ResponseDateTimeConverter))]
         public ResponseDate UpdatedAt { get; set; }
 

@@ -2,33 +2,34 @@
 using SnipeSharp.Endpoints.Models;
 using System;
 using System.Linq;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.EndpointHelpers
 {
     public class AssetCheckoutRequest
     {
-        [OptionalRequestHeader("checkout_to_type")]
+        [SerializeAs(Name = "checkout_to_type")]
         public string CheckOutToType { get; set; }
 
-        [OptionalRequestHeader("assigned_location")]
+        [SerializeAs(Name = "assigned_location")]
         public Location AssignedLocation { get; set; }
 
-        [OptionalRequestHeader("assigned_asset")]
+        [SerializeAs(Name = "assigned_asset")]
         public Asset AssignedAsset { get; set; }
 
-        [OptionalRequestHeader("assigned_user")]
+        [SerializeAs(Name = "assigned_user")]
         public User AssignedUser { get; set; }
 
-        [OptionalRequestHeader("note")]
+        [SerializeAs(Name = "note")]
         public string Note { get; set; }
 
-        [OptionalRequestHeader("expected_checkin")]
+        [SerializeAs(Name = "expected_checkin")]
         public string ExpectedCheckIn { get; set; } // TODO: Make this a date object
 
-        [OptionalRequestHeader("checkout_at")]
+        [SerializeAs(Name = "checkout_at")]
         public string CheckOutAt { get; set; }  // TODO: Make this a date object
 
-        [OptionalRequestHeader("name")]
+        [SerializeAs(Name = "name")]
         public string Name { get; set; }
     }
 }
