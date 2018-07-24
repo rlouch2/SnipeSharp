@@ -57,20 +57,18 @@ namespace SnipeSharp.Endpoints
         public IResponseCollection<T> FindAll(ISearchFilter filter)
         {
             var result = PerformLookup<ResponseCollection<T>>(BaseUri, filter);
-
-            var baseOffset = filter.Offset == null ? 0 : filter.Offset;
+            var baseOffset = filter?.Offset == null ? 0 : filter.Offset;
             // If there is no limit and there are more total than retrieved
-            if(filter.Limit == null && baseOffset + result.Rows.Count < result.Total)
+            if(filter?.Limit == null && baseOffset + result.Rows.Count < result.Total)
             {
+                if(filter == null)
+                    filter = new SearchFilter();
                 filter.Limit = 1000;
                 filter.Offset = baseOffset + result.Rows.Count;
-                
                 while (baseOffset + result.Rows.Count < result.Total)
                 {
                     var batch = PerformLookup<ResponseCollection<T>>(BaseUri, filter);
-
                     result.Rows.AddRange(batch.Rows);
-
                     filter.Offset += 1000;
                 }
             }
