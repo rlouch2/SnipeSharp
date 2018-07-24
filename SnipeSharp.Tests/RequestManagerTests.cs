@@ -35,34 +35,31 @@ namespace SnipeSharp.Tests
         [Fact]
         public void CheckApiTokenAndUrl_SetHttpClientBaseAddress_SetCorrectly()
         {
-            var snipe = new SnipeItApi();
             var url = new Uri("http://google.com");
-            snipe.ApiSettings.ApiToken = "xxxxx";
-            snipe.ApiSettings.BaseUrl = url;
+            var snipe = new SnipeItApi {
+                ApiSettings = new ApiSettings {
+                    ApiToken = "xxxxx",
+                    BaseUrl = url
+                }
+            };
             snipe.ReqManager.CheckApiTokenAndUrl();
-
-            // Get the Static property value
-            var prop = typeof(RequestManagerRestSharp).GetField("Client", BindingFlags.NonPublic | BindingFlags.Static);
-            var client = prop.GetValue(snipe.ReqManager) as RestClient;
-
-            Assert.Equal<Uri>(url, client.BaseUrl);
+            Assert.Equal<Uri>(url, snipe.ReqManager.Client.BaseUrl);
         }
 
         [Fact(Skip = "Needs a Mock or something to work right.")]
         public void CheckApiTokenAndUrl_SetAuthorizationHeader_SetCorrectly()
         {
-            var snipe = new SnipeItApi();
             var url = new Uri("http://google.com");
-            snipe.ApiSettings.ApiToken = "xxxxx";
-            snipe.ApiSettings.BaseUrl = url;
+            var snipe = new SnipeItApi {
+                ApiSettings = new ApiSettings {
+                    ApiToken = "xxxxx",
+                    BaseUrl = url
+                }
+            };
             snipe.ReqManager.CheckApiTokenAndUrl();
-
-            // Get the Static property value
-            var prop = typeof(RequestManagerRestSharp).GetField("Client", BindingFlags.NonPublic | BindingFlags.Static);
-            var client = prop.GetValue(snipe.ReqManager) as RestClient;
-
+            
             // NOTE: This test depends on the internal implementation of RestSharp not changing. Check there if you update that dependency!
-            //var value = new PrivateObject(client.Authenticator).GetField("authorizationValue") as string;
+            //var value = new PrivateObject(snipe.ReqManager.Client.Authenticator).GetField("authorizationValue") as string;
             
             //Assert.Equal<string>("Bearer xxxxx", value);
         }

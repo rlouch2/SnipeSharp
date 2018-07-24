@@ -9,13 +9,13 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Common
 {
-    class RequestManagerRestSharp : IRequestManager
+    class RequestManager : IRequestManager
     {
 
         internal readonly SnipeItApi Api;
         internal readonly RestClient Client;
 
-        public RequestManagerRestSharp(SnipeItApi api)
+        public RequestManager(SnipeItApi api)
         {
             Api = api;
             Client = new RestClient();

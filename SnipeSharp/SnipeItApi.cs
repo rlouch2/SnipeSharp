@@ -25,13 +25,12 @@ namespace SnipeSharp
         public IEndPointManager<Supplier> SupplierManager;
         public IEndPointManager<Depreciation> DepreciationManager;
         public IEndPointManager<Department> DepartmentManager;
-        // Test 
-        public IRequestManager ReqManager;
+        internal RequestManager ReqManager;
 
         public SnipeItApi()
         {
             ApiSettings = new ApiSettings();
-            ReqManager = new RequestManagerRestSharp(this);
+            ReqManager = new RequestManager(this);
             AssetManager = new AssetEndpointManager(ReqManager);
             CompanyManager = new EndPointManager<Company>(ReqManager);
             LocationManager = new EndPointManager<Location>(ReqManager);
