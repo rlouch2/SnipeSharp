@@ -44,8 +44,6 @@ namespace SnipeSharp.Endpoints
         /// <returns></returns>
         public IResponseCollection<T> GetAll()
         {
-            // Figure out how many rows the results will return so we can split up requests
-            var count = FindAll(new SearchFilter { Limit = 1 });
             // Let FindAll logic get everything for us.
             return FindAll(null);
         }
