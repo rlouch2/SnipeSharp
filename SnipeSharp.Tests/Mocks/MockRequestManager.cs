@@ -38,17 +38,17 @@ namespace SnipeSharp.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        public string Get(string path, ISearchFilter filter)
+        public string Get(string path, IQueryParameterProvider filter)
         {
             throw new NotImplementedException();
         }
 
-        public string Post(string path, ICommonEndpointModel item)
+        public string Post(string path, IQueryParameterProvider item)
         {
             throw new NotImplementedException();
         }
 
-        public string Put(string path, ICommonEndpointModel item)
+        public string Put(string path, IQueryParameterProvider item)
         {
             throw new NotImplementedException();
         }
