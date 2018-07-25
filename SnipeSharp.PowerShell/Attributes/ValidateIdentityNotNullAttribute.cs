@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Attributes
             if(!(element is IObjectIdentity))
                 throw new ValidationMetadataException($"Object {element} is not an IObjectIdentity.");
             if((element as IObjectIdentity).IsNull)
-                throw new ValidateMetadataException($"Object {element} has a null inner object.");
+                throw new ValidationMetadataException($"Object {element} has a null inner object.");
         }
     }
 }
