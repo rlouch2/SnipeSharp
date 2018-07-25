@@ -40,7 +40,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ParameterSetName = "ByIdentity",
             Position = 0,
             ValueFromPipeline = true,
-            ValueFromRemainingArguments = true
+            ValueFromPipelineByPropertyName = true
         )]
         public AssetIdentity[] Identity { get; set; }
 

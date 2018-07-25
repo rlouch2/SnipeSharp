@@ -1,5 +1,9 @@
 ﻿using System;
 using SnipeSharp;
+using SnipeSharp.Endpoints.ExtendedManagers;
+using SnipeSharp.Endpoints.Models;
+using SnipeSharp.Endpoints.EndpointHelpers;
+using SnipeSharp.Common;
 
 namespace SnipeSharp.PowerShell
 {
@@ -25,6 +29,39 @@ namespace SnipeSharp.PowerShell
                 else
                     _instance = value;
             }
+        }
+
+        public static IRequestResponse CheckOutAsset(this AssetEndpointManager<Asset> manager, Asset asset, User user)
+        {
+            return manager.Checkout(new Asset {
+                Id = asset.Id,
+                CheckoutRequest = new AssetCheckoutRequest {
+                    CheckoutToType = "user",
+                    AssignedUser = user
+                }
+            });
+        }
+
+        public static IRequestResponse CheckOutAsset(this AssetEndpointManager<Asset> manager, Asset asset, Location location)
+        {
+            return manager.Checkout(new Asset {
+                Id = asset.Id,
+                CheckoutRequest = new AssetCheckoutRequest {
+                    CheckoutToType = "location",
+                    AssignedLocation = location
+                }
+            });
+        }
+
+        public static IRequestResponse CheckOutAsset(this AssetEndpointManager<Asset> manager, Asset asset, Asset assignedAsset)
+        {
+            return manager.Checkout(new Asset {
+                Id = asset.Id,
+                CheckoutRequest = new AssetCheckoutRequest {
+                    CheckoutToType = "asset",
+                    AssignedAsset = assignedAsset
+                }
+            });
         }
     }
 }

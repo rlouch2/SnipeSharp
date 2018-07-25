@@ -26,6 +26,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [Cmdlet(VerbsCommon.Get, "Accessory",
         DefaultParameterSetName = "ByName"
     )]
+    [OutputType(typeof(Accessory))]
     public class GetAccessory: PSCmdlet
     {
         /// <summary>

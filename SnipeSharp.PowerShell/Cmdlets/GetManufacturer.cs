@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Management.Automation;
+using SnipeSharp.Endpoints.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
@@ -24,6 +25,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [Cmdlet(VerbsCommon.Get, "Manufacturer",
         DefaultParameterSetName = "ByName"
     )]
+    [OutputType(typeof(Manufacturer))]
     public class GetManufacturer: PSCmdlet
     {
         /// <summary>
