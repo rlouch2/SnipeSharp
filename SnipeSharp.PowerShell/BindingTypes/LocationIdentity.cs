@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <param name="id">The Snipe IT internal Id of a Location.</param>
         public LocationIdentity(int id)
         {
-            Asset = ApiHelper.Instance.LocationManager.Get(id);
+            Location = ApiHelper.Instance.LocationManager.Get(id);
             Identity = id.ToString();
         }
 
@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <param name="name">A Name for a Location.</param>
         public LocationIdentity(string name)
         {
-            Asset = ApiHelper.Instance.LocationManager.Get(name);
+            Location = ApiHelper.Instance.LocationManager.Get(name);
             Identity = name;
         }
 
@@ -32,21 +32,21 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Re-fetches a Location by its internal Id.
         /// </summary>
         /// <param name="asset">A Location object.</param>
-        public LocationIdentity(Location location) : this((int) asset.Id)
+        public LocationIdentity(Location location) : this((int) location.Id)
         {
             // Uses Id constructor
         }
 
         /// <summary>
-        /// The fetched Asset.
+        /// The fetched Location.
         /// </summary>
-        /// <value>An asset object, if the Identity was valid, else null.</value>
+        /// <value>A Location object, if the Identity was valid, else null.</value>
         internal Location Location { get; private set; }
 
         /// <summary>
-        /// The Identity used to fetch the Asset; for use in debugging and error reporting.
+        /// The Identity used to fetch the Location; for use in debugging and error reporting.
         /// </summary>
-        /// <value>The Identity value used to fetch the Asset from the system represented as a string.</value>
+        /// <value>The Identity value used to fetch the Location from the system represented as a string.</value>
         internal string Identity { get; private set; }
     }
 }

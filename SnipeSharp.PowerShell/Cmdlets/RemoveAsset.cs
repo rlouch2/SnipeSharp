@@ -33,7 +33,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(IRequestResponse))]
-    public class GetAsset: PSCmdlet
+    public class RemoveAsset: PSCmdlet
     {
         /// <summary>
         /// <para type="description">A device identity for an Asset.</para>
@@ -100,11 +100,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         if(item.Asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Identity {item.Identity}", ErrorCategory.InvalidArgument, item.Identity));
-                        } else if(ShouldProcess(name))
+                        } else if(ShouldProcess(item.Asset.Name ?? item.Asset.Id.ToString()))
                         {
-                            var respone = ApiHelper.Instance.AssetManager.Delete(item);
+                            var response = ApiHelper.Instance.AssetManager.Delete(item.Asset);
                             if(ShowResponse.IsPresent)
-                                WriteObject(respone);
+                                WriteObject(response);
                         }
                     }
                     break;
@@ -115,11 +115,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by internal Id {item}", ErrorCategory.InvalidArgument, item));
-                        } else if(ShouldProcess(name))
+                        } else if(ShouldProcess(asset.Name ?? asset.Id.ToString()))
                         {
-                            var respone = ApiHelper.Instance.AssetManager.Delete(item);
+                            var response = ApiHelper.Instance.AssetManager.Delete(item);
                             if(ShowResponse.IsPresent)
-                                WriteObject(respone);
+                                WriteObject(response);
                         }
                     }
                     break;
@@ -130,11 +130,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Asset Tag \"{item}\"", ErrorCategory.InvalidArgument, item));
-                        } else if(ShouldProcess(name))
+                        } else if(ShouldProcess(asset.Name ?? asset.Id.ToString()))
                         {
-                            var respone = ApiHelper.Instance.AssetManager.Delete(item);
+                            var response = ApiHelper.Instance.AssetManager.Delete(asset);
                             if(ShowResponse.IsPresent)
-                                WriteObject(respone);
+                                WriteObject(response);
                         }
                     }
                     break;
@@ -145,11 +145,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Name \"{item}\"", ErrorCategory.InvalidArgument, item));
-                        } else if(ShouldProcess(name))
+                        } else if(ShouldProcess(asset.Name ?? asset.Id.ToString()))
                         {
-                            var respone = ApiHelper.Instance.AssetManager.Delete(item);
+                            var response = ApiHelper.Instance.AssetManager.Delete(asset);
                             if(ShowResponse.IsPresent)
-                                WriteObject(respone);
+                                WriteObject(response);
                         }
                     }
                     break;
@@ -160,11 +160,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         if(asset == null)
                         {
                             WriteError(new ErrorRecord(null, $"Asset not found by Serial \"{item}\"", ErrorCategory.InvalidArgument, item));
-                        } else if(ShouldProcess(name))
+                        } else if(ShouldProcess(asset.Name ?? asset.Id.ToString()))
                         {
-                            var respone = ApiHelper.Instance.AssetManager.Delete(item);
+                            var response = ApiHelper.Instance.AssetManager.Delete(asset);
                             if(ShowResponse.IsPresent)
-                                WriteObject(respone);
+                                WriteObject(response);
                         }
                     }
                     break;

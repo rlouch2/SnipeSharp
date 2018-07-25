@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <param name="id">The Snipe IT internal Id of a User.</param>
         public UserIdentity(int id)
         {
-            Asset = ApiHelper.Instance.UserManager.Get(id);
+            User = ApiHelper.Instance.UserManager.Get(id);
             Identity = id.ToString();
         }
         
@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <param name="name">A Name for a User.</param>
         public UserIdentity(string name)
         {
-            Asset = ApiHelper.Instance.UserManager.Get(name);
+            User = ApiHelper.Instance.UserManager.Get(name);
             Identity = name;
         }
 
@@ -32,21 +32,21 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Re-fetches a User by its internal Id.
         /// </summary>
         /// <param name="asset">A User object.</param>
-        public UserIdentity(User location) : this((int) asset.Id)
+        public UserIdentity(User user) : this((int) user.Id)
         {
             // Uses Id constructor
         }
 
         /// <summary>
-        /// The fetched Asset.
+        /// The fetched User.
         /// </summary>
-        /// <value>An asset object, if the Identity was valid, else null.</value>
+        /// <value>A User object, if the Identity was valid, else null.</value>
         internal User User { get; private set; }
 
         /// <summary>
-        /// The Identity used to fetch the Asset; for use in debugging and error reporting.
+        /// The Identity used to fetch the User; for use in debugging and error reporting.
         /// </summary>
-        /// <value>The Identity value used to fetch the Asset from the system represented as a string.</value>
+        /// <value>The Identity value used to fetch the User from the system represented as a string.</value>
         internal string Identity { get; private set; }
     }
 }

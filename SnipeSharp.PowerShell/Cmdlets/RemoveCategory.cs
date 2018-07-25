@@ -88,9 +88,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(null, $"Category not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
                     } else if(ShouldProcess(name))
                     {
-                        var respone = ApiHelper.Instance.CategoryManager.Delete(item);
+                        var response = ApiHelper.Instance.CategoryManager.Delete(item);
                         if(ShowResponse.IsPresent)
-                            WriteObject(respone);
+                            WriteObject(response);
                     }
                 }
             } else if(ParameterSetName == "ByInternalId")
@@ -103,9 +103,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(null, $"Category not found by internal id {id}", ErrorCategory.InvalidArgument, id));
                     } else if(ShouldProcess(item.Name ?? item.Id.ToString()))
                     {
-                        var respone = ApiHelper.Instance.CategoryManager.Delete(item);
+                        var response = ApiHelper.Instance.CategoryManager.Delete(item);
                         if(ShowResponse.IsPresent)
-                            WriteObject(respone);
+                            WriteObject(response);
                     }
                 }
             } else
@@ -117,9 +117,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(null, $"Category cannot be null!", ErrorCategory.InvalidArgument, null));
                     } else if(ShouldProcess(item.Name ?? item.Id.ToString()))
                     {
-                        var respone = ApiHelper.Instance.CategoryManager.Delete(item);
+                        var response = ApiHelper.Instance.CategoryManager.Delete(item);
                         if(ShowResponse.IsPresent)
-                            WriteObject(respone);
+                            WriteObject(response);
                     }
                 }
             }

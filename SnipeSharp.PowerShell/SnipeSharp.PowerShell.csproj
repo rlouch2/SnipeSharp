@@ -45,14 +45,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiHelper.cs" />
-    <Compile Include="BindingTypes\AssetIdentity.cs" />
-    <Compile Include="Cmdlets\ConnectSnipeIT.cs" />
-    <Compile Include="Cmdlets\DisconnectSnipeIT.cs" />
-    <Compile Include="Cmdlets\GetAsset.cs" />
-    <Compile Include="Enums\AssetSort.cs" />
-    <Compile Include="Enums\Order.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="**/*.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
