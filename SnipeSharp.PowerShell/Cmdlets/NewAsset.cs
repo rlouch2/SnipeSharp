@@ -63,7 +63,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string OrderNumber { get; set; }
         
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public long? PurchaseCost { get; set; }
+        [ValidateNotNullOrEmpty]
+        public string PurchaseCost { get; set; }
         
         [Parameter(ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
@@ -99,7 +100,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 ModelNumber = this.ModelNumber,
                 Notes = this.Notes,
                 OrderNumber = this.OrderNumber,
-                PurchaseCost = this.PurchaseCost?.ToString(),
+                PurchaseCost = this.PurchaseCost,
                 RtdLocation = this.RtdLocation?.Location,
                 Serial = this.Serial,
                 StatusLabel = this.StatusLabel?.StatusLabel,
@@ -111,7 +112,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     DateTime = this.PurchaseDate
                 };
             }
-            ApiHelper.Instance.AssetManager.Create(item);
+            //TODO: error handling
+            WriteObject(ApiHelper.Instance.AssetManager.Create(item).Payload);
         }
     }
 }

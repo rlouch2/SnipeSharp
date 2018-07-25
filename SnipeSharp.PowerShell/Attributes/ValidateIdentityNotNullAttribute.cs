@@ -10,6 +10,7 @@ namespace SnipeSharp.PowerShell.Attributes
         {
             if(element == null)
                 throw new ValidationMetadataException();
+            // TODO: check identities for null for real
         }
     }
 }
