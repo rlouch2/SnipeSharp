@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert a Supplier identity into a Supplier object.</para>
     /// </summary>
-    public class SupplierIdentity
+    public class SupplierIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single Supplier by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the Supplier from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => Supplier == null;
     }
 }

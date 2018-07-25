@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert a Category identity into a Category object.</para>
     /// </summary>
-    public class CategoryIdentity
+    public class CategoryIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single Category by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the Category from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => Category == null;
     }
 }

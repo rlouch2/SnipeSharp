@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Management.Automation;
+using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Attributes
 {
@@ -10,7 +11,10 @@ namespace SnipeSharp.PowerShell.Attributes
         {
             if(element == null)
                 throw new ValidationMetadataException();
-            // TODO: check identities for null for real
+            if(!(element is IObjectIdentity))
+                throw new ValidationMetadataException($"Object {element} is not an IObjectIdentity.");
+            if((element as IObjectIdentity).IsNull)
+                throw new ValidateMetadataException($"Object {element} has a null inner object.");
         }
     }
 }

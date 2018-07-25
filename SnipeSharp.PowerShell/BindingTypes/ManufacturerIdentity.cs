@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert a Manufacturer identity into a Manufacturer object.</para>
     /// </summary>
-    public class ManufacturerIdentity
+    public class ManufacturerIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single Manufacturer by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the Manufacturer from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => Manufacturer == null;
     }
 }

@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert a Location identity into a Location object.</para>
     /// </summary>
-    public class LocationIdentity
+    public class LocationIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single Location by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the Location from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => Location == null;
     }
 }

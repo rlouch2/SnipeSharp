@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert a User identity into a User object.</para>
     /// </summary>
-    public class UserIdentity
+    public class UserIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single User by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the User from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => User == null;
     }
 }

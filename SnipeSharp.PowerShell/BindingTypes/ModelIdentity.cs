@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert a Model identity into a Model object.</para>
     /// </summary>
-    public class ModelIdentity
+    public class ModelIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single Model by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the Model from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => Model == null;
     }
 }

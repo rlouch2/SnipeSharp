@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert an Asset identity into an Asset object.</para>
     /// </summary>
-    public class AssetIdentity
+    public class AssetIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single Asset by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the Asset from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => Asset == null;
     }
 }

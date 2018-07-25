@@ -6,7 +6,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// <para type="description">Used to convert a StatusLabel identity into a StatusLabel object.</para>
     /// </summary>
-    public class StatusLabelIdentity
+    public class StatusLabelIdentity: IObjectIdentity
     {
         /// <summary>
         /// Fetches a single StatusLabel by its internal Id.
@@ -48,5 +48,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         /// <value>The Identity value used to fetch the StatusLabel from the system represented as a string.</value>
         internal string Identity { get; private set; }
+
+        public bool IsNull => StatusLabel == null;
     }
 }
