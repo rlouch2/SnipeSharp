@@ -1,0 +1,7 @@
+
+{
+    "files.eol": "\r\n",
+    "files.encoding": "utf8bom",
+    "cSpell.enabled": false,
+    "dotnet-test-explorer.testProjectPath": "SnipeSharp.Tests"
+}
