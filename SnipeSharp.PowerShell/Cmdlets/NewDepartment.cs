@@ -7,6 +7,7 @@ using SnipeSharp.PowerShell.Attributes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Department")]
+    [OutputType(typeof(Depreciation))]
     public class NewDepartment: PSCmdlet
     {
         [Parameter(

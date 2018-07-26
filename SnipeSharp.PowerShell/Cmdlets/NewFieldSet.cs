@@ -5,6 +5,7 @@ using SnipeSharp.Endpoints.Models;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "FieldSet")]
+    [OutputType(typeof(FieldSet))]
     public class NewFieldSet: PSCmdlet
     {
         [Parameter(

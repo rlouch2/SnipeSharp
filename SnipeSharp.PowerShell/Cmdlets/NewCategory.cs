@@ -5,6 +5,7 @@ using SnipeSharp.Endpoints.Models;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Category")]
+    [OutputType(typeof(Category))]
     public class NewCategory: PSCmdlet
     {
         [Parameter(

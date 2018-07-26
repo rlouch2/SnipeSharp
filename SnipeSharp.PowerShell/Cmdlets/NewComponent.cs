@@ -8,6 +8,7 @@ using SnipeSharp.PowerShell.Attributes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Component")]
+    [OutputType(typeof(Component))]
     public class NewComponent: PSCmdlet
     {
         [Parameter(

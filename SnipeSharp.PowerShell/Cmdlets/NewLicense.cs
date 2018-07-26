@@ -8,6 +8,7 @@ using SnipeSharp.Common;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "License")]
+    [OutputType(typeof(License))]
     public class NewLicense: PSCmdlet
     {
         [Parameter(

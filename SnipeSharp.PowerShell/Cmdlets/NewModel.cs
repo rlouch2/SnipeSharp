@@ -7,6 +7,7 @@ using SnipeSharp.PowerShell.Attributes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Model")]
+    [OutputType(typeof(Model))]
     public class NewModel: PSCmdlet
     {
         [Parameter(

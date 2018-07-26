@@ -8,6 +8,7 @@ using SnipeSharp.PowerShell.Attributes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Consumable")]
+    [OutputType(typeof(Consumable))]
     public class NewConsumable: PSCmdlet
     {
         [Parameter(

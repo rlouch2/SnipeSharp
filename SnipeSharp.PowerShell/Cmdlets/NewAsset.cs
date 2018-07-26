@@ -9,6 +9,7 @@ using SnipeSharp.PowerShell.Attributes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Asset")]
+    [OutputType(typeof(Asset))]
     public class NewAsset: PSCmdlet
     {
         [Parameter(

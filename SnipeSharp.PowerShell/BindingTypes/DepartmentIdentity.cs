@@ -32,7 +32,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Re-fetches a Department by its internal Id.
         /// </summary>
         /// <param name="asset">A Department object.</param>
-        public DepartmentIdentity(Department category) : this((int) category.Id)
+        public DepartmentIdentity(Department department) : this((int) department.Id)
         {
             // Uses Id constructor
         }

@@ -7,6 +7,7 @@ using SnipeSharp.PowerShell.BindingTypes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Location")]
+    [OutputType(typeof(Location))]
     public class NewLocation: PSCmdlet
     {
         [Parameter(

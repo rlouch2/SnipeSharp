@@ -5,6 +5,7 @@ using SnipeSharp.Endpoints.Models;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Company")]
+    [OutputType(typeof(Company))]
     public class NewCompany: PSCmdlet
     {
         [Parameter(

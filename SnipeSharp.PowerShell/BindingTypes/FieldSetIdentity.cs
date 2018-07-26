@@ -32,7 +32,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Re-fetches a FieldSet by its internal Id.
         /// </summary>
         /// <param name="asset">A FieldSet object.</param>
-        public FieldSetIdentity(FieldSet category) : this((int) category.Id)
+        public FieldSetIdentity(FieldSet fieldSet) : this((int) fieldSet.Id)
         {
             // Uses Id constructor
         }

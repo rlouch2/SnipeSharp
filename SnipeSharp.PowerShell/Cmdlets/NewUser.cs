@@ -8,6 +8,7 @@ using SnipeSharp.PowerShell.BindingTypes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "User")]
+    [OutputType(typeof(User))]
     public class NewUser: PSCmdlet
     {
         [Parameter(ValueFromPipelineByPropertyName = true)]

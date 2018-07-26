@@ -32,7 +32,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Re-fetches a Depreciation by its internal Id.
         /// </summary>
         /// <param name="asset">A Depreciation object.</param>
-        public DepreciationIdentity(Depreciation category) : this((int) category.Id)
+        public DepreciationIdentity(Depreciation depreciation) : this((int) depreciation.Id)
         {
             // Uses Id constructor
         }
