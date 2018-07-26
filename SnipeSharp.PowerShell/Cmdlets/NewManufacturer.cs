@@ -37,7 +37,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 SupportEmail = this.SupportEmail
             };
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.LicenseManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.ManufacturerManager.Create(item).Payload);
         }
     }
 }

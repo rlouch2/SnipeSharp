@@ -53,7 +53,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Manager = this.Manager?.User
             };
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.LicenseManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.LocationManager.Create(item).Payload);
         }
     }
 }
