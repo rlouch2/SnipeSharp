@@ -110,41 +110,12 @@ namespace SnipeSharp
 
     internal sealed class NewtonsoftJsonSerializer : RestSharp.Serializers.ISerializer, RestSharp.Deserializers.IDeserializer
     {
-        private readonly JsonSerializer serializer = new JsonSerializer {
-            MissingMemberHandling = MissingMemberHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            DefaultValueHandling = DefaultValueHandling.Include
-        };
-
-        private readonly JsonSerializer deserializer = new JsonSerializer {
-            MissingMemberHandling = MissingMemberHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            DefaultValueHandling = DefaultValueHandling.Populate
-        };
-        
         public string ContentType { get; set; } = "application/json";
         public string DateFormat { get; set; }
         public string RootElement { get; set; }
         public string Namespace { get; set; }
 
-        public string Serialize(object @object)
-        {
-            using (var textWriter = new StringWriter())
-            using (var jsonWriter = new JsonTextWriter(textWriter) {
-                Formatting = Formatting.None,
-                QuoteChar = '"'
-            })
-            {
-                serializer.Serialize(jsonWriter, @object);
-                return textWriter.ToString();
-            }
-        }
-
-        public T Deserialize<T>(IRestResponse response)
-        {
-            using (var textReader = new StringReader(response.Content))
-            using (var jsonReader = new JsonTextReader(textReader))
-                return deserializer.Deserialize<T>(jsonReader);
-        }
+        public string Serialize(object @object) => JsonConvert.SerializeObject(@object);
+        public T Deserialize<T>(IRestResponse response) => JsonConvert.DeserializeObject<T>(response.Content);
     }
 }

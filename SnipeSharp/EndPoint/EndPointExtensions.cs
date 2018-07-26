@@ -1,4 +1,5 @@
-﻿using SnipeSharp.EndPoint.Models;
+﻿using System.Collections.Generic;
+using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.EndPoint
 {
@@ -11,12 +12,16 @@ namespace SnipeSharp.EndPoint
         }
 
         public static RequestResponse CheckIn(this EndPoint<Asset> endPoint, Asset asset, string note = null, Location location = null)
-        {
-            return endPoint.Api.RequestManager.Post($"{endPoint.EndPointInfo.BaseUri}/{asset.Id}/checkin", new AssetCheckInRequest {
+            => endPoint.Api.RequestManager.Post($"{endPoint.EndPointInfo.BaseUri}/{asset.Id}/checkin", new AssetCheckInRequest {
                 Note = note,
                 Location = location
             });
-        }
+
+        public static IList<Asset> GetAssignedAssets(this EndPoint<StatusLabel> endPoint, StatusLabel label)
+            => endPoint.Api.RequestManager.Get<ResponseCollection<Asset>>($"{endPoint.EndPointInfo.BaseUri}/{label.Id}/assetlist");
+
+        public static IList<Asset> GetAssignedAssets(this EndPoint<User> endPoint, User user)
+            => endPoint.Api.RequestManager.Get<ResponseCollection<Asset>>($"{endPoint.EndPointInfo.BaseUri}/{user.Id}/assetlist");
         //TODO
     }
 }
