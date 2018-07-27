@@ -72,7 +72,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company;
+                item.Company = this.Company?.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(FreeSeatsCount)))
                 item.FreeSeatsCount = this.FreeSeatsCount;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(LicenseEmail)))
@@ -82,7 +82,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Maintained)))
                 item.Maintained = this.Maintained;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer;
+                item.Manufacturer = this.Manufacturer?.Manufacturer;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = this.Notes;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
@@ -96,7 +96,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Seats)))
                 item.Seats = this.Seats;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                item.Supplier = this.Supplier;
+                item.Supplier = this.Supplier?.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(UserCanCheckout)))
                 item.UserCanCheckout = this.UserCanCheckout;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ExpirationDate)))

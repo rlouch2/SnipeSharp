@@ -46,19 +46,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer;
+                item.Manufacturer = this.Manufacturer?.Manufacturer;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category;
+                item.Category = this.Category?.Category;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
-                item.Depreciation = this.Depreciation;
+                item.Depreciation = this.Depreciation?.Depreciation;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Eol)))
                 item.Eol = this.Eol;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = this.Notes;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(FieldSet)))
-                item.FieldSet = this.FieldSet;
+                item.FieldSet = this.FieldSet?.FieldSet;
             //TODO: error handling
             WriteObject(ApiHelper.Instance.ModelManager.Update(item).Payload);
         }

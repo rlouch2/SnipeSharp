@@ -54,9 +54,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Zip)))
                 item.Zip = this.Zip;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Parent)))
-                item.Parent = this.Parent;
+                item.Parent = this.Parent?.Location;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager;
+                item.Manager = this.Manager?.User;
             //TODO: error handling
             WriteObject(ApiHelper.Instance.LocationManager.Update(item).Payload);
         }

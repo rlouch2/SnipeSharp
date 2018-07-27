@@ -50,21 +50,21 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category;
+                item.Category = this.Category?.Category;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company;
+                item.Company = this.Company?.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(MinAmt)))
-                item.MinAmt = this.MinAmt;
+                item.Location = this.Location?.Location;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumAmount)))
+                item.MinAmt = this.MinimumAmount;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
                 item.OrderNumber = this.OrderNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
                 item.PurchaseCost = this.PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
                 item.Quantity = this.Quantity;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(SerialNumber)))
-                item.SerialNumber = this.SerialNumber;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Serial)))
+                item.SerialNumber = this.Serial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
                 item.PurchaseDate = new ResponseDate {
                     DateTime = this.PurchaseDate

@@ -27,7 +27,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     ///   <para>Removes the first 100 assets by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Get-Asset</para>
-    [Cmdlet(VerbsCommon.Get, "Asset",
+    [Cmdlet(VerbsCommon.Remove, "Asset",
         DefaultParameterSetName = "ByAssetTag",
         ConfirmImpact = ConfirmImpact.High,
         SupportsShouldProcess = true

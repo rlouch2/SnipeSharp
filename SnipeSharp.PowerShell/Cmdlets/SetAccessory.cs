@@ -49,7 +49,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string PurchaseDate { get; set; }
 
         [Parameter]
-        public long Quantity { get; set; };
+        public long Quantity { get; set; }
 
         [Parameter]
         public SupplierIdentity Supplier { get; set; }
@@ -60,13 +60,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category;
+                item.Category = this.Category?.Category;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company;
+                item.Company = this.Company?.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location;
+                item.Location = this.Location?.Location;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer;
+                item.Manufacturer = this.Manufacturer?.Manufacturer;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))
                 item.MinQty = this.MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
@@ -80,7 +80,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
                 item.Quantity = this.Quantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                item.Supplier = this.Supplier;
+                item.Supplier = this.Supplier?.Supplier;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
                 item.PurchaseDate = new ResponseDate {
                     DateTime = this.PurchaseDate

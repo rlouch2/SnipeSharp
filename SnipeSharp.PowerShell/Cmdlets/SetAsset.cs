@@ -58,7 +58,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public string Serial { get; set; }
         
-        [Parameter)]
+        [Parameter]
         public StatusLabelIdentity StatusLabel { get; set; }
 
         [Parameter]
@@ -67,22 +67,20 @@ namespace SnipeSharp.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             var item = this.Asset.Asset;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssetTag)))
-                item.AssetTag = this.AssetTag;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category;
+                item.Category = this.Category?.Category;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company;
+                item.Company = this.Company?.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)))
                 item.CustomFields = this.CustomFields;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location;
+                item.Location = this.Location?.Location;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer;
+                item.Manufacturer = this.Manufacturer?.Manufacturer;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
-                item.Model = this.Model;
+                item.Model = this.Model?.Model;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
@@ -92,14 +90,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
                 item.PurchaseCost = this.PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(RtdLocation)))
-                item.RtdLocation = this.RtdLocation;
+                item.RtdLocation = this.RtdLocation?.Location;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Serial)))
                 item.Serial = this.Serial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(StatusLabel)))
-                item.StatusLabel = this.StatusLabel;
+                item.StatusLabel = this.StatusLabel?.StatusLabel;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(WarrantyMonths)))
-                item.WarrantyMonths = this.WarrantyMonths;
-            if(MyInvocation.BoundParameters.ContainsKey(namneof(PurchaseDate)))
+                item.WarrantyMonths = this.WarrantyMonths.ToString();
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
                 item.PurchaseDate = new ResponseDate {
                     DateTime = this.PurchaseDate
                 };

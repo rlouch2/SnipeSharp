@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="order">An order.</param>
         /// <returns>A Snipe IT API-compatible order string.</returns>
-        public static string ToString(this Order order) => order == Order.Ascending ? "asc" : "desc";
+        public static string ToApiString(this Order order) => order == Order.Ascending ? "asc" : "desc";
     }
 
     /// <summary>

@@ -94,23 +94,23 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(City)))
                 item.City = this.City;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company;
+                item.Company = this.Company?.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Country)))
                 item.Country = this.Country;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Email)))
                 item.Email = this.Email;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(EmployeeNum)))
-                item.EmployeeNum = this.EmployeeNum;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Firstname)))
-                item.Firstname = this.Firstname;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Jobtitle)))
-                item.Jobtitle = this.Jobtitle;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Lastname)))
-                item.Lastname = this.Lastname;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(EmployeeNumber)))
+                item.EmployeeNum = this.EmployeeNumber;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(FirstName)))
+                item.Firstname = this.FirstName;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(JobTitle)))
+                item.Jobtitle = this.JobTitle;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(LastName)))
+                item.Lastname = this.LastName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location;
+                item.Location = this.Location?.Location;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager;
+                item.Manager = this.Manager?.User;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = this.Notes;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Permissions)))
@@ -119,14 +119,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Phone = this.Phone;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(State)))
                 item.State = this.State;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Username)))
-                item.Username = this.Username;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(UserName)))
+                item.Username = this.UserName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Zip)))
                 item.Zip = this.Zip;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Password)))
                 item.Password = this.Password;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Department)))
-                item.Department = this.Department;
+                item.Department = this.Department?.Department;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(LastLogin)))
                 item.LastLogin = new ResponseDate {
                     DateTime = this.LastLogin

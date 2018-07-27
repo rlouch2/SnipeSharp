@@ -50,7 +50,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         
         protected override void ProcessRecord()
         {
-            var item = this.Supplier.Supplier
+            var item = this.Supplier.Supplier;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Address)))

@@ -32,11 +32,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company;
+                item.Company = this.Company?.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager;
+                item.Manager = this.Manager?.User;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location;
+                item.Location = this.Location?.Location;
             //TODO: error handling
             WriteObject(ApiHelper.Instance.DepartmentManager.Update(item).Payload);
         }
