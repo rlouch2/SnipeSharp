@@ -3,7 +3,13 @@ using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.EndPoint
 {
-    public static class EndPointExtensions
+    public static class AccessoryEndPointExtensions
+    {
+        public static ResponseCollection<AccessoryCheckOut> GetCheckedOut(this EndPoint<Accessory> endPoint, Accessory accessory)
+            => endPoint.Api.RequestManager.Get<ResponseCollection<AccessoryCheckOut>>($"{endPoint.EndPointInfo.BaseUri}/{accessory.Id}/checkedout");
+    }
+
+    public static class AssetEndPointExtensions
     {
         public static RequestResponse CheckOut(this EndPoint<Asset> endPoint, AssetCheckOutRequest request)
         {
@@ -17,10 +23,10 @@ namespace SnipeSharp.EndPoint
                 Location = location
             });
 
-        public static IList<Asset> GetAssignedAssets(this EndPoint<StatusLabel> endPoint, StatusLabel label)
+        public static ResponseCollection<Asset> GetAssignedAssets(this EndPoint<StatusLabel> endPoint, StatusLabel label)
             => endPoint.Api.RequestManager.Get<ResponseCollection<Asset>>($"{endPoint.EndPointInfo.BaseUri}/{label.Id}/assetlist");
 
-        public static IList<Asset> GetAssignedAssets(this EndPoint<User> endPoint, User user)
+        public static ResponseCollection<Asset> GetAssignedAssets(this EndPoint<User> endPoint, User user)
             => endPoint.Api.RequestManager.Get<ResponseCollection<Asset>>($"{endPoint.EndPointInfo.BaseUri}/{user.Id}/assetlist");
         //TODO
     }

@@ -20,7 +20,7 @@ namespace SnipeSharp.EndPoint
                 throw new MissingRequiredAttributeException(nameof(EndPointInformationAttribute), typeof(T).Name);
         }
 
-        public IList<T> FindAll(ISearchFilter filter = null)
+        public ResponseCollection<T> FindAll(ISearchFilter filter = null)
         {
             var result = Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter);
             var offset = filter?.Offset == null ? 0 : filter.Offset;
@@ -74,6 +74,17 @@ namespace SnipeSharp.EndPoint
         public T Update(T toUpdate)
         {
             throw new System.NotImplementedException();
+        }
+
+        public T this[int id]
+        {
+            get => Get(id);
+            set => Update(value); // TODO: is this a good idea?
+        }
+
+        public T this[string name, bool caseSensitive = false]
+        {
+            get => Get(name, caseSensitive);
         }
     }
 }

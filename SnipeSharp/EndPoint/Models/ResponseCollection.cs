@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
 using SnipeSharp.EndPoint.Models;
-using SnipeSharp.JsonConverters;
-using RestSharp.Deserializers;
+using SnipeSharp.Serialization;
 using System.Collections;
 
 namespace SnipeSharp.EndPoint.Models
 {
-    public class ResponseCollection<T> : ApiObject, IList<T>
+    public sealed class ResponseCollection<T> : ApiObject, IList<T>
     {
-        [DeserializeAs(Name = "total")]
+        [Field("total")]
         public long Total { get; set; }
 
-        [DeserializeAs(Name = "rows")]
-        //[JsonConverter(typeof(DetectJsonObjectType))]
-        public List<T> Rows { get; set; }
+        [Field("rows")]
+        private List<T> Rows { get; set; }
 
         #region IListWrapper
         public T this[int index]

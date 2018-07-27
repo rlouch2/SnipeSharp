@@ -7,7 +7,7 @@ using SnipeSharp.EndPoint;
 using SnipeSharp.EndPoint.Filters;
 using SnipeSharp.EndPoint.Models;
 using SnipeSharp.Exceptions;
-using Newtonsoft.Json;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp
 {
@@ -46,6 +46,9 @@ namespace SnipeSharp
                 endpoints[type] = new EndPoint<T>(this);
             return endpoints[type] as IEndPoint<T>;
         }
+
+        public IEndPoint<Accessory> Accessories => GetEndPoint<Accessory>();
+
         public SnipeItApiv2()
         {
             RequestManager = new RestClientManager(this);
@@ -106,16 +109,5 @@ namespace SnipeSharp
             }
             return response as R;
         }
-    }
-
-    internal sealed class NewtonsoftJsonSerializer : RestSharp.Serializers.ISerializer, RestSharp.Deserializers.IDeserializer
-    {
-        public string ContentType { get; set; } = "application/json";
-        public string DateFormat { get; set; }
-        public string RootElement { get; set; }
-        public string Namespace { get; set; }
-
-        public string Serialize(object @object) => JsonConvert.SerializeObject(@object);
-        public T Deserialize<T>(IRestResponse response) => JsonConvert.DeserializeObject<T>(response.Content);
     }
 }
