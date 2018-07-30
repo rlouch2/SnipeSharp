@@ -46,7 +46,7 @@ namespace SnipeSharp.Tests
             Assert.Equal<Uri>(url, snipe.ReqManager.Client.BaseUrl);
         }
 
-        [Fact(Skip = "Needs a Mock or something to work right.")]
+        [Fact]
         public void CheckApiTokenAndUrl_SetAuthorizationHeader_SetCorrectly()
         {
             var url = new Uri("http://google.com");
@@ -57,11 +57,8 @@ namespace SnipeSharp.Tests
                 }
             };
             snipe.ReqManager.CheckApiTokenAndUrl();
-            
-            // NOTE: This test depends on the internal implementation of RestSharp not changing. Check there if you update that dependency!
-            //var value = new PrivateObject(snipe.ReqManager.Client.Authenticator).GetField("authorizationValue") as string;
-            
-            //Assert.Equal<string>("Bearer xxxxx", value);
+            // the best we can do.
+            Assert.NotNull(snipe.ReqManager.Client.Authenticator);
         }
     }
 }

@@ -94,6 +94,26 @@ namespace SnipeSharp
             return ExecuteRequest<R>(request);
         }
 
+        internal ResponseCollection<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
+        {
+            var result = Get<ResponseCollection<R>>(path, filter);
+            var offset = filter?.Offset == null ? 0 : filter.Offset;
+            if(filter?.Limit == null && offset + result.Count < result.Total)
+            {
+                if(filter == null)
+                    filter = new SearchFilter();
+                filter.Limit = 1000;
+                filter.Offset = offset + result.Count;
+                while(offset + result.Count < result.Total)
+                {
+                    var batch = Get<ResponseCollection<R>>(path, filter);
+                    result.AddRange(batch);
+                    filter.Offset += 1000;
+                }
+            }
+            return result;
+        }
+
         internal RequestResponse Post<T>(string path, T @object) where T: ApiObject
         {
             return null; //TODO

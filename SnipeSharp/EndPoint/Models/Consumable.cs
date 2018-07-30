@@ -2,7 +2,7 @@
 
 namespace SnipeSharp.EndPoint.Models
 {
-    public class Manufacturer : CommonEndPointModel
+    public class Consumable : CommonEndPointModel
     {
         public override long Id { get; set; }
         public override string Name { get; set; }

@@ -21,24 +21,7 @@ namespace SnipeSharp.EndPoint
         }
 
         public ResponseCollection<T> FindAll(ISearchFilter filter = null)
-        {
-            var result = Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter);
-            var offset = filter?.Offset == null ? 0 : filter.Offset;
-            if(filter?.Limit == null && offset + result.Count < result.Total)
-            {
-                if(filter == null)
-                    filter = new SearchFilter();
-                filter.Limit = 1000;
-                filter.Offset = offset + result.Count;
-                while(offset + result.Count < result.Total)
-                {
-                    var batch = Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter);
-                    result.AddRange(batch);
-                    filter.Offset += 1000;
-                }
-            }
-            return result;
-        }
+            => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
 
         public T FindOne(ISearchFilter filter)
         {
@@ -46,7 +29,8 @@ namespace SnipeSharp.EndPoint
             return Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter).FirstOrDefault();
         }
 
-        public T Get(int id) => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
+        public T Get(int id)
+            => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
 
         public T Get(string name, bool caseSensitive = false)
         {

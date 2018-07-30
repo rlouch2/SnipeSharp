@@ -15,6 +15,22 @@ namespace SnipeSharp.Serialization
             if(attribute != null)
             {
                 property.PropertyName = attribute.DeserializeAs;
+                switch(attribute.FieldConverter)
+                {
+                    case FieldConverter.StripMonthSuffix:
+                        property.MemberConverter = StripMonthSuffixConverter.Instance;
+                        break;
+                    case FieldConverter.ExtractDateTime:
+                        property.MemberConverter = CustomDateTimeConverter.Instance;
+                        break;
+                    case FieldConverter.SerializeToId:
+                    case FieldConverter.None:
+                        break;
+                }
+                property.Converter = property.MemberConverter;
+            } else
+            {
+                property.Ignored = true;
             }
             return property;
         }
