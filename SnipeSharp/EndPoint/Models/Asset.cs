@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
+using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
@@ -19,7 +20,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("serial")]
         public string Serial { get; set; }
 
-        [Field("model", SerializeAs = "model_id", FieldConverter = FieldConverter.SerializeToId)]
+        [Field("model", SerializeAs = "model_id", FieldConverter = SerializeToId)]
         public Model Model { get; set; }
 
         [Field("model_number")]
@@ -61,34 +62,34 @@ namespace SnipeSharp.EndPoint.Models
         [Field("assigned_to")]
         public object AssignedTo { get; set; } //TODO: type
 
-        [Field("warranty_months", FieldConverter = FieldConverter.StripMonthSuffix)]
+        [Field("warranty_months", FieldConverter = StripMonthSuffix)]
         public int? WarrantyMonths { get; set; }
 
-        [Field("warranty_expires", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("warranty_expires", FieldConverter = ExtractDateTime)]
         public DateTime? WarrantyExpires { get; set; }
 
-        [Field("created_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("created_at", FieldConverter = ExtractDateTime)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("updated_at", FieldConverter = ExtractDateTime)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("last_audit_date", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("last_audit_date", FieldConverter = ExtractDateTime)]
         public DateTime? LastAuditDate { get; set; }
 
-        [Field("next_audit_date", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("next_audit_date", FieldConverter = ExtractDateTime)]
         public DateTime? NextAuditDate { get; set; }
 
-        [Field("deleted_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("deleted_at", FieldConverter = ExtractDateTime)]
         public DateTime? DeletedAt { get; set; }
 
-        [Field("purchase_date", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("purchase_date", FieldConverter = ExtractDateTime)]
         public DateTime? PurchaseDate { get; set; }
 
-        [Field("last_checkout", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("last_checkout", FieldConverter = ExtractDateTime)]
         public DateTime? LastCheckOut { get; set; }
 
-        [Field("expected_checkin", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("expected_checkin", FieldConverter = ExtractDateTime)]
         public DateTime? ExpectedCheckIn { get; set; }
 
         [Field("purchase_cost")]
@@ -104,16 +105,16 @@ namespace SnipeSharp.EndPoint.Models
         public int RequestsCounter { get; set; }
 
         [Field("user_can_checkout")]
-        public bool UserCanCheckOut { get; set; }
+        public bool? CanUserCheckOut { get; set; }
 
         [Field("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
+        public List<AssetCustomField> CustomFields { get; set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
     }
 
-    public sealed class CustomField : ApiObject
+    public sealed class AssetCustomField : ApiObject
     {
         [Field("field")]
         public string Field { get; set; }

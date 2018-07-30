@@ -5,8 +5,8 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
-    [EndPointInformation("companies", "")]
-    public class Company : CommonEndPointModel
+    [EndPointInformation("depreciations", "")]
+    public class Depreciation : CommonEndPointModel
     {
         [Field("id")]
         public override long Id { get; set; }
@@ -14,8 +14,8 @@ namespace SnipeSharp.EndPoint.Models
         [Field("name")]
         public override string Name { get; set; }
 
-        [Field("image")]
-        public Uri ImageUri { get; set; }
+        [Field("months", FieldConverter = StripMonthSuffix)]
+        public int? Months { get; set; }
 
         [Field("created_at", FieldConverter = ExtractDateTime)]
         public override DateTime? CreatedAt { get; set; }
@@ -23,24 +23,6 @@ namespace SnipeSharp.EndPoint.Models
         [Field("updated_at", FieldConverter = ExtractDateTime)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("assets_count")]
-        public int AssetsCount { get; set; }
-
-        [Field("licenses_count")]
-        public int LicensesCount { get; set; }
-
-        [Field("accessories_count")]
-        public int AccessoriesCount { get; set; }
-
-        [Field("consumables_count")]
-        public int ConsumablesCount { get; set; }
-
-        [Field("copmonents_count")]
-        public int ComponentsCount { get; set; }
-
-        [Field("users_count")]
-        public int UsersCount { get; set; }
-        
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
     }

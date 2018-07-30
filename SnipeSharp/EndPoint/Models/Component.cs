@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
+using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
@@ -20,7 +21,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("serial")]
         public string Serial { get; set; }
 
-        [Field("location", SerializeAs = "location_id", FieldConverter = FieldConverter.SerializeToId)]
+        [Field("location", SerializeAs = "location_id", FieldConverter = SerializeToId)]
         public Location Location { get; set; }
 
         [Field("qty")]
@@ -29,13 +30,13 @@ namespace SnipeSharp.EndPoint.Models
         [Field("min_amt")]
         public int? MinimumQuantity { get; set; }
 
-        [Field("category", SerializeAs = "category_id", FieldConverter = FieldConverter.SerializeToId)]
+        [Field("category", SerializeAs = "category_id", FieldConverter = SerializeToId)]
         public Category Category { get; set; }
 
         [Field("order_number")]
         public string OrderNumber { get; set; }
 
-        [Field("purchase_date", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("purchase_date", FieldConverter = ExtractDateTime)]
         public DateTime? PurchaseDate { get; set; }
 
         [Field("purchase_cost")]
@@ -44,17 +45,17 @@ namespace SnipeSharp.EndPoint.Models
         [Field("remaining")]
         public int? RemainingQuantity { get; set; }
 
-        [Field("company", SerializeAs = "company_id", FieldConverter = FieldConverter.SerializeToId)]
+        [Field("company", SerializeAs = "company_id", FieldConverter = SerializeToId)]
         public Company Company { get; set; }
 
-        [Field("created_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("created_at", FieldConverter = ExtractDateTime)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("updated_at", FieldConverter = ExtractDateTime)]
         public override DateTime? UpdatedAt { get; set; }
 
         [Field("user_can_checkout", CanSerialize = false)]
-        public bool UserCanCheckOut { get; set; }
+        public bool? CanUserCheckOut { get; set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }

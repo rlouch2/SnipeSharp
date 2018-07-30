@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
+using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
@@ -28,10 +29,10 @@ namespace SnipeSharp.EndPoint.Models
         [Field("users_count")]
         public int UsersCount { get; set; }
 
-        [Field("created_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("created_at", FieldConverter = ExtractDateTime)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("updated_at", FieldConverter = ExtractDateTime)]
         public override DateTime? UpdatedAt { get; set; }
         
         [Field("available_actions")]

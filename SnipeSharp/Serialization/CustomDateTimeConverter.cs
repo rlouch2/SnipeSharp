@@ -19,9 +19,7 @@ namespace SnipeSharp.Serialization
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
+            => serializer.Serialize(writer, value == null ? null : new DateTimeResponse((value as DateTime?).Value));
     }
 
     internal sealed class DateTimeResponse
@@ -31,5 +29,15 @@ namespace SnipeSharp.Serialization
 
         [Field("formatted")]
         public string Formatted { get; set; }
+
+        public DateTimeResponse()
+        {
+        }
+
+        public DateTimeResponse(DateTime dateTime)
+        {
+            DateTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            Formatted = dateTime.ToString("yyyy-MM-dd hh:mm:ss tt");
+        }
     }
 }

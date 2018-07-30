@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using SnipeSharp.Serialization;
+using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {

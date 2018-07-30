@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
+using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
@@ -18,13 +19,13 @@ namespace SnipeSharp.EndPoint.Models
         public string CategoryType { get; set; }
 
         [Field("eula")]
-        public bool Eula { get; set; }
+        public bool? Eula { get; set; } // todo name
 
         [Field("checkin_email")]
-        public bool CheckInEmail { get; set; }
+        public bool? CheckInEmail { get; set; } // todo name
 
         [Field("require_acceptance")]
-        public bool RequireAcceptance { get; set; }
+        public bool? IsAcceptanceRequired { get; set; }
 
         [Field("assets_count")]
         public int? AssetsCount { get; set; }
@@ -41,10 +42,10 @@ namespace SnipeSharp.EndPoint.Models
         [Field("licenses_count")]
         public int? LicensesCount { get; set; }
 
-        [Field("created_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("created_at", FieldConverter = ExtractDateTime)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = FieldConverter.ExtractDateTime)]
+        [Field("updated_at", FieldConverter = ExtractDateTime)]
         public override DateTime? UpdatedAt { get; set; }
         
         [Field("available_actions")]

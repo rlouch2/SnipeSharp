@@ -7,10 +7,10 @@ namespace SnipeSharp.EndPoint.Models
 {
     public sealed class ResponseCollection<T> : ApiObject, IList<T>
     {
-        [Field("total")]
+        [Field("total", CanSerialize = false)]
         public long Total { get; set; }
 
-        [Field("rows")]
+        [Field("rows", CanSerialize = false)]
         private List<T> Rows { get; set; }
 
         #region IListWrapper
