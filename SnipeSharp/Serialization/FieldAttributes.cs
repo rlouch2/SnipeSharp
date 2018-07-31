@@ -20,6 +20,8 @@ namespace SnipeSharp.Serialization
         None,
         SerializeToId,
         StripMonthSuffix,
-        ExtractDateTime
+        ExtractDateTime,
+        ExtractTimeSpanDays,
+        IntegerPermissions
     }
 }

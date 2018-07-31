@@ -53,20 +53,29 @@ namespace SnipeSharp
         {
             RequestManager = new RestClientManager(this);
         }
+
+        internal SnipeItApiv2(IRestClient client)
+        {
+            RequestManager = new RestClientManager(this, client);
+        }
     }
 
     internal sealed class RestClientManager
     {
         private readonly SnipeItApiv2 api;
-        private readonly RestClient client;
+        private readonly IRestClient client;
 
         private readonly NewtonsoftJsonSerializer serializerDeserializer = new NewtonsoftJsonSerializer();
 
-        internal RestClientManager(SnipeItApiv2 api)
+        internal RestClientManager(SnipeItApiv2 api): this(api, new RestClient())
+        {
+            client.AddDefaultHeader("Accept", "application/json");
+        }
+
+        internal RestClientManager(SnipeItApiv2 api, IRestClient client)
         {
             this.api = api;
-            client = new RestClient();
-            client.AddDefaultHeader("Accept", "application/json");
+            this.client = client;
         }
 
         internal void SetTokenAndUri()
@@ -84,11 +93,19 @@ namespace SnipeSharp
         internal void ResetToken() => client.Authenticator = null;
         internal void ResetUri() => client.BaseUrl = null;
 
+        internal string GetRaw(string path)
+        {
+            var response = client.Execute(new RestRequest(path, Method.GET));
+            if(!response.IsSuccessful)
+            {
+                // TODO: error
+            }
+            return response.Content;
+        }
+
         internal R Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
-            var request = new RestRequest(path, Method.GET){
-                JsonSerializer = serializerDeserializer
-            };
+            var request = new RestRequest(path, Method.GET);
             if(!(filter is null))
                 request.AddObject(filter);
             return ExecuteRequest<R>(request);
@@ -122,12 +139,19 @@ namespace SnipeSharp
         private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
-            var response = client.Execute<ApiObject>(request);
-            if(response is RequestResponse)
+            var response = client.Execute(request);
+            if(!response.IsSuccessful)
             {
+                // TODO: error
+            }
+            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse>(response);
+            // Check if this is actually a RequestResponse
+            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
+            {
+                // It is, do stuff
                 // TODO: error handling/etc
             }
-            return response as R;
+            return serializerDeserializer.Deserialize<R>(response);
         }
     }
 }

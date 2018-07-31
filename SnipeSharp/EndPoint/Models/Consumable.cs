@@ -5,6 +5,7 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    [EndPointInformation("consumables", "")]
     public class Consumable : CommonEndPointModel
     {
         [Field("id")]
@@ -52,10 +53,10 @@ namespace SnipeSharp.EndPoint.Models
         [Field("qty")]
         public int? Quantity { get; set; }
 
-        [Field("created_at")]
+        [Field("created_at", FieldConverter = ExtractDateTime)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at")]
+        [Field("updated_at", FieldConverter = ExtractDateTime)]
         public override DateTime? UpdatedAt { get; set; }
 
         [Field("user_can_checkout")]

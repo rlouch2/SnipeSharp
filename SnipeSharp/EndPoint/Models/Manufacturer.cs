@@ -24,10 +24,10 @@ namespace SnipeSharp.EndPoint.Models
         public Uri SupportUrl { get; set; }
 
         [Field("support_phone")]
-        public string SupportPhone { get; set; }
+        public string SupportPhoneNumber { get; set; }
 
         [Field("support_email")]
-        public string SupportEmail { get; set; }
+        public string SupportEmailAddress { get; set; }
 
         [Field("assets_count")]
         public int? AssetsCount { get; set; }

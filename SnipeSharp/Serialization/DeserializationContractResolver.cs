@@ -23,6 +23,12 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.ExtractDateTime:
                         property.MemberConverter = CustomDateTimeConverter.Instance;
                         break;
+                    case FieldConverter.ExtractTimeSpanDays:
+                        property.MemberConverter = CustomTimeSpanDaysConverter.Instance;
+                        break;
+                    case FieldConverter.IntegerPermissions:
+                        property.MemberConverter = CustomIntBoolDictionaryConverter.Instance;
+                        break;
                     case FieldConverter.SerializeToId:
                     case FieldConverter.None:
                         break;

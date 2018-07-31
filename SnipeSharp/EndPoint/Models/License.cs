@@ -51,7 +51,7 @@ namespace SnipeSharp.EndPoint.Models
         public string LicenseName { get; set; }
 
         [Field("license_email")]
-        public string LicenseEmail { get; set; }
+        public string LicenseEmailAddress { get; set; }
 
         [Field("maintained")]
         public bool? IsMaintained { get; set; }
@@ -70,5 +70,34 @@ namespace SnipeSharp.EndPoint.Models
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+    }
+
+    public sealed class LicenseSeat : ApiObject
+    {
+        [Field("id")]
+        public long Id { get; set; }
+
+        [Field("license_id")]
+        public long LicenseId { get; set; }
+
+        [Field("assigned_user")]
+        public User AssignedUser { get; set; }
+
+        [Field("assigned_asset")]
+        public Asset AssignedAsset { get; set; }
+
+        [Field("location")]
+        public Location Location { get; set; }
+
+        [Field("reassignable")]
+        public bool IsReassignable { get; set; }
+
+        [Field("user_can_checkout")]
+        public bool CanUserCheckOut { get; set; }
+
+        [Field("available_actions")]
+        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+
+        public bool IsCheckedOut => AssignedUser != null || AssignedAsset != null;
     }
 }
