@@ -108,7 +108,7 @@ namespace SnipeSharp.EndPoint.Models
         public bool? CanUserCheckOut { get; set; }
 
         [Field("custom_fields")]
-        public List<AssetCustomField> CustomFields { get; set; }
+        public Dictionary<string, AssetCustomField> CustomFields { get; set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }

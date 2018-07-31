@@ -24,7 +24,7 @@ namespace SnipeSharp.EndPoint.Models
         public Supplier Supplier { get; set; }
 
         [Field("cost")]
-        public decimal MaintenanceCost { get; set; }
+        public decimal? MaintenanceCost { get; set; }
 
         [Field("asset_maintenance_type")]
         public string MaintenanceType { get; set; }

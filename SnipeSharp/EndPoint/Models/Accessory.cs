@@ -40,7 +40,7 @@ namespace SnipeSharp.EndPoint.Models
         public DateTime? PurchaseDate { get; set; }
 
         [Field("purchase_cost")]
-        public decimal PurchaseCost { get; set; }
+        public decimal? PurchaseCost { get; set; }
 
         [Field("order_number")]
         public string OrderNumber { get; set; }
