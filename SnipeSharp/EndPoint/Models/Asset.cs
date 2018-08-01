@@ -143,7 +143,7 @@ namespace SnipeSharp.EndPoint.Models
         public User AssignedUser { get; private set; }
 
         [Field("checkout_to_type")]
-        public string CheckOutToType { get; private set; }
+        public AssignedToType CheckOutToType { get; private set; }
 
         [Field("checkout_at")]
         public DateTime? CheckOutAt { get; set; }
@@ -161,21 +161,21 @@ namespace SnipeSharp.EndPoint.Models
         {
             Asset = asset;
             AssignedLocation = location;
-            CheckOutToType = "location";
+            CheckOutToType = AssignedToType.Location;
         }
 
         public AssetCheckOutRequest(Asset asset, User user)
         {
             Asset = asset;
             AssignedUser = user;
-            CheckOutToType = "user";
+            CheckOutToType = AssignedToType.User;
         }
 
         public AssetCheckOutRequest(Asset asset, Asset assignedAsset)
         {
             Asset = asset;
             AssignedAsset = assignedAsset;
-            CheckOutToType = "asset";
+            CheckOutToType = AssignedToType.Asset;
         }
     }
 

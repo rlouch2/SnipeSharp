@@ -11,31 +11,37 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override int Id { get; set; }
 
-        [Field("asset")]
+        [Field("asset", "asset_id", converter: CommonModelConverter)]
         public Asset Asset { get; set; }
 
-        [Field("title")]
+        [Field("title", true)]
         public override string Name { get; set; }
 
         [Field("location")]
         public Location Location { get; set; }
 
-        [Field("notes")]
+        [Field("notes", true)]
+        public string Notes { get; set; }
+
+        [Field("supplier", "supplier_id", converter: CommonModelConverter)]
         public Supplier Supplier { get; set; }
 
-        [Field("cost")]
+        [Field("cost", true)]
         public decimal? MaintenanceCost { get; set; }
 
-        [Field("asset_maintenance_type")]
+        [Field("asset_maintenance_type", true)]
         public string MaintenanceType { get; set; }
 
-        [Field("start_date", converter: DateTimeConverter)]
+        [Field("is_warranty", true)]
+        public bool? IsWarranty { get; set; }
+
+        [Field("start_date", true, converter: DateTimeConverter)]
         public DateTime? StartDate { get; set; }
 
         [Field("asset_maintenance_time", converter: TimeSpanConverter)]
         public TimeSpan? MaintenanceDuration { get; set; }
 
-        [Field("completion_date", converter: DateTimeConverter)]
+        [Field("completion_date", true, converter: DateTimeConverter)]
         public DateTime? CompletionDate { get; set; }
 
         [Field("user_id")]

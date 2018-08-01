@@ -11,7 +11,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override int Id { get; set; }
 
-        [Field("name")]
+        [Field("name", true, required: true)]
         public override string Name { get; set; }
 
         [Field("permissions", converter: PermissionsConverter)]

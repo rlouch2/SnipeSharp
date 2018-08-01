@@ -11,28 +11,28 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override int Id { get; set; }
 
-        [Field("name")]
+        [Field("name", true)]
         public override string Name { get; set; }
 
-        [Field("image")]
+        [Field("image", true)]
         public Uri ImageUri { get; set; }
 
-        [Field("address")]
+        [Field("address", true)]
         public string Address { get; set; }
 
-        [Field("address2")]
+        [Field("address2", true)]
         public string Address2 { get; set; }
 
-        [Field("city")]
+        [Field("city", true)]
         public string City { get; set; }
 
-        [Field("state")]
+        [Field("state", true)]
         public string State { get; set; }
 
-        [Field("country")]
+        [Field("country", true)]
         public string Country { get; set; }
 
-        [Field("zip")]
+        [Field("zip", true)]
         public string ZipCode { get; set; }
 
         [Field("assigned_assets_count")]
@@ -44,7 +44,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("users_count")]
         public int? UsersCount { get; set; }
 
-        [Field("currency")]
+        [Field("currency", true)]
         public string Currency { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
@@ -53,7 +53,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("parent", converter: CommonModelConverter)]
+        [Field("parent", "parent_id", converter: CommonModelConverter)]
         public Location ParentLocation { get; set; }
 
         [Field("manager", converter: CommonModelConverter)]
@@ -64,5 +64,8 @@ namespace SnipeSharp.EndPoint.Models
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+
+        [Field("ldap_ou", true)]
+        public string LDAPOU { get; set; }
     }
 }

@@ -12,34 +12,34 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override int Id { get; set; }
 
-        [Field("name")]
+        [Field("name", true, required: true)]
         public override string Name { get; set; }
 
         [Field("image")]
         public Uri ImageUri { get; set; }
 
-        [Field("serial")]
+        [Field("serial", true)]
         public string Serial { get; set; }
 
         [Field("location", "location_id", converter: CommonModelConverter)]
         public Location Location { get; set; }
 
-        [Field("qty")]
+        [Field("qty", true, required: true)]
         public int Quantity { get; set; }
 
-        [Field("min_amt")]
+        [Field("min_amt", true)]
         public int? MinimumQuantity { get; set; }
 
-        [Field("category", "category_id", converter: CommonModelConverter)]
+        [Field("category", "category_id", converter: CommonModelConverter, required: true)]
         public Category Category { get; set; }
 
-        [Field("order_number")]
+        [Field("order_number", true)]
         public string OrderNumber { get; set; }
 
-        [Field("purchase_date", converter: DateTimeConverter)]
+        [Field("purchase_date", true, converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
-        [Field("purchase_cost")]
+        [Field("purchase_cost", true)]
         public decimal? PurchaseCost { get; set; }
 
         [Field("remaining")]

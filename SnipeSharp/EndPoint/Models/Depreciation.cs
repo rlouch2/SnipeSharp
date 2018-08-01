@@ -11,10 +11,10 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override int Id { get; set; }
 
-        [Field("name")]
+        [Field("name", true, required: true)]
         public override string Name { get; set; }
 
-        [Field("months", converter: MonthsConverter)]
+        [Field("months", true, converter: MonthsConverter, required: true)]
         public int? Months { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
