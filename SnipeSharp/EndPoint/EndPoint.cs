@@ -50,7 +50,7 @@ namespace SnipeSharp.EndPoint
             throw new System.NotImplementedException();
         }
 
-        public RequestResponse Delete(int id)
+        public RequestResponse<T> Delete(int id)
         {
             throw new System.NotImplementedException();
         }

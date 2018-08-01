@@ -1,27 +1,22 @@
-﻿using Newtonsoft.Json;
-using SnipeSharp.JsonConverters;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SnipeSharp.Serialization;
+using static SnipeSharp.Serialization.FieldConverter;
 using System.Linq;
-using RestSharp.Deserializers;
 
 namespace SnipeSharp.EndPoint.Models
 {
-    public class RequestResponse: ApiObject
+    public class RequestResponse<T>: ApiObject where T: ApiObject
     {
-        [DeserializeAs(Name = "messages")]
-        [JsonConverter(typeof(MessageConverter))]
+        [Field("messages", converter: MessagesConverter)]
         public Dictionary<string, string> Messages { get; set; }
 
-        [DeserializeAs(Name = "payload")]
-        [JsonConverter(typeof(DetectJsonObjectType))]
-        public CommonEndPointModel Payload { get; set; }
+        [Field("payload")]
+        public T Payload { get; set; }
 
-        [DeserializeAs(Name = "status")]
+        [Field("status")]
         public string Status { get; set; }
 
         public override string ToString()
-        {
-            return $"{Status}: {Messages.First().Value}";
-        }
+            => $"{Status}: {Messages.First().Value}";
     }
 }

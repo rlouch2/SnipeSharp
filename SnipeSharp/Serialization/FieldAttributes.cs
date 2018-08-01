@@ -2,7 +2,7 @@
 
 namespace SnipeSharp.Serialization
 {
-    internal class FieldAttribute : Attribute
+    internal sealed class FieldAttribute : Attribute
     {
         public string DeserializeAs { get; private set; }
         public string SerializeAs { get; set; }
@@ -29,6 +29,7 @@ namespace SnipeSharp.Serialization
         MonthsConverter,
         DateTimeConverter,
         TimeSpanConverter,
-        PermissionsConverter
+        PermissionsConverter,
+        MessagesConverter
     }
 }

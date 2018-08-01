@@ -7,25 +7,22 @@ using Newtonsoft.Json;
 namespace SnipeSharp.EndPoint.Models
 {
     [JsonObject]
-    public sealed class ResponseCollection<T> : ApiObject, IList<T>
+    public sealed class ResponseCollection<T> : ApiObject, IList<T> where T: ApiObject
     {
-        [Field("total", true)]
+        [Field("total")]
         public long Total { get; set; }
 
-        [Field("rows", true)]
+        [Field("rows")]
         public List<T> Rows { get; set; } = new List<T>();
 
-        [JsonIgnore]
         public T this[int index]
         {
             get => Rows[index];
             set => Rows[index] = value;
         }
 
-        [JsonIgnore]
         public int Count => Rows?.Count ?? 0;
 
-        [JsonIgnore]
         public bool IsReadOnly => ((IList<T>)Rows).IsReadOnly;
         public void Add(T item)
             => Rows.Add(item);

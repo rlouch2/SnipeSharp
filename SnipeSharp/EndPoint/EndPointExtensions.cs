@@ -11,10 +11,10 @@ namespace SnipeSharp.EndPoint
 
     public static class AssetEndPointExtensions
     {
-        public static RequestResponse CheckOut(this EndPoint<Asset> endPoint, AssetCheckOutRequest request)
+        public static RequestResponse<Asset> CheckOut(this EndPoint<Asset> endPoint, AssetCheckOutRequest request)
             => endPoint.Api.RequestManager.Post($"{endPoint.EndPointInfo.BaseUri}/{request.Asset.Id}/checkout", request);
 
-        public static RequestResponse CheckIn(this EndPoint<Asset> endPoint, Asset asset, string note = null, Location location = null)
+        public static RequestResponse<Asset> CheckIn(this EndPoint<Asset> endPoint, Asset asset, string note = null, Location location = null)
             => endPoint.Api.RequestManager.Post($"{endPoint.EndPointInfo.BaseUri}/{asset.Id}/checkin", new AssetCheckInRequest {
                 Note = note,
                 Location = location

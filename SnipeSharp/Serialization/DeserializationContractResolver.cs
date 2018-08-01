@@ -29,6 +29,9 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.PermissionsConverter:
                         property.MemberConverter = CustomIntBoolDictionaryConverter.Instance;
                         break;
+                    case FieldConverter.MessagesConverter:
+                        property.MemberConverter = CustomMessageConverter.Instance;
+                        break;
                     case FieldConverter.CommonModelConverter:
                     case FieldConverter.None:
                         break;

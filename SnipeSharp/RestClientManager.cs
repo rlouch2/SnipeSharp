@@ -78,7 +78,7 @@ namespace SnipeSharp
             return result;
         }
 
-        internal RequestResponse Post<T>(string path, T @object) where T: ApiObject
+        internal RequestResponse<R> Post<R>(string path, R @object) where R: ApiObject
         {
             return null; //TODO
         }
@@ -91,7 +91,7 @@ namespace SnipeSharp
             {
                 // TODO: error
             }
-            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse>(response);
+            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
             // Check if this is actually a RequestResponse
             if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
             {

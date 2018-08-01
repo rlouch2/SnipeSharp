@@ -4,11 +4,11 @@ using SnipeSharp.EndPoint.Filters;
 
 namespace SnipeSharp.EndPoint
 {
-    public interface IEndPoint<T>
+    public interface IEndPoint<T> where T: ApiObject
     {
         T Create(T toCreate);
         T Update(T toUpdate);
-        RequestResponse Delete(int id);
+        RequestResponse<T> Delete(int id);
         T Get(int id);
         T Get(string name, bool caseSensitive = false);
         ResponseCollection<T> FindAll(ISearchFilter filter = null);
