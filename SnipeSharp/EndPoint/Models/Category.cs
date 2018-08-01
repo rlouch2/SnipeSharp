@@ -12,19 +12,25 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override int Id { get; set; }
 
-        [Field("name")]
+        [Field("name", true, required: true)]
         public override string Name { get; set; }
 
-        [Field("category_type")]
-        public string CategoryType { get; set; }
+        [Field("category_type", true, required: true)]
+        public CategoryType? CategoryType { get; set; }
 
-        [Field("eula")]
-        public bool? Eula { get; set; } // todo name
+        [Field("eula", "use_default_eula")]
+        public bool? UseDefaultEula { get; set; }
 
-        [Field("checkin_email")]
-        public bool? CheckInEmail { get; set; } // todo name
+        [Field(null, "eula_text")]
+        public string EulaText { get; set; }
 
-        [Field("require_acceptance")]
+        [Field(null, "user_id", converter: CommonModelConverter)]
+        public User User { get; set; }
+
+        [Field("checkin_email", true)]
+        public bool? EmailUserOnCheckInOrOut { get; set; }
+
+        [Field("require_acceptance", true)]
         public bool? IsAcceptanceRequired { get; set; }
 
         [Field("assets_count")]

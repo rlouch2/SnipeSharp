@@ -14,30 +14,28 @@ namespace SnipeSharp.Serialization
             var attribute = member.GetCustomAttribute<FieldAttribute>();
             if(attribute != null && attribute.DeserializeAs != null)
             {
-                System.Console.WriteLine($"Deserializing field '{member.Name}' as '{attribute.DeserializeAs}'");
                 property.PropertyName = attribute.DeserializeAs;
                 switch(attribute.Converter)
                 {
                     case FieldConverter.MonthsConverter:
-                        property.MemberConverter = CustomMonthsConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomMonthsConverter.Instance;
                         break;
                     case FieldConverter.DateTimeConverter:
-                        property.MemberConverter = CustomDateTimeConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomDateTimeConverter.Instance;
                         break;
                     case FieldConverter.TimeSpanConverter:
-                        property.MemberConverter = CustomTimeSpanConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomTimeSpanConverter.Instance;
                         break;
                     case FieldConverter.PermissionsConverter:
-                        property.MemberConverter = CustomIntBoolDictionaryConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomIntBoolDictionaryConverter.Instance;
                         break;
                     case FieldConverter.MessagesConverter:
-                        property.MemberConverter = CustomMessageConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomMessageConverter.Instance;
                         break;
                     case FieldConverter.CommonModelConverter:
                     case FieldConverter.None:
                         break;
                 }
-                property.Converter = property.MemberConverter;
             } else
             {
                 property.Ignored = true;

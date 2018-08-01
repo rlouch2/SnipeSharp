@@ -19,13 +19,13 @@ namespace SnipeSharp.Serialization
                 switch(attribute.Converter)
                 {
                     case FieldConverter.CommonModelConverter:
-                        property.MemberConverter = CustomCommonModelConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomCommonModelConverter.Instance;
                         break;
                     case FieldConverter.TimeSpanConverter:
-                        property.MemberConverter = CustomTimeSpanConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomTimeSpanConverter.Instance;
                         break;
                     case FieldConverter.DateTimeConverter:
-                        property.MemberConverter = CustomDateTimeConverter.Instance;
+                        property.Converter = property.MemberConverter = CustomDateTimeConverter.Instance;
                         break;
                     case FieldConverter.PermissionsConverter:
                     case FieldConverter.MessagesConverter:
@@ -33,7 +33,6 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.None:
                         break;
                 }
-                property.Converter = property.MemberConverter;
             } else
             {
                 property.Ignored = true;

@@ -1,23 +1,24 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.EndPoint.Models
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum AvailableAction
     {
-        [JsonProperty("checkout")]
+        [EnumMember(Value = "checkout")]
         CheckOut,
-        [JsonProperty("checkin")]
+        [EnumMember(Value = "checkin")]
         CheckIn,
-        [JsonProperty("clone")]
+        [EnumMember(Value = "clone")]
         Clone,
-        [JsonProperty("delete")]
+        [EnumMember(Value = "delete")]
         Delete,
-        [JsonProperty("restore")]
+        [EnumMember(Value = "restore")]
         Restore,
-        [JsonProperty("update")]
+        [EnumMember(Value = "update")]
         Update
     }
 }

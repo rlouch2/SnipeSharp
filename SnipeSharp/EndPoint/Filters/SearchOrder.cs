@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.EndPoint.Filters
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum SearchOrder
     {
-        [JsonProperty("asc")]
+        [EnumMember(Value = "asc")]
         Ascending,
-        [JsonProperty("desc")]
+        [EnumMember(Value = "desc")]
         Descending
     }
 }

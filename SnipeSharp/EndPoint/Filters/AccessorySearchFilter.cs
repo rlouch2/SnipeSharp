@@ -4,6 +4,7 @@ using SnipeSharp.EndPoint.Models;
 using static SnipeSharp.Serialization.FieldConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 /// <summary>
 /// The base class for all SearchFilter objects.  These properties are common to any filter we want to do on a get request for all endpoints.
@@ -52,21 +53,21 @@ namespace SnipeSharp.EndPoint.Filters
     [JsonConverter(typeof(StringEnumConverter))]
     public enum AccessorySearchColumn
     {
-        [JsonProperty("id")]
+        [EnumMember(Value = "id")]
         Id,
-        [JsonProperty("name")]
+        [EnumMember(Value = "name")]
         Name,
-        [JsonProperty("model_number")]
+        [EnumMember(Value = "model_number")]
         ModelNumber,
-        [JsonProperty("eol")]
+        [EnumMember(Value = "eol")]
         Eol, //TODO: name
-        [JsonProperty("notes")]
+        [EnumMember(Value = "notes")]
         Notes,
-        [JsonProperty("created_at")]
+        [EnumMember(Value = "created_at")]
         CreatedAt,
-        [JsonProperty("min_amt")]
+        [EnumMember(Value = "min_amt")]
         MinimumQuantity,
-        [JsonProperty("company_id")]
+        [EnumMember(Value = "company_id")]
         Company
     }
 }

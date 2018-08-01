@@ -11,25 +11,25 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override int Id { get; set; }
         
-        [Field("name")]
+        [Field("name", true)]
         public override string Name { get; set; }
         
-        [Field("asset_tag")]
+        [Field("asset_tag", true, required: true)]
         public string AssetTag { get; set; }
 
-        [Field("serial")]
+        [Field("serial", true)]
         public string Serial { get; set; }
 
-        [Field("model", "model_id", converter: CommonModelConverter)]
+        [Field("model", "model_id", converter: CommonModelConverter, required: true)]
         public Model Model { get; set; }
 
-        [Field("model_number")]
+        [Field("model_number", true)]
         public string ModelNumber { get; set; }
 
         [Field("eol")]
         public string Eol { get; set; }
 
-        [Field("status_label")]
+        [Field("status_label", "status_id", converter: CommonModelConverter, required: true)]
         public StatusLabel StatusLabel { get; set; }
 
         [Field("category")]
@@ -41,28 +41,31 @@ namespace SnipeSharp.EndPoint.Models
         [Field("supplier")]
         public Supplier Supplier { get; set; }
 
-        [Field("notes")]
+        [Field("notes", true)]
         public string Notes { get; set; }
 
-        [Field("order_number")]
+        [Field("order_number", true)]
         public string OrderNumber { get; set; }
 
-        [Field("company")]
+        [Field("company", "company_id", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
-        [Field("location")]
+        [Field("location", "location_id", converter: CommonModelConverter)]
         public Location Location { get; set; }
 
-        [Field("rtd_location")]
+        [Field("rtd_location", "rtd_location_id", converter: CommonModelConverter)]
         public Location RtdLocation { get; set; }
 
-        [Field("image")]
+        [Field("image", true)]
         public Uri ImageUri { get; set; }
 
-        [Field("assigned_to")]
-        public object AssignedTo { get; set; } //TODO: type
+        [Field("assigned_to", true)]
+        public CommonEndPointModel AssignedTo { get; set; } //TODO: type
 
-        [Field("warranty_months", converter: MonthsConverter)]
+        [Field("assigned_type", true)]
+        public AssignedToType AssignedType { get; set; }
+
+        [Field("warranty_months", true, converter: MonthsConverter)]
         public int? WarrantyMonths { get; set; }
 
         [Field("warranty_expires", converter: DateTimeConverter)]
@@ -83,7 +86,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("deleted_at", converter: DateTimeConverter)]
         public DateTime? DeletedAt { get; set; }
 
-        [Field("purchase_date", converter: DateTimeConverter)]
+        [Field("purchase_date", true, converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
         [Field("last_checkout", converter: DateTimeConverter)]
@@ -92,7 +95,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("expected_checkin", converter: DateTimeConverter)]
         public DateTime? ExpectedCheckIn { get; set; }
 
-        [Field("purchase_cost")]
+        [Field("purchase_cost", true)]
         public decimal? PurchaseCost { get; set; }
 
         [Field("checkin_counter")]
