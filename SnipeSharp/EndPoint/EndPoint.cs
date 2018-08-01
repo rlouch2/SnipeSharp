@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using SnipeSharp.EndPoint.Filters;
 using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Serialization;
+using SnipeSharp.Exceptions;
 
 namespace SnipeSharp.EndPoint
 {
@@ -20,10 +22,10 @@ namespace SnipeSharp.EndPoint
                 throw new MissingRequiredAttributeException(nameof(EndPointInformationAttribute), typeof(T).Name);
         }
 
-        public ResponseCollection<T> FindAll(ISearchFilter filter = null)
+        public ResponseCollection<T> FindAll(IInternalSearchFilter filter = null)
             => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
 
-        public T FindOne(ISearchFilter filter)
+        public T FindOne(IInternalSearchFilter filter)
         {
             filter.Limit = 1;
             return Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter).FirstOrDefault();
@@ -46,24 +48,26 @@ namespace SnipeSharp.EndPoint
         }
 
         public T Create(T toCreate)
-        {
-            throw new System.NotImplementedException();
-        }
+            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate)).Payload;
 
         public RequestResponse<T> Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+            => Api.RequestManager.Delete<T>($"{EndPointInfo.BaseUri}/{id}");
 
         public T Update(T toUpdate)
-        {
-            throw new System.NotImplementedException();
-        }
+            => Api.RequestManager.Patch($"{EndPointInfo.BaseUri}/{toUpdate.Id}", toUpdate).Payload;
 
         public T this[int id]
             => Get(id);
 
         public T this[string name, bool caseSensitive = false]
             => Get(name, caseSensitive);
+
+        private T CheckRequiredFields(T @object)
+        {
+            foreach(var property in typeof(T).GetProperties())
+                if((property.GetCustomAttribute<FieldAttribute>()?.IsRequired ?? false) && (property.GetValue(@object) == null)) // if required and null
+                        throw new MissingRequiredFieldException<T>(property.Name);
+            return @object;
+        }
     }
 }

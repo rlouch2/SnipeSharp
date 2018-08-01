@@ -12,7 +12,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("id")]
         public override long Id { get; set; }
 
-        [Field("name")]
+        [Field("name", true)]
         public override string Name { get; set; }
 
         [Field("company", "company_id", converter: CommonModelConverter)]
@@ -24,7 +24,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("supplier", "supplier_id", converter: CommonModelConverter)]
         public Supplier Supplier { get; set; }
 
-        [Field("model_number")]
+        [Field("model_number", true)]
         public string ModelNumber { get; set; }
 
         [Field("category", "category_id", converter: CommonModelConverter)]
@@ -33,16 +33,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("location", "location_id", converter: CommonModelConverter)]
         public Location Location { get; set; }
 
-        [Field("qty")]
+        [Field("qty", true)]
         public int Quantity { get; set; }
 
-        [Field("purchase_date", converter: DateTimeConverter)]
+        [Field("purchase_date", true, converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
-        [Field("purchase_cost")]
+        [Field("purchase_cost", true)]
         public decimal? PurchaseCost { get; set; }
 
-        [Field("order_number")]
+        [Field("order_number", true)]
         public string OrderNumber { get; set; }
 
         [Field("min_qty")]
@@ -51,7 +51,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("remaining_qty")]
         public int? RemainingQuantity { get; set; }
 
-        [Field("image")]
+        [Field("image", true)]
         public Uri ImageUri { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
@@ -65,6 +65,9 @@ namespace SnipeSharp.EndPoint.Models
 
         [Field("user_can_checkout")]
         public bool? CanUserCheckOut { get; set; }
+
+        [Field(null, "requestable")]
+        public bool? IsRequestable { get; set; }
     }
 
     public sealed class AccessoryCheckOut : ApiObject

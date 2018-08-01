@@ -11,8 +11,8 @@ namespace SnipeSharp.EndPoint
         RequestResponse<T> Delete(int id);
         T Get(int id);
         T Get(string name, bool caseSensitive = false);
-        ResponseCollection<T> FindAll(ISearchFilter filter = null);
-        T FindOne(ISearchFilter filter);
+        ResponseCollection<T> FindAll(IInternalSearchFilter filter = null);
+        T FindOne(IInternalSearchFilter filter);
         T this[int id] { get; }
         T this[string name, bool caseSensitive = false] { get; }
     }

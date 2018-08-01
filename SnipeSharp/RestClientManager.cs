@@ -37,20 +37,20 @@ namespace SnipeSharp
                 client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(api.Token, "Bearer");
         }
 
-        internal void ResetToken() => client.Authenticator = null;
-        internal void ResetUri() => client.BaseUrl = null;
+        internal void ResetToken()
+            => client.Authenticator = null;
+        internal void ResetUri()
+            => client.BaseUrl = null;
 
         internal string GetRaw(string path)
         {
             var response = client.Execute(new RestRequest(path, Method.GET));
             if(!response.IsSuccessful)
-            {
-                // TODO: error
-            }
+                throw new ApiErrorException(response.StatusCode, response.Content);
             return response.Content;
         }
 
-        internal R Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
+        internal R Get<R>(string path, IInternalSearchFilter filter = null) where R: ApiObject
         {
             var request = new RestRequest(path, Method.GET);
             if(!(filter is null))
@@ -58,7 +58,7 @@ namespace SnipeSharp
             return ExecuteRequest<R>(request);
         }
 
-        internal ResponseCollection<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
+        internal ResponseCollection<R> GetAll<R>(string path, IInternalSearchFilter filter = null) where R: ApiObject
         {
             var result = Get<ResponseCollection<R>>(path, filter);
             var offset = filter?.Offset == null ? 0 : filter.Offset;
@@ -79,26 +79,68 @@ namespace SnipeSharp
         }
 
         internal RequestResponse<R> Post<R>(string path, R @object) where R: ApiObject
+            => Post<R, R>(path, @object);
+        
+        internal RequestResponse<R> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
         {
-            return null; //TODO
+            var request = new RestRequest(path, Method.POST);
+            if(@object != null)
+                request.AddBody(@object);
+            return ExecuteRequest2<R>(request);
         }
+
+        internal RequestResponse<R> Patch<R>(string path, R @object) where R: ApiObject
+        {
+            var request = new RestRequest(path, Method.PATCH);
+            if(@object != null)
+                request.AddBody(@object);
+            return ExecuteRequest2<R>(request);
+        }
+
+        internal RequestResponse<R> Delete<R>(string path) where R: ApiObject
+            => ExecuteRequest2<R>(new RestRequest(path, Method.DELETE));
 
         private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
             var response = client.Execute(request);
             if(!response.IsSuccessful)
-            {
-                // TODO: error
-            }
+                throw new ApiErrorException(response.StatusCode, response.Content);
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
             // Check if this is actually a RequestResponse
             if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
             {
                 // It is, do stuff
-                // TODO: error handling/etc
+                if(asRequestResponse.Status == "error")
+                {
+                    if(asRequestResponse.Messages.ContainsKey("general"))
+                        throw new ApiErrorException(asRequestResponse.Messages["general"]);
+                    else
+                        throw new ApiErrorException(asRequestResponse.Messages);
+                }
             }
             return serializerDeserializer.Deserialize<R>(response);
+        }
+        private RequestResponse<R> ExecuteRequest2<R>(RestRequest request) where R: ApiObject
+        {
+            SetTokenAndUri();
+            var response = client.Execute(request);
+            if(!response.IsSuccessful)
+                throw new ApiErrorException(response.StatusCode, response.Content);
+            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
+            // Check if this is actually a RequestResponse
+            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
+            {
+                // It is, do stuff
+                if(asRequestResponse.Status == "error")
+                {
+                    if(asRequestResponse.Messages.ContainsKey("general"))
+                        throw new ApiErrorException(asRequestResponse.Messages["general"]);
+                    else
+                        throw new ApiErrorException(asRequestResponse.Messages);
+                }
+            }
+            return asRequestResponse;
         }
     }
 }
