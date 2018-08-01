@@ -17,16 +17,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("image")]
         public Uri ImageUri { get; set; }
 
-        [Field("category", FieldConverter = SerializeToId)]
+        [Field("category", converter: CommonModelConverter)]
         public Category Category { get; set; }
 
-        [Field("company", FieldConverter = SerializeToId)]
+        [Field("company", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
         [Field("item_no")]
         public string ItemNumber { get; set; }
 
-        [Field("location", FieldConverter = SerializeToId)]
+        [Field("location", converter: CommonModelConverter)]
         public Location Location { get; set; }
 
         [Field("manufacturer")]
@@ -47,16 +47,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("purchase_cost")]
         public decimal? PurchaseCost { get; set; }
 
-        [Field("purchase_date", FieldConverter = ExtractDateTime)]
+        [Field("purchase_date", converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
         [Field("qty")]
         public int? Quantity { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
         [Field("user_can_checkout")]

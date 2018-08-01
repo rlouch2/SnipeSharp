@@ -14,7 +14,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("name")]
         public override string Name { get; set; }
 
-        [Field("manufacturer", FieldConverter = SerializeToId)]
+        [Field("manufacturer", converter: CommonModelConverter)]
         public Manufacturer Manufacturer { get; set; }
 
         [Field("image")]
@@ -23,16 +23,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("model_number")]
         public string ModelNumber { get; set; }
 
-        [Field("depreciation", FieldConverter = SerializeToId)]
+        [Field("depreciation", converter: CommonModelConverter)]
         public Depreciation Depreciation { get; set; }
 
         [Field("assets_count")]
         public int? AssetsCount { get; set; }
 
-        [Field("category", FieldConverter = SerializeToId)]
+        [Field("category", converter: CommonModelConverter)]
         public Category Category { get; set; }
 
-        [Field("FieldSet", CanSerialize = false)]
+        [Field("FieldSet")]
         public FieldSet FieldSet { get; set; }
 
         [Field("eol")]
@@ -41,13 +41,13 @@ namespace SnipeSharp.EndPoint.Models
         [Field("notes")]
         public string Notes { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("deleted_at", FieldConverter = ExtractDateTime)]
+        [Field("deleted_at", converter: DateTimeConverter)]
         public DateTime? DeletedAt { get ;set; }
 
         [Field("available_actions")]

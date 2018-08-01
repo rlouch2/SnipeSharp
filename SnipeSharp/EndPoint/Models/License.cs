@@ -14,10 +14,10 @@ namespace SnipeSharp.EndPoint.Models
         [Field("name")]
         public override string Name { get; set; }
 
-        [Field("company", FieldConverter = SerializeToId)]
+        [Field("company", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
-        [Field("manufacturer", FieldConverter = SerializeToId)]
+        [Field("manufacturer", converter: CommonModelConverter)]
         public Manufacturer Manufacturer { get; set; }
 
         [Field("product_key")]
@@ -29,7 +29,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("purchase_order")]
         public string PurchaseOrder { get; set; }
 
-        [Field("purchase_date", FieldConverter = ExtractDateTime)]
+        [Field("purchase_date", converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
         [Field("purchase_cost")]
@@ -38,7 +38,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("notes")]
         public string Notes { get; set; }
 
-        [Field("expiration_date", FieldConverter = ExtractDateTime)]
+        [Field("expiration_date", converter: DateTimeConverter)]
         public DateTime? ExpirationDate { get; set; }
 
         [Field("seats")]
@@ -56,13 +56,13 @@ namespace SnipeSharp.EndPoint.Models
         [Field("maintained")]
         public bool? IsMaintained { get; set; }
 
-        [Field("category", FieldConverter = SerializeToId)]
+        [Field("category", converter: CommonModelConverter)]
         public Category Category { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
         [Field("user_can_checkout")]

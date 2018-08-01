@@ -29,22 +29,22 @@ namespace SnipeSharp.EndPoint.Models
         [Field("asset_maintenance_type")]
         public string MaintenanceType { get; set; }
 
-        [Field("start_date", FieldConverter = ExtractDateTime)]
+        [Field("start_date", converter: DateTimeConverter)]
         public DateTime? StartDate { get; set; }
 
-        [Field("asset_maintenance_time", FieldConverter = ExtractTimeSpanDays)]
+        [Field("asset_maintenance_time", converter: TimeSpanConverter)]
         public TimeSpan? MaintenanceDuration { get; set; }
 
-        [Field("completion_date", FieldConverter = ExtractDateTime)]
+        [Field("completion_date", converter: DateTimeConverter)]
         public DateTime? CompletionDate { get; set; }
 
         [Field("user_id")]
         public User User { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
         [Field("available_actions")]

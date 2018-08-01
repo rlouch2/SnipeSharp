@@ -29,7 +29,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("employee_num")]
         public string EmployeeNumber { get; set; }
 
-        [Field("manager", FieldConverter = SerializeToId)]
+        [Field("manager", converter: CommonModelConverter)]
         public User Manager { get; set; }
 
         [Field("jobtitle")]
@@ -56,16 +56,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("email")]
         public string EmailAddress { get; set; }
 
-        [Field("department", FieldConverter = SerializeToId)]
+        [Field("department", converter: CommonModelConverter)]
         public Department Department { get; set; }
 
-        [Field("location", FieldConverter = SerializeToId)]
+        [Field("location", converter: CommonModelConverter)]
         public Location Location { get; set; }
 
         [Field("notes")]
         public string Notes { get; set; }
 
-        [Field("permissions", FieldConverter = IntegerPermissions)]
+        [Field("permissions", converter: PermissionsConverter)]
         public Dictionary<string, bool> Permissions { get; set; }
 
         [Field("activated")]
@@ -86,16 +86,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("consumables_count")]
         public int? ConsumablesCount { get; set; }
 
-        [Field("company", FieldConverter = SerializeToId)]
+        [Field("company", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("last_login", FieldConverter = ExtractDateTime)]
+        [Field("last_login", converter: DateTimeConverter)]
         public DateTime? LastLogin { get; set; }
 
         [Field("available_actions")]

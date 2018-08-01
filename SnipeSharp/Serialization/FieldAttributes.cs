@@ -6,22 +6,29 @@ namespace SnipeSharp.Serialization
     {
         public string DeserializeAs { get; private set; }
         public string SerializeAs { get; set; }
-        public FieldConverter FieldConverter { get; set; } = FieldConverter.None;
-        public bool CanSerialize { get; set; } = false;
-        internal FieldAttribute(string deserializeAs)
+        public FieldConverter Converter { get; set; } = FieldConverter.None;
+        public bool ShouldSerialize { get; set; } = false;
+        internal FieldAttribute(string deserializeAs, string serializeAs, FieldConverter converter = FieldConverter.None) : this(deserializeAs, true, converter)
+        {
+            SerializeAs = serializeAs;
+        }
+        internal FieldAttribute(string deserializeAs, bool serialize = false, FieldConverter converter = FieldConverter.None)
         {
             DeserializeAs = deserializeAs;
-            SerializeAs = deserializeAs;
+            if(serialize)
+                SerializeAs = deserializeAs;
+            Converter = converter;
+            ShouldSerialize = serialize;
         }
     }
 
     internal enum FieldConverter
     {
         None,
-        SerializeToId,
-        StripMonthSuffix,
-        ExtractDateTime,
-        ExtractTimeSpanDays,
-        IntegerPermissions
+        CommonModelConverter,
+        MonthsConverter,
+        DateTimeConverter,
+        TimeSpanConverter,
+        PermissionsConverter
     }
 }

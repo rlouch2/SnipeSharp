@@ -9,11 +9,11 @@ namespace SnipeSharp.EndPoint.Models
     [JsonObject]
     public sealed class ResponseCollection<T> : ApiObject, IList<T>
     {
-        [Field("total", CanSerialize = false)]
+        [Field("total", true)]
         public long Total { get; set; }
 
-        [Field("rows", CanSerialize = false)]
-        public List<T> Rows { get; set; }
+        [Field("rows", true)]
+        public List<T> Rows { get; set; } = new List<T>();
 
         [JsonIgnore]
         public T this[int index]

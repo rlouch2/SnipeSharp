@@ -4,9 +4,9 @@ using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CommonEndPointModelIdConverter : JsonConverter
+    internal sealed class CommonModelConverter : JsonConverter
     {
-        internal static readonly CommonEndPointModelIdConverter Instance = new CommonEndPointModelIdConverter();
+        internal static readonly CommonModelConverter Instance = new CommonModelConverter();
         public override bool CanConvert(Type objectType)
             => true;
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

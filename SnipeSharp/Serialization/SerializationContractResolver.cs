@@ -13,22 +13,22 @@ namespace SnipeSharp.Serialization
         {
             var property = base.CreateProperty(member, memberSerialization);
             var attribute = member.GetCustomAttribute<FieldAttribute>();
-            if(attribute != null && attribute.CanSerialize)
+            if(attribute != null && attribute.ShouldSerialize)
             {
                 property.PropertyName = attribute.SerializeAs;
-                switch(attribute.FieldConverter)
+                switch(attribute.Converter)
                 {
-                    case FieldConverter.SerializeToId:
-                        property.MemberConverter = CommonEndPointModelIdConverter.Instance;
+                    case FieldConverter.CommonModelConverter:
+                        property.MemberConverter = CustomCommonModelConverter.Instance;
                         break;
-                    case FieldConverter.ExtractTimeSpanDays:
-                        property.MemberConverter = CustomTimeSpanDaysConverter.Instance;
+                    case FieldConverter.TimeSpanConverter:
+                        property.MemberConverter = CustomTimeSpanConverter.Instance;
                         break;
-                    case FieldConverter.ExtractDateTime:
+                    case FieldConverter.DateTimeConverter:
                         property.MemberConverter = CustomDateTimeConverter.Instance;
                         break;
-                    case FieldConverter.IntegerPermissions:
-                    case FieldConverter.StripMonthSuffix:
+                    case FieldConverter.PermissionsConverter:
+                    case FieldConverter.MonthsConverter:
                     case FieldConverter.None:
                         break;
                 }

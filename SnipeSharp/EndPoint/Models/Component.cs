@@ -21,7 +21,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("serial")]
         public string Serial { get; set; }
 
-        [Field("location", SerializeAs = "location_id", FieldConverter = SerializeToId)]
+        [Field("location", "location_id", converter: CommonModelConverter)]
         public Location Location { get; set; }
 
         [Field("qty")]
@@ -30,13 +30,13 @@ namespace SnipeSharp.EndPoint.Models
         [Field("min_amt")]
         public int? MinimumQuantity { get; set; }
 
-        [Field("category", SerializeAs = "category_id", FieldConverter = SerializeToId)]
+        [Field("category", "category_id", converter: CommonModelConverter)]
         public Category Category { get; set; }
 
         [Field("order_number")]
         public string OrderNumber { get; set; }
 
-        [Field("purchase_date", FieldConverter = ExtractDateTime)]
+        [Field("purchase_date", converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
         [Field("purchase_cost")]
@@ -45,16 +45,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("remaining")]
         public int? RemainingQuantity { get; set; }
 
-        [Field("company", SerializeAs = "company_id", FieldConverter = SerializeToId)]
+        [Field("company", "company_id", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("user_can_checkout", CanSerialize = false)]
+        [Field("user_can_checkout")]
         public bool? CanUserCheckOut { get; set; }
 
         [Field("available_actions")]

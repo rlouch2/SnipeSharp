@@ -20,10 +20,10 @@ namespace SnipeSharp.EndPoint.Models
         [Field("models")]
         public ResponseCollection<Model> Models { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("deleted_at", FieldConverter = ExtractDateTime)]
+        [Field("deleted_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
     }
 }

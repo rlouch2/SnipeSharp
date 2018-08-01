@@ -42,10 +42,10 @@ namespace SnipeSharp.EndPoint.Models
         [Field("licenses_count")]
         public int? LicensesCount { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
         
         [Field("available_actions")]

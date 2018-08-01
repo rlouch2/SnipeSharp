@@ -20,7 +20,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("serial")]
         public string Serial { get; set; }
 
-        [Field("model", SerializeAs = "model_id", FieldConverter = SerializeToId)]
+        [Field("model", "model_id", converter: CommonModelConverter)]
         public Model Model { get; set; }
 
         [Field("model_number")]
@@ -62,34 +62,34 @@ namespace SnipeSharp.EndPoint.Models
         [Field("assigned_to")]
         public object AssignedTo { get; set; } //TODO: type
 
-        [Field("warranty_months", FieldConverter = StripMonthSuffix)]
+        [Field("warranty_months", converter: MonthsConverter)]
         public int? WarrantyMonths { get; set; }
 
-        [Field("warranty_expires", FieldConverter = ExtractDateTime)]
+        [Field("warranty_expires", converter: DateTimeConverter)]
         public DateTime? WarrantyExpires { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("last_audit_date", FieldConverter = ExtractDateTime)]
+        [Field("last_audit_date", converter: DateTimeConverter)]
         public DateTime? LastAuditDate { get; set; }
 
-        [Field("next_audit_date", FieldConverter = ExtractDateTime)]
+        [Field("next_audit_date", converter: DateTimeConverter)]
         public DateTime? NextAuditDate { get; set; }
 
-        [Field("deleted_at", FieldConverter = ExtractDateTime)]
+        [Field("deleted_at", converter: DateTimeConverter)]
         public DateTime? DeletedAt { get; set; }
 
-        [Field("purchase_date", FieldConverter = ExtractDateTime)]
+        [Field("purchase_date", converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
-        [Field("last_checkout", FieldConverter = ExtractDateTime)]
+        [Field("last_checkout", converter: DateTimeConverter)]
         public DateTime? LastCheckOut { get; set; }
 
-        [Field("expected_checkin", FieldConverter = ExtractDateTime)]
+        [Field("expected_checkin", converter: DateTimeConverter)]
         public DateTime? ExpectedCheckIn { get; set; }
 
         [Field("purchase_cost")]

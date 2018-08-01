@@ -14,16 +14,16 @@ namespace SnipeSharp.EndPoint.Models
         [Field("name")]
         public override string Name { get; set; }
 
-        [Field("permissions", FieldConverter = IntegerPermissions)]
+        [Field("permissions", converter: PermissionsConverter)]
         public Dictionary<string, bool> Permissions { get; set; }
 
         [Field("users_count")]
         public int? UsersCount { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
         [Field("available_actions")]

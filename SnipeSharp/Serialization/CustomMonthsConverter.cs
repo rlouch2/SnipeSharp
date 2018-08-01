@@ -3,9 +3,9 @@ using System;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class StripMonthSuffixConverter : JsonConverter
+    internal sealed class CustomMonthsConverter : JsonConverter
     {
-        public static readonly StripMonthSuffixConverter Instance = new StripMonthSuffixConverter();
+        public static readonly CustomMonthsConverter Instance = new CustomMonthsConverter();
 
         public override bool CanConvert(Type objectType)
             => true;

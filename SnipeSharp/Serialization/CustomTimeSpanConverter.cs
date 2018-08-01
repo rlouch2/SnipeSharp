@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomTimeSpanDaysConverter : JsonConverter
+    internal sealed class CustomTimeSpanConverter : JsonConverter
     {
-        public static readonly CustomTimeSpanDaysConverter Instance = new CustomTimeSpanDaysConverter();
+        public static readonly CustomTimeSpanConverter Instance = new CustomTimeSpanConverter();
         public override bool CanConvert(Type objectType)
             => true;
 

@@ -61,14 +61,9 @@ namespace SnipeSharp.EndPoint
         }
 
         public T this[int id]
-        {
-            get => Get(id);
-            set => Update(value); // TODO: is this a good idea?
-        }
+            => Get(id);
 
         public T this[string name, bool caseSensitive = false]
-        {
-            get => Get(name, caseSensitive);
-        }
+            => Get(name, caseSensitive);
     }
 }

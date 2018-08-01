@@ -47,19 +47,19 @@ namespace SnipeSharp.EndPoint.Models
         [Field("currency")]
         public string Currency { get; set; }
 
-        [Field("created_at", FieldConverter = ExtractDateTime)]
+        [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; set; }
 
-        [Field("updated_at", FieldConverter = ExtractDateTime)]
+        [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; set; }
 
-        [Field("parent", FieldConverter = SerializeToId)]
+        [Field("parent", converter: CommonModelConverter)]
         public Location ParentLocation { get; set; }
 
-        [Field("manager", FieldConverter = SerializeToId)]
+        [Field("manager", converter: CommonModelConverter)]
         public User Manager { get; set; }
 
-        [Field("children", CanSerialize = false)]
+        [Field("children")]
         public List<Location> ChildLocations { get; set; }
 
         [Field("available_actions")]
