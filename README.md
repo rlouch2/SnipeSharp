@@ -6,7 +6,7 @@ A .NET wrapper for the Snipe IT API written (poorly) in C#.
 
 The goal of this project is to give easy access to all endpoints of the Snipe IT API via C#.  With that said, this build is currently a rough demo. Most of the endpoints work as expected but plan on things breaking or not working 100%.
 
-This project was built to support my own needs.  As such features are being worked on in the order I personally need them.  However, if you want a feature or find a bug please open an issue. 
+This project was built to support my own needs.  As such features are being worked on in the order I personally need them. However, if you want a feature or find a bug please open an issue. 
 
 Final note, this is my first C# project of this scale.  I'm not up on all the best practices.  If you see something I've done that should be done differently, I encourage you to let me know. 
 
@@ -25,9 +25,10 @@ nuget install SnipeSharp
 ## Usage
 
 ```csharp
-SnipeItApi snipe = new SnipeItApi();
-snipe.ApiSettings.ApiToken = "XXXXXXXX"
-snipe.ApiSettings.BaseUrl = new Uri("http://xxxxx.com/api/v1")
+SnipeItApiv2 snipe = new SnipeItApiv2 {
+    Token = "XXXXXXXX",
+    Uri = new Uri("http://xxxxx.com/api/v1")
+};
 ```
 
 Each endpoint has it's own manager assigned to the SnipeItApi object.  Example, SnipeItApi.AssetManager 
@@ -37,17 +38,17 @@ Each endpoint has a common set of actions.  With the exception Assets, Status La
 ##### Common Actions
 Return all objects at this end point
 ```csharp
-snipe.AssetManager.GetAll()
+snipe.AssetManager.FindAll()
 ```
 
 Find all objects matching certain filtering criteria 
 ```csharp
-snipe.AssetManager.FindAll(ISearchFilter filter)
+snipe.AssetManager.FindAll(IInternalSearchFilter filter)
 ```
 
 Find first object matching search criteria
 ```csharp
-snipe.AssetManager.FindOne(ISearchFilter filter)
+snipe.AssetManager.FindOne(IInternalSearchFilter filter)
 ```
 
 Get object with ID
@@ -80,27 +81,27 @@ snipe.AssetManager.Delete(int id)
 
 Create a new asset
 ```csharp
-Asset asset = new Asset() {
+Asset asset = new Asset {
     Name = "Loaner1",
     AssetTag = "12345678",
-    Model = snipe.ModelManager.Get("Lenovo"),
-    Status = snipe.StatusLabelManager.Get("Ready to Deploy"),
-    Location = snipe.LocationManager.Get("Maine")
+    Model = snipe.Models.Get("Lenovo"),
+    Status = snipe.StatusLabels.Get("Ready to Deploy"),
+    Location = snipe.Locations.Get("Maine")
 };
 
-snipe.AssetManager.Create(asset);
+snipe.Assets.Create(asset);
 ```
 
 Update an Asset
 ```csharp
-Asset asset = snipe.AssetManager.Get("Loaner1");
+Asset asset = snipe.Assets.Get("Loaner1");
 asset.Serial = "1i37dpc3k";
-snipe.AssetManager.Update(asset);
+snipe.Assets.Update(asset);
 ```
 
 Get all assets from made by a certain manufacturer
 ```csharp
-AssetSearchFilter filter = new AssetSearchFilter() {
+AssetSearchFilter filter = new AssetSearchFilter {
     Manufacturer = snipe.ManufacturerManager.Get("Lenovo")
 };
 
@@ -117,6 +118,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Matthew 'Barry' Carey** - *Initial work* - [BarryCarey](https://github.com/barrycarey)
+* **Christian LaCourt** - *Cleaning and PowerShell* [cofl](https://github.com/cofl)
 
 See also the list of [contributors](./SnipeSharp/contributors) who participated in this project.
 
