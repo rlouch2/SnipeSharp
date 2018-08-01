@@ -9,7 +9,7 @@ namespace SnipeSharp.EndPoint.Models
     public class Maintenance : CommonEndPointModel
     {
         [Field("id")]
-        public override long Id { get; set; }
+        public override int Id { get; set; }
 
         [Field("asset")]
         public Asset Asset { get; set; }

@@ -33,6 +33,7 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.None:
                         break;
                 }
+                property.Converter = property.MemberConverter;
             } else
             {
                 property.Ignored = true;

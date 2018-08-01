@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SnipeSharp.Serialization
 {
@@ -12,9 +13,19 @@ namespace SnipeSharp.Serialization
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             DateTime dateTime;
-            var @object = serializer.Deserialize<DateTimeResponse>(reader);
-            if(@object != null && !string.IsNullOrWhiteSpace(@object.DateTime) && DateTime.TryParse(@object.DateTime, out dateTime))
-                return dateTime;
+            var token = JToken.Load(reader);
+
+            if(token.Type == JTokenType.String)
+            {
+                var @object = token.ToObject<string>();
+                if(!string.IsNullOrWhiteSpace(@object) && DateTime.TryParse(@object, out dateTime))
+                    return dateTime;
+            } else if(token.Type == JTokenType.Object)
+            {
+                var @object = token.ToObject<DateTimeResponse>();
+                if(@object != null && !string.IsNullOrWhiteSpace(@object.DateTime) && DateTime.TryParse(@object.DateTime, out dateTime))
+                    return dateTime;
+            }
             return null;
         }
 

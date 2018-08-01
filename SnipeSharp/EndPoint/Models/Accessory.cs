@@ -10,15 +10,15 @@ namespace SnipeSharp.EndPoint.Models
     public class Accessory : CommonEndPointModel
     {
         [Field("id")]
-        public override long Id { get; set; }
+        public override int Id { get; set; }
 
-        [Field("name", true)]
+        [Field("name", true, required: true)]
         public override string Name { get; set; }
 
         [Field("company", "company_id", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
-        [Field("manufacturer", "manufacturer_id", converter: CommonModelConverter)]
+        [Field("manufacturer", "manufacturer_id", converter: CommonModelConverter, required: true)]
         public Manufacturer Manufacturer { get; set; }
 
         [Field("supplier", "supplier_id", converter: CommonModelConverter)]
@@ -27,13 +27,13 @@ namespace SnipeSharp.EndPoint.Models
         [Field("model_number", true)]
         public string ModelNumber { get; set; }
 
-        [Field("category", "category_id", converter: CommonModelConverter)]
+        [Field("category", "category_id", converter: CommonModelConverter, required: true)]
         public Category Category { get; set; }
 
         [Field("location", "location_id", converter: CommonModelConverter)]
         public Location Location { get; set; }
 
-        [Field("qty", true)]
+        [Field("qty", true, required: true)]
         public int Quantity { get; set; }
 
         [Field("purchase_date", true, converter: DateTimeConverter)]

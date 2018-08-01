@@ -9,7 +9,7 @@ namespace SnipeSharp.EndPoint.Models
     public sealed class CustomField : CommonEndPointModel
     {
         [Field("id")]
-        public override long Id { get; set; }
+        public override int Id { get; set; }
 
         [Field("name")]
         public override string Name { get; set; }

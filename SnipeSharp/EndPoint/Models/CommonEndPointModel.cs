@@ -7,7 +7,7 @@ namespace SnipeSharp.EndPoint.Models
 {
     public abstract class CommonEndPointModel: ApiObject
     {
-        public abstract long Id { get; set; }
+        public abstract int Id { get; set; }
         public abstract string Name { get; set; }
         public abstract DateTime? CreatedAt { get; set; }
         public abstract DateTime? UpdatedAt { get; set; }

@@ -9,7 +9,7 @@ namespace SnipeSharp.EndPoint.Models
     public class User : CommonEndPointModel
     {
         [Field("id")]
-        public override long Id { get; set; }
+        public override int Id { get; set; }
 
         [Field("gravatar")]
         public Uri AvatarUrl { get; set; }

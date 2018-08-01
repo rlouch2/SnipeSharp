@@ -17,6 +17,7 @@ namespace SnipeSharp
         internal RestClientManager(SnipeItApiv2 api): this(api, new RestClient())
         {
             client.AddDefaultHeader("Accept", "application/json");
+            client.AddDefaultHeader("Cache-Control", "no-cache");
         }
 
         internal RestClientManager(SnipeItApiv2 api, IRestClient client)
@@ -44,7 +45,7 @@ namespace SnipeSharp
 
         internal string GetRaw(string path)
         {
-            var response = client.Execute(new RestRequest(path, Method.GET));
+            var response = client.Execute(new RestRequest(path, Method.GET) { JsonSerializer = serializerDeserializer });
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
             return response.Content;
@@ -52,9 +53,9 @@ namespace SnipeSharp
 
         internal R Get<R>(string path, IInternalSearchFilter filter = null) where R: ApiObject
         {
-            var request = new RestRequest(path, Method.GET);
+            var request = new RestRequest(path, Method.GET) { JsonSerializer = serializerDeserializer };
             if(!(filter is null))
-                request.AddObject(filter);
+                request.AddJsonBody(filter);
             return ExecuteRequest<R>(request);
         }
 
@@ -83,22 +84,22 @@ namespace SnipeSharp
         
         internal RequestResponse<R> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
         {
-            var request = new RestRequest(path, Method.POST);
+            var request = new RestRequest(path, Method.POST) { JsonSerializer = serializerDeserializer };
             if(@object != null)
-                request.AddBody(@object);
+                request.AddJsonBody(@object);
             return ExecuteRequest2<R>(request);
         }
 
         internal RequestResponse<R> Patch<R>(string path, R @object) where R: ApiObject
         {
-            var request = new RestRequest(path, Method.PATCH);
+            var request = new RestRequest(path, Method.PATCH) { JsonSerializer = serializerDeserializer };
             if(@object != null)
-                request.AddBody(@object);
+                request.AddJsonBody(@object);
             return ExecuteRequest2<R>(request);
         }
 
         internal RequestResponse<R> Delete<R>(string path) where R: ApiObject
-            => ExecuteRequest2<R>(new RestRequest(path, Method.DELETE));
+            => ExecuteRequest2<R>(new RestRequest(path, Method.DELETE) { JsonSerializer = serializerDeserializer });
 
         private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
         {
