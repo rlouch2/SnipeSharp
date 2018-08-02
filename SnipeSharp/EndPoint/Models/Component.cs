@@ -10,7 +10,7 @@ namespace SnipeSharp.EndPoint.Models
     public class Component : CommonEndPointModel
     {
         [Field("id")]
-        public override int Id { get; set; }
+        public override int Id { get; protected set; }
 
         [Field("name", true, required: true)]
         public override string Name { get; set; }
@@ -36,9 +36,15 @@ namespace SnipeSharp.EndPoint.Models
         [Field("order_number", true)]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The date this Component was purchased.
+        /// </summary>
         [Field("purchase_date", true, converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
+        /// <summary>
+        /// The cost of this Component when purchased.
+        /// </summary>
         [Field("purchase_cost", true)]
         public decimal? PurchaseCost { get; set; }
 
@@ -49,13 +55,13 @@ namespace SnipeSharp.EndPoint.Models
         public Company Company { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
-        public override DateTime? CreatedAt { get; set; }
+        public override DateTime? CreatedAt { get; protected set; }
 
         [Field("updated_at", converter: DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; set; }
+        public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("user_can_checkout")]
-        public bool? CanUserCheckOut { get; set; }
+        public bool? UserCanCheckOut { get; set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }

@@ -12,23 +12,21 @@ namespace SnipeSharp.Tests
         [Fact]
         public void CheckApiTokenAndUrl_NoTokenInApiSettings_ThrowException()
         {
-            var exception = Assert.Throws<NullApiTokenException>(() => {
+            Assert.Throws<NullApiTokenException>(() => {
                 var snipe = new SnipeItApi();
                 snipe.Uri = new Uri("http://google.com");
                 snipe.RequestManager.SetTokenAndUri();
             });
-            Assert.Equal("No API Token Set", exception.Message);
         }
 
         [Fact]
         public void CheckApiTokenAndUrl_NoUrlInApiSettings_ThrowException()
         {
-            var exception = Assert.Throws<NullApiBaseUrlException>(() => {
+            Assert.Throws<NullApiBaseUrlException>(() => {
                 var snipe = new SnipeItApi();
                 snipe.Token = "xxxxx";
                 snipe.RequestManager.SetTokenAndUri();
             });
-            Assert.Equal("No API Base Url Set.", exception.Message);
         }
 
         [Fact(Skip = "New API does not expose Client")]

@@ -9,7 +9,7 @@ namespace SnipeSharp.EndPoint.Models
     public class Location : CommonEndPointModel
     {
         [Field("id")]
-        public override int Id { get; set; }
+        public override int Id { get; protected set; }
 
         [Field("name", true)]
         public override string Name { get; set; }
@@ -48,10 +48,10 @@ namespace SnipeSharp.EndPoint.Models
         public string Currency { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
-        public override DateTime? CreatedAt { get; set; }
+        public override DateTime? CreatedAt { get; protected set; }
 
         [Field("updated_at", converter: DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; set; }
+        public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("parent", "parent_id", converter: CommonModelConverter)]
         public Location ParentLocation { get; set; }

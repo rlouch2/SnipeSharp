@@ -10,10 +10,10 @@ namespace SnipeSharp.EndPoint.Models
      * [PathSegment("settings")]
      * public class Setting : CommonEndPointModel
      * {
-     *   public override int Id { get; set; }
+     *   public override int Id { get; protected set; }
      *   public override string Name { get; set; }
-     *   public override DateTime? CreatedAt { get; set; }
-     *   public override DateTime? UpdatedAt { get; set; }
+     *   public override DateTime? CreatedAt { get; protected set; }
+     *   public override DateTime? UpdatedAt { get; protected set; }
      *   //TODO
      * }
      */

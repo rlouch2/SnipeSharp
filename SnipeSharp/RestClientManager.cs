@@ -143,5 +143,8 @@ namespace SnipeSharp
             }
             return asRequestResponse;
         }
+
+        public string Serialize(object @object)
+            => serializerDeserializer.Serialize(@object);
     }
 }

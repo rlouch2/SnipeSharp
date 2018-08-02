@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SnipeSharp.EndPoint.Models;
 
@@ -20,7 +21,7 @@ namespace SnipeSharp.EndPoint
             });
 
         // TODO: return type, signature
-        public static object Audit(this EndPoint<Asset> endPoint, Asset asset)
+        public static object Audit(this EndPoint<Asset> endPoint, Asset asset, Location location = null, DateTime? nextAuditDate = null, string notes = null)
         {
             //TODO
             return null;

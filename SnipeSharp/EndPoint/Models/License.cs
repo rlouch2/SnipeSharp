@@ -9,7 +9,7 @@ namespace SnipeSharp.EndPoint.Models
     public class License : CommonEndPointModel
     {
         [Field("id")]
-        public override int Id { get; set; }
+        public override int Id { get; protected set; }
 
         [Field("name", true)]
         public override string Name { get; set; }
@@ -32,9 +32,15 @@ namespace SnipeSharp.EndPoint.Models
         [Field("purchase_order", true)]
         public string PurchaseOrder { get; set; }
 
+        /// <summary>
+        /// The date this License was purchased.
+        /// </summary>
         [Field("purchase_date", true, converter: DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
+        /// <summary>
+        /// The cost of this License when purchased.
+        /// </summary>
         [Field("purchase_cost", true)]
         public decimal? PurchaseCost { get; set; }
 
@@ -63,13 +69,13 @@ namespace SnipeSharp.EndPoint.Models
         public Category Category { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
-        public override DateTime? CreatedAt { get; set; }
+        public override DateTime? CreatedAt { get; protected set; }
 
         [Field("updated_at", converter: DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; set; }
+        public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("user_can_checkout")]
-        public bool? CanUserCheckOut { get; set; }
+        public bool? UserCanCheckOut { get; set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
@@ -111,7 +117,7 @@ namespace SnipeSharp.EndPoint.Models
         public bool IsReassignable { get; set; }
 
         [Field("user_can_checkout")]
-        public bool CanUserCheckOut { get; set; }
+        public bool? UserCanCheckOut { get; set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }

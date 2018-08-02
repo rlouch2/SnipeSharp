@@ -15,6 +15,7 @@ namespace SnipeSharp.Serialization
             if(attribute != null && attribute.DeserializeAs != null)
             {
                 property.PropertyName = attribute.DeserializeAs;
+                property.Writable = true;
                 switch(attribute.Converter)
                 {
                     case FieldConverter.MonthsConverter:

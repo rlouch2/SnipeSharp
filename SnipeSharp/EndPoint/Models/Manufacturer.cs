@@ -9,7 +9,7 @@ namespace SnipeSharp.EndPoint.Models
     public class Manufacturer : CommonEndPointModel
     {
         [Field("id")]
-        public override int Id { get; set; }
+        public override int Id { get; protected set; }
 
         [Field("name")]
         public override string Name { get; set; }
@@ -42,10 +42,10 @@ namespace SnipeSharp.EndPoint.Models
         public int? AccessoriesCount { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
-        public override DateTime? CreatedAt { get; set; }
+        public override DateTime? CreatedAt { get; protected set; }
 
         [Field("updated_at", converter: DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; set; }
+        public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("deleted_at", converter: DateTimeConverter)]
         public DateTime? DeletedAt { get; set; }

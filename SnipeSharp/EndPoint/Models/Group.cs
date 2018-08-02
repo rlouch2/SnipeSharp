@@ -9,7 +9,7 @@ namespace SnipeSharp.EndPoint.Models
     public class Group : CommonEndPointModel
     {
         [Field("id")]
-        public override int Id { get; set; }
+        public override int Id { get; protected set; }
 
         [Field("name", true, required: true)]
         public override string Name { get; set; }
@@ -21,10 +21,10 @@ namespace SnipeSharp.EndPoint.Models
         public int? UsersCount { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
-        public override DateTime? CreatedAt { get; set; }
+        public override DateTime? CreatedAt { get; protected set; }
 
         [Field("updated_at", converter: DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; set; }
+        public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }

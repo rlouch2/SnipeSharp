@@ -12,7 +12,7 @@ namespace SnipeSharp.EndPoint.Models
     public sealed class CustomField : CommonEndPointModel
     {
         [Field("id")]
-        public override int Id { get; set; }
+        public override int Id { get; protected set; }
 
         [Field("name", true)]
         public override string Name { get; set; }
@@ -45,10 +45,10 @@ namespace SnipeSharp.EndPoint.Models
         public bool? IsRequired { get; set; }
 
         [Field("created_at", converter: DateTimeConverter)]
-        public override DateTime? CreatedAt { get; set; }
+        public override DateTime? CreatedAt { get; protected set; }
 
         [Field("deleted_at", converter: DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; set; }
+        public override DateTime? UpdatedAt { get; protected set; }
     }
 
     [JsonConverter(typeof(StringEnumConverter))]

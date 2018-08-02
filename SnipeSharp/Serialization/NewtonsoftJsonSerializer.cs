@@ -13,13 +13,20 @@ namespace SnipeSharp.Serialization
         public string Namespace { get; set; }
 
         public string Serialize(object @object)
-            => JsonConvert.SerializeObject(@object, new JsonSerializerSettings {
+        {
+            var settings = new JsonSerializerSettings {
                 ContractResolver = SerializationContractResolver.Instance,
                 NullValueHandling = NullValueHandling.Ignore
-            });
+            };
+            settings.Converters.Add(LiftCustomFieldsCollectionConverter.Instance);
+            return JsonConvert.SerializeObject(@object, settings);
+        }
         public T Deserialize<T>(IRestResponse response)
-            => JsonConvert.DeserializeObject<T>(response.Content, new JsonSerializerSettings {
+        {
+            var settings = new JsonSerializerSettings {
                 ContractResolver = DeserializationContractResolver.Instance
-            });
+            };
+            return JsonConvert.DeserializeObject<T>(response.Content, settings);
+        }
     }
 }
