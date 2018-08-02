@@ -25,7 +25,7 @@ nuget install SnipeSharp
 ## Usage
 
 ```csharp
-SnipeItApiv2 snipe = new SnipeItApiv2 {
+SnipeItApi snipe = new SnipeItApi {
     Token = "XXXXXXXX",
     Uri = new Uri("http://xxxxx.com/api/v1")
 };

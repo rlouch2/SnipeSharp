@@ -1,8 +1,8 @@
 namespace SnipeSharp.EndPoint.Models
 {
     /// <summary>
-    /// Represents the the base of all objects we get back the API.  This is the building block for all more 
-    /// specific return objects. 
+    /// <para>ApiObject is the base class for all classes used for interacting with the API.</para>
+    /// <para>It serves as a common root for all objects except for search filters, which extend from <see cref="SnipeSharp.EndPoint.Filters.ISearchFilter" />.</para>
     /// </summary>
     public class ApiObject
     {

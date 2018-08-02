@@ -1,9 +1,8 @@
-using SnipeSharp.Endpoints.Models;
 using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.SearchFilters
 {
-    public class AssetSearchFilter : SearchFilter
+    /*public class AssetSearchFilter : SearchFilter
     {
         [SerializeAs(Name = "order_number")]
         public string OrderNumber { get; set; }
@@ -28,6 +27,6 @@ namespace SnipeSharp.Endpoints.SearchFilters
         [SerializeAs(Name = "status_id")]
         public int? StatusId { get; set; }
 
-    }
+    }*/
 }
 

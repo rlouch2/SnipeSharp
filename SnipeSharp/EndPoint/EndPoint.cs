@@ -11,10 +11,10 @@ namespace SnipeSharp.EndPoint
 {
     public class EndPoint<T> : IEndPoint<T> where T: CommonEndPointModel
     {
-        internal readonly SnipeItApiv2 Api;
+        internal readonly SnipeItApi Api;
         internal readonly PathSegmentAttribute EndPointInfo;
 
-        internal EndPoint(SnipeItApiv2 api)
+        internal EndPoint(SnipeItApi api)
         {
             Api = api;
             EndPointInfo = typeof(T).GetCustomAttribute<PathSegmentAttribute>();

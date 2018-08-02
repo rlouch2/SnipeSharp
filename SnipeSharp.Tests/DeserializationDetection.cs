@@ -15,7 +15,7 @@ namespace SnipeSharp.Tests
     {
         private static NewtonsoftJsonSerializer Serializer = new NewtonsoftJsonSerializer();
         private static StubRestClient StubRestClient = new StubRestClient();
-        private static SnipeItApiv2 Api = new SnipeItApiv2(StubRestClient) {
+        private static SnipeItApi Api = new SnipeItApi(StubRestClient) {
             Token = "xxxx",
             Uri = new Uri("http://localhost/api/v1")
         };

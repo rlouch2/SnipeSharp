@@ -1,4 +1,3 @@
-using SnipeSharp.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,7 +8,7 @@ using RestSharp.Serializers;
 /// </summary>
 namespace SnipeSharp.Endpoints.SearchFilters
 {
-    public class SearchFilter : ISearchFilter
+    public class SearchFilter
     {
         public int? Limit { get; set; }
         public int? Offset { get; set; }

@@ -5,9 +5,19 @@ using System.Reflection;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    /// <summary>
+    /// CommonEndPointModel is an ApiObject associated with an Api EndPoint.
+    /// </summary>
     public abstract class CommonEndPointModel: ApiObject
     {
+        /// <summary>
+        /// The internal Id of the object.
+        /// </summary>
         public abstract int Id { get; set; }
+        
+        /// <summary>
+        /// The name of the object.
+        /// </summary>
         public abstract string Name { get; set; }
 
         /// <summary>

@@ -9,18 +9,18 @@ namespace SnipeSharp
 {
     internal sealed class RestClientManager
     {
-        private readonly SnipeItApiv2 api;
+        private readonly SnipeItApi api;
         private readonly IRestClient client;
 
         private readonly NewtonsoftJsonSerializer serializerDeserializer = new NewtonsoftJsonSerializer();
 
-        internal RestClientManager(SnipeItApiv2 api): this(api, new RestClient())
+        internal RestClientManager(SnipeItApi api): this(api, new RestClient())
         {
             client.AddDefaultHeader("Accept", "application/json");
             client.AddDefaultHeader("Cache-Control", "no-cache");
         }
 
-        internal RestClientManager(SnipeItApiv2 api, IRestClient client)
+        internal RestClientManager(SnipeItApi api, IRestClient client)
         {
             this.api = api;
             this.client = client;
