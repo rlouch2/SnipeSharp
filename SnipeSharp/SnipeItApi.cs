@@ -11,7 +11,6 @@ namespace SnipeSharp
         public AssetEndpointManager AssetManager;
         public IEndPointManager<Company> CompanyManager;
         public IEndPointManager<Location> LocationManager;
-        public IEndPointManager<Accessory> AccessoryManager;
         public IEndPointManager<Consumable> ConsumableManager;
         public IEndPointManager<Component> ComponentManager;
         public UserEndpointManager UserManager;
@@ -34,7 +33,6 @@ namespace SnipeSharp
             AssetManager = new AssetEndpointManager(ReqManager);
             CompanyManager = new EndPointManager<Company>(ReqManager);
             LocationManager = new EndPointManager<Location>(ReqManager);
-            AccessoryManager = new EndPointManager<Accessory>(ReqManager);
             ConsumableManager = new EndPointManager<Consumable>(ReqManager);
             ComponentManager = new EndPointManager<Component>(ReqManager);
             UserManager = new UserEndpointManager(ReqManager);

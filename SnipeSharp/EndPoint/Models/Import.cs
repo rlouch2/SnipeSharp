@@ -7,7 +7,7 @@ namespace SnipeSharp.EndPoint.Models
 {
     /*
      * // TODO: disabled until the Imports EndPoint is made consistent with the rest (it doesn't return a ResponseCollection, and the created_at field is a string with a relative timestamp)
-     * [EndPointInformation("imports", "")]
+     * [PathSegment("imports")]
      * public class Import : CommonEndPointModel
      * {
      *   public override int Id { get; set; }

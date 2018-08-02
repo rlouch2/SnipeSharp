@@ -6,9 +6,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-/// <summary>
-/// The base class for all SearchFilter objects.  These properties are common to any filter we want to do on a get request for all endpoints.
-/// </summary>
 namespace SnipeSharp.EndPoint.Filters
 {
     public sealed class AssetSearchFilter : ISearchFilter<AssetSearchColumn>

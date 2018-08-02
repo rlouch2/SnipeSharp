@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace SnipeSharp.EndPoint.Models
 {
-    [EndPointInformation("fields", "")]
+    [PathSegment("fields")]
     public sealed class CustomField : CommonEndPointModel
     {
         [Field("id")]

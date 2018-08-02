@@ -113,13 +113,6 @@ namespace SnipeSharp.JsonConverters
                 return item.ToObject<Component>();
             }
 
-            // Accessories
-            // TODO: This isn't great since I think it's based on a type in the API
-            if (dictionary.ContainsKey("min_qty") && dictionary.ContainsKey("remaining_qty"))
-            {
-                return item.ToObject<Accessory>();
-            }
-
             return item.ToObject<CommonEndpointModel>();
             //throw new FailedToDetectObjectException();
         }

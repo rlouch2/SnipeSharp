@@ -12,14 +12,14 @@ namespace SnipeSharp.EndPoint
     public class EndPoint<T> : IEndPoint<T> where T: CommonEndPointModel
     {
         internal readonly SnipeItApiv2 Api;
-        internal readonly EndPointInformationAttribute EndPointInfo;
+        internal readonly PathSegmentAttribute EndPointInfo;
 
         internal EndPoint(SnipeItApiv2 api)
         {
             Api = api;
-            EndPointInfo = typeof(T).GetCustomAttribute<EndPointInformationAttribute>();
+            EndPointInfo = typeof(T).GetCustomAttribute<PathSegmentAttribute>();
             if(EndPointInfo is null)
-                throw new MissingRequiredAttributeException(nameof(EndPointInformationAttribute), typeof(T).Name);
+                throw new MissingRequiredAttributeException(nameof(PathSegmentAttribute), typeof(T).Name);
         }
 
         public ResponseCollection<T> FindAll(IInternalSearchFilter filter = null)

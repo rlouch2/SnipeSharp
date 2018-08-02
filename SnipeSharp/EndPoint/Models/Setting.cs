@@ -7,7 +7,7 @@ namespace SnipeSharp.EndPoint.Models
 {
     /*
      * // TODO: disabled until the Settings EndPoint isn't broken (500 error)
-     * [EndPointInformation("settings", "")]
+     * [PathSegment("settings")]
      * public class Setting : CommonEndPointModel
      * {
      *   public override int Id { get; set; }

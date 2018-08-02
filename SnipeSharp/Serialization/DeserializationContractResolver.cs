@@ -32,6 +32,9 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.MessagesConverter:
                         property.Converter = property.MemberConverter = CustomMessageConverter.Instance;
                         break;
+                    case FieldConverter.AvailableActionsConverter:
+                        property.Converter = property.MemberConverter = CustomAvailableActionsConverter.Instance;
+                        break;
                     case FieldConverter.CommonModelConverter:
                     case FieldConverter.None:
                         break;

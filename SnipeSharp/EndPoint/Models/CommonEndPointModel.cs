@@ -9,13 +9,19 @@ namespace SnipeSharp.EndPoint.Models
     {
         public abstract int Id { get; set; }
         public abstract string Name { get; set; }
+
+        /// <summary>
+        /// The creation date of this object in Snipe-IT.
+        /// </summary>
         public abstract DateTime? CreatedAt { get; set; }
+
+        /// <summary>
+        /// The most recent date this object was modified in Snipe-IT.
+        /// </summary>
         public abstract DateTime? UpdatedAt { get; set; }
 
-        // TODO - We're doing this so when it's passed in the header for create action we get the ID
+        /// <inheritdoc />
         public override string ToString()
-        {
-            return Id.ToString();
-        }
+            => Name ?? Id.ToString();
     }
 }

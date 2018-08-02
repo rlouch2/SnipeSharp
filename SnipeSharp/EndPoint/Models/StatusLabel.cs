@@ -5,7 +5,7 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
-    [EndPointInformation("statuslabels", "")]
+    [PathSegment("statuslabels")]
     public class StatusLabel : CommonEndPointModel
     {
         [Field("id")]

@@ -5,8 +5,8 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
-    [EndPointInformation("hardware", "")]
-    public class Asset : CommonEndPointModel
+    [PathSegment("hardware")]
+    public sealed class Asset : CommonEndPointModel
     {
         [Field("id")]
         public override int Id { get; set; }
@@ -26,11 +26,11 @@ namespace SnipeSharp.EndPoint.Models
         [Field("model_number", true)]
         public string ModelNumber { get; set; }
 
-        [Field("eol")]
-        public string Eol { get; set; }
+        [Field("eol", converter: DateTimeConverter)]
+        public DateTime? EndOfLife { get; set; }
 
         [Field("status_label", "status_id", converter: CommonModelConverter, required: true)]
-        public StatusLabel StatusLabel { get; set; }
+        public AssetStatus Status { get; set; }
 
         [Field("category")]
         public Category Category { get; set; }
@@ -54,7 +54,7 @@ namespace SnipeSharp.EndPoint.Models
         public Location Location { get; set; }
 
         [Field("rtd_location", "rtd_location_id", converter: CommonModelConverter)]
-        public Location RtdLocation { get; set; }
+        public Location DefaultLocation { get; set; }
 
         [Field("image", true)]
         public Uri ImageUri { get; set; }
@@ -108,80 +108,12 @@ namespace SnipeSharp.EndPoint.Models
         public int RequestsCounter { get; set; }
 
         [Field("user_can_checkout")]
-        public bool? CanUserCheckOut { get; set; }
+        public bool CanUserCheckOut { get; set; }
 
         [Field("custom_fields")]
         public Dictionary<string, AssetCustomField> CustomFields { get; set; }
 
         [Field("available_actions")]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
-    }
-
-    public sealed class AssetCustomField : ApiObject
-    {
-        [Field("field")]
-        public string Field { get; set; }
-
-        [Field("value")]
-        public string Value { get; set; }
-
-        [Field("field_format")]
-        public string Format { get; set; }
-    }
-
-    public sealed class AssetCheckOutRequest : ApiObject
-    {
-        public Asset Asset { get; private set; }
-
-        [Field("assigned_location")]
-        public Location AssignedLocation { get; private set; }
-
-        [Field("assigned_asset")]
-        public Asset AssignedAsset { get; private set; }
-
-        [Field("assigned_user")]
-        public User AssignedUser { get; private set; }
-
-        [Field("checkout_to_type")]
-        public AssignedToType CheckOutToType { get; private set; }
-
-        [Field("checkout_at")]
-        public DateTime? CheckOutAt { get; set; }
-
-        [Field("expected_checkin")]
-        public DateTime? ExpectedCheckIn { get; set; }
-
-        [Field("note")]
-        public string Note { get; set; }
-
-        [Field("name")]
-        public string AssetName { get; set; }
-
-        public AssetCheckOutRequest(Asset asset, Location location)
-        {
-            Asset = asset;
-            AssignedLocation = location;
-            CheckOutToType = AssignedToType.Location;
-        }
-
-        public AssetCheckOutRequest(Asset asset, User user)
-        {
-            Asset = asset;
-            AssignedUser = user;
-            CheckOutToType = AssignedToType.User;
-        }
-
-        public AssetCheckOutRequest(Asset asset, Asset assignedAsset)
-        {
-            Asset = asset;
-            AssignedAsset = assignedAsset;
-            CheckOutToType = AssignedToType.Asset;
-        }
-    }
-
-    internal sealed class AssetCheckInRequest : ApiObject
-    {
-        public string Note { get; set; }
-        public Location Location { get; set; }
     }
 }

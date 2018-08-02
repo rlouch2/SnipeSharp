@@ -5,7 +5,7 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
-    [EndPointInformation("consumables", "")]
+    [PathSegment("consumables")]
     public class Consumable : CommonEndPointModel
     {
         [Field("id")]
