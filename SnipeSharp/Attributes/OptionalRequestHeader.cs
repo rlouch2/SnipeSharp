@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace SnipeSharp.Attributes
 {
@@ -18,5 +18,3 @@ namespace SnipeSharp.Attributes
         }
     }
 }
-
-

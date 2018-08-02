@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Attributes;
+using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using System.Collections.Generic;
 using RestSharp.Deserializers;
@@ -48,3 +48,4 @@ namespace SnipeSharp.Endpoints.Models
         public List<Location> Children { get; set; }
     }
 }
+

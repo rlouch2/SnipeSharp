@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Endpoints.Models;
+using SnipeSharp.Endpoints.Models;
 using SnipeSharp.Endpoints.SearchFilters;
 
 namespace SnipeSharp.Common

@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Endpoints.Models;
+using SnipeSharp.Endpoints.Models;
 using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.SearchFilters
@@ -30,3 +30,4 @@ namespace SnipeSharp.Endpoints.SearchFilters
 
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Attributes;
+using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using RestSharp.Deserializers;
 using RestSharp.Serializers;
@@ -34,3 +34,4 @@ namespace SnipeSharp.Endpoints.Models
         public long LicensesCount { get; set; }
     }
 }
+

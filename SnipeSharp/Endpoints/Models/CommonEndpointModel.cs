@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Attributes;
+using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using SnipeSharp.Exceptions;
 using SnipeSharp.JsonConverters;

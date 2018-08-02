@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Endpoints.Models;
+using SnipeSharp.Endpoints.Models;
 using SnipeSharp.JsonConverters;
 using System.Collections.Generic;
 using RestSharp.Deserializers;

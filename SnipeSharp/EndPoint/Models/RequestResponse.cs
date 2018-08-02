@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using static SnipeSharp.Serialization.FieldConverter;
 using System.Linq;
@@ -20,3 +20,4 @@ namespace SnipeSharp.EndPoint.Models
             => $"{Status}: {Messages.First().Value}";
     }
 }
+

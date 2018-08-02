@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using SnipeSharp.EndPoint.Models;
 using SnipeSharp.EndPoint.Filters;
 

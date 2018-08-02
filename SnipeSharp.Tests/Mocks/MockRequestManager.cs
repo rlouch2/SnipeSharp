@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Common;
+using SnipeSharp.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

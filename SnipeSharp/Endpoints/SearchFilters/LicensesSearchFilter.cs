@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Endpoints.SearchFilters;
+using SnipeSharp.Endpoints.SearchFilters;
 using RestSharp.Serializers;
 
 namespace SnipeSharp.Endpoints.SearchFilters
@@ -11,3 +11,4 @@ namespace SnipeSharp.Endpoints.SearchFilters
         public bool Expand { get; set; }
     }
 }
+

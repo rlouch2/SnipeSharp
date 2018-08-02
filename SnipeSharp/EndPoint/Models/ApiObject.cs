@@ -1,4 +1,4 @@
-﻿namespace SnipeSharp.EndPoint.Models
+namespace SnipeSharp.EndPoint.Models
 {
     /// <summary>
     /// Represents the the base of all objects we get back the API.  This is the building block for all more 

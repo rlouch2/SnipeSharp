@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Attributes;
+using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using System.Linq;
 using SnipeSharp.Exceptions;
@@ -64,3 +64,4 @@ namespace SnipeSharp.Endpoints.Models
         public bool Archived { get; set; }
     }
 }
+

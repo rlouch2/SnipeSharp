@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Common;
+using SnipeSharp.Common;
 using SnipeSharp.Endpoints;
 using SnipeSharp.Endpoints.ExtendedManagers;
 using SnipeSharp.Endpoints.Models;

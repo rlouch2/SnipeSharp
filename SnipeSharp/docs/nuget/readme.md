@@ -1,4 +1,4 @@
-﻿# SnipeSharp
+# SnipeSharp
 
 A .NET wrapper for the Snipe IT API written (poorly) in C#.
 

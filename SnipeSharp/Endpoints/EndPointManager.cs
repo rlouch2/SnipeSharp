@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SnipeSharp.Attributes;
 using SnipeSharp.Common;
 using SnipeSharp.Endpoints.Models;

@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Common;
+using SnipeSharp.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -32,3 +32,4 @@ namespace SnipeSharp.Endpoints.SearchFilters
         }
     }
 }
+

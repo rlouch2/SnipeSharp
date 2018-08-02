@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Common;
+using SnipeSharp.Common;
 using System.Collections.Generic;
 
 namespace SnipeSharp.Endpoints.Models
@@ -12,3 +12,4 @@ namespace SnipeSharp.Endpoints.Models
         ResponseDate UpdatedAt { get; set; }
     }
 }
+

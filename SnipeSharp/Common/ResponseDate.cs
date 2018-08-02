@@ -1,4 +1,4 @@
-﻿using RestSharp.Deserializers;
+using RestSharp.Deserializers;
 
 namespace SnipeSharp.Common
 {

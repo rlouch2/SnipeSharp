@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Attributes;
+using SnipeSharp.Attributes;
 using System.Linq;
 using SnipeSharp.Exceptions;
 using RestSharp.Deserializers;

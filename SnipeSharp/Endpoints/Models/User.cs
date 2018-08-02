@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Common;
+using SnipeSharp.Common;
 using System.Collections.Generic;
 using SnipeSharp.Attributes;
 using RestSharp.Deserializers;
@@ -116,3 +116,4 @@ namespace SnipeSharp.Endpoints.Models
         public Department Department { get; set; }
     }
 }
+

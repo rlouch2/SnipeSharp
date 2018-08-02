@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using SnipeSharp.Common;
 
 namespace SnipeSharp.Endpoints.SearchFilters
@@ -12,3 +12,4 @@ namespace SnipeSharp.Endpoints.SearchFilters
         string Order { get; set; }
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using SnipeSharp.Common;
+using SnipeSharp.Common;
 using SnipeSharp.Attributes;
 using RestSharp.Deserializers;
 using RestSharp.Serializers;
@@ -21,3 +21,4 @@ namespace SnipeSharp.Endpoints.Models
         public Location Location { get; set; }
     }
 }
+

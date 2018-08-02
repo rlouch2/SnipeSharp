@@ -1,4 +1,4 @@
-﻿using RestSharp.Serializers;
+using RestSharp.Serializers;
 using Newtonsoft.Json;
 
 namespace SnipeSharp.Common
