@@ -43,12 +43,12 @@ snipe.AssetManager.FindAll()
 
 Find all objects matching certain filtering criteria 
 ```csharp
-snipe.AssetManager.FindAll(IInternalSearchFilter filter)
+snipe.AssetManager.FindAll(ISearchFilter filter)
 ```
 
 Find first object matching search criteria
 ```csharp
-snipe.AssetManager.FindOne(IInternalSearchFilter filter)
+snipe.AssetManager.FindOne(ISearchFilter filter)
 ```
 
 Get object with ID

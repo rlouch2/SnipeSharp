@@ -4,7 +4,7 @@ using SnipeSharp.Serialization;
 
 namespace SnipeSharp.EndPoint.Filters
 {
-    public sealed class SearchFilter : ISearchFilter<string>
+    public sealed class SearchFilter : ISortableSearchFilter<string>
     {
         [Field("limit", true)]
         public int? Limit { get; set; }

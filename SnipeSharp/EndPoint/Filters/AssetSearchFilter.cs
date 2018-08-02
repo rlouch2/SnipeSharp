@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace SnipeSharp.EndPoint.Filters
 {
-    public sealed class AssetSearchFilter : ISearchFilter<AssetSearchColumn>
+    public sealed class AssetSearchFilter : ISortableSearchFilter<AssetSearchColumn>
     {
         [Field("limit", true)]
         public int? Limit { get; set; }
@@ -74,7 +74,7 @@ namespace SnipeSharp.EndPoint.Filters
         }
     }
 
-    public sealed class CustomAssetSearchFilter : ISearchFilter<string>
+    public sealed class CustomAssetSearchFilter : ISortableSearchFilter<string>
     {
         [Field("limit", true)]
         public int? Limit { get; set; }

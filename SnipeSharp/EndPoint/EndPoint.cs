@@ -22,10 +22,10 @@ namespace SnipeSharp.EndPoint
                 throw new MissingRequiredAttributeException(nameof(PathSegmentAttribute), typeof(T).Name);
         }
 
-        public ResponseCollection<T> FindAll(IInternalSearchFilter filter = null)
+        public ResponseCollection<T> FindAll(ISearchFilter filter = null)
             => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
 
-        public T FindOne(IInternalSearchFilter filter)
+        public T FindOne(ISearchFilter filter)
         {
             filter.Limit = 1;
             return Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter).FirstOrDefault();

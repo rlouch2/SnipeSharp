@@ -51,7 +51,7 @@ namespace SnipeSharp
             return response.Content;
         }
 
-        internal R Get<R>(string path, IInternalSearchFilter filter = null) where R: ApiObject
+        internal R Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
             var request = new RestRequest(path, Method.GET) { JsonSerializer = serializerDeserializer };
             if(!(filter is null))
@@ -59,7 +59,7 @@ namespace SnipeSharp
             return ExecuteRequest<R>(request);
         }
 
-        internal ResponseCollection<R> GetAll<R>(string path, IInternalSearchFilter filter = null) where R: ApiObject
+        internal ResponseCollection<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
             var result = Get<ResponseCollection<R>>(path, filter);
             var offset = filter?.Offset == null ? 0 : filter.Offset;
