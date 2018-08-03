@@ -3,11 +3,11 @@ using System.Linq;
 using System.Reflection;
 using RestSharp.Serializers;
 
-/// <summary>
-/// The base class for all SearchFilter objects.  These properties are common to any filter we want to do on a get request for all endpoints.
-/// </summary>
 namespace SnipeSharp.Endpoints.SearchFilters
 {
+    /// <summary>
+    /// The base class for all SearchFilter objects.  These properties are common to any filter we want to do on a get request for all endpoints.
+    /// </summary>
     public class SearchFilter
     {
         public int? Limit { get; set; }

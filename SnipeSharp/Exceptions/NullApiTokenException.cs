@@ -3,21 +3,16 @@ using System.Runtime.Serialization;
 
 namespace SnipeSharp.Exceptions
 {
-    public class NullApiTokenException : Exception
+    /// <summary>
+    /// The exception that is thrown when an API request is attempted but no API Token has been specified.
+    /// </summary>
+    /// <seealso cref="SnipeSharp.SnipeItApi.Token" />
+    public sealed class NullApiTokenException : Exception
     {
-        public NullApiTokenException()
-        {
-        }
-
-        public NullApiTokenException(string message) : base(message)
-        {
-        }
-
-        public NullApiTokenException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected NullApiTokenException(SerializationInfo info, StreamingContext context) : base(info, context)
+        /// <summary>
+        /// Initializes a new instance of the MissingRequiredAttributeException class.
+        /// </summary>
+        public NullApiTokenException(): base("No API Token set.")
         {
         }
     }

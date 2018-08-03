@@ -268,6 +268,9 @@ namespace SnipeSharp.EndPoint.Models
         /// <para>Custom fields for this Asset, selected by the Model's FieldSet.</para>
         /// <para>Values in this collection will be serialized with the key <c><see cref="AssetCustomField.Field">value.Field</see> ?? key</c> and the value <see cref="AssetCustomField.Value">value.Value</see>.</para>
         /// </summary>
+        /// <remarks>
+        /// <para>During serialization, <see cref="SnipeSharp.Serialization.LiftCustomFieldsCollectionConverter" /> lifts the values in here into the parent JSON object.</para>
+        /// </remarks>
         [Field("custom_fields")]
         public Dictionary<string, AssetCustomField> CustomFields { get; set; }
 

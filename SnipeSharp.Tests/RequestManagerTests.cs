@@ -22,7 +22,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void CheckApiTokenAndUrl_NoUrlInApiSettings_ThrowException()
         {
-            Assert.Throws<NullApiBaseUrlException>(() => {
+            Assert.Throws<NullApiUriException>(() => {
                 var snipe = new SnipeItApi();
                 snipe.Token = "xxxxx";
                 snipe.RequestManager.SetTokenAndUri();

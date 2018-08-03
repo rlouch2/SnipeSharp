@@ -4,13 +4,19 @@ using System.Runtime.Serialization;
 
 namespace SnipeSharp.EndPoint
 {
+    /// <summary>
+    /// Indicates what type an Asset or other object is assigned to: a User, a Location, or an Asset.
+    /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum AssignedToType
     {
+        /// <summary>The object is assigned to a User.</summary>
         [EnumMember(Value = "user")]
         User,
+        /// <summary>The object is assigned to a Location.</summary>
         [EnumMember(Value = "location")]
         Location,
+        /// <summary>The object is assigned to an Asset.</summary>
         [EnumMember(Value = "asset")]
         Asset
     }

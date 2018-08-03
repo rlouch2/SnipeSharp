@@ -3,21 +3,16 @@ using System.Runtime.Serialization;
 
 namespace SnipeSharp.Exceptions
 {
-    public class NullApiBaseUrlException : Exception
+    /// <summary>
+    /// The exception that is thrown when an API request is attempted but no API URI has been specified.
+    /// </summary>
+    /// <seealso cref="SnipeSharp.SnipeItApi.Uri" />
+    public sealed class NullApiUriException : Exception
     {
-        public NullApiBaseUrlException()
-        {
-        }
-
-        public NullApiBaseUrlException(string message) : base(message)
-        {
-        }
-
-        public NullApiBaseUrlException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected NullApiBaseUrlException(SerializationInfo info, StreamingContext context) : base(info, context)
+        /// <summary>
+        /// Initializes a new instance of the NullApiUriException class.
+        /// </summary>
+        public NullApiUriException(): base("No API Uri set.")
         {
         }
     }

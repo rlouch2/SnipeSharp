@@ -29,9 +29,9 @@ namespace SnipeSharp
         internal void SetTokenAndUri()
         {
             if(api.Uri is null)
-                throw new NullApiBaseUrlException("No API Uri set.");
+                throw new NullApiUriException();
             if(api.Token is null)
-                throw new NullApiTokenException("No API Token set.");
+                throw new NullApiTokenException();
             if(client.BaseUrl is null)
                 client.BaseUrl = api.Uri;
             if(client.Authenticator is null)
@@ -143,8 +143,5 @@ namespace SnipeSharp
             }
             return asRequestResponse;
         }
-
-        public string Serialize(object @object)
-            => serializerDeserializer.Serialize(@object);
     }
 }
