@@ -22,6 +22,9 @@ namespace SnipeSharp.EndPoint
         Consumable,
         /// <summary>This Category is for a <see cref="SnipeSharp.EndPoint.Models.Component">Component</see>.</summary>
         [EnumMember(Value = "component")]
-        Component
+        Component,
+        /// <summary>This Category is for a <see cref="SnipeSharp.EndPoint.Models.License">License</see>.</summary>
+        [EnumMember(Value = "license")]
+        License
     }
 }

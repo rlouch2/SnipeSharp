@@ -14,11 +14,13 @@ namespace SnipeSharp.EndPoint
         public static RequestResponse<ApiObject> CheckOut(this EndPoint<Asset> endPoint, AssetCheckOutRequest request)
             => endPoint.Api.RequestManager.Post<AssetCheckOutRequest, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/{request.Asset.Id}/checkout", request);
 
-        public static RequestResponse<ApiObject> CheckIn(this EndPoint<Asset> endPoint, Asset asset, string note = null, Location location = null)
-            => endPoint.Api.RequestManager.Post<AssetCheckInRequest, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/{asset.Id}/checkin", new AssetCheckInRequest {
-                Note = note,
-                Location = location
+        public static RequestResponse<ApiObject> CheckIn(this EndPoint<Asset> endPoint, Asset asset, string note = null)
+            => endPoint.CheckIn(new AssetCheckInRequest(asset){
+                AssetName = asset.Name,
+                Note = note
             });
+        public static RequestResponse<ApiObject> CheckIn(this EndPoint<Asset> endPoint, AssetCheckInRequest request)
+            => endPoint.Api.RequestManager.Post<AssetCheckInRequest, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/{request.Asset.Id}/checkin", request);
 
         // TODO: return type, signature
         public static object Audit(this EndPoint<Asset> endPoint, Asset asset, Location location = null, DateTime? nextAuditDate = null, string notes = null)
