@@ -9,11 +9,18 @@ using SnipeSharp.Exceptions;
 
 namespace SnipeSharp.EndPoint
 {
+    /// <summary>
+    /// Implements <see cref="IEndPoint{T}" />.
+    /// </summary>
+    /// <seealso cref="EndPointExtensions" />
+    /// <typeparam name="T">A <see cref="Models.CommonEndPointModel">CommonEndPointModel</see> with the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</typeparam>
     public class EndPoint<T> : IEndPoint<T> where T: CommonEndPointModel
     {
         internal readonly SnipeItApi Api;
         internal readonly PathSegmentAttribute EndPointInfo;
 
+        /// <param name="api">The Api to grab the RequestManager from.</param>
+        /// <exception cref="SnipeSharp.Exceptions.MissingRequiredAttributeException">When the type parameter does not have the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</exception>
         internal EndPoint(SnipeItApi api)
         {
             Api = api;
@@ -22,18 +29,22 @@ namespace SnipeSharp.EndPoint
                 throw new MissingRequiredAttributeException(nameof(PathSegmentAttribute), typeof(T).Name);
         }
 
+        /// <inheritdoc />
         public ResponseCollection<T> FindAll(ISearchFilter filter = null)
             => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
 
+        /// <inheritdoc />
         public T FindOne(ISearchFilter filter)
         {
             filter.Limit = 1;
             return Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter).FirstOrDefault();
         }
 
+        /// <inheritdoc />
         public T Get(int id)
             => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
 
+        /// <inheritdoc />
         public T Get(string name, bool caseSensitive = false)
         {
             if(caseSensitive)
@@ -47,18 +58,23 @@ namespace SnipeSharp.EndPoint
             }
         }
 
+        /// <inheritdoc />
         public T Create(T toCreate)
             => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate)).Payload;
 
+        /// <inheritdoc />
         public RequestResponse<T> Delete(int id)
             => Api.RequestManager.Delete<T>($"{EndPointInfo.BaseUri}/{id}");
 
+        /// <inheritdoc />
         public T Update(T toUpdate)
             => Api.RequestManager.Patch($"{EndPointInfo.BaseUri}/{toUpdate.Id}", toUpdate).Payload;
 
+        /// <inheritdoc />
         public T this[int id]
             => Get(id);
 
+        /// <inheritdoc />
         public T this[string name, bool caseSensitive = false]
             => Get(name, caseSensitive);
 

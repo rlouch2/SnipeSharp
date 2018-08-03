@@ -7,49 +7,49 @@ namespace SnipeSharp.EndPoint.Models
     {
         public Asset Asset { get; private set; }
 
-        [Field("assigned_location")]
+        [Field("assigned_location", true)]
         public Location AssignedLocation { get; private set; }
 
-        [Field("assigned_asset")]
+        [Field("assigned_asset", true)]
         public Asset AssignedAsset { get; private set; }
 
-        [Field("assigned_user")]
+        [Field("assigned_user", true)]
         public User AssignedUser { get; private set; }
 
-        [Field("checkout_to_type")]
-        public AssignedToType CheckOutToType { get; private set; }
+        [Field("checkout_to_type", true)]
+        public AssignedToType AssignedToType { get; private set; }
 
-        [Field("checkout_at")]
+        [Field("checkout_at", true)]
         public DateTime? CheckOutAt { get; set; }
 
-        [Field("expected_checkin")]
+        [Field("expected_checkin", true)]
         public DateTime? ExpectedCheckIn { get; set; }
 
-        [Field("note")]
+        [Field("note", true)]
         public string Note { get; set; }
 
-        [Field("name")]
+        [Field("name", true)]
         public string AssetName { get; set; }
 
         public AssetCheckOutRequest(Asset asset, Location location)
         {
             Asset = asset;
             AssignedLocation = location;
-            CheckOutToType = AssignedToType.Location;
+            AssignedToType = AssignedToType.Location;
         }
 
         public AssetCheckOutRequest(Asset asset, User user)
         {
             Asset = asset;
             AssignedUser = user;
-            CheckOutToType = AssignedToType.User;
+            AssignedToType = AssignedToType.User;
         }
 
         public AssetCheckOutRequest(Asset asset, Asset assignedAsset)
         {
             Asset = asset;
             AssignedAsset = assignedAsset;
-            CheckOutToType = AssignedToType.Asset;
+            AssignedToType = AssignedToType.Asset;
         }
     }
 }
