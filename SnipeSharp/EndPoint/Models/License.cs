@@ -5,6 +5,10 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    /// <summary>
+    /// A License.
+    /// Licenses may be checked out to Assets or Users.
+    /// </summary>
     [PathSegment("licenses")]
     public sealed class License : CommonEndPointModel
     {

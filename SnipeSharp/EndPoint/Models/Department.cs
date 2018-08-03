@@ -5,6 +5,10 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    /// <summary>
+    /// A Department.
+    /// Departments structure Users within a Company.
+    /// </summary>
     [PathSegment("departments")]
     public sealed class Department : CommonEndPointModel
     {

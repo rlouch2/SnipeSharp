@@ -5,6 +5,10 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    /// <summary>
+    /// A Consumable.
+    /// Consumables may be checked out to Users, but unlike Accessories cannot be checked back in.
+    /// </summary>
     [PathSegment("consumables")]
     public sealed class Consumable : CommonEndPointModel
     {

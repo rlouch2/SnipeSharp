@@ -18,7 +18,8 @@ namespace SnipeSharp.Serialization
                 ContractResolver = SerializationContractResolver.Instance,
                 NullValueHandling = NullValueHandling.Ignore
             };
-            settings.Converters.Add(LiftCustomFieldsCollectionConverter.Instance);
+            settings.Converters.Add(AssetLiftCustomFieldsCollectionConverter.Instance);
+            settings.Converters.Add(ObjectLiftCustomFieldsCollectionConverter.Instance);
             return JsonConvert.SerializeObject(@object, settings);
         }
         public T Deserialize<T>(IRestResponse response)

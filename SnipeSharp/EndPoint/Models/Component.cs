@@ -6,6 +6,10 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    /// <summary>
+    /// A Component.
+    /// Components may be checked out to Assets.
+    /// </summary>
     [PathSegment("components")]
     public sealed class Component : CommonEndPointModel
     {

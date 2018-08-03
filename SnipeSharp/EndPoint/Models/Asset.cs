@@ -10,7 +10,7 @@ namespace SnipeSharp.EndPoint.Models
     /// Accessories may be checked out to Users, Locations, or other Assets.
     /// </summary>
     [PathSegment("hardware")]
-    public sealed class Asset : CommonEndPointModel
+    public sealed class Asset : CommonEndPointModel, ICustomFields<AssetCustomField>, IAvailableActions
     {
         /// <inheritdoc />
         [Field("id")]
@@ -269,13 +269,13 @@ namespace SnipeSharp.EndPoint.Models
         /// <para>Values in this collection will be serialized with the key <c><see cref="AssetCustomField.Field">value.Field</see> ?? key</c> and the value <see cref="AssetCustomField.Value">value.Value</see>.</para>
         /// </summary>
         /// <remarks>
-        /// <para>During serialization, <see cref="SnipeSharp.Serialization.LiftCustomFieldsCollectionConverter" /> lifts the values in here into the parent JSON object.</para>
+        /// <para>During serialization, <see cref="SnipeSharp.Serialization.AssetLiftCustomFieldsCollectionConverter" /> lifts the values in here into the parent JSON object.</para>
         /// </remarks>
         [Field("custom_fields")]
         public Dictionary<string, AssetCustomField> CustomFields { get; set; }
 
         /// <inheritdoc />
         [Field("available_actions")]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

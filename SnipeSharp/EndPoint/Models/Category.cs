@@ -7,7 +7,7 @@ namespace SnipeSharp.EndPoint.Models
 {
     /// <summary>
     /// A Category.
-    /// Categories  may be checked out to Assets, Accessories, Consumables and Components.
+    /// Categories may be checked out to Assets, Accessories, Consumables and Components.
     /// </summary>
     [PathSegment("categories")]
     public sealed class Category : CommonEndPointModel, IAvailableActions

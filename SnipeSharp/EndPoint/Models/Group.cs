@@ -5,28 +5,41 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    /// <summary>
+    /// A group.
+    /// Groups are used to grant permissions to users in Snipe-IT.
+    /// </summary>
     [PathSegment("groups")]
-    public sealed class Group : CommonEndPointModel
+    public sealed class Group : CommonEndPointModel, IAvailableActions
     {
+        /// <inheritdoc />
         [Field("id")]
         public override int Id { get; protected set; }
 
+        /// <inheritdoc />
+        /// <remarks>This field is required.</remarks>
         [Field("name", true, required: true)]
         public override string Name { get; set; }
 
+        /// <inheritdoc />
+        // TODO: see how to set permissions from the API. Just JSON?
         [Field("permissions", converter: PermissionsConverter)]
-        public Dictionary<string, bool> Permissions { get; set; }
+        public Dictionary<string, bool> Permissions { get; private set; }
 
+        /// <inheritdoc />
         [Field("users_count")]
-        public int? UsersCount { get; set; }
+        public int? UsersCount { get; private set; }
 
+        /// <inheritdoc />
         [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("available_actions")]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

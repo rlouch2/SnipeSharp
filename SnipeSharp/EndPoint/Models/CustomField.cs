@@ -49,6 +49,8 @@ namespace SnipeSharp.EndPoint.Models
 
         [Field("deleted_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
+
+        public string DefaultValue { get; private set; }
     }
 
     [JsonConverter(typeof(StringEnumConverter))]

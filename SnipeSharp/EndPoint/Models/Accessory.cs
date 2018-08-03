@@ -8,7 +8,7 @@ namespace SnipeSharp.EndPoint.Models
 {
     /// <summary>
     /// An Accessory.
-    /// Accessories may be checked out to Users.
+    /// Accessories may be checked out to Users, but unlike Consumables can be checked back in.
     /// </summary>
     [PathSegment("accessories")]
     public sealed class Accessory : CommonEndPointModel, IAvailableActions

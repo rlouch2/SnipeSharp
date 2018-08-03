@@ -5,6 +5,10 @@ using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
+    /// <summary>
+    /// A Manufacturer.
+    /// Manufacturers create accessories, consumables, licenses, and models (models are associated with assets).
+    /// </summary>
     [PathSegment("manufacturers")]
     public sealed class Manufacturer : CommonEndPointModel
     {

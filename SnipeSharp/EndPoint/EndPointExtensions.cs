@@ -55,11 +55,17 @@ namespace SnipeSharp.EndPoint
         }
 
         //TODO: return type, signature
-        public static object Redorder(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet)
+        public static object Reorder(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet)
         {
             // TODO
             return null;
         }
+        #endregion
+        #region FieldSet
+        public static ResponseCollection<CustomField> GetFields(this EndPoint<FieldSet> endPoint, FieldSet fieldSet)
+            => endPoint.Api.RequestManager.GetAll<CustomField>($"{endPoint.EndPointInfo.BaseUri}/{fieldSet.Id}/fields");
+        public static ResponseCollection<CustomField> GetFieldsWithDefaults(this EndPoint<FieldSet> endPoint, FieldSet fieldSet, Model model)
+            => endPoint.Api.RequestManager.GetAll<CustomField>($"{endPoint.EndPointInfo.BaseUri}/{fieldSet.Id}/fields/{model.Id}");
         #endregion
         #region License
         public static ResponseCollection<LicenseSeat> GetSeats(this EndPoint<License> endPoint, License license)
