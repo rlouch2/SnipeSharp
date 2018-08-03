@@ -6,7 +6,7 @@ using static SnipeSharp.Serialization.FieldConverter;
 namespace SnipeSharp.EndPoint.Models
 {
     [PathSegment("models")]
-    public class Model : CommonEndPointModel
+    public sealed class Model : CommonEndPointModel
     {
         [Field("id")]
         public override int Id { get; protected set; }
