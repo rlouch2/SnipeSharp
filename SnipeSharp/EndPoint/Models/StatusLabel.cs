@@ -24,86 +24,26 @@ namespace SnipeSharp.EndPoint.Models
         private StatusType _type = StatusType.Undeployable;
         
         /// <value>Indicates the type of label; valid values are <see cref="StatusType.Pending"/>, <see cref="StatusType.Deployable"/>, <see cref="StatusType.Undeployable"/> and <see cref="StatusType.Archived"/></value>
-        /// <remarks>To set this value, use <see cref="IsDeployable"/>, <see cref="IsPending"/>, and <see cref="IsArchived"/>.</remarks>
         [Field("type", true, required: true)]
         public StatusType? Type
         {
             get => _type;
-            internal set
+            set
             {
                 _type = value ?? StatusType.Undeployable;
-                _isDeployable = _type == StatusType.Deployable;
-                _isPending = _type == StatusType.Pending;
-                _isArchived = _type == StatusType.Archived;
-            }
-        }
-
-        private bool _isDeployable = false;
-        private bool _isArchived = false;
-        private bool _isPending = false;
-
-        /// <value>Gets/sets if this label is of the Deployable type or not.</value>
-        /// <remarks>Also updates IsArchived, IsPending, and Type.</remarks>
-        [Field("deployable")]
-        public bool IsDeployable
-        {
-            get => _isDeployable;
-            set
-            {
-                _isDeployable = value;
-                if(_isDeployable)
-                {
-                    _isArchived = false;
-                    _isPending = false;
+                if(_type == StatusType.Deployed)
                     _type = StatusType.Deployable;
-                } else if(_type == StatusType.Deployable)
-                {
-                    _type = StatusType.Undeployable;
-                }
             }
         }
 
-        /// <value>Gets/sets if this label is of the Archived type or not.</value>
-        /// <remarks>Also updates IsDeployable, IsPending, and Type.</remarks>
-        [Field("archived")]
-        public bool IsArchived
-        {
-            get => _isArchived;
-            set
-            {
-                _isArchived = value;
-                if(_isArchived)
-                {
-                    _isDeployable = false;
-                    _isPending = false;
-                    _type = StatusType.Archived;
-                } else if(_type == StatusType.Archived)
-                {
-                    _type = StatusType.Undeployable;
-                }
-            }
-        }
+        /// <value>Gets if this label is of the Deployable type or not.</value>
+        public bool IsDeployable => _type == StatusType.Deployable;
 
-        /// <value>Gets/sets if this label is of the Pending type or not.</value>
-        /// <remarks>Also updates IsArchived, IsDeployable, and Type.</remarks>
-        [Field("pending")]
-        public bool IsPending
-        {
-            get => _isPending;
-            set
-            {
-                _isPending = value;
-                if(_isPending)
-                {
-                    _isArchived = false;
-                    _isDeployable = false;
-                    _type = StatusType.Pending;
-                } else if(_type == StatusType.Pending)
-                {
-                    _type = StatusType.Undeployable;
-                }
-            }
-        }
+        /// <value>Gets if this label is of the Archived type or not.</value>
+        public bool IsArchived => _type == StatusType.Archived;
+
+        /// <value>Gets if this label is of the Pending type or not.</value>
+        public bool IsPending => _type == StatusType.Pending;
 
         /// <value>The color of the lable in the web navigation.</value>
         [Field("color")]
