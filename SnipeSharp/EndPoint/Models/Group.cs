@@ -39,7 +39,7 @@ namespace SnipeSharp.EndPoint.Models
         public override DateTime? UpdatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

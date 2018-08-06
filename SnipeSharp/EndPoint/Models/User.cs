@@ -98,7 +98,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("last_login", converter: DateTimeConverter)]
         public DateTime? LastLogin { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
 
         [Field("groups")]

@@ -3,7 +3,7 @@ using System;
 namespace SnipeSharp.EndPoint
 {
     /// <summary>
-    /// Identifies the base Uri of an <see cref="EndPoint">EndPoint</see> within the Snipe-IT API.
+    /// Identifies the base Uri of an <see cref="EndPoint{T}">EndPoint</see> within the Snipe-IT API.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class PathSegmentAttribute : Attribute

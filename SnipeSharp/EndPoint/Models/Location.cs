@@ -62,7 +62,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("children")]
         public List<Location> ChildLocations { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
 
         [Field("ldap_ou", true)]

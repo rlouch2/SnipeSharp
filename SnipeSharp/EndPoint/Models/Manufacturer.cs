@@ -54,7 +54,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("deleted_at", converter: DateTimeConverter)]
         public DateTime? DeletedAt { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
     }
 }

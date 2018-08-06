@@ -12,22 +12,32 @@ namespace SnipeSharp.Serialization
         public string RootElement { get; set; }
         public string Namespace { get; set; }
 
+        private static readonly JsonConverter[] _emptyArray = new JsonConverter[0];
+        private readonly JsonConverter[] _converters;
+        private readonly JsonSerializerSettings serializerSettings;
+        private readonly JsonSerializerSettings deserializerSettings;
+
         public string Serialize(object @object)
+            => JsonConvert.SerializeObject(@object, serializerSettings);
+        
+        public T Deserialize<T>(IRestResponse response)
+            => JsonConvert.DeserializeObject<T>(response.Content, deserializerSettings);
+
+        public NewtonsoftJsonSerializer(params JsonConverter[] converters)
         {
-            var settings = new JsonSerializerSettings {
+            this._converters = converters;
+            serializerSettings = new JsonSerializerSettings {
                 ContractResolver = SerializationContractResolver.Instance,
                 NullValueHandling = NullValueHandling.Ignore
             };
-            settings.Converters.Add(AssetLiftCustomFieldsCollectionConverter.Instance);
-            settings.Converters.Add(ObjectLiftCustomFieldsCollectionConverter.Instance);
-            return JsonConvert.SerializeObject(@object, settings);
-        }
-        public T Deserialize<T>(IRestResponse response)
-        {
-            var settings = new JsonSerializerSettings {
+            serializerSettings.Converters.Add(AssetLiftCustomFieldsCollectionConverter.Instance);
+            serializerSettings.Converters.Add(ObjectLiftCustomFieldsCollectionConverter.Instance);
+            foreach(var converter in converters)
+                if(converter != null)
+                    serializerSettings.Converters.Add(converter);
+            deserializerSettings = new JsonSerializerSettings {
                 ContractResolver = DeserializationContractResolver.Instance
             };
-            return JsonConvert.DeserializeObject<T>(response.Content, settings);
         }
     }
 }

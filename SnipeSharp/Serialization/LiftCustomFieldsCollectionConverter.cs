@@ -16,6 +16,7 @@ namespace SnipeSharp.Serialization
             => throw new NotImplementedException();
 
         public override bool CanWrite => true;
+        public override bool CanRead => false;
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {

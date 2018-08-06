@@ -67,7 +67,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
     }
 
@@ -91,7 +91,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("created_at")]
         public DateTime? CreatedAt { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
     }
 }

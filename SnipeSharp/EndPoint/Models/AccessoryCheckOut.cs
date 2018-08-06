@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
+using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.EndPoint.Models
 {
@@ -60,7 +61,7 @@ namespace SnipeSharp.EndPoint.Models
 
         /// <inheritdoc />
         /// <remarks>Currently, this will always be <c>{CheckIn}</c>.</remarks>
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

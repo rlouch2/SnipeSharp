@@ -4,6 +4,9 @@ using SnipeSharp.EndPoint.Filters;
 using SnipeSharp.EndPoint.Models;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Serialization;
+using Newtonsoft.Json;
+
+using System.Reflection;
 
 namespace SnipeSharp
 {
@@ -12,7 +15,7 @@ namespace SnipeSharp
         private readonly SnipeItApi api;
         private readonly IRestClient client;
 
-        private readonly NewtonsoftJsonSerializer serializerDeserializer = new NewtonsoftJsonSerializer();
+        private readonly NewtonsoftJsonSerializer genericSerializerDeserializer = new NewtonsoftJsonSerializer();
 
         internal RestClientManager(SnipeItApi api): this(api, new RestClient())
         {
@@ -45,7 +48,7 @@ namespace SnipeSharp
 
         internal string GetRaw(string path)
         {
-            var response = client.Execute(new RestRequest(path, Method.GET) { JsonSerializer = serializerDeserializer });
+            var response = client.Execute(new RestRequest(path, Method.GET));
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
             return response.Content;
@@ -53,10 +56,10 @@ namespace SnipeSharp
 
         internal R Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
-            var request = new RestRequest(path, Method.GET) { JsonSerializer = serializerDeserializer };
+            var request = new RestRequest(path, Method.GET) { JsonSerializer = genericSerializerDeserializer };
             if(!(filter is null))
                 request.AddJsonBody(filter);
-            return ExecuteRequest<R>(request);
+            return ExecuteRequest<R>(request, genericSerializerDeserializer);
         }
 
         internal ResponseCollection<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
@@ -79,35 +82,37 @@ namespace SnipeSharp
             return result;
         }
 
-        internal RequestResponse<R> Post<R>(string path, R @object) where R: ApiObject
-            => Post<R, R>(path, @object);
+        internal RequestResponse<R> Post<R>(string path, R @object, params JsonConverter[] converters) where R: ApiObject
+            => Post<R, R>(path, @object, converters);
         
-        internal RequestResponse<R> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
+        internal RequestResponse<R> Post<T, R>(string path, T @object, params JsonConverter[] converters) where T: ApiObject where R: ApiObject
         {
-            var request = new RestRequest(path, Method.POST) { JsonSerializer = serializerDeserializer };
+            var serializer = converters.Length != 0 ? new NewtonsoftJsonSerializer(converters) : genericSerializerDeserializer;
+            var request = new RestRequest(path, Method.POST) { JsonSerializer = serializer };
             if(@object != null)
                 request.AddJsonBody(@object);
-            return ExecuteRequest2<R>(request);
+            return ExecuteRequest2<R>(request, serializer);
         }
 
-        internal RequestResponse<R> Patch<R>(string path, R @object) where R: ApiObject
+        internal RequestResponse<R> Patch<R>(string path, R @object, params JsonConverter[] converters) where R: ApiObject
         {
-            var request = new RestRequest(path, Method.PATCH) { JsonSerializer = serializerDeserializer };
+            var serializer = converters.Length != 0 ? new NewtonsoftJsonSerializer(converters) : genericSerializerDeserializer;
+            var request = new RestRequest(path, Method.PATCH) { JsonSerializer = serializer };
             if(@object != null)
                 request.AddJsonBody(@object);
-            return ExecuteRequest2<R>(request);
+            return ExecuteRequest2<R>(request, serializer);
         }
 
         internal RequestResponse<R> Delete<R>(string path) where R: ApiObject
-            => ExecuteRequest2<R>(new RestRequest(path, Method.DELETE) { JsonSerializer = serializerDeserializer });
+            => ExecuteRequest2<R>(new RestRequest(path, Method.DELETE) { JsonSerializer = genericSerializerDeserializer }, genericSerializerDeserializer);
 
-        private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
+        private R ExecuteRequest<R>(RestRequest request, NewtonsoftJsonSerializer serializer) where R: ApiObject
         {
             SetTokenAndUri();
             var response = client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
-            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
+            var asRequestResponse = serializer.Deserialize<RequestResponse<R>>(response);
             // Check if this is actually a RequestResponse
             if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
             {
@@ -120,15 +125,15 @@ namespace SnipeSharp
                         throw new ApiErrorException(asRequestResponse.Messages);
                 }
             }
-            return serializerDeserializer.Deserialize<R>(response);
+            return serializer.Deserialize<R>(response);
         }
-        private RequestResponse<R> ExecuteRequest2<R>(RestRequest request) where R: ApiObject
+        private RequestResponse<R> ExecuteRequest2<R>(RestRequest request, NewtonsoftJsonSerializer serializer) where R: ApiObject
         {
             SetTokenAndUri();
             var response = client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
-            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
+            var asRequestResponse = serializer.Deserialize<RequestResponse<R>>(response);
             // Check if this is actually a RequestResponse
             if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
             {
@@ -143,5 +148,8 @@ namespace SnipeSharp
             }
             return asRequestResponse;
         }
+
+        public string Serialize(object @object, bool creation = false)
+            => new NewtonsoftJsonSerializer(!creation ? null : @object.GetType().GetCustomAttribute<CreationConverterAttribute>()?.Converter).Serialize(@object);
     }
 }

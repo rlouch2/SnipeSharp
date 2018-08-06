@@ -81,7 +81,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
 
         [Field("reassignable", true)]
@@ -123,7 +123,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
 
         public bool IsCheckedOut => AssignedUser != null || AssignedAsset != null;

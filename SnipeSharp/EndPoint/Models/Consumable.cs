@@ -72,7 +72,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
 
         [Field("requestable", true)]

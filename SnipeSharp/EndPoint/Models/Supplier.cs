@@ -65,7 +65,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
         
-        [Field("available_actions")]
+        [Field("available_actions", converter: AvailableActionsConverter)]
         public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
     }
 }

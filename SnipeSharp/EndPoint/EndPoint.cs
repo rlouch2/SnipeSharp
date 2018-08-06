@@ -18,6 +18,7 @@ namespace SnipeSharp.EndPoint
     {
         internal readonly SnipeItApi Api;
         internal readonly PathSegmentAttribute EndPointInfo;
+        internal readonly CreationConverterAttribute CreationConverter;
 
         /// <param name="api">The Api to grab the RequestManager from.</param>
         /// <exception cref="SnipeSharp.Exceptions.MissingRequiredAttributeException">When the type parameter does not have the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</exception>
@@ -27,6 +28,7 @@ namespace SnipeSharp.EndPoint
             EndPointInfo = typeof(T).GetCustomAttribute<PathSegmentAttribute>();
             if(EndPointInfo is null)
                 throw new MissingRequiredAttributeException(nameof(PathSegmentAttribute), typeof(T).Name);
+            CreationConverter = typeof(T).GetCustomAttribute<CreationConverterAttribute>();
         }
 
         /// <inheritdoc />
@@ -60,7 +62,7 @@ namespace SnipeSharp.EndPoint
 
         /// <inheritdoc />
         public T Create(T toCreate)
-            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate)).Payload;
+            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate, creating: true), CreationConverter?.Converter).Payload;
 
         /// <inheritdoc />
         public RequestResponse<T> Delete(int id)
@@ -78,11 +80,20 @@ namespace SnipeSharp.EndPoint
         public T this[string name, bool caseSensitive = false]
             => Get(name, caseSensitive);
 
-        private T CheckRequiredFields(T @object)
+        private T CheckRequiredFields(T @object, bool creating = false)
         {
             foreach(var property in typeof(T).GetProperties())
-                if((property.GetCustomAttribute<FieldAttribute>()?.IsRequired ?? false) && (property.GetValue(@object) == null)) // if required and null
-                        throw new MissingRequiredFieldException<T>(property.Name);
+            {
+                if(creating && (property.GetCustomAttribute<CreationFieldAttribute>()?.IsRequired ?? false) && (property.GetValue(@object) == null))
+                {
+                    // if creating and required and null
+                    throw new MissingRequiredFieldException<T>(property.Name);
+                } else if((property.GetCustomAttribute<FieldAttribute>()?.IsRequired ?? false) && (property.GetValue(@object) == null))
+                {
+                    // if required and null
+                    throw new MissingRequiredFieldException<T>(property.Name);
+                }
+            }
             return @object;
         }
     }
