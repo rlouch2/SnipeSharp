@@ -10,7 +10,6 @@ namespace SnipeSharp.EndPoint.Models
     /// Status labels are used out to organize Assets and manage their state.
     /// </summary>
     [PathSegment("statuslabels")]
-    [CreationConverter(typeof(StatusLabelCreationConverter))]
     public sealed class StatusLabel : CommonEndPointModel, IAvailableActions
     {
         /// <inheritdoc />
@@ -20,15 +19,13 @@ namespace SnipeSharp.EndPoint.Models
         /// <inheritdoc />
         /// <remarks>This field is required and must have a unique value.</remarks>
         [Field("name", true, required: true)]
-        [CreationField("name", required: true)]
         public override string Name { get; set; }
 
         private StatusType _type = StatusType.Undeployable;
         
         /// <value>Indicates the type of label; valid values are <see cref="StatusType.Pending"/>, <see cref="StatusType.Deployable"/>, <see cref="StatusType.Undeployable"/> and <see cref="StatusType.Archived"/></value>
         /// <remarks>To set this value, use <see cref="IsDeployable"/>, <see cref="IsPending"/>, and <see cref="IsArchived"/>.</remarks>
-        [Field("type")]
-        [CreationField("type", required: true)]
+        [Field("type", true, required: true)]
         public StatusType? Type
         {
             get => _type;
@@ -47,7 +44,7 @@ namespace SnipeSharp.EndPoint.Models
 
         /// <value>Gets/sets if this label is of the Deployable type or not.</value>
         /// <remarks>Also updates IsArchived, IsPending, and Type.</remarks>
-        [Field("deployable", true)]
+        [Field("deployable")]
         public bool IsDeployable
         {
             get => _isDeployable;
@@ -68,7 +65,7 @@ namespace SnipeSharp.EndPoint.Models
 
         /// <value>Gets/sets if this label is of the Archived type or not.</value>
         /// <remarks>Also updates IsDeployable, IsPending, and Type.</remarks>
-        [Field("archived", true)]
+        [Field("archived")]
         public bool IsArchived
         {
             get => _isArchived;
@@ -89,7 +86,7 @@ namespace SnipeSharp.EndPoint.Models
 
         /// <value>Gets/sets if this label is of the Pending type or not.</value>
         /// <remarks>Also updates IsArchived, IsDeployable, and Type.</remarks>
-        [Field("pending", true)]
+        [Field("pending")]
         public bool IsPending
         {
             get => _isPending;
@@ -126,7 +123,6 @@ namespace SnipeSharp.EndPoint.Models
 
         /// <value>Description of the label.</value>
         [Field("notes", true)]
-        [CreationField("notes")]
         public string Notes { get; set; }
 
         /// <inheritdoc />

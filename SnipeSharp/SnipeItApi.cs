@@ -174,8 +174,5 @@ namespace SnipeSharp
         {
             RequestManager = new RestClientManager(this, client);
         }
-
-        public string Serialize(object @object, bool creation = false)
-            => RequestManager.Serialize(@object, creation);
     }
 }
