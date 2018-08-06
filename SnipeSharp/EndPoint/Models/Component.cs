@@ -11,8 +11,9 @@ namespace SnipeSharp.EndPoint.Models
     /// Components may be checked out to Assets.
     /// </summary>
     [PathSegment("components")]
-    public sealed class Component : CommonEndPointModel
+    public sealed class Component : CommonEndPointModel, IAvailableActions
     {
+        /// <inheritdoc />
         [Field("id")]
         public override int Id { get; protected set; }
 
@@ -58,20 +59,23 @@ namespace SnipeSharp.EndPoint.Models
         [Field("company", "company_id", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
+        /// <inheritdoc />
         [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
+        /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 
-    public sealed class ComponentAsset : ApiObject
+    public sealed class ComponentAsset : ApiObject, IAvailableActions
     {
         [Field("assigned_pivot_id")]
         public int ComponentId { get; set; }
@@ -91,7 +95,8 @@ namespace SnipeSharp.EndPoint.Models
         [Field("created_at")]
         public DateTime? CreatedAt { get; set; }
 
+        /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

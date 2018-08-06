@@ -6,8 +6,9 @@ using static SnipeSharp.Serialization.FieldConverter;
 namespace SnipeSharp.EndPoint.Models
 {
     [PathSegment("users")]
-    public sealed class User : CommonEndPointModel
+    public sealed class User : CommonEndPointModel, IAvailableActions
     {
+        /// <inheritdoc />
         [Field("id")]
         public override int Id { get; protected set; }
 
@@ -89,17 +90,20 @@ namespace SnipeSharp.EndPoint.Models
         [Field("company", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
+        /// <inheritdoc />
         [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("last_login", converter: DateTimeConverter)]
         public DateTime? LastLogin { get; set; }
 
+        /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
 
         [Field("groups")]
         public ResponseCollection<Group> Groups { get; set; }

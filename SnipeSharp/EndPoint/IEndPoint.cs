@@ -59,6 +59,13 @@ namespace SnipeSharp.EndPoint
         ResponseCollection<T> FindAll(ISearchFilter filter = null);
 
         /// <summary>
+        /// Gets all objects in the EndPoint.
+        /// </summary>
+        /// <returns>A collection of relevant objects, which may be empty.</returns>
+        /// <remarks>It is recommended that implementations simply wrap <see cref="FindAll(ISearchFilter)"/>.</remarks>
+        ResponseCollection<T> GetAll();
+
+        /// <summary>
         /// Finds the first object of the generic type matching the filter.
         /// </summary>
         /// <param name="filter">The filter to search by. The limit will be forced to 1.</param>

@@ -4,6 +4,9 @@ using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.EndPoint
 {
+    /// <summary>
+    /// Extension functions for <see cref="EndPoint{T}" /> to fill specific functions for specific EndPoints.
+    /// </summary>
     public static class EndPointExtensions
     {
         #region Accessory

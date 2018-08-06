@@ -11,6 +11,7 @@ namespace SnipeSharp.EndPoint.Models
     [PathSegment("fields")]
     public sealed class CustomField : CommonEndPointModel
     {
+        /// <inheritdoc />
         [Field("id")]
         public override int Id { get; protected set; }
 
@@ -44,9 +45,11 @@ namespace SnipeSharp.EndPoint.Models
         [Field("required")]
         public bool? IsRequired { get; set; }
 
+        /// <inheritdoc />
         [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("deleted_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 

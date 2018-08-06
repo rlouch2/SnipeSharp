@@ -10,8 +10,9 @@ namespace SnipeSharp.EndPoint.Models
     /// Consumables may be checked out to Users, but unlike Accessories cannot be checked back in.
     /// </summary>
     [PathSegment("consumables")]
-    public sealed class Consumable : CommonEndPointModel
+    public sealed class Consumable : CommonEndPointModel, IAvailableActions
     {
+        /// <inheritdoc />
         [Field("id")]
         public override int Id { get; protected set; }
 
@@ -63,17 +64,20 @@ namespace SnipeSharp.EndPoint.Models
         [Field("qty", true)]
         public int? Quantity { get; set; }
 
+        /// <inheritdoc />
         [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
+        /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
 
         [Field("requestable", true)]
         public bool? IsRequestable { get; set; }

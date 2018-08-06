@@ -6,8 +6,9 @@ using static SnipeSharp.Serialization.FieldConverter;
 namespace SnipeSharp.EndPoint.Models
 {
     [PathSegment("locations")]
-    public sealed class Location : CommonEndPointModel
+    public sealed class Location : CommonEndPointModel, IAvailableActions
     {
+        /// <inheritdoc />
         [Field("id")]
         public override int Id { get; protected set; }
 
@@ -47,9 +48,11 @@ namespace SnipeSharp.EndPoint.Models
         [Field("currency", true)]
         public string Currency { get; set; }
 
+        /// <inheritdoc />
         [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
@@ -62,8 +65,9 @@ namespace SnipeSharp.EndPoint.Models
         [Field("children")]
         public List<Location> ChildLocations { get; set; }
 
+        /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
 
         [Field("ldap_ou", true)]
         public string LDAPOU { get; set; }

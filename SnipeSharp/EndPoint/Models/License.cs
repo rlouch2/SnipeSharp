@@ -10,8 +10,9 @@ namespace SnipeSharp.EndPoint.Models
     /// Licenses may be checked out to Assets or Users.
     /// </summary>
     [PathSegment("licenses")]
-    public sealed class License : CommonEndPointModel
+    public sealed class License : CommonEndPointModel, IAvailableActions
     {
+        /// <inheritdoc />
         [Field("id")]
         public override int Id { get; protected set; }
 
@@ -72,17 +73,20 @@ namespace SnipeSharp.EndPoint.Models
         [Field("category", "category_id", converter: CommonModelConverter)]
         public Category Category { get; set; }
 
+        /// <inheritdoc />
         [Field("created_at", converter: DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
+        /// <inheritdoc />
         [Field("updated_at", converter: DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
+        /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
 
         [Field("reassignable", true)]
         public bool IsReassignable { get; set; }
@@ -100,7 +104,7 @@ namespace SnipeSharp.EndPoint.Models
         public User TODO_WHATS_THIS_User { get; set; }
     }
 
-    public sealed class LicenseSeat : ApiObject
+    public sealed class LicenseSeat : ApiObject, IAvailableActions
     {
         [Field("id")]
         public long Id { get; set; }
@@ -123,8 +127,9 @@ namespace SnipeSharp.EndPoint.Models
         [Field("user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
+        /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
-        public Dictionary<AvailableAction, bool> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; set; }
 
         public bool IsCheckedOut => AssignedUser != null || AssignedAsset != null;
     }

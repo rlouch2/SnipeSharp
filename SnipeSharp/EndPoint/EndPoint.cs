@@ -57,6 +57,10 @@ namespace SnipeSharp.EndPoint
                 return FindAll(new SearchFilter(name)).Where(i => i.Name.ToLower() == name).FirstOrDefault();
             }
         }
+        
+        /// <inheritdoc />
+        public ResponseCollection<T> GetAll()
+            => FindAll();
 
         /// <inheritdoc />
         public T Create(T toCreate)
