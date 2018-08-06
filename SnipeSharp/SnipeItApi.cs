@@ -49,6 +49,24 @@ namespace SnipeSharp
         private Dictionary<Type, object> endpoints = new Dictionary<Type, object>();
 
         /// <summary>
+        /// <para>Tests if the Token and Uri are set and connect to the API.</para>
+        /// <para>This method may produce false negatives if there are other issues with the network or computer.</para>
+        /// </summary>
+        /// <returns>If the API is accessible or not.</returns>
+        public bool TestConnection()
+        {
+            try
+            {
+                RequestManager.SetTokenAndUri();
+                Users.Me();
+            } catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Constructs or retrieves a cached EndPoint corresponding to the type parameter for use with interacting with the API.
         /// </summary>
         /// <typeparam name="T">A <see cref="SnipeSharp.EndPoint.Models.CommonEndPointModel">CommonEndPointModel</see> with the attribute <see cref="SnipeSharp.EndPoint.PathSegmentAttribute">PathSegmentAttribute</see>.</typeparam>

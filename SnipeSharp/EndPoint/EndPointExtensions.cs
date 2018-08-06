@@ -95,6 +95,8 @@ namespace SnipeSharp.EndPoint
         #region User
         public static ResponseCollection<Asset> GetAssignedAssets(this EndPoint<User> endPoint, User user)
             => endPoint.Api.RequestManager.GetAll<Asset>($"{endPoint.EndPointInfo.BaseUri}/{user.Id}/assetlist");
+        public static User Me(this EndPoint<User> endPoint)
+            => endPoint.Api.RequestManager.Get<User>($"{endPoint.EndPointInfo.BaseUri}/me");
         #endregion
     }
 }
