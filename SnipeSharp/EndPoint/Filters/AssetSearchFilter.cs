@@ -10,18 +10,23 @@ namespace SnipeSharp.EndPoint.Filters
 {
     public sealed class AssetSearchFilter : ISortableSearchFilter<AssetSearchColumn>
     {
+        /// <inheritdoc />
         [Field("limit", true)]
         public int? Limit { get; set; }
 
+        /// <inheritdoc />
         [Field("offset", true)]
         public int? Offset { get; set; }
 
+        /// <inheritdoc />
         [Field("search", true)]
         public string Search { get; set; }
 
+        /// <inheritdoc />
         [Field("sort", true)]
         public AssetSearchColumn SortColumn { get; set; }
 
+        /// <inheritdoc />
         [Field("order", true)]
         public SearchOrder Order { get; set; }
 
@@ -76,18 +81,23 @@ namespace SnipeSharp.EndPoint.Filters
 
     public sealed class CustomAssetSearchFilter : ISortableSearchFilter<string>
     {
+        /// <inheritdoc />
         [Field("limit", true)]
         public int? Limit { get; set; }
 
+        /// <inheritdoc />
         [Field("offset", true)]
         public int? Offset { get; set; }
 
+        /// <inheritdoc />
         [Field("search", true)]
         public string Search { get; set; }
 
+        /// <inheritdoc />
         [Field("sort", true)]
         public string SortColumn { get; set; }
 
+        /// <inheritdoc />
         [Field("order", true)]
         public SearchOrder Order { get; set; }
 

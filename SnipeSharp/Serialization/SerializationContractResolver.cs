@@ -16,6 +16,7 @@ namespace SnipeSharp.Serialization
             if(attribute != null && attribute.ShouldSerialize)
             {
                 property.PropertyName = attribute.SerializeAs;
+                property.Readable = true;
                 switch(attribute.Converter)
                 {
                     case FieldConverter.CommonModelConverter:
