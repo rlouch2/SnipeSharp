@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using static SnipeSharp.Serialization.FieldConverter;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Runtime.Serialization;
 
 namespace SnipeSharp.EndPoint.Models
 {
@@ -54,16 +51,5 @@ namespace SnipeSharp.EndPoint.Models
         public override DateTime? UpdatedAt { get; protected set; }
 
         public string DefaultValue { get; private set; }
-    }
-
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum CustomFieldElement
-    {
-        [EnumMember(Value = "list")]
-        List,
-        [EnumMember(Value = "text")]
-        Text,
-        [EnumMember(Value = "textarea")]
-        TextArea
     }
 }

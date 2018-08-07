@@ -86,7 +86,7 @@ namespace SnipeSharp.EndPoint.Models
         /// The total quantity of this Accessory.
         /// </summary>
         /// <remarks>
-        /// <para>This value must be greater than one.</para>
+        /// <para>This value must be greater than or equal to one.</para>
         /// <para>This field is required.</para>
         /// </remarks>
         [Field("qty", true, required: true)]

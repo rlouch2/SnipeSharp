@@ -39,8 +39,8 @@ namespace SnipeSharp.EndPoint
             => endPoint.Api.RequestManager.Get<Asset>($"{endPoint.EndPointInfo.BaseUri}/byserial/{serial}");
         #endregion
         #region Component
-        public static ResponseCollection<ComponentAsset> GetAssignedAssets(this EndPoint<Component> endPoint, Component component)
-            => endPoint.Api.RequestManager.GetAll<ComponentAsset>($"{endPoint.EndPointInfo.BaseUri}/{component.Id}/assets");
+        public static ResponseCollection<ComponentAssignee> GetAssignedAssets(this EndPoint<Component> endPoint, Component component)
+            => endPoint.Api.RequestManager.GetAll<ComponentAssignee>($"{endPoint.EndPointInfo.BaseUri}/{component.Id}/assets");
         #endregion
         #region CustomField
         //TODO: return type
