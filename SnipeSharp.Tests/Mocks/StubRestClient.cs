@@ -36,6 +36,9 @@ namespace SnipeSharp.Tests
         public RemoteCertificateValidationCallback RemoteCertificateValidationCallback { get; set; }
 
         public StubResponse Response { get; set; }
+        public string ConnectionGroupName { get; set; }
+        public bool UnsafeAuthenticatedConnectionSharing { get; set; }
+        public bool AllowMultipleDefaultParametersWithSameName { get; set; }
 
         public void AddHandler(string contentType, IDeserializer deserializer)
             => throw new NotImplementedException();
@@ -46,10 +49,16 @@ namespace SnipeSharp.Tests
         public void ClearHandlers()
             => throw new NotImplementedException();
 
+        public void ConfigureWebRequest(Action<HttpWebRequest> configurator)
+            => throw new NotImplementedException();
+
         public IRestResponse<T> Deserialize<T>(IRestResponse response)
             => throw new NotImplementedException();
 
         public byte[] DownloadData(IRestRequest request)
+            => throw new NotImplementedException();
+
+        public byte[] DownloadData(IRestRequest request, bool throwOnError)
             => throw new NotImplementedException();
 
         public IRestResponse Execute(IRestRequest request)
