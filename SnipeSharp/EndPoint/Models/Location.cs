@@ -28,7 +28,7 @@ namespace SnipeSharp.EndPoint.Models
         [Field("address", true)]
         public string Address { get; set; }
 
-        /// <value>Gets/sets the second address line for this location</value>
+        /// <value>Gets/sets the second address line for this location.</value>
         [Field("address2", true)]
         public string Address2 { get; set; }
 
@@ -36,11 +36,11 @@ namespace SnipeSharp.EndPoint.Models
         [Field("city", true)]
         public string City { get; set; }
 
-        /// <value>Gets/sets the state this location is in.</value>
+        /// <value>Gets/sets the city this location is in.</value>
         [Field("state", true)]
         public string State { get; set; }
 
-        /// <value>Gets/sets the country this location is in.</value>
+        /// <value>Gets/sets the city this location is in.</value>
         [Field("country", true)]
         public string Country { get; set; }
 
