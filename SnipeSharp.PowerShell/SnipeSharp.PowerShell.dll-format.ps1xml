@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>SnipeSharpAsset</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Asset</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- AssetTag -->
+          <TableColumnHeader /> <!-- Model -->
+          <TableColumnHeader /> <!-- Serial -->
+          <TableColumnHeader /> <!-- Status = StatusLabel -->
+          <TableColumnHeader /> <!-- Location -->
+          <TableColumnHeader /> <!-- AssignedTo -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AssetTag</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Model</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Serial</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Status</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AssignedTo</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
