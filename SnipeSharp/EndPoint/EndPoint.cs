@@ -34,6 +34,10 @@ namespace SnipeSharp.EndPoint
             => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
 
         /// <inheritdoc />
+        public ResponseCollection<T> FindAll(string search)
+            => FindAll(new SearchFilter(search));
+
+        /// <inheritdoc />
         public T FindOne(ISearchFilter filter)
         {
             filter.Limit = 1;
@@ -41,8 +45,25 @@ namespace SnipeSharp.EndPoint
         }
 
         /// <inheritdoc />
+        public T FindOne(string search)
+            => FindOne(new SearchFilter(search));
+
+        /// <inheritdoc />
         public T Get(int id)
             => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
+
+        /// <inheritdoc />
+        public (T Value, Exception Error) GetOrNull(int id)
+        {
+            try
+            {
+                var @object = Get(id);
+                return (@object, null);
+            } catch(Exception e)
+            {
+                return (null, e);
+            }
+        }
 
         /// <inheritdoc />
         public T Get(string name, bool caseSensitive = false)
@@ -55,6 +76,19 @@ namespace SnipeSharp.EndPoint
             {
                 name = name.ToLower();
                 return FindAll(new SearchFilter(name)).Where(i => i.Name.ToLower() == name).FirstOrDefault();
+            }
+        }
+
+        /// <inheritdoc />
+        public (T Value, Exception Error) GetOrNull(string name, bool caseSensitive = false)
+        {
+            try
+            {
+                var @object = Get(name, caseSensitive);
+                return (@object, null);
+            } catch(Exception e)
+            {
+                return (null, e);
             }
         }
         

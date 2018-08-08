@@ -34,9 +34,31 @@ namespace SnipeSharp.EndPoint
 
         public static Asset GetByTag(this EndPoint<Asset> endPoint, string tag)
             => endPoint.Api.RequestManager.Get<Asset>($"{endPoint.EndPointInfo.BaseUri}/bytag/{tag}");
+        public static (Asset Value, Exception Error) GetByTagOrNull(this EndPoint<Asset> endPoint, string tag)
+        {
+            try
+            {
+                var @object = endPoint.GetByTag(tag);
+                return (@object, null);
+            } catch(Exception e)
+            {
+                return (null, e);
+            }
+        }
         
         public static Asset GetBySerial(this EndPoint<Asset> endPoint, string serial)
             => endPoint.Api.RequestManager.Get<Asset>($"{endPoint.EndPointInfo.BaseUri}/byserial/{serial}");
+        public static (Asset Value, Exception Error) GetBySerialOrNull(this EndPoint<Asset> endPoint, string serial)
+        {
+            try
+            {
+                var @object = endPoint.GetBySerial(serial);
+                return (@object, null);
+            } catch(Exception e)
+            {
+                return (null, e);
+            }
+        }
         #endregion
         #region Component
         public static ResponseCollection<ComponentAssignee> GetAssignedAssets(this EndPoint<Component> endPoint, Component component)
