@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Management.Automation;
 using static SnipeSharp.EndPoint.EndPointExtensions;
 using SnipeSharp.EndPoint.Models;
@@ -29,7 +29,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         DefaultParameterSetName = nameof(GetAsset.ParameterSets.ByAssetTag)
     )]
     [OutputType(typeof(Asset))]
-    public class GetAsset: PSCmdlet
+    public sealed class GetAsset: PSCmdlet
     {
         internal enum ParameterSets
         {
@@ -98,7 +98,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     {
                         if(item.Object == null)
                         {
-                            WriteError(new ErrorRecord(item.Error, $"Asset not found by Identity {item.Object}", ErrorCategory.InvalidArgument, item.Object));
+                            WriteError(new ErrorRecord(item.Error, $"Asset not found by Identity {item.Object}", ErrorCategory.InvalidArgument, item.Query));
                         } else
                         {
                             WriteObject(item.Object);

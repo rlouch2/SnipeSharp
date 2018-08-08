@@ -1,45 +1,50 @@
-﻿using System;
+using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
-using SnipeSharp.Endpoints.SearchFilters;
-using SnipeSharp.PowerShell.Enums;
+using SnipeSharp.EndPoint.Models;
+using SnipeSharp.EndPoint.Filters;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
+using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Find, "Accessory",
+    [Cmdlet(VerbsCommon.Find, nameof(Accessory),
         SupportsPaging = true
     )]
     [OutputType(typeof(Accessory))]
-    public class FindAccessory: PSCmdlet
+    public class FindAccessory: FindObject<Accessory, AccessorySearchColumn, AccessorySearchFilter>
     {
-        [Parameter(Position = 0, ValueFromPipeline = true)]
-        public string SearchString { get; set; }
+        /// <summary>
+        /// <para type="description">Filter by owning company.</para>
+        /// </summary>
+        public ObjectBinding<Company> Company { get; set; }
+        
+        /// <summary>
+        /// <para type="description">Filter by accessory category.</para>
+        /// </summary>
+        public ObjectBinding<Category> Category { get; set; }
 
-        [Parameter]
-        public Order SortOrder { get; set; }
+        /// <summary>
+        /// <para type="description">Filter by manufactuerer.</para>
+        /// </summary>
+        public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
-        [Parameter]
-        public SortColumn SortColumn { get; set; }
+        /// <summary>
+        /// <para type="description">Filter by supplier.</para>
+        /// </summary>
+        public ObjectBinding<Supplier> Supplier { get; set; }
+
 
         /// <inheritdoc />
-        protected override void ProcessRecord()
+        protected override void PopulateFilter(ref AccessorySearchFilter filter)
         {
-            var filter = new SearchFilter();
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(SearchString)))
-                filter.Search = SearchString;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(SortOrder)))
-                filter.Order = SortOrder.ToApiString();
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(SortColumn)))
-                filter.Sort = SortColumn.ToApiString();
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(PagingParameters.First)))
-                filter.Limit = (int) PagingParameters.First;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(PagingParameters.Skip)))
-                filter.Offset = (int) PagingParameters.Skip;
-            var results = ApiHelper.Instance.AccessoryManager.FindAll(filter);
-            // TODO: error handling
-            if(PagingParameters.IncludeTotalCount)
-                WriteObject(results.Total);
-            WriteObject(results.Rows, true);
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+                filter.Company = Company?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+                filter.Category = Category?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
+                filter.Manufacturer = Manufacturer?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
+                filter.Supplier = Supplier?.Object;
         }
     }
 }

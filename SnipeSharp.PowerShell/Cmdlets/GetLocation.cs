@@ -27,7 +27,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         DefaultParameterSetName = nameof(GetObject<Location>.ParameterSets.ByName)
     )]
     [OutputType(typeof(Location))]
-    public class GetLocation: GetObject<Location>
+    public sealed class GetLocation: GetObject<Location>
     {
     }
 }

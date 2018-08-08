@@ -27,7 +27,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         DefaultParameterSetName = nameof(GetObject<User>.ParameterSets.ByName)
     )]
     [OutputType(typeof(User))]
-    public class GetUser: GetObject<User>
+    public sealed class GetUser: GetObject<User>
     {
     }
 }

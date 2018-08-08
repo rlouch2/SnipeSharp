@@ -5,10 +5,10 @@ using SnipeSharp.PowerShell.BindingTypes;
 namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
 {
     /// <summary>
-    /// Base class for most Get* Cmdlets, as they are fairly identical.
+    /// Base class for most Remove* Cmdlets, as they are fairly identical.
     /// </summary>
     /// <typeparam name="T">The type of object this cmdlet gets.</typeparam>
-    public abstract class GetObject<T>: PSCmdlet where T: CommonEndPointModel
+    public abstract class RemoveObject<T>: PSCmdlet where T: CommonEndPointModel
     {
         internal enum ParameterSets
         {
@@ -54,6 +54,12 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
         )]
         public ObjectBinding<T>[] Identity { get; set; }
 
+        /// <summary>
+        /// <para type="description">If present, write the response from the Api to the pipeline.</para>
+        /// </summary>
+        [Parameter]
+        public SwitchParameter ShowResponse { get; set; }
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
@@ -65,9 +71,11 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                     if(item == null)
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
-                    } else
+                    } else if(ShouldProcess(name))
                     {
-                        WriteObject(item);
+                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Id);
+                        if(ShowResponse.IsPresent)
+                            WriteObject(response);
                     }
                 }
             } else if(ParameterSetName == nameof(ParameterSets.ByInternalId))
@@ -78,9 +86,11 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                     if(item == null)
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
-                    } else
+                    } else if(ShouldProcess(id.ToString()))
                     {
-                        WriteObject(item);
+                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Id);
+                        if(ShowResponse.IsPresent)
+                            WriteObject(response);
                     }
                 }
             } else
@@ -92,7 +102,9 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                         WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
                     } else
                     {
-                        WriteObject(item);
+                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Object.Id);
+                        if(ShowResponse.IsPresent)
+                            WriteObject(response);
                     }
                 }
             }

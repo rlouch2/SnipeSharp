@@ -27,7 +27,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         DefaultParameterSetName = nameof(GetObject<License>.ParameterSets.ByName)
     )]
     [OutputType(typeof(License))]
-    public class GetLicense: PSCmdlet
+    public sealed class GetLicense: PSCmdlet
     {
     }
 }

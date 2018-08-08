@@ -27,7 +27,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         DefaultParameterSetName = nameof(GetObject<Manufacturer>.ParameterSets.ByName)
     )]
     [OutputType(typeof(Manufacturer))]
-    public class GetManufacturer: PSCmdlet
+    public sealed class GetManufacturer: PSCmdlet
     {
     }
 }

@@ -27,7 +27,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         DefaultParameterSetName = nameof(GetObject<StatusLabel>.ParameterSets.ByName)
     )]
     [OutputType(typeof(StatusLabel))]
-    public class GetStatusLabel: GetObject<StatusLabel>
+    public sealed class GetStatusLabel: GetObject<StatusLabel>
     {
     }
 }

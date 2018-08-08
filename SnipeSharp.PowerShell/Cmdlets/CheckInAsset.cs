@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Management.Automation;
-using SnipeSharp.Common;
 using SnipeSharp.PowerShell.BindingTypes;
+using SnipeSharp.EndPoint.Models;
+using static SnipeSharp.EndPoint.EndPointExtensions;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
@@ -19,8 +20,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">CheckOut-Asset</para>
     /// <para type="link">Get-Asset</para>
-    [Cmdlet("CheckIn", "Asset")]
-    [OutputType(typeof(IRequestResponse))]
+    [Cmdlet("CheckIn", nameof(Asset))]
+    [OutputType(typeof(RequestResponse<Asset>))]
     public class CheckInAsset: PSCmdlet
     {
         /// <summary>
@@ -32,20 +33,52 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true
         )]
-        public AssetIdentity[] Identity { get; set; }
+        public AssetBinding Identity { get; set; }
+
+        /// <summary>
+        /// <para type="description">The note for the Asset's log.</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string Note { get; set; }
+
+        /// <summary>
+        /// <para type="description">The asset's new name. Defaults to the asset's current name.</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string AssetName { get; set; }
+
+        /// <summary>
+        /// <para type="description">The asset's new location. Defaults to the asset's default location.</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public ObjectBinding<Location> Location { get; set; }
+
+        /// <summary>
+        /// <para type="description">The asset's new status. Defaults to the asset's current status (minus any 'Deployed' metastatus).</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public ObjectBinding<StatusLabel> Status { get; set; }
 
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            foreach(var item in Identity)
+            if(Identity.Object == null)
             {
-                if(item.Asset == null)
-                {
-                    WriteError(new ErrorRecord(null, $"Asset not found by Identity {item.Identity}", ErrorCategory.InvalidArgument, item.Identity));
-                    continue;
-                }
-                WriteObject(ApiHelper.Instance.AssetManager.Checkin(item.Asset));
+                WriteError(new ErrorRecord(Identity.Error, "Asset not found.", ErrorCategory.InvalidArgument, Identity.Query));
+                return;
             }
+            var request = new AssetCheckInRequest(Identity.Object);
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Note)))
+                request.Note = Note;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
+                request.Location = Location?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(StatusLabel)))
+                request.StatusLabel = Status?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssetName)))
+                request.AssetName = AssetName;
+            else
+                request.AssetName = request.Asset.Name;
+            WriteObject(ApiHelper.Instance.Assets.CheckIn(request));
         }
     }
 }

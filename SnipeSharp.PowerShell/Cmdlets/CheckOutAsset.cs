@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell;
-using SnipeSharp.Common;
+using static SnipeSharp.EndPoint.EndPointExtensions;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [Cmdlet("CheckOut", "Asset",
         DefaultParameterSetName = "ToUser"
     )]
-    [OutputType(typeof(IRequestResponse))]
+    [OutputType(typeof(RequestResponse<Asset>))]
     public class CheckOutAsset: PSCmdlet
     {
         /// <summary>
@@ -40,7 +40,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true
         )]
-        public AssetIdentity Asset { get; set; }
+        public AssetBinding Asset { get; set; }
 
         /// <summary>
         /// <para type="description">The identity of a User to assign the Asset to.</para>
@@ -51,7 +51,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             Position = 1,
             ValueFromPipelineByPropertyName = true
         )]
-        public UserIdentity AssignedUser { get; set; }
+        public ObjectBinding<User> AssignedUser { get; set; }
 
         /// <summary>
         /// <para type="description">The identity of a Location to assign the Asset to.</para>
@@ -62,7 +62,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             Position = 1,
             ValueFromPipelineByPropertyName = true
         )]
-        public LocationIdentity AssignedLocation { get; set; }
+        public ObjectBinding<Location> AssignedLocation { get; set; }
 
         /// <summary>
         /// <para type="description">The identity of an Asset to assign the Asset to.</para>
@@ -73,43 +73,80 @@ namespace SnipeSharp.PowerShell.Cmdlets
             Position = 1,
             ValueFromPipelineByPropertyName = true
         )]
-        public AssetIdentity AssignedAsset { get; set; }
+        public AssetBinding AssignedAsset { get; set; }
+
+        /// <summary>
+        /// <para type="description">The date to mark this Asset as being checked out.</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public DateTime? CheckOutAt { get; set; }
+
+        /// <summary>
+        /// <para type="description">The date to this Asset is expected to be checked back in.</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public DateTime? ExpectedCheckIn { get; set; }
+
+        /// <summary>
+        /// <para type="description">The note for the Asset's log.</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string Note { get; set; }
+
+        /// <summary>
+        /// <para type="description">The asset's new name. Defaults to the asset's current name.</para>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string AssetName { get; set; }
 
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(Asset.Asset == null)
+            if(Asset.Object == null)
             {
-                WriteError(new ErrorRecord(null, "Asset not found.", ErrorCategory.InvalidArgument, Asset.Identity));
+                WriteError(new ErrorRecord(Asset.Error, "Asset not found.", ErrorCategory.InvalidArgument, Asset.Query));
                 return;
             }
+            var request = default(AssetCheckOutRequest);
             switch(ParameterSetName)
             {
                 case "ToUser":
-                    if(AssignedUser.User == null)
+                    if(AssignedUser.Object == null)
                     {
-                        WriteError(new ErrorRecord(null, "AssignedUser not found.", ErrorCategory.InvalidArgument, AssignedUser.Identity));
+                        WriteError(new ErrorRecord(null, "AssignedUser not found.", ErrorCategory.InvalidArgument, AssignedUser.Query));
                         return;
                     }
-                    WriteObject(ApiHelper.Instance.AssetManager.CheckOutAsset(Asset.Asset, AssignedUser.User));
+                    request = new AssetCheckOutRequest(Asset.Object, AssignedUser.Object);
+                    
                     break;
                 case "ToLocation":
-                    if(AssignedLocation.Location == null)
+                    if(AssignedLocation.Object == null)
                     {
-                        WriteError(new ErrorRecord(null, "AssignedLocation not found.", ErrorCategory.InvalidArgument, AssignedLocation.Identity));
+                        WriteError(new ErrorRecord(null, "AssignedLocation not found.", ErrorCategory.InvalidArgument, AssignedLocation.Query));
                         return;
                     }
-                    WriteObject(ApiHelper.Instance.AssetManager.CheckOutAsset(Asset.Asset, AssignedLocation.Location));
+                    request = new AssetCheckOutRequest(Asset.Object, AssignedLocation.Object);
                     break;
                 case "ToAsset":
-                    if(AssignedAsset.Asset == null)
+                    if(AssignedAsset.Object == null)
                     {
-                        WriteError(new ErrorRecord(null, "AssignedAsset not found.", ErrorCategory.InvalidArgument, AssignedAsset.Identity));
+                        WriteError(new ErrorRecord(null, "AssignedAsset not found.", ErrorCategory.InvalidArgument, AssignedAsset.Object));
                         return;
                     }
-                    WriteObject(ApiHelper.Instance.AssetManager.CheckOutAsset(Asset.Asset, AssignedAsset.Asset));
+                    request = new AssetCheckOutRequest(Asset.Object, AssignedAsset.Object);
                     break;
             }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(CheckOutAt)))
+                request.CheckOutAt = CheckOutAt;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(ExpectedCheckIn)))
+                request.ExpectedCheckIn = ExpectedCheckIn;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Note)))
+                request.Note = Note;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssetName)))
+                request.AssetName = AssetName;
+            else
+                request.AssetName = request.Asset.Name;
+            WriteObject(ApiHelper.Instance.Assets.CheckOut(request));
         }
     }
 }
