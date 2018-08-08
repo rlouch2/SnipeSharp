@@ -11,13 +11,19 @@ namespace  SnipeSharp.PowerShell.BindingTypes
     /// Binds Id's, Names, and Queries to Snipe-IT API Objects in the pipeline.
     /// </summary>
     /// <typeparam name="T">The type of object being bound to.</typeparam>
-    public class ObjectBinding<T> where T: CommonEndPointModel
+    public class ObjectBinding<T>: INullObjectBinding where T: CommonEndPointModel
     {
+        /// <value>Gets if the object is null.</value>
+        public bool IsNull => Object == null;
+
         /// <value>Gets the object retrieved by the query, or null.</value>
         public T Object { get; protected set; }
 
         /// <value>Gets the query used.</value>
         public string Query { get; protected set; }
+
+        /// <value>Gets the exception thrown during retrieval, or null.</value>
+        public Exception Error { get; protected set; }
 
         /// <summary>
         /// Fetches a single Object by its internal Id.
@@ -26,7 +32,7 @@ namespace  SnipeSharp.PowerShell.BindingTypes
         public ObjectBinding(int id)
         {
             Query = $"id:{id}";
-            Object = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(id).Value;
+            (Object, Error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(id);
         }
 
         /// <summary>
@@ -41,34 +47,51 @@ namespace  SnipeSharp.PowerShell.BindingTypes
             if(type == null)
             {
                 if(int.TryParse(value, out var id))
-                    Object = endPoint.Get(id);
+                    (Object, Error) = endPoint.GetOrNull(id);
                 else
-                    Object = endPoint.Get(value);
+                    (Object, Error) = endPoint.GetOrNull(value);
             } else
             {
                 switch(type)
                 {
                     case "cname":
-                        (Object, _) = endPoint.GetOrNull(value, true);
+                        (Object, Error) = endPoint.GetOrNull(value, true);
                         break;
                     case "name":
                     case "iname":
-                        (Object, _) = endPoint.GetOrNull(value, false);
+                        (Object, Error) = endPoint.GetOrNull(value, false);
                         break;
                     case "id":
                         if(int.TryParse(value, out var id))
-                            (Object, _) = endPoint.GetOrNull(id);
+                            (Object, Error) = endPoint.GetOrNull(id);
+                        else
+                        {
+                            Error = new ArgumentException($"Id is not an integer: {value}", nameof(query));
+                            return;
+                        }
                         break;
                     case "search":
-                        Object = endPoint.FindOne(value);
-                        if(Object == null)
+                        try
+                        {
+                            Object = endPoint.FindOne(value);
+                        } catch(Exception e)
+                        {
+                            Error = e;
                             return;
+                        }
                         break;
                     default:
-                        throw new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
+                        Error = new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
+                        return;
                 }
                 if(Object == null)
-                    Object = endPoint.FindOne(value);
+                    try
+                    {
+                        Object = endPoint.FindOne(value);
+                    } catch(Exception e)
+                    {
+                        Error = e;
+                    }
             }
         }
 
@@ -80,7 +103,7 @@ namespace  SnipeSharp.PowerShell.BindingTypes
         public ObjectBinding(string name, bool caseSensitive = false)
         {
             Query = caseSensitive ? $"cname:{name}" : $"name:{name}";
-            Object = ApiHelper.Instance.GetEndPoint<T>().Get(name, caseSensitive);
+            (Object, Error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(name, caseSensitive);
         }
 
         /// <summary>

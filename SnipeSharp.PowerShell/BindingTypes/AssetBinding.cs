@@ -29,41 +29,66 @@ namespace SnipeSharp.PowerShell.BindingTypes
             var endPoint = ApiHelper.Instance.GetEndPoint<Asset>();
             if(type == null)
             {
-                if(int.TryParse(value, out var id))
-                    Object = endPoint.Get(id);
+                // tag -> serial -> name -> id -> no search
+                (Object, Error) = endPoint.GetByTagOrNull(value);
+                if(Object != null)
+                    return;
+                (Object, Error) = endPoint.GetBySerialOrNull(value);
+                if(Object != null)
+                    return;
+                (Object, Error) = endPoint.GetOrNull(value);
+                if(Object == null && int.TryParse(value, out var id))
+                    (Object, Error) = endPoint.GetOrNull(id);
                 else
-                    Object = endPoint.Get(value);
+                    Error = new ArgumentException($"Cannot find an object for query: {value}", nameof(query));
             } else
             {
                 switch(type)
                 {
                     case "cname":
-                        (Object, _) = endPoint.GetOrNull(value, true);
+                        (Object, Error) = endPoint.GetOrNull(value, true);
                         break;
                     case "name":
                     case "iname":
-                        (Object, _) = endPoint.GetOrNull(value, false);
+                        (Object, Error) = endPoint.GetOrNull(value, false);
                         break;
                     case "id":
                         if(int.TryParse(value, out var id))
-                            (Object, _) = endPoint.GetOrNull(id);
+                            (Object, Error) = endPoint.GetOrNull(id);
+                        else
+                        {
+                            Error = new ArgumentException($"Id is not an integer: {value}", nameof(query));
+                            return;
+                        }
                         break;
                     case "serial":
-                        (Object, _) = endPoint.GetBySerialOrNull(value);
+                        (Object, Error) = endPoint.GetBySerialOrNull(value);
                         break;
                     case "tag":
-                        (Object, _) = endPoint.GetByTagOrNull(value);
+                        (Object, Error) = endPoint.GetByTagOrNull(value);
                         break;
                     case "search":
-                        Object = endPoint.FindOne(value);
-                        if(Object == null)
+                        try
+                        {
+                            Object = endPoint.FindOne(value);
+                        } catch(Exception e)
+                        {
+                            Error = e;
                             return;
+                        }
                         break;
                     default:
-                        throw new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
+                        Error = new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
+                        return;
                 }
                 if(Object == null)
-                    Object = endPoint.FindOne(value);
+                    try
+                    {
+                        Object = endPoint.FindOne(value);
+                    } catch(Exception e)
+                    {
+                        Error = e;
+                    }
             }
         }
 
