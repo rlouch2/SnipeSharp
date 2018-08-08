@@ -13,7 +13,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
     /// <typeparam name="K">Search filter type.</typeparam>
     public abstract class FindObject<T, S, K>: PSCmdlet
         where T: CommonEndPointModel
-        where K: ISortableSearchFilter<S>, new()
+        where K: class, ISortableSearchFilter<S>, new()
     {
         /// <summary>
         /// <para type="description">The string to search for.</para>
@@ -43,7 +43,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
         /// Populate the remaining fields of the filter.
         /// </summary>
         /// <param name="filter">The filter to populate.</param>
-        protected abstract void PopulateFilter(ref K filter);
+        protected abstract void PopulateFilter(K filter);
 
         /// <inheritdoc />
         protected override void ProcessRecord()
@@ -57,7 +57,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                 filter.Limit = (int) PagingParameters.First;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PagingParameters.Skip)))
                 filter.Offset = (int) PagingParameters.Skip;
-            PopulateFilter(ref filter);
+            PopulateFilter(filter);
             try {
                 var results = ApiHelper.Instance.GetEndPoint<T>().FindAll(filter);
                 if(PagingParameters.IncludeTotalCount)

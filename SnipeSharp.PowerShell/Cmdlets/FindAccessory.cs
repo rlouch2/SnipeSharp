@@ -35,7 +35,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
 
 
         /// <inheritdoc />
-        protected override void PopulateFilter(ref AccessorySearchFilter filter)
+        protected override void PopulateFilter(AccessorySearchFilter filter)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
                 filter.Company = Company?.Object;
