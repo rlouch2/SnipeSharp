@@ -26,7 +26,7 @@ namespace  SnipeSharp.PowerShell.BindingTypes
         public ObjectBinding(int id)
         {
             Query = $"id:{id}";
-            Object = ApiHelper.Instance.GetEndPoint<T>().Get(id);
+            Object = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(id).Value;
         }
 
         /// <summary>
@@ -58,21 +58,17 @@ namespace  SnipeSharp.PowerShell.BindingTypes
                     case "id":
                         if(int.TryParse(value, out var id))
                             (Object, _) = endPoint.GetOrNull(id);
-                        else
-                            throw new ArgumentException($"Id query is not an integer: {value}", nameof(query));
                         break;
                     case "search":
                         Object = endPoint.FindOne(value);
                         if(Object == null)
-                            throw new ArgumentException($"Query did not find an object from value: {value}", nameof(query));
+                            return;
                         break;
                     default:
                         throw new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
                 }
                 if(Object == null)
                     Object = endPoint.FindOne(value);
-                if(Object == null)
-                    throw new ArgumentException($"Query did not find an object from value: {value}", nameof(query));
             }
         }
 
@@ -85,24 +81,25 @@ namespace  SnipeSharp.PowerShell.BindingTypes
         {
             Query = caseSensitive ? $"cname:{name}" : $"name:{name}";
             Object = ApiHelper.Instance.GetEndPoint<T>().Get(name, caseSensitive);
-            if(Object == null)
-                throw new ArgumentException($"Query \"{name}\" could not find an object of type {typeof(T).Name}");
         }
 
         /// <summary>
         /// Re-fetches an object by its internal Id.
         /// </summary>
         /// <param name="object">An object.</param>
-        public ObjectBinding(T @object)
+        public ObjectBinding(T @object): this(@object.Id)
         {
-            Query = $"object:{@object.Id}";
-            Object = ApiHelper.Instance.GetEndPoint<T>().Get(@object.Id);
         }
 
         internal ObjectBinding()
         {
         }
 
+        /// <summary>
+        /// Parses a query into its type and value.
+        /// </summary>
+        /// <param name="query">The query to parse</param>
+        /// <returns>A tupel of the type and value.</returns>
         protected static (string type, string value) ParseQuery(string query)
         {
             var index = query.IndexOf(':');

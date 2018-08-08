@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using SnipeSharp.Exceptions;
 using System.Management.Automation;
 
 namespace SnipeSharp.PowerShell.Cmdlets
@@ -39,13 +40,15 @@ namespace SnipeSharp.PowerShell.Cmdlets
 
         /// <inheritdoc />
         protected override void EndProcessing(){
-            ApiHelper.Instance = new SnipeItApi {
-                ApiSettings = {
-                    ApiToken = this.ApiToken,
-                    BaseUrl = this.Uri
-                }
+            var instance = new SnipeItApi {
+                Token = this.ApiToken,
+                Uri = this.Uri
             };
-            // TODO: test that it connects
+            
+            if(instance.TestConnection())
+                ApiHelper.Instance = instance;
+            else
+                throw new ApiErrorException($"Could not validate a connection to Snipe-IT at Uri \"{Uri}\".");
         }
     }
 }

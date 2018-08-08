@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using SnipeSharp.EndPoint.Models;
 using static SnipeSharp.EndPoint.EndPointExtensions;
@@ -47,8 +47,6 @@ namespace SnipeSharp.PowerShell.BindingTypes
                     case "id":
                         if(int.TryParse(value, out var id))
                             (Object, _) = endPoint.GetOrNull(id);
-                        else
-                            throw new ArgumentException($"Id query is not an integer: {value}", nameof(query));
                         break;
                     case "serial":
                         (Object, _) = endPoint.GetBySerialOrNull(value);
@@ -59,15 +57,13 @@ namespace SnipeSharp.PowerShell.BindingTypes
                     case "search":
                         Object = endPoint.FindOne(value);
                         if(Object == null)
-                            throw new ArgumentException($"Query did not find an object from value: {value}", nameof(query));
+                            return;
                         break;
                     default:
                         throw new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
                 }
                 if(Object == null)
                     Object = endPoint.FindOne(value);
-                if(Object == null)
-                    throw new ArgumentException($"Query did not find an object from value: {value}", nameof(query));
             }
         }
 

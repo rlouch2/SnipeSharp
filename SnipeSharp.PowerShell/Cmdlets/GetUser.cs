@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
@@ -22,66 +23,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-User</para>
-    [Cmdlet(VerbsCommon.Get, "User",
-        DefaultParameterSetName = "ByName"
+    [Cmdlet(VerbsCommon.Get, nameof(User),
+        DefaultParameterSetName = nameof(GetObject<User>.ParameterSets.ByName)
     )]
     [OutputType(typeof(User))]
-    public class GetUser: PSCmdlet
+    public class GetUser: GetObject<User>
     {
-        /// <summary>
-        /// <para type="description">The name of the User.</para>
-        /// </summary>
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = "ByInternalId",
-            Position = 0,
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
-        )]
-        public int[] InternalId { get; set; }
-
-        /// <summary>
-        /// <para type="description">The internal Id of the User.</para>
-        /// </summary>
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = "ByName",
-            Position = 0,
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
-        )]
-        public string[] Name { get; set; }
-
-        /// <inheritdoc />
-        protected override void ProcessRecord()
-        {
-            if(ParameterSetName == "ByName")
-            {
-                foreach(var name in Name)
-                {
-                    var item = ApiHelper.Instance.UserManager.Get(name);
-                    if(item == null)
-                    {
-                        WriteError(new ErrorRecord(null, $"User not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
-                    } else
-                    {
-                        WriteObject(item);
-                    }
-                }
-            } else
-            {
-                foreach(var id in InternalId)
-                {
-                    var item = ApiHelper.Instance.UserManager.Get(id);
-                    if(item == null)
-                    {
-                        WriteError(new ErrorRecord(null, $"User not found by internal id {id}", ErrorCategory.InvalidArgument, id));
-                    } else
-                    {
-                        WriteObject(item);
-                    }
-                }
-            }
-        }
     }
 }
