@@ -119,6 +119,16 @@ namespace  SnipeSharp.PowerShell.BindingTypes
         }
 
         /// <summary>
+        /// For use with the internal From* functions.
+        /// </summary>
+        internal ObjectBinding(string query, (T, Exception) item)
+        {
+            Query = query;
+            Object = item.Item1;
+            Error = item.Item2;
+        }
+
+        /// <summary>
         /// Parses a query into its type and value.
         /// </summary>
         /// <param name="query">The query to parse</param>
@@ -128,5 +138,10 @@ namespace  SnipeSharp.PowerShell.BindingTypes
             var index = query.IndexOf(':');
             return (index == -1) ? (null, query) : (query.Substring(0, index), query.Substring(index + 1));
         }
+
+        internal static ObjectBinding<T> FromId(int id)
+            => new ObjectBinding<T>(id);
+        internal static ObjectBinding<T> FromName(string name)
+            => new ObjectBinding<T>(name, ApiHelper.Instance.GetEndPoint<T>().GetOrNull(name));
     }
 }

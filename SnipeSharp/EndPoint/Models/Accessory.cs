@@ -116,7 +116,7 @@ namespace SnipeSharp.EndPoint.Models
         /// </summary>
         /// <remarks>Supposedly this is setable, but the field is not fillable in Snipe-IT.</remarks>
         [Field("min_qty", "min_amt")]
-        public int? MinimumQuantity { get; private set; }
+        public int? MinimumQuantity { get; set; }
 
         /// <summary>
         /// The quantity of this Accessory that has not yet been checked out.

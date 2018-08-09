@@ -112,11 +112,8 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <summary>
         /// For use with the internal From* functions.
         /// </summary>
-        internal AssetBinding(string query, (Asset, Exception) item)
+        internal AssetBinding(string query, (Asset, Exception) item): base(query, item)
         {
-            Query = query;
-            Object = item.Item1;
-            Error = item.Item2;
         }
 
         internal static AssetBinding FromTag(string tag)

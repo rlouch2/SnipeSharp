@@ -19,7 +19,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
 
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByIdentity))]
         [ValidateIdentityNotNull]
-        public AssetBinding Identity { get; set; }
+        public ObjectBinding<Accessory> Identity { get; set; }
 
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByName))]
         [ValidateNotNullOrEmpty]
@@ -72,10 +72,10 @@ namespace SnipeSharp.PowerShell.Cmdlets
             switch(ParameterSetName)
             {
                 case nameof(ParameterSets.ByInternalId):
-                    Identity = AssetBinding.FromId(Id);
+                    Identity = ObjectBinding<Accessory>.FromId(Id);
                     break;
                 case nameof(ParameterSets.ByName):
-                    Identity = AssetBinding.FromName(Name);
+                    Identity = ObjectBinding<Accessory>.FromName(Name);
                     break;
                 case nameof(ParameterSets.ByIdentity):
                     break;
@@ -87,19 +87,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             var item = Identity.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
-                item.NewName = this.NewName;
+                item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company;
+                item.Company = this.Company?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer;
+                item.Manufacturer = this.Manufacturer?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                item.Supplier = this.Supplier;
+                item.Supplier = this.Supplier?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category;
+                item.Category = this.Category?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location;
+                item.Location = this.Location?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
                 item.Quantity = this.Quantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
