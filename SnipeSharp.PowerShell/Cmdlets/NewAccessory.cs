@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Management.Automation;
 using SnipeSharp.Common;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
@@ -11,84 +11,70 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [OutputType(typeof(Accessory))]
     public class NewAccessory: PSCmdlet
     {
-        [Parameter(
-            Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true
-        )]
+        [Parameter(Mandatory = true, Position = 0)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public CategoryIdentity Category { get; set; }
+        [Parameter(Mandatory = true, Position = 1)]
+        [ValidateRange(1, int.MaxValue)]
+        public int Quantity { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public CompanyIdentity Company { get; set; }
+        [Parameter(Mandatory = true, Position = 2)]
+        public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public LocationIdentity Location { get; set; }
+        [Parameter(Mandatory = true, Position = 3)]
+        public ObjectBinding<Category> Category { get; set; }
+        
+        [Parameter]
+        public ObjectBinding<Company> Company { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public ManufacturerIdentity Manufacturer { get; set; }
+        [Parameter]
+        public ObjectBinding<Supplier> Supplier { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public long? MinimumQuantity { get; set; }
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
+        [Parameter]
         public string ModelNumber { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNull]
-        public string Notes { get; set; }
+        [Parameter]
+        public ObjectBinding<Location> Location { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
+        [Parameter]
+        public DateTime PurchaseDate { get; set; }
+
+        [Parameter]
+        public decimal PurchaseCost { get; set; }
+
+        [Parameter]
         public string OrderNumber { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public string PurchaseCost { get; set; }
+        [Parameter]
+        public int MinimumQuantity { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public string PurchaseDate { get; set; } // convert this to ResponseDate internally
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public long Quantity { get; set; } = 1; // "req"
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public SupplierIdentity Supplier { get; set; }
+        [Parameter]
+        public Uri ImageUri { get; set; }
 
         protected override void ProcessRecord()
         {
             var item = new Accessory {
                 Name = this.Name,
-                Category = this.Category?.Category,
-                Company = this.Company?.Company,
-                Location = this.Location?.Location,
-                Manufacturer = this.Manufacturer?.Manufacturer,
-                MinQty = this.MinimumQuantity,
-                ModelNumber = this.ModelNumber,
-                Notes = this.Notes,
-                OrderNumber = this.OrderNumber,
-                PurchaseCost = this.PurchaseCost,
                 Quantity = this.Quantity,
-                Supplier = this.Supplier?.Supplier
+                Manufacturer = this.Manufacturer?.Object,
+                Category = this.Category?.Object,
+                Company = this.Company?.Object,
+                Supplier = this.Supplier?.Object,
+                ModelNumber = this.ModelNumber,
+                Location = this.Location?.Object,
+                PurchaseCost = this.PurchaseCost,
+                OrderNumber = this.OrderNumber,
+                ImageUri = this.ImageUri
             };
-            if(PurchaseDate != null)
-            {
-                item.PurchaseDate = new ResponseDate {
-                    DateTime = this.PurchaseDate
-                };
-            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
+                item.PurchaseDate = PurchaseDate;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
+                item.PurchaseCost = PurchaseCost;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))
+                item.MinimumQuantity = MinimumQuantity;
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.AccessoryManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.Accessories.Create(item));
         }
     }
 }

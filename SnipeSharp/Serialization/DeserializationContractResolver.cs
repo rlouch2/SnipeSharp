@@ -15,7 +15,6 @@ namespace SnipeSharp.Serialization
             var attribute = member.GetCustomAttribute<FieldAttribute>();
             if(attribute != null && attribute.DeserializeAs != null)
             {
-                System.Console.WriteLine($"{member.Name} => {attribute.DeserializeAs} [{attribute.Converter}]");
                 property.PropertyName = attribute.DeserializeAs;
                 property.Writable = true;
                 switch(attribute.Converter)

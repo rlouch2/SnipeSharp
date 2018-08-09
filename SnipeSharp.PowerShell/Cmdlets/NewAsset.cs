@@ -86,13 +86,16 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Model = this.Model?.Object,
                 Notes = this.Notes,
                 OrderNumber = this.OrderNumber,
-                PurchaseCost = this.PurchaseCost,
-                PurchaseDate = this.PurchaseDate,
                 DefaultLocation = this.DefaultLocation?.Object,
                 Serial = this.Serial,
-                Status = this.Status?.Object?.ToAssetStatus(),
-                WarrantyMonths = this.WarrantyMonths
+                Status = this.Status?.Object?.ToAssetStatus()
             };
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
+                item.PurchaseDate = PurchaseDate;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
+                item.PurchaseCost = PurchaseCost;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(WarrantyMonths)))
+                item.WarrantyMonths = WarrantyMonths;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && CustomFields != null)
                 foreach(var pair in CustomFields)
                     item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };

@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Temporary while we work on updating these cmdlets -->
-    <Compile Remove="Cmdlets/SetAccessory.cs" />
     <Compile Remove="Cmdlets/SetCategory.cs" />
     <Compile Remove="Cmdlets/SetCompany.cs" />
     <Compile Remove="Cmdlets/SetComponent.cs" />
@@ -46,7 +45,6 @@
     <Compile Remove="Cmdlets/FindStatusLabel.cs" />
     <Compile Remove="Cmdlets/FindSupplier.cs" />
     <Compile Remove="Cmdlets/FindUser.cs" />
-    <Compile Remove="Cmdlets/NewAccessory.cs" />
     <Compile Remove="Cmdlets/NewCategory.cs" />
     <Compile Remove="Cmdlets/NewCompany.cs" />
     <Compile Remove="Cmdlets/NewComponent.cs" />
