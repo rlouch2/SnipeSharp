@@ -118,9 +118,9 @@ namespace SnipeSharp.PowerShell.BindingTypes
 
         internal static AssetBinding FromTag(string tag)
             => new AssetBinding(tag, ApiHelper.Instance.Assets.GetByTagOrNull(tag));
-        internal static AssetBinding FromId(int id)
+        internal new static AssetBinding FromId(int id)
             => new AssetBinding(id);
-        internal static AssetBinding FromName(string name)
+        internal new static AssetBinding FromName(string name)
             => new AssetBinding(name, ApiHelper.Instance.Assets.GetOrNull(name));
         internal static AssetBinding FromSerial(string serial)
             => new AssetBinding(serial, ApiHelper.Instance.Assets.GetBySerialOrNull(serial));
