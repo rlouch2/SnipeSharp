@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<License>))]
-    public class RemoveLicense: RemoveObject<License>
+    public sealed class RemoveLicense: RemoveObject<License>
     {
     }
 }

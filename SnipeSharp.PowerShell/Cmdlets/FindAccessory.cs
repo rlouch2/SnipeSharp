@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsPaging = true
     )]
     [OutputType(typeof(Accessory))]
-    public class FindAccessory: FindObject<Accessory, AccessorySearchColumn, AccessorySearchFilter>
+    public sealed class FindAccessory: FindObject<Accessory, AccessorySearchColumn, AccessorySearchFilter>
     {
         /// <summary>
         /// <para type="description">Filter by owning company.</para>

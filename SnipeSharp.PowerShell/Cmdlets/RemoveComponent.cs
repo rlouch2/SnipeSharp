@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<Component>))]
-    public class RemoveComponent: PSCmdlet
+    public sealed class RemoveComponent: PSCmdlet
     {
     }
 }

@@ -9,16 +9,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-preview-06" />
-    <PackageReference Include="PSReptile" Version="0.0.3" />
     <ProjectReference Include="..\SnipeSharp\SnipeSharp.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="SnipeSharp.PowerShell.psd1;SnipeSharp.PowerShell.dll-*.ps1xml" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="SnipeSharp.PowerShell.psd1;SnipeSharp.PowerShell*.ps1xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <!-- Temporary while we work on updating these cmdlets -->
     <Compile Remove="Cmdlets/SetAccessory.cs" />
-    <Compile Remove="Cmdlets/SetAsset.cs" />
     <Compile Remove="Cmdlets/SetCategory.cs" />
     <Compile Remove="Cmdlets/SetCompany.cs" />
     <Compile Remove="Cmdlets/SetComponent.cs" />
@@ -49,7 +47,6 @@
     <Compile Remove="Cmdlets/FindSupplier.cs" />
     <Compile Remove="Cmdlets/FindUser.cs" />
     <Compile Remove="Cmdlets/NewAccessory.cs" />
-    <Compile Remove="Cmdlets/NewAsset.cs" />
     <Compile Remove="Cmdlets/NewCategory.cs" />
     <Compile Remove="Cmdlets/NewCompany.cs" />
     <Compile Remove="Cmdlets/NewComponent.cs" />

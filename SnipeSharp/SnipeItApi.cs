@@ -4,6 +4,8 @@ using System.IO;
 using RestSharp;
 using SnipeSharp.EndPoint;
 using SnipeSharp.EndPoint.Models;
+using Newtonsoft.Json;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp
 {
@@ -192,5 +194,8 @@ namespace SnipeSharp
         {
             RequestManager = new RestClientManager(this, client);
         }
+
+        public string Serialize(object @object)
+            => RequestManager.Serialize(@object);
     }
 }

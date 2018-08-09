@@ -111,8 +111,6 @@ namespace SnipeSharp.EndPoint
 
         public static StatusLabel FromAssetStatus(this EndPoint<StatusLabel> endPoint, AssetStatus status)
             => endPoint.Get(status.StatusId);
-        public static AssetStatus ToAssetStatus(this StatusLabel label)
-            => new AssetStatus { StatusId = label.Id };
         #endregion
         #region User
         public static ResponseCollection<Asset> GetAssignedAssets(this EndPoint<User> endPoint, User user)

@@ -76,5 +76,9 @@ namespace SnipeSharp.EndPoint.Models
         /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <summary>Converts this label into an AssetStatus, for use with Assets.</summary>
+        public AssetStatus ToAssetStatus()
+            => new AssetStatus { StatusId = Id, Name = Name, StatusType = Type };
     }
 }

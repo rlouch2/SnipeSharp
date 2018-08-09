@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Management.Automation;
-using SnipeSharp.Common;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
@@ -14,107 +14,91 @@ namespace SnipeSharp.PowerShell.Cmdlets
     {
         [Parameter(
             Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true
+            Position = 0
         )]
         [ValidateNotNullOrEmpty]
         public string AssetTag { get; set; }
 
         [Parameter(
             Mandatory = true,
-            Position = 1,
-            ValueFromPipelineByPropertyName = true
+            Position = 1
         )]
-        [ValidateNotNullOrEmpty]
+        public ObjectBinding<Model> Model { get; set; }
+
+        [Parameter(
+            Mandatory = true,
+            Position = 2
+        )]
+        public ObjectBinding<StatusLabel> Status { get; set; }
+        
+        [Parameter]
         public string Name { get; set; }
         
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public CategoryIdentity Category { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public CompanyIdentity Company { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public Dictionary<string, string> CustomFields { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public LocationIdentity Location { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public ManufacturerIdentity Manufacturer { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public ModelIdentity Model { get; set; }
+        [Parameter]
+        public string Serial { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public string ModelNumber { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
+        [Parameter]
+        public ObjectBinding<Supplier> Supplier { get; set; }
+
+        [Parameter]
         public string Notes { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
+        [Parameter]
         public string OrderNumber { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public string PurchaseCost { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public string PurchaseDate { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public LocationIdentity RtdLocation { get; set; }
-        
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public string Serial { get; set; }
-        
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public StatusLabelIdentity StatusLabel { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public long? WarrantyMonths { get; set; }
+        [Parameter]
+        public ObjectBinding<Company> Company { get; set; }
+
+        [Parameter]
+        public ObjectBinding<Location> Location { get; set; }
+
+        [Parameter]
+        public ObjectBinding<Location> DefaultLocation { get; set; }
+
+        [Parameter]
+        public Uri ImageUri { get; set; }
+        
+        [Parameter(DontShow = true)]
+        public CommonEndPointModel AssignedTo { get; set; }
+
+        [Parameter(DontShow = true)]
+        public AssignedToType AssignedType { get; set; }
+
+        [Parameter]
+        public DateTime PurchaseDate { get; set; }
+
+        [Parameter]
+        public decimal PurchaseCost { get; set; }
+
+        [Parameter]
+        public int WarrantyMonths { get; set; }
+
+        [Parameter]
+        public Dictionary<string, string> CustomFields { get; set; }
 
         protected override void ProcessRecord()
         {
             var item = new Asset {
                 AssetTag = this.AssetTag,
                 Name = this.Name,
-                Category = this.Category?.Category,
-                Company = this.Company?.Company,
-                CustomFields = this.CustomFields,
-                Location = this.Location?.Location,
-                Manufacturer = this.Manufacturer?.Manufacturer,
-                Model = this.Model?.Model,
-                ModelNumber = this.ModelNumber,
+                Company = this.Company?.Object,
+                Location = this.Location?.Object,
+                Model = this.Model?.Object,
                 Notes = this.Notes,
                 OrderNumber = this.OrderNumber,
                 PurchaseCost = this.PurchaseCost,
-                RtdLocation = this.RtdLocation?.Location,
+                PurchaseDate = this.PurchaseDate,
+                DefaultLocation = this.DefaultLocation?.Object,
                 Serial = this.Serial,
-                StatusLabel = this.StatusLabel?.StatusLabel,
-                WarrantyMonths = this.WarrantyMonths?.ToString()
+                Status = this.Status?.Object?.ToAssetStatus(),
+                WarrantyMonths = this.WarrantyMonths
             };
-            if(PurchaseDate != null)
-            {
-                item.PurchaseDate = new ResponseDate {
-                    DateTime = this.PurchaseDate
-                };
-            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && CustomFields != null)
+                foreach(var pair in CustomFields)
+                    item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };
+
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.AssetManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.Assets.Create(item));
         }
     }
 }

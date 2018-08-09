@@ -29,7 +29,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         DefaultParameterSetName = "ToUser"
     )]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public class CheckOutAsset: PSCmdlet
+    public sealed class CheckOutAsset: PSCmdlet
     {
         /// <summary>
         /// <para type="description">An Asset identity.</para>
@@ -48,7 +48,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(
             Mandatory = true,
             ParameterSetName = "ToUser",
-            Position = 1,
             ValueFromPipelineByPropertyName = true
         )]
         public ObjectBinding<User> AssignedUser { get; set; }
@@ -59,7 +58,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(
             Mandatory = true,
             ParameterSetName = "ToLocation",
-            Position = 1,
             ValueFromPipelineByPropertyName = true
         )]
         public ObjectBinding<Location> AssignedLocation { get; set; }
@@ -70,7 +68,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(
             Mandatory = true,
             ParameterSetName = "ToAsset",
-            Position = 1,
             ValueFromPipelineByPropertyName = true
         )]
         public AssetBinding AssignedAsset { get; set; }

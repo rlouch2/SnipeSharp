@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<Category>))]
-    public class RemoveCategory: RemoveObject<Category>
+    public sealed class RemoveCategory: RemoveObject<Category>
     {
     }
 }

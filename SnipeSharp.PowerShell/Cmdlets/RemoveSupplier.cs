@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<Supplier>))]
-    public class RemoveSupplier: RemoveObject<Supplier>
+    public sealed class RemoveSupplier: RemoveObject<Supplier>
     {
     }
 }

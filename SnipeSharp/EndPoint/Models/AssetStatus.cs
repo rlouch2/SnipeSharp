@@ -7,7 +7,7 @@ namespace SnipeSharp.EndPoint.Models
     /// </summary>
     /// <remarks>Yes, it's not a <see cref="StatusLabel">StatusLabel</see>, but the Id's are the same.</remarks>
     /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.FromAssetStatus(EndPoint{StatusLabel}, AssetStatus)" />
-    /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.ToAssetStatus(StatusLabel)" />
+    /// <seealso cref="SnipeSharp.EndPoint.Models.StatusLabel.ToAssetStatus" />
     public sealed class AssetStatus
     {
         /// <summary>
@@ -28,13 +28,13 @@ namespace SnipeSharp.EndPoint.Models
         /// </summary>
         /// <remarks>This will never be <see cref="StatusType.Deployed" />.</remarks>
         [Field("status_type")]
-        public StatusType StatusType { get; set; }
+        public StatusType? StatusType { get; set; }
 
         /// <summary>
         /// The actual category of statuses an asset with this status is in.
         /// </summary>
         /// <value>For deployed assets, this will be <see cref="StatusType.Deployed" />. Otherwise, the value will be the same as <see cref="AssetStatus.StatusType" />.</value>
         [Field("status_meta")]
-        public StatusType StatusMeta { get; set; }
+        public StatusType? StatusMeta { get; set; }
     }
 }

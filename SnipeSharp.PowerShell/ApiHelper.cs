@@ -2,7 +2,7 @@ using System;
 
 namespace SnipeSharp.PowerShell
 {
-    internal static class ApiHelper
+    public static class ApiHelper
     {
         private static SnipeItApi _instance = null;
         public static SnipeItApi Instance

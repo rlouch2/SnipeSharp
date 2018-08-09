@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<Location>))]
-    public class RemoveLocation: RemoveObject<Location>
+    public sealed class RemoveLocation: RemoveObject<Location>
     {
     }
 }

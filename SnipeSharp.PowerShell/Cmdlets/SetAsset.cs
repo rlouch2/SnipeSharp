@@ -1,108 +1,168 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Management.Automation;
-using SnipeSharp.Common;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Asset")]
+    [Cmdlet(VerbsCommon.Set, nameof(Asset),
+        SupportsShouldProcess = true,
+        DefaultParameterSetName = nameof(ParameterSets.ByIdentity)
+    )]
     [OutputType(typeof(Asset))]
-    public class SetAsset: PSCmdlet
+    public sealed class SetAsset: PSCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        internal enum ParameterSets
+        {
+            ByIdentity,
+            ByName,
+            ByInternalId,
+            ByAssetTag,
+            BySerial
+        }
+
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByIdentity))]
+        [ValidateIdentityNotNull]
+        public AssetBinding Identity { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByName))]
         [ValidateNotNullOrEmpty]
-        public AssetIdentity Asset { get; set; }
-
-        [Parameter]
         public string Name { get; set; }
-        
-        [Parameter]
-        public CategoryIdentity Category { get; set; }
-        
-        [Parameter]
-        public CompanyIdentity Company { get; set; }
-        
-        [Parameter]
-        public Dictionary<string, string> CustomFields { get; set; }
-        
-        [Parameter]
-        public LocationIdentity Location { get; set; }
-        
-        [Parameter]
-        public ManufacturerIdentity Manufacturer { get; set; }
-        
-        [Parameter]
-        public ModelIdentity Model { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByInternalId))]
+        public int Id { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByAssetTag))]
+        [ValidateNotNullOrEmpty]
+        public string AssetTag { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.BySerial))]
+        [ValidateNotNullOrEmpty]
+        public string Serial { get; set; }
 
         [Parameter]
-        public string ModelNumber { get; set; }
+        public string NewAssetTag { get; set; }
+
+        [Parameter]
+        public string NewName { get; set; }
+
+        [Parameter]
+        public string NewSerial { get; set; }
         
+        [Parameter]
+        public ObjectBinding<Model> Model { get; set; }
+
+        [Parameter]
+        public ObjectBinding<StatusLabel> Status { get; set; }
+
+        [Parameter]
+        public ObjectBinding<Supplier> Supplier { get; set; }
+
         [Parameter]
         public string Notes { get; set; }
 
         [Parameter]
         public string OrderNumber { get; set; }
-        
-        [Parameter]
-        public string PurchaseCost { get; set; }
-        
-        [Parameter]
-        public string PurchaseDate { get; set; }
-        
-        [Parameter]
-        public LocationIdentity RtdLocation { get; set; }
-        
-        [Parameter]
-        public string Serial { get; set; }
-        
-        [Parameter]
-        public StatusLabelIdentity StatusLabel { get; set; }
 
         [Parameter]
-        public long WarrantyMonths { get; set; }
+        public ObjectBinding<Company> Company { get; set; }
+
+        [Parameter]
+        public ObjectBinding<Location> Location { get; set; }
+
+        [Parameter]
+        public ObjectBinding<Location> DefaultLocation { get; set; }
+
+        [Parameter]
+        public Uri ImageUri { get; set; }
+        
+        [Parameter(DontShow = true)]
+        public CommonEndPointModel AssignedTo { get; set; }
+
+        [Parameter(DontShow = true)]
+        public AssignedToType AssignedType { get; set; }
+
+        [Parameter]
+        public DateTime PurchaseDate { get; set; }
+
+        [Parameter]
+        public decimal PurchaseCost { get; set; }
+
+        [Parameter]
+        public int WarrantyMonths { get; set; }
+
+        [Parameter]
+        public Dictionary<string, string> CustomFields { get; set; }
 
         protected override void ProcessRecord()
         {
-            var item = this.Asset.Asset;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Category;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Company;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)))
-                item.CustomFields = this.CustomFields;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Location;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Manufacturer;
+            switch(ParameterSetName)
+            {
+                case nameof(ParameterSets.ByAssetTag):
+                    Identity = AssetBinding.FromTag(AssetTag);
+                    break;
+                case nameof(ParameterSets.ByInternalId):
+                    Identity = AssetBinding.FromId(Id);
+                    break;
+                case nameof(ParameterSets.ByName):
+                    Identity = AssetBinding.FromName(Name);
+                    break;
+                case nameof(ParameterSets.BySerial):
+                    Identity = AssetBinding.FromSerial(Serial);
+                    break;
+                case nameof(ParameterSets.ByIdentity):
+                    break;
+            }
+            if(Identity.IsNull)
+            {
+                WriteError(new ErrorRecord(Identity.Error, $"Asset not found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
+                return;
+            }
+            var item = Identity.Object;
+
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewAssetTag)))
+                item.AssetTag = NewAssetTag;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = NewName;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewSerial)))
+                item.Serial = NewSerial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
-                item.Model = this.Model?.Model;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
-                item.ModelNumber = this.ModelNumber;
+                item.Model = Model?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Status)))
+                item.Status = Status?.Object?.ToAssetStatus();
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
+                item.Supplier = Supplier?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
-                item.Notes = this.Notes;
+                item.Notes = Notes;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
-                item.OrderNumber = this.OrderNumber;
+                item.OrderNumber = OrderNumber;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+                item.Company = Company?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
+                item.Location = Location?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(DefaultLocation)))
+                item.DefaultLocation = DefaultLocation?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
+                item.ImageUri = ImageUri;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssignedTo)))
+                item.AssignedTo = AssignedTo;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssignedType)))
+                item.AssignedType = AssignedType;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
-                item.PurchaseCost = this.PurchaseCost;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(RtdLocation)))
-                item.RtdLocation = this.RtdLocation?.Location;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Serial)))
-                item.Serial = this.Serial;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(StatusLabel)))
-                item.StatusLabel = this.StatusLabel?.StatusLabel;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(WarrantyMonths)))
-                item.WarrantyMonths = this.WarrantyMonths.ToString();
+                item.PurchaseCost = PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
-                item.PurchaseDate = new ResponseDate {
-                    DateTime = this.PurchaseDate
-                };
+                item.PurchaseDate = PurchaseDate;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(WarrantyMonths)))
+                item.WarrantyMonths = WarrantyMonths;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && CustomFields != null)
+                foreach(var pair in CustomFields)
+                    item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };
+            
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.AssetManager.Update(item).Payload);
+            WriteObject(ApiHelper.Instance.Assets.Update(item));
         }
     }
 }

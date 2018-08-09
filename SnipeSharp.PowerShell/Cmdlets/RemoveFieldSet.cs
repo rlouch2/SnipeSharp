@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<FieldSet>))]
-    public class RemoveFieldSet: RemoveObject<FieldSet>
+    public sealed class RemoveFieldSet: RemoveObject<FieldSet>
     {
     }
 }

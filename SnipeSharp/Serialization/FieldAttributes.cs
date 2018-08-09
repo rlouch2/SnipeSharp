@@ -9,6 +9,7 @@ namespace SnipeSharp.Serialization
         public FieldConverter Converter { get; set; } = FieldConverter.None;
         public bool ShouldSerialize { get; set; } = false;
         public bool IsRequired { get; set; } = false;
+        public bool OverrideAffinity { get; set; } = false;
         internal FieldAttribute(string deserializeAs, string serializeAs, FieldConverter converter = FieldConverter.None, bool required = false) : this(deserializeAs, true, converter, required)
         {
             SerializeAs = serializeAs;
@@ -28,6 +29,7 @@ namespace SnipeSharp.Serialization
     {
         None,
         CommonModelConverter,
+        AssetStatusConverter,
         MonthsConverter,
         DateTimeConverter,
         TimeSpanConverter,

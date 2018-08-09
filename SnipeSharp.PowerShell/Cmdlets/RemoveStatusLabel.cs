@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<StatusLabel>))]
-    public class RemoveStatusLabel: RemoveObject<StatusLabel>
+    public sealed class RemoveStatusLabel: RemoveObject<StatusLabel>
     {
     }
 }

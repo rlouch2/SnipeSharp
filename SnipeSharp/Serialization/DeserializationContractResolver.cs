@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
+using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.Serialization
 {
@@ -14,6 +15,7 @@ namespace SnipeSharp.Serialization
             var attribute = member.GetCustomAttribute<FieldAttribute>();
             if(attribute != null && attribute.DeserializeAs != null)
             {
+                System.Console.WriteLine($"{member.Name} => {attribute.DeserializeAs} [{attribute.Converter}]");
                 property.PropertyName = attribute.DeserializeAs;
                 property.Writable = true;
                 switch(attribute.Converter)
@@ -37,6 +39,10 @@ namespace SnipeSharp.Serialization
                         property.Converter = CustomAvailableActionsConverter.Instance;
                         break;
                     case FieldConverter.CommonModelConverter:
+                        if(attribute.OverrideAffinity)
+                            property.Converter = CustomCommonModelConverter.Instance;
+                        break;
+                    case FieldConverter.AssetStatusConverter:
                     case FieldConverter.None:
                         break;
                 }

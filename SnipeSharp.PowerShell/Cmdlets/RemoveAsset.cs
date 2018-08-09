@@ -30,7 +30,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public class RemoveAsset: PSCmdlet
+    public sealed class RemoveAsset: PSCmdlet
     {
         internal enum ParameterSets
         {

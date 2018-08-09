@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using static SnipeSharp.Serialization.FieldConverter;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SnipeSharp.EndPoint.Models
 {
@@ -24,7 +26,7 @@ namespace SnipeSharp.EndPoint.Models
         /// The asset tag of the Asset.
         /// </summary>
         /// <remarks>
-        /// <para>This field is required, and must be unique amonst non-deleted assets.</para>
+        /// <para>This field is required, and must be unique amongst non-deleted assets.</para>
         /// </remarks>
         [Field("asset_tag", true, required: true)]
         public string AssetTag { get; set; }
@@ -32,7 +34,7 @@ namespace SnipeSharp.EndPoint.Models
         /// <summary>
         /// The serial (number) of the Asset.
         /// </summary>
-        /// <remarks>This value must be unique amonst all assets.</remarks>
+        /// <remarks>This value must be unique amongst all assets.</remarks>
         [Field("serial", true)]
         public string Serial { get; set; }
 
@@ -67,8 +69,8 @@ namespace SnipeSharp.EndPoint.Models
         /// <para>This field will be converted to the value of its StatusId when serialized.</para>
         /// </remarks>
         /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.FromAssetStatus(EndPoint{StatusLabel}, AssetStatus)" />
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.ToAssetStatus(StatusLabel)" />
-        [Field("status_label", "status_id", converter: CommonModelConverter, required: true)]
+        /// <seealso cref="StatusLabel.ToAssetStatus" />
+        [Field("status_label", "status_id", converter: AssetStatusConverter, required: true)]
         public AssetStatus Status { get; set; }
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace SnipeSharp.EndPoint.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// <para>To update this field, see <see cref="Model.Manufacturer"/></para>
         /// </remarks>
-        [Field("manufacturer")]
+        [Field("manufacturer", converter: CommonModelConverter)]
         public Manufacturer Manufacturer { get; private set; }
 
         /// <summary>
@@ -163,7 +165,7 @@ namespace SnipeSharp.EndPoint.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("assigned_to", true, converter: CommonModelConverter)]
+        [Field("assigned_to", true, converter: CommonModelConverter, OverrideAffinity = true)]
         public CommonEndPointModel AssignedTo { get; set; }
 
         /// <summary>
@@ -273,6 +275,19 @@ namespace SnipeSharp.EndPoint.Models
         /// </remarks>
         [Field("custom_fields")]
         public Dictionary<string, AssetCustomField> CustomFields { get; set; }
+
+        [JsonExtensionData(ReadData = false, WriteData = true)]
+        private Dictionary<string, JToken> CustomFieldsWriter
+        {
+            get
+            {
+                var newDictionary = new Dictionary<string, JToken>();
+                if(CustomFields != null)
+                    foreach(var pair in CustomFields)
+                        newDictionary[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
+                return newDictionary;
+            }
+        }
 
         /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]

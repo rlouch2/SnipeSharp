@@ -4,18 +4,18 @@ using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomCommonModelConverter : JsonConverter
+    internal sealed class CustomAssetStatusConverter : JsonConverter
     {
-        internal static readonly CustomCommonModelConverter Instance = new CustomCommonModelConverter();
+        internal static readonly CustomAssetStatusConverter Instance = new CustomAssetStatusConverter();
         public override bool CanConvert(Type objectType)
             => true;
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            => (CommonEndPointModel) serializer.Deserialize<GenericEndPointModel>(reader);
+            => throw new NotImplementedException();
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var item = value as CommonEndPointModel;
-            writer.WriteValue(item.Id);
+            var item = value as AssetStatus;
+            writer.WriteValue(item.StatusId);
         }
     }
 }

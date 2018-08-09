@@ -8,7 +8,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// <summary>
     /// Used to convert an Asset identity into an Asset object.
     /// </summary>
-    public class AssetBinding: ObjectBinding<Asset>
+    public sealed class AssetBinding: ObjectBinding<Asset>
     {
         /// <summary>
         /// Fetches a single Asset by its internal Id.
@@ -108,5 +108,24 @@ namespace SnipeSharp.PowerShell.BindingTypes
         public AssetBinding(Asset asset) : base(asset)
         {
         }
+
+        /// <summary>
+        /// For use with the internal From* functions.
+        /// </summary>
+        internal AssetBinding(string query, (Asset, Exception) item)
+        {
+            Query = query;
+            Object = item.Item1;
+            Error = item.Item2;
+        }
+
+        internal static AssetBinding FromTag(string tag)
+            => new AssetBinding(tag, ApiHelper.Instance.Assets.GetByTagOrNull(tag));
+        internal static AssetBinding FromId(int id)
+            => new AssetBinding(id);
+        internal static AssetBinding FromName(string name)
+            => new AssetBinding(name, ApiHelper.Instance.Assets.GetOrNull(name));
+        internal static AssetBinding FromSerial(string serial)
+            => new AssetBinding(serial, ApiHelper.Instance.Assets.GetBySerialOrNull(serial));
     }
 }

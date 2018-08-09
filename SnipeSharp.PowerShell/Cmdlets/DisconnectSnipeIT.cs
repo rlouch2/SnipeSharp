@@ -13,7 +13,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Connect-SnipeIT</para>
     [Cmdlet(VerbsCommunications.Disconnect, "SnipeIT")]
-    public class DisconnectSnipeIT: PSCmdlet
+    public sealed class DisconnectSnipeIT: PSCmdlet
     {
         /// <inheritdoc />
         protected override void EndProcessing(){

@@ -28,7 +28,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<Company>))]
-    public class RemoveCompany: RemoveObject<Company>
+    public sealed class RemoveCompany: RemoveObject<Company>
     {
     }
 }

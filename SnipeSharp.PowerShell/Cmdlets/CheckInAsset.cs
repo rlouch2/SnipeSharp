@@ -22,7 +22,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <para type="link">Get-Asset</para>
     [Cmdlet("CheckIn", nameof(Asset))]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public class CheckInAsset: PSCmdlet
+    public sealed class CheckInAsset: PSCmdlet
     {
         /// <summary>
         /// <para type="description">An Asset object.</para>

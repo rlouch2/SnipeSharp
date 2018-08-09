@@ -82,10 +82,10 @@ namespace SnipeSharp
             return result;
         }
 
-        internal RequestResponse<R> Post<R>(string path, R @object, params JsonConverter[] converters) where R: ApiObject
-            => Post<R, R>(path, @object, converters);
+        internal RequestResponse<R> Post<R>(string path, R @object) where R: ApiObject
+            => Post<R, R>(path, @object);
         
-        internal RequestResponse<R> Post<T, R>(string path, T @object, params JsonConverter[] converters) where T: ApiObject where R: ApiObject
+        internal RequestResponse<R> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
         {
             var request = new RestRequest(path, Method.POST) { JsonSerializer = serializerDeserializer };
             if(@object != null)
@@ -93,7 +93,7 @@ namespace SnipeSharp
             return ExecuteRequest2<R>(request);
         }
 
-        internal RequestResponse<R> Patch<R>(string path, R @object, params JsonConverter[] converters) where R: ApiObject
+        internal RequestResponse<R> Patch<R>(string path, R @object) where R: ApiObject
         {
             var request = new RestRequest(path, Method.PATCH) { JsonSerializer = serializerDeserializer };
             if(@object != null)
@@ -146,5 +146,8 @@ namespace SnipeSharp
             }
             return asRequestResponse;
         }
+
+        public string Serialize(object @object)
+            => serializerDeserializer.Serialize(@object);
     }
 }
