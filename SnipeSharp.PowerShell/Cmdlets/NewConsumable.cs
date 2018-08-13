@@ -80,7 +80,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Quantity = this.Quantity,
                 Remaining = this.Remaining
             };
-            if(PurchaseDate != null)
+            if(!(PurchaseDate is null))
             {
                 item.PurchaseDate = new ResponseDate {
                     DateTime = this.PurchaseDate

@@ -13,7 +13,7 @@ namespace SnipeSharp.Serialization
         {
             var property = base.CreateProperty(member, memberSerialization);
             var attribute = member.GetCustomAttribute<FieldAttribute>();
-            if(attribute != null && attribute.DeserializeAs != null)
+            if(!(attribute is null) && !(attribute.DeserializeAs is null))
             {
                 property.PropertyName = attribute.DeserializeAs;
                 property.Writable = true;
@@ -40,6 +40,9 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.CommonModelConverter:
                         if(attribute.OverrideAffinity)
                             property.Converter = CustomCommonModelConverter.Instance;
+                        break;
+                    case FieldConverter.CustomFieldDictionaryConverter:
+                        property.Converter = CustomFieldDictionaryConverter<AssetCustomField>.Instance;
                         break;
                     case FieldConverter.AssetStatusConverter:
                     case FieldConverter.None:

@@ -6,7 +6,7 @@ namespace SnipeSharp.EndPoint.Models
     /// Indicates that this object supports custom fields.
     /// </summary>
     /// <typeparam name="T">The type of the values of the custom fields.</typeparam>
-    internal interface ICustomFields<T>
+    internal interface ICustomFields<T> where T: class
     {
         /// <summary>
         /// The custom fields of this object.

@@ -68,7 +68,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                 foreach(var name in Name)
                 {
                     var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(name);
-                    if(item == null)
+                    if(item is null)
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
                     } else if(ShouldProcess(name))
@@ -83,7 +83,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                 foreach(var id in InternalId)
                 {
                     var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(id);
-                    if(item == null)
+                    if(item is null)
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
                     } else if(ShouldProcess(id.ToString()))

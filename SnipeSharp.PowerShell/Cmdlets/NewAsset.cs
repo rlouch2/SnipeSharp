@@ -96,7 +96,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseCost = PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(WarrantyMonths)))
                 item.WarrantyMonths = WarrantyMonths;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && CustomFields != null)
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && !(CustomFields is null))
                 foreach(var pair in CustomFields)
                     item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };
 

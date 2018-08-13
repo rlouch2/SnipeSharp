@@ -14,7 +14,8 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
         {
             ByIdentity,
             ByInternalId,
-            ByName
+            ByName,
+            All
         }
 
         /// <summary>
@@ -54,15 +55,31 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
         )]
         public ObjectBinding<T>[] Identity { get; set; }
 
+        /// <summary>
+        /// <para type="description">If present, return the result as a <see cref="SnipeSharp.EndPoint.Models.ResponseCollection{T}"/> rather than enumerating.</para>
+        /// </summary>
+        [Parameter(ParameterSetName = nameof(ParameterSets.All))]
+        public SwitchParameter NoEnumerate { get; set; }
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(ParameterSetName == nameof(ParameterSets.ByName))
+            if(ParameterSetName == nameof(ParameterSets.All))
+            {
+                var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetAllOrNull();
+                if(!(error is null))
+                {
+                    WriteError(new ErrorRecord(error, $"An error occurred retrieving all records from endpoint {typeof(T).Name}", ErrorCategory.NotSpecified, null));
+                } else
+                {
+                    WriteObject(item, !NoEnumerate.IsPresent);
+                }
+            } else if(ParameterSetName == nameof(ParameterSets.ByName))
             {
                 foreach(var name in Name)
                 {
                     var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(name);
-                    if(item == null)
+                    if(item is null)
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
                     } else
@@ -75,7 +92,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                 foreach(var id in InternalId)
                 {
                     var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(id);
-                    if(item == null)
+                    if(item is null)
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
                     } else

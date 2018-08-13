@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-Accessory</para>
     [Cmdlet(VerbsCommon.Get, nameof(Accessory),
-        DefaultParameterSetName = nameof(GetObject<Accessory>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<Accessory>.ParameterSets.All)
     )]
     [OutputType(typeof(Accessory))]
     public sealed class GetAccessory: GetObject<Accessory>

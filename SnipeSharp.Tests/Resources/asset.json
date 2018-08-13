@@ -63,7 +63,7 @@
   "expected_checkin": null,
   "purchase_cost": "1000.00",
   "user_can_checkout": true,
-  "custom_fields": {},
+  "custom_fields": [],
   "available_actions": {
     "checkout": true,
     "checkin": true,

@@ -31,7 +31,7 @@ namespace SnipeSharp.EndPoint.Filters
 
         /// <inheritdoc />
         [Field("order", true)]
-        public SearchOrder Order { get; set; }
+        public SearchOrder? Order { get; set; }
 
         /// <summary>
         /// Only search for accessories owned by this Company if set.

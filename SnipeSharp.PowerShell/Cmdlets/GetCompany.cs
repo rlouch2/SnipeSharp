@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-Company</para>
     [Cmdlet(VerbsCommon.Get, nameof(Company),
-        DefaultParameterSetName = nameof(GetObject<Company>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<Company>.ParameterSets.All)
     )]
     [OutputType(typeof(Company))]
     public sealed class GetCompany: GetObject<Company>

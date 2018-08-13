@@ -89,6 +89,12 @@ namespace SnipeSharp.EndPoint
         ResponseCollection<T> GetAll();
 
         /// <summary>
+        /// Gets all objects in the EndPoint.
+        /// </summary>
+        /// <returns>A collection of relevant objects (or null), which may be empty, in a tuple with an error thrown (which is null if there was no error).</returns>
+        (ResponseCollection<T> Value, Exception Error) GetAllOrNull();
+
+        /// <summary>
         /// Finds the first object of the generic type matching the filter.
         /// </summary>
         /// <param name="filter">The filter to search by. The limit will be forced to 1.</param>

@@ -103,7 +103,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Department = this.Department?.Department
             };
 
-            if(LastLogin != null)
+            if(!(LastLogin is null))
                 item.LastLogin = new ResponseDate {
                     DateTime = this.LastLogin
                 };

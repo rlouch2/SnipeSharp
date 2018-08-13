@@ -97,6 +97,19 @@ namespace SnipeSharp.EndPoint
             => FindAll();
 
         /// <inheritdoc />
+        public (ResponseCollection<T> Value, Exception Error) GetAllOrNull()
+        {
+            try
+            {
+                var @object = GetAll();
+                return (@object, null);
+            } catch(Exception e)
+            {
+                return (null, e);
+            }
+        }
+
+        /// <inheritdoc />
         public T Create(T toCreate)
             => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate, creating: true)).Payload;
 
@@ -119,7 +132,7 @@ namespace SnipeSharp.EndPoint
         private T CheckRequiredFields(T @object, bool creating = false)
         {
             foreach(var property in typeof(T).GetProperties())
-                if((property.GetCustomAttribute<FieldAttribute>()?.IsRequired ?? false) && (property.GetValue(@object) == null)) // if required and null
+                if((property.GetCustomAttribute<FieldAttribute>()?.IsRequired ?? false) && (property.GetValue(@object) is null)) // if required and null
                     throw new MissingRequiredFieldException<T>(property.Name);
             return @object;
         }

@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-User</para>
     [Cmdlet(VerbsCommon.Get, nameof(User),
-        DefaultParameterSetName = nameof(GetObject<User>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<User>.ParameterSets.All)
     )]
     [OutputType(typeof(User))]
     public sealed class GetUser: GetObject<User>

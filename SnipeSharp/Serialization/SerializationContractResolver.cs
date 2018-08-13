@@ -13,7 +13,7 @@ namespace SnipeSharp.Serialization
         {
             var property = base.CreateProperty(member, memberSerialization);
             var attribute = member.GetCustomAttribute<FieldAttribute>();
-            if(attribute != null && attribute.ShouldSerialize)
+            if(!(attribute is null) && attribute.ShouldSerialize)
             {
                 property.PropertyName = attribute.SerializeAs;
                 property.Readable = true;
@@ -31,6 +31,7 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.AssetStatusConverter:
                         property.Converter = CustomAssetStatusConverter.Instance;
                         break;
+                    case FieldConverter.CustomFieldDictionaryConverter:
                     case FieldConverter.AvailableActionsConverter:
                     case FieldConverter.PermissionsConverter:
                     case FieldConverter.MessagesConverter:

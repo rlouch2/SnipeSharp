@@ -15,7 +15,7 @@ namespace SnipeSharp.Serialization
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var item = value as CommonEndPointModel;
-            writer.WriteValue(item.Id);
+            writer.WriteValue(item?.Id);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-License</para>
     [Cmdlet(VerbsCommon.Get, nameof(License),
-        DefaultParameterSetName = nameof(GetObject<License>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<License>.ParameterSets.All)
     )]
     [OutputType(typeof(License))]
     public sealed class GetLicense: PSCmdlet

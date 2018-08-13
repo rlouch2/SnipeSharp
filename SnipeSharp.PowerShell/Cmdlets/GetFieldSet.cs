@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-FieldSet</para>
     [Cmdlet(VerbsCommon.Get, nameof(FieldSet),
-        DefaultParameterSetName = nameof(GetObject<FieldSet>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<FieldSet>.ParameterSets.All)
     )]
     [OutputType(typeof(FieldSet))]
     public sealed class GetFieldSet: GetObject<FieldSet>

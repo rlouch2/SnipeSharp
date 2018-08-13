@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-StatusLabel</para>
     [Cmdlet(VerbsCommon.Get, nameof(StatusLabel),
-        DefaultParameterSetName = nameof(GetObject<StatusLabel>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<StatusLabel>.ParameterSets.All)
     )]
     [OutputType(typeof(StatusLabel))]
     public sealed class GetStatusLabel: GetObject<StatusLabel>

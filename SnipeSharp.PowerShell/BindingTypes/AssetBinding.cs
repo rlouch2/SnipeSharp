@@ -27,17 +27,17 @@ namespace SnipeSharp.PowerShell.BindingTypes
             Query = query;
             var (type, value) = ParseQuery(query);
             var endPoint = ApiHelper.Instance.GetEndPoint<Asset>();
-            if(type == null)
+            if(type is null)
             {
                 // tag -> serial -> name -> id -> no search
                 (Object, Error) = endPoint.GetByTagOrNull(value);
-                if(Object != null)
+                if(!(Object is null))
                     return;
                 (Object, Error) = endPoint.GetBySerialOrNull(value);
-                if(Object != null)
+                if(!(Object is null))
                     return;
                 (Object, Error) = endPoint.GetOrNull(value);
-                if(Object == null && int.TryParse(value, out var id))
+                if(Object is null && int.TryParse(value, out var id))
                     (Object, Error) = endPoint.GetOrNull(id);
                 else
                     Error = new ArgumentException($"Cannot find an object for query: {value}", nameof(query));
@@ -81,7 +81,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                         Error = new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
                         return;
                 }
-                if(Object == null)
+                if(Object is null)
                     try
                     {
                         Object = endPoint.FindOne(value);

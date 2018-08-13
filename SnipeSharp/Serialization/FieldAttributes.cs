@@ -35,6 +35,7 @@ namespace SnipeSharp.Serialization
         TimeSpanConverter,
         PermissionsConverter,
         MessagesConverter,
-        AvailableActionsConverter
+        AvailableActionsConverter,
+        CustomFieldDictionaryConverter
     }
 }

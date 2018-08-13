@@ -14,7 +14,7 @@ namespace  SnipeSharp.PowerShell.BindingTypes
     public class ObjectBinding<T>: INullObjectBinding where T: CommonEndPointModel
     {
         /// <value>Gets if the object is null.</value>
-        public bool IsNull => Object == null;
+        public bool IsNull => Object is null;
 
         /// <value>Gets the object retrieved by the query, or null.</value>
         public T Object { get; protected set; }
@@ -44,7 +44,7 @@ namespace  SnipeSharp.PowerShell.BindingTypes
             Query = query;
             var (type, value) = ParseQuery(query);
             var endPoint = ApiHelper.Instance.GetEndPoint<T>();
-            if(type == null)
+            if(type is null)
             {
                 if(int.TryParse(value, out var id))
                     (Object, Error) = endPoint.GetOrNull(id);
@@ -84,7 +84,7 @@ namespace  SnipeSharp.PowerShell.BindingTypes
                         Error = new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
                         return;
                 }
-                if(Object == null)
+                if(Object is null)
                     try
                     {
                         Object = endPoint.FindOne(value);

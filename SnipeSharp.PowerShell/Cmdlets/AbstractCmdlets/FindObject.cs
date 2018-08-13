@@ -62,11 +62,10 @@ namespace SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets
                 var results = ApiHelper.Instance.GetEndPoint<T>().FindAll(filter);
                 if(PagingParameters.IncludeTotalCount)
                     WriteObject(results.Total);
-                WriteObject(results, !NoEnumerate);
+                WriteObject(results, !NoEnumerate.IsPresent);
             } catch(Exception e)
             {
-                //TODO: improve error category
-                WriteError(new ErrorRecord(e, e.Message, ErrorCategory.ReadError, null));
+                WriteError(new ErrorRecord(e, e.Message, ErrorCategory.NotSpecified, null));
             }
         }
     }

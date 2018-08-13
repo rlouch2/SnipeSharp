@@ -15,6 +15,6 @@ namespace SnipeSharp.EndPoint.Filters
         /// <summary>
         /// Whether to sort the request in ascending or descending order based on the sort column (by default the creaetion date).
         /// </summary>
-        SearchOrder Order { get; set; }
+        SearchOrder? Order { get; set; }
     }
 }

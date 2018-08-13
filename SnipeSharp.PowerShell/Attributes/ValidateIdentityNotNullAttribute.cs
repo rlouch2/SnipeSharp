@@ -9,7 +9,7 @@ namespace SnipeSharp.PowerShell.Attributes
     {
         protected override void ValidateElement(object element)
         {
-            if(element == null)
+            if(element is null)
                 throw new ValidationMetadataException();
             if(!(element is INullObjectBinding))
                 throw new ValidationMetadataException($"Object {element} is not an ObjectBinding.");

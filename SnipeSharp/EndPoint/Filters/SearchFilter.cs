@@ -27,7 +27,7 @@ namespace SnipeSharp.EndPoint.Filters
 
         /// <inheritdoc />
         [Field("order", true)]
-        public SearchOrder Order { get; set; }
+        public SearchOrder? Order { get; set; }
 
         /// <inheritdoc />
         public Dictionary<string, object> CustomFields { get; set; } = new Dictionary<string, object>();

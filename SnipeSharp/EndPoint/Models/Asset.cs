@@ -270,10 +270,7 @@ namespace SnipeSharp.EndPoint.Models
         /// <para>Custom fields for this Asset, selected by the Model's FieldSet.</para>
         /// <para>Values in this collection will be serialized with the key <c><see cref="AssetCustomField.Field">value.Field</see> ?? key</c> and the value <see cref="AssetCustomField.Value">value.Value</see>.</para>
         /// </summary>
-        /// <remarks>
-        /// <para>During serialization, <see cref="SnipeSharp.Serialization.AssetLiftCustomFieldsCollectionConverter" /> lifts the values in here into the parent JSON object.</para>
-        /// </remarks>
-        [Field("custom_fields")]
+        [Field("custom_fields", converter: CustomFieldDictionaryConverter)]
         public Dictionary<string, AssetCustomField> CustomFields { get; set; }
 
         [JsonExtensionData(ReadData = false, WriteData = true)]
@@ -282,7 +279,7 @@ namespace SnipeSharp.EndPoint.Models
             get
             {
                 var newDictionary = new Dictionary<string, JToken>();
-                if(CustomFields != null)
+                if(!(CustomFields is null))
                     foreach(var pair in CustomFields)
                         newDictionary[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
                 return newDictionary;

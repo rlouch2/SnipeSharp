@@ -66,7 +66,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Quantity = this.Quantity,
                 SerialNumber = this.Serial
             };
-            if(PurchaseDate != null)
+            if(!(PurchaseDate is null))
             {
                 item.PurchaseDate = new ResponseDate {
                     DateTime = this.PurchaseDate

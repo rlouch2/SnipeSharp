@@ -99,7 +99,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(Asset.Object == null)
+            if(Asset.Object is null)
             {
                 WriteError(new ErrorRecord(Asset.Error, "Asset not found.", ErrorCategory.InvalidArgument, Asset.Query));
                 return;
@@ -108,7 +108,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             switch(ParameterSetName)
             {
                 case "ToUser":
-                    if(AssignedUser.Object == null)
+                    if(AssignedUser.Object is null)
                     {
                         WriteError(new ErrorRecord(null, "AssignedUser not found.", ErrorCategory.InvalidArgument, AssignedUser.Query));
                         return;
@@ -117,7 +117,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     
                     break;
                 case "ToLocation":
-                    if(AssignedLocation.Object == null)
+                    if(AssignedLocation.Object is null)
                     {
                         WriteError(new ErrorRecord(null, "AssignedLocation not found.", ErrorCategory.InvalidArgument, AssignedLocation.Query));
                         return;
@@ -125,7 +125,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     request = new AssetCheckOutRequest(Asset.Object, AssignedLocation.Object);
                     break;
                 case "ToAsset":
-                    if(AssignedAsset.Object == null)
+                    if(AssignedAsset.Object is null)
                     {
                         WriteError(new ErrorRecord(null, "AssignedAsset not found.", ErrorCategory.InvalidArgument, AssignedAsset.Object));
                         return;

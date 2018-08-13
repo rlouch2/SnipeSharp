@@ -89,11 +89,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Supplier = this.Supplier?.Company,
                 UserCanCheckout = this.UserCanCheckout
             };
-            if(ExpirationDate != null)
+            if(!(ExpirationDate is null))
                 item.ExpirationDate = new Date {
                     DateObj = this.ExpirationDate
                 };
-            if(PurchaseDate != null)
+            if(!(PurchaseDate is null))
                 item.PurchaseDate = new Date {
                     DateObj = this.PurchaseDate
                 };

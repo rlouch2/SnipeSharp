@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-Location</para>
     [Cmdlet(VerbsCommon.Get, nameof(Location),
-        DefaultParameterSetName = nameof(GetObject<Location>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<Location>.ParameterSets.All)
     )]
     [OutputType(typeof(Location))]
     public sealed class GetLocation: GetObject<Location>

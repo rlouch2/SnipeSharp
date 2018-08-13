@@ -21,6 +21,7 @@ namespace SnipeSharp
         {
             client.AddDefaultHeader("Accept", "application/json");
             client.AddDefaultHeader("Cache-Control", "no-cache");
+            client.AddDefaultHeader("Content-type", "application/json");
         }
 
         internal RestClientManager(SnipeItApi api, IRestClient client)
@@ -48,7 +49,7 @@ namespace SnipeSharp
 
         internal string GetRaw(string path)
         {
-            var response = client.Execute(new RestRequest(path, Method.GET));
+            var response = client.Execute(new RestRequest(path));
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
             return response.Content;
@@ -56,19 +57,23 @@ namespace SnipeSharp
 
         internal R Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
-            var request = new RestRequest(path, Method.GET) { JsonSerializer = serializerDeserializer };
+            var request = CreateRequest(path, Method.GET);
             if(!(filter is null))
-                request.AddJsonBody(filter);
+            {
+                System.Console.WriteLine($"Filtering with limit: {filter.Limit ?? 0}, offset {filter.Offset ?? 0}");
+                request.AddBody(filter);
+            }
+            System.Console.WriteLine(JsonConvert.SerializeObject(request.Parameters));
             return ExecuteRequest<R>(request);
         }
 
         internal ResponseCollection<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
             var result = Get<ResponseCollection<R>>(path, filter);
-            var offset = filter?.Offset == null ? 0 : filter.Offset;
-            if(filter?.Limit == null && offset + result.Count < result.Total)
+            var offset = filter?.Offset is null ? 0 : filter.Offset;
+            if(filter?.Limit is null && offset + result.Count < result.Total)
             {
-                if(filter == null)
+                if(filter is null)
                     filter = new SearchFilter();
                 filter.Limit = 1000;
                 filter.Offset = offset + result.Count;
@@ -87,22 +92,22 @@ namespace SnipeSharp
         
         internal RequestResponse<R> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
         {
-            var request = new RestRequest(path, Method.POST) { JsonSerializer = serializerDeserializer };
-            if(@object != null)
-                request.AddJsonBody(@object);
+            var request = CreateRequest(path, Method.POST);
+            if(!(@object is null))
+                request.AddBody(@object);
             return ExecuteRequest2<R>(request);
         }
 
         internal RequestResponse<R> Patch<R>(string path, R @object) where R: ApiObject
         {
-            var request = new RestRequest(path, Method.PATCH) { JsonSerializer = serializerDeserializer };
-            if(@object != null)
-                request.AddJsonBody(@object);
+            var request = CreateRequest(path, Method.PATCH);
+            if(!(@object is null))
+                request.AddBody(@object);
             return ExecuteRequest2<R>(request);
         }
 
         internal RequestResponse<R> Delete<R>(string path) where R: ApiObject
-            => ExecuteRequest2<R>(new RestRequest(path, Method.DELETE) { JsonSerializer = serializerDeserializer });
+            => ExecuteRequest2<R>(CreateRequest(path, Method.DELETE));
 
         private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
         {
@@ -146,6 +151,13 @@ namespace SnipeSharp
             }
             return asRequestResponse;
         }
+
+        private RestRequest CreateRequest(string path, Method method)
+            => new RestRequest(path, method)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = serializerDeserializer
+            };
 
         public string Serialize(object @object)
             => serializerDeserializer.Serialize(@object);

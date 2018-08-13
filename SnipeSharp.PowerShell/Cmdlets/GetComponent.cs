@@ -24,7 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Find-Component</para>
     [Cmdlet(VerbsCommon.Get, nameof(Component),
-        DefaultParameterSetName = nameof(GetObject<Component>.ParameterSets.ByName)
+        DefaultParameterSetName = nameof(GetObject<Component>.ParameterSets.All)
     )]
     [OutputType(typeof(Component))]
     public sealed class GetComponent: GetObject<Component>

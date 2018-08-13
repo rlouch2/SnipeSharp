@@ -62,7 +62,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(Identity.Object == null)
+            if(Identity.Object is null)
             {
                 WriteError(new ErrorRecord(Identity.Error, "Asset not found.", ErrorCategory.InvalidArgument, Identity.Query));
                 return;

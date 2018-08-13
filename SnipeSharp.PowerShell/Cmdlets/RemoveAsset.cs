@@ -103,7 +103,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 case nameof(ParameterSets.ByIdentity):
                     foreach(var item in Identity)
                     {
-                        if(item.Object == null)
+                        if(item.Object is null)
                         {
                             WriteError(new ErrorRecord(item.Error, $"Asset not found by Identity {item.Object}", ErrorCategory.InvalidArgument, item.Query));
                         } else if(ShouldProcess(item.Query))
@@ -118,7 +118,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     foreach(var item in InternalId)
                     {
                         var (asset, error) = ApiHelper.Instance.Assets.GetOrNull(item);
-                        if(asset == null)
+                        if(asset is null)
                         {
                             WriteError(new ErrorRecord(error, $"Asset not found by internal Id {item}", ErrorCategory.InvalidArgument, item));
                         } else if(ShouldProcess(asset.AssetTag))
@@ -133,7 +133,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     foreach(var item in AssetTag)
                     {
                         var (asset, error) = ApiHelper.Instance.Assets.GetByTagOrNull(item);
-                        if(asset == null)
+                        if(asset is null)
                         {
                             WriteError(new ErrorRecord(error, $"Asset not found by Asset Tag \"{item}\"", ErrorCategory.InvalidArgument, item));
                         } else if(ShouldProcess(asset.AssetTag))
@@ -148,7 +148,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     foreach(var item in Name)
                     {
                         var (asset, error) = ApiHelper.Instance.Assets.GetOrNull(item);
-                        if(asset == null)
+                        if(asset is null)
                         {
                             WriteError(new ErrorRecord(error, $"Asset not found by Name \"{item}\"", ErrorCategory.InvalidArgument, item));
                         } else if(ShouldProcess(asset.AssetTag))
@@ -163,7 +163,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     foreach(var item in Serial)
                     {
                         var (asset, error) = ApiHelper.Instance.Assets.GetBySerialOrNull(item);
-                        if(asset == null)
+                        if(asset is null)
                         {
                             WriteError(new ErrorRecord(error, $"Asset not found by Serial \"{item}\"", ErrorCategory.InvalidArgument, item));
                         } else if(ShouldProcess(asset.AssetTag))

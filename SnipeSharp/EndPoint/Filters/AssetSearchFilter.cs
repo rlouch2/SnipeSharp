@@ -28,7 +28,7 @@ namespace SnipeSharp.EndPoint.Filters
 
         /// <inheritdoc />
         [Field("order", true)]
-        public SearchOrder Order { get; set; }
+        public SearchOrder? Order { get; set; }
 
         [Field("status_id", true, converter: CommonModelConverter)]
         public StatusLabel StatusLabel { get; set; }
@@ -99,7 +99,7 @@ namespace SnipeSharp.EndPoint.Filters
 
         /// <inheritdoc />
         [Field("order", true)]
-        public SearchOrder Order { get; set; }
+        public SearchOrder? Order { get; set; }
 
         [Field("status_id", true, converter: CommonModelConverter)]
         public StatusLabel StatusLabel { get; set; }
