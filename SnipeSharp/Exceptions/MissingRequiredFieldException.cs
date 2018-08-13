@@ -12,10 +12,19 @@ namespace SnipeSharp.Exceptions
     public sealed class MissingRequiredFieldException<T>: Exception
     {
         /// <summary>
-        /// Initializes a new instance of the MissingRequiredAttributeException class with a specified field name.
+        /// Initializes a new instance of the MissingRequiredFieldException class with a specified field name.
         /// </summary>
         /// <param name="fieldName">The name of the field or property that is missing.</param>
         public MissingRequiredFieldException(string fieldName): base($"Missing required field \"{fieldName}\" in object of type \"{typeof(T).FullName}\"")
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the MissingRequiredFieldException class with a specified field and type.
+        /// </summary>
+        /// <param name="typeName">The name of the type.</param>
+        /// <param name="fieldName">The name of the field or property that is missing.</param>
+        internal MissingRequiredFieldException(string typeName, string fieldName): base($"Missing required field \"{fieldName}\" in object of type \"{typeName}\"")
         {
         }
     }

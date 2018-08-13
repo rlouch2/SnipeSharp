@@ -56,16 +56,7 @@ namespace SnipeSharp
         }
 
         internal R Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
-        {
-            var request = CreateRequest(path, Method.GET);
-            if(!(filter is null))
-            {
-                System.Console.WriteLine($"Filtering with limit: {filter.Limit ?? 0}, offset {filter.Offset ?? 0}");
-                request.AddBody(filter);
-            }
-            System.Console.WriteLine(JsonConvert.SerializeObject(request.Parameters));
-            return ExecuteRequest<R>(request);
-        }
+            => ExecuteRequest<R>(CreateRequest(path, Method.GET).Add(filter));
 
         internal ResponseCollection<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
@@ -91,20 +82,10 @@ namespace SnipeSharp
             => Post<R, R>(path, @object);
         
         internal RequestResponse<R> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
-        {
-            var request = CreateRequest(path, Method.POST);
-            if(!(@object is null))
-                request.AddBody(@object);
-            return ExecuteRequest2<R>(request);
-        }
+            => ExecuteRequest2<R>(CreateRequest(path, Method.POST).Add(@object));
 
         internal RequestResponse<R> Patch<R>(string path, R @object) where R: ApiObject
-        {
-            var request = CreateRequest(path, Method.PATCH);
-            if(!(@object is null))
-                request.AddBody(@object);
-            return ExecuteRequest2<R>(request);
-        }
+            => ExecuteRequest2<R>(CreateRequest(path, Method.PATCH).Add(@object));
 
         internal RequestResponse<R> Delete<R>(string path) where R: ApiObject
             => ExecuteRequest2<R>(CreateRequest(path, Method.DELETE));
@@ -161,5 +142,34 @@ namespace SnipeSharp
 
         public string Serialize(object @object)
             => serializerDeserializer.Serialize(@object);
+    }
+
+    internal static class RestRequestExtensions
+    {
+        internal static RestRequest Add(this RestRequest request, object @object)
+        {
+            if(!(@object is null))
+            {
+                if(request.Method == Method.GET)
+                {
+                    var type = @object.GetType();
+                    foreach(var property in type.GetProperties())
+                    {
+                        if(property.GetCustomAttribute<FieldAttribute>() is FieldAttribute attribute && attribute.ShouldSerialize)
+                        {
+                            var value = property.GetValue(@object);
+                            if(attribute.IsRequired && value is null)
+                                throw new MissingRequiredFieldException<object>(type.Name, property.Name);
+                            else
+                                request.AddParameter(attribute.SerializeAs, property.GetValue(@object));
+                        }
+                    }
+                } else
+                {
+                    request.AddBody(@object);
+                }
+            }
+            return request;
+        }
     }
 }
