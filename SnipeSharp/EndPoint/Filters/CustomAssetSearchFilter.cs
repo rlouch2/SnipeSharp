@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint.Models;
 using static SnipeSharp.Serialization.FieldConverter;
@@ -6,9 +5,9 @@ using static SnipeSharp.Serialization.FieldConverter;
 namespace SnipeSharp.EndPoint.Filters
 {
     /// <summary>
-    /// A filter for assets, featuring asset-only search fields.
+    /// A filter for assets, with no limit on sort column.
     /// </summary>
-    public sealed class AssetSearchFilter : ISortableSearchFilter<AssetSearchColumn>
+    public sealed class CustomAssetSearchFilter : ISortableSearchFilter<string>
     {
         /// <inheritdoc />
         [Field("limit", true)]
@@ -24,7 +23,7 @@ namespace SnipeSharp.EndPoint.Filters
 
         /// <inheritdoc />
         [Field("sort", true)]
-        public AssetSearchColumn SortColumn { get; set; }
+        public string SortColumn { get; set; }
 
         /// <inheritdoc />
         [Field("order", true)]
@@ -69,11 +68,11 @@ namespace SnipeSharp.EndPoint.Filters
         [Field("order_number", true)]
         public string OrderNumber { get; set; }
 
-        public AssetSearchFilter()
+        public CustomAssetSearchFilter()
         {
         }
 
-        public AssetSearchFilter(string searchString)
+        public CustomAssetSearchFilter(string searchString)
         {
             Search = searchString;
         }
