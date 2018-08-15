@@ -19,84 +19,89 @@ A Working Install of Snipe IT V4+
 ## Usage
 
 ```csharp
-SnipeItApi snip = new SnipeItApi();
-snipe.ApiSettings.ApiToken = "XXXXXXXX"
-snipe.ApiSettings.BaseUrl = new Uri("http://xxxxx.com/api/v1")
+SnipeItApi snipe = new SnipeItApi {
+    Token = "XXXXXXXX",
+    Uri = new Uri("http://xxxxx.com/api/v1")
+};
 ```
 
-Each endpoint has it's own manager assigned to the SnipeItApi object.  Example, SnipeItApi.AssetManager 
+Each endpoint has its own manager assigned to the SnipeItApi object.  Example, SnipeItApi.Assets 
 
-Each endpoint has a common set of actions.  With the exception Assets, Status Labels and Users which use extended managers to deal with extra API functions associated with them. 
+Each endpoint has a common set of actions. Additional methods for each endpoint are made available as extensions in the EndPointExtensions class.
 
 ##### Common Actions
 Return all objects at this end point
 ```csharp
-snipe.AssetManager.GetAll()
+snipe.Assets.GetAll()
+```
+
+Or, in a generic form:
+```csharp
+snipe.GetEndPoint<T>().GetAll()
 ```
 
 Find all objects matching certain filtering criteria 
 ```csharp
-snipe.AssetManager.FindAll(ISearchFilter filter)
+snipe.GetEndPoint<T>().FindAll(ISearchFilter filter)
 ```
 
 Find first object matching search criteria
 ```csharp
-snipe.AssetManager.FindOne(ISearchFilter filter)
+snipe.GetEndPoint<T>().FindOne(ISearchFilter filter)
 ```
 
 Get object with ID
 ```csharp
-snipe.AssetManager.Get(int ID)
+snipe.GetEndPoint<T>().Get(int Id)
 ```
 
 Search for object with given name
 ```csharp
-snipe.AssetManager.Get(string name)
+snipe.GetEndPoint<T>().Get(string name)
 ```
 
 Create an object
 ```csharp
-snipe.AssetManager.Create(ICommonEndpointObject item)
+snipe.GetEndPoint<T>().Create(T item)
 ```
 
 Update an object
 ```csharp
-snipe.AssetManager.Update(ICommonEndpointObject item)
+snipe.GetEndPoint<T>().Update(T item)
 ```
 
 Delete an object
 ```csharp
-snipe.AssetManager.Delete(int id)
+snipe.GetEndPoint<T>().Delete(int id)
 ```
-
 
 ## Examples
 
 Create a new asset
 ```csharp
-Asset asset = new Asset() {
+var asset = new Asset {
     Name = "Loaner1",
     AssetTag = "12345678",
-    Model = snipe.ModelManager.Get("Lenovo"),
-    Status = snipe.StatusLabelManager.Get("Ready to Deploy"),
-    Location = snipe.LocationManager.Get("Maine")
+    Model = snipe.Models.Get("Lenovo"),
+    Status = snipe.StatusLabels.Get("Ready to Deploy"),
+    Location = snipe.Locations.Get("Maine")
 };
 
-snipe.AssetManager.Create(asset);
+snipe.Assets.Create(asset);
 ```
 
 Update an Asset
 ```csharp
-Asset asset = snipe.AssetManager.Get("Loaner1");
+var asset = snipe.Assets.Get("Loaner1");
 asset.Serial = "1i37dpc3k";
-snipe.AssetManager.Update(asset);
+snipe.Assets.Update(asset);
 ```
 
 Get all assets from made by a certain manufacturer
 ```csharp
-AssetSearchFilter filter = new AssetSearchFilter() {
+var filter = new AssetSearchFilter {
     Manufacturer = snipe.ManufacturerManager.Get("Lenovo")
 };
 
-var result = snipe.AssetManager.FindAll(filter);
+var result = snipe.Assets.FindAll(filter);
 ```

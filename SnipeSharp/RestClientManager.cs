@@ -1,7 +1,7 @@
 using RestSharp;
 using RestSharp.Authenticators;
-using SnipeSharp.EndPoint.Filters;
-using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Filters;
+using SnipeSharp.Models;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Serialization;
 using Newtonsoft.Json;

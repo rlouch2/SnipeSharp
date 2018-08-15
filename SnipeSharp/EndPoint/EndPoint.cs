@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using SnipeSharp.EndPoint.Filters;
-using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Filters;
+using SnipeSharp.Models;
 using SnipeSharp.Serialization;
 using SnipeSharp.Exceptions;
 

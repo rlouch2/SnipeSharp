@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SnipeSharp.EndPoint.Filters;
-using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Filters;
+using SnipeSharp.Models;
 using SnipeSharp.PowerShell;
 using SnipeSharp.Exceptions;
 

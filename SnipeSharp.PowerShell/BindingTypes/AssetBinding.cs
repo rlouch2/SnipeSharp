@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Models;
 using static SnipeSharp.EndPoint.EndPointExtensions;
 
 namespace SnipeSharp.PowerShell.BindingTypes

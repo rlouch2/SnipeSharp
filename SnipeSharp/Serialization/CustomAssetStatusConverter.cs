@@ -1,6 +1,6 @@
 using System;
 using Newtonsoft.Json;
-using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization
 {

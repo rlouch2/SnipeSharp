@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using RestSharp;
 using SnipeSharp.EndPoint;
-using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Models;
 using Newtonsoft.Json;
 using SnipeSharp.Serialization;
 
@@ -71,7 +71,7 @@ namespace SnipeSharp
         /// <summary>
         /// Constructs or retrieves a cached EndPoint corresponding to the type parameter for use with interacting with the API.
         /// </summary>
-        /// <typeparam name="T">A <see cref="SnipeSharp.EndPoint.Models.CommonEndPointModel">CommonEndPointModel</see> with the attribute <see cref="SnipeSharp.EndPoint.PathSegmentAttribute">PathSegmentAttribute</see>.</typeparam>
+        /// <typeparam name="T">A <see cref="SnipeSharp.Models.CommonEndPointModel">CommonEndPointModel</see> with the attribute <see cref="SnipeSharp.EndPoint.PathSegmentAttribute">PathSegmentAttribute</see>.</typeparam>
         /// <returns>An <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> for the provided type.</returns>
         public EndPoint<T> GetEndPoint<T>() where T: CommonEndPointModel
         {
@@ -82,97 +82,97 @@ namespace SnipeSharp
         }
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Asset">Assets</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Asset">Assets</see>.
         /// </value>
         public EndPoint<Asset> Assets => GetEndPoint<Asset>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Accessory">Accessories</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Accessory">Accessories</see>.
         /// </value>
         public EndPoint<Accessory> Accessories => GetEndPoint<Accessory>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Category">Categories</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Category">Categories</see>.
         /// </value>
         public EndPoint<Category> Categories => GetEndPoint<Category>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Company">Companies</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Company">Companies</see>.
         /// </value>
         public EndPoint<Company> Companies => GetEndPoint<Company>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Component">Components</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Component">Components</see>.
         /// </value>
         public EndPoint<Component> Components => GetEndPoint<Component>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Consumable">Consumables</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Consumable">Consumables</see>.
         /// </value>
         public EndPoint<Consumable> Consumables => GetEndPoint<Consumable>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.CustomField">Custom fields</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.CustomField">Custom fields</see>.
         /// </value>
         public EndPoint<CustomField> CustomFields => GetEndPoint<CustomField>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Department">Departments</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Department">Departments</see>.
         /// </value>
         public EndPoint<Department> Departments => GetEndPoint<Department>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Depreciation">Depreciations</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Depreciation">Depreciations</see>.
         /// </value>
         public EndPoint<Depreciation> Depreciations => GetEndPoint<Depreciation>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.FieldSet">Field sets</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.FieldSet">Field sets</see>.
         /// </value>
         public EndPoint<FieldSet> FieldSets => GetEndPoint<FieldSet>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Group">Groups</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Group">Groups</see>.
         /// </value>
         public EndPoint<Group> Groups => GetEndPoint<Group>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.License">Licenses</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.License">Licenses</see>.
         /// </value>
         public EndPoint<License> Licenses => GetEndPoint<License>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Location">Locations</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Location">Locations</see>.
         /// </value>
         public EndPoint<Location> Locations => GetEndPoint<Location>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Maintenance">Maintenances</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Maintenance">Maintenances</see>.
         /// </value>
         public EndPoint<Maintenance> Maintenances => GetEndPoint<Maintenance>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Manufacturer">Manufacturers</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Manufacturer">Manufacturers</see>.
         /// </value>
         public EndPoint<Manufacturer> Manufacturers => GetEndPoint<Manufacturer>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Model">Models</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Model">Models</see>.
         /// </value>
         public EndPoint<Model> Models => GetEndPoint<Model>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.StatusLabel">StatusLabels</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.StatusLabel">StatusLabels</see>.
         /// </value>
         public EndPoint<StatusLabel> StatusLabels => GetEndPoint<StatusLabel>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.Supplier">Suppliers</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Supplier">Suppliers</see>.
         /// </value>
         public EndPoint<Supplier> Suppliers => GetEndPoint<Supplier>();
 
         /// <value>
-        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.EndPoint.Models.User">Users</see>.
+        /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.User">Users</see>.
         /// </value>
         public EndPoint<User> Users => GetEndPoint<User>();
 

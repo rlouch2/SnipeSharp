@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SnipeSharp.EndPoint.Models;
-using SnipeSharp.EndPoint.Filters;
+using SnipeSharp.Models;
+using SnipeSharp.Filters;
 
 namespace SnipeSharp.EndPoint
 {

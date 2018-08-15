@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using SnipeSharp.EndPoint.Models;
+using SnipeSharp.Models.Enumerations;
 using Newtonsoft.Json;
 
 namespace SnipeSharp.Serialization
