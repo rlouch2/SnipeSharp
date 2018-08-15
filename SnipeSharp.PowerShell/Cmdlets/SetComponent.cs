@@ -1,76 +1,72 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Common;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Component")]
+    [Cmdlet(VerbsCommon.Set, nameof(Component))]
     [OutputType(typeof(Component))]
-    public class SetComponent: PSCmdlet
+    public class SetComponent: SetObject<Component>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        public ComponentIdentity Component { get; set; }
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string NewName { get; set; }
 
         [Parameter]
-        public string Name { get; set; }
+        public string Serial { get; set; }
 
         [Parameter]
-        public CategoryIdentity Category { get; set; }
+        public ObjectBinding<Location> Location { get; set; }
 
         [Parameter]
-        public CompanyIdentity Company { get; set; }
+        [ValidateRange(1, int.MaxValue)]
+        public int Quantity { get; set; }
 
         [Parameter]
-        public LocationIdentity Location { get; set; }
+        public int MinimumQuantity { get; set; }
 
         [Parameter]
-        public long MinimumAmount { get; set; }
+        public ObjectBinding<Category> Category { get; set; }
 
         [Parameter]
         public string OrderNumber { get; set; }
 
         [Parameter]
-        public string PurchaseCost { get; set; }
+        public DateTime PurchaseDate { get; set; }
 
         [Parameter]
-        public string PurchaseDate { get; set; }
+        public decimal PurchaseCost { get; set; }
 
         [Parameter]
-        public long Quantity { get; set; }
+        public ObjectBinding<Company> Company { get; set; }
 
-        [Parameter]
-        public string Serial { get; set; }
-
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(Component item)
         {
-            var item = this.Component.Component;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Category;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Company;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = this.NewName;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Serial)))
+                item.Serial = this.Serial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Location;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumAmount)))
-                item.MinAmt = this.MinimumAmount;
+                item.Location = this.Location?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
+                item.Quantity = this.Quantity;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))
+                item.MinimumQuantity = this.MinimumQuantity;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+                item.Category = this.Category?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
                 item.OrderNumber = this.OrderNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
                 item.PurchaseCost = this.PurchaseCost;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
-                item.Quantity = this.Quantity;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Serial)))
-                item.SerialNumber = this.Serial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
-                item.PurchaseDate = new ResponseDate {
-                    DateTime = this.PurchaseDate
-                };
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.ComponentManager.Update(item).Payload);
+                item.PurchaseDate = this.PurchaseDate;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+                item.Company = this.Company?.Object;
         }
     }
 }

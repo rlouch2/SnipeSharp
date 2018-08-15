@@ -1,10 +1,9 @@
 using System;
 using System.Management.Automation;
-using System.Collections.Generic;
-using SnipeSharp.Common;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {

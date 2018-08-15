@@ -1,28 +1,29 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Company")]
+    [Cmdlet(VerbsCommon.Set, nameof(Company))]
     [OutputType(typeof(Company))]
-    public class SetCompany: PSCmdlet
+    public class SetCompany: SetObject<Company>
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        public CompanyIdentity Company { get; set; }
+        public ObjectBinding<Company> Company { get; set; }
 
         [Parameter]
-        public string Name { get; set; }
+        [ValidateNotNullOrEmpty]
+        public string NewName { get; set; }
         
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(Company item)
         {
-            var item = this.Company.Company;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
-            // TODO: error handling
-            WriteObject(ApiHelper.Instance.CompanyManager.Update(item).Payload);
+                item.Name = this.NewName;
         }
     }
 }

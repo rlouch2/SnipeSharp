@@ -51,6 +51,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public Uri ImageUri { get; set; }
 
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Accessory {

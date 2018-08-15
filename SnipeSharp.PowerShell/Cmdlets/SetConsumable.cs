@@ -1,40 +1,42 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Common;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Consumable")]
+    [Cmdlet(VerbsCommon.Set, nameof(Consumable))]
     [OutputType(typeof(Consumable))]
-    public class SetConsumable: PSCmdlet
+    public class SetConsumable: SetObject<Consumable>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string NewName { get; set; }
+
+        [Parameter]
         [ValidateIdentityNotNull]
-        public ConsumableIdentity Consumable { get; set; }
-
-        [Parameter]
-        public string Name { get; set; }
-
-        [Parameter]
-        public CategoryIdentity Category { get; set; }
+        public ObjectBinding<Category> Category { get; set; }
         
         [Parameter]
-        public CompanyIdentity Company { get; set; }
+        public ObjectBinding<Company> Company { get; set; }
 
         [Parameter]
         public string ItemNumber { get; set; }
 
         [Parameter]
-        public LocationIdentity Location { get; set; }
+        public ObjectBinding<Location> Location { get; set; }
 
         [Parameter]
-        public ManufacturerIdentity Manufacturer { get; set; }
+        public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
         [Parameter]
-        public long MinimumAmount { get; set; }
+        [ValidateRange(1, int.MaxValue)]
+        public int Quantity { get; set; }
+
+        [Parameter]
+        public int MinimumQuantity { get; set; }
 
         [Parameter]
         public string ModelNumber { get; set; }
@@ -43,50 +45,43 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string OrderNumber { get; set; }
 
         [Parameter]
-        public string PurchaseCost { get; set; }
+        public decimal PurchaseCost { get; set; }
 
         [Parameter]
-        public string PurchaseDate { get; set; }
+        public DateTime PurchaseDate { get; set; }
 
         [Parameter]
-        public long Quantity { get; set; }
+        public bool IsRequestable { get; set; }
 
-        [Parameter]
-        public long Remaining { get; set; }
-
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(Consumable item)
         {
-            var item = this.Consumable.Consumable;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Category;
+                item.Category = this.Category?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Company;
+                item.Company = this.Company?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ItemNumber)))
-                item.ItemNo = this.ItemNumber;
+                item.ItemNumber = this.ItemNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Location;
+                item.Location = this.Location?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Manufacturer;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumAmount)))
-                item.MinAmt = this.MinimumAmount;
+                item.Manufacturer = this.Manufacturer?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
+                item.Quantity = this.Quantity;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))
+                item.MinimumQuantity = this.MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
                 item.OrderNumber = this.OrderNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
                 item.PurchaseCost = this.PurchaseCost;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
-                item.Quantity = this.Quantity;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Remaining)))
-                item.Remaining = this.Remaining;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
-                item.PurchaseDate = new ResponseDate {
-                    DateTime = this.PurchaseDate
-                };
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.ConsumableManager.Update(item).Payload);
+                item.PurchaseDate = this.PurchaseDate;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(IsRequestable)))
+                item.IsRequestable = this.IsRequestable;
         }
     }
 }

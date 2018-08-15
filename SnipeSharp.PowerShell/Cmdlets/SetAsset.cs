@@ -24,21 +24,36 @@ namespace SnipeSharp.PowerShell.Cmdlets
             BySerial
         }
 
+        /// <summary>
+        /// <para type="description">The identity of the asset to update.</para>
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByIdentity))]
         [ValidateIdentityNotNull]
         public AssetBinding Identity { get; set; }
 
+        /// <summary>
+        /// <para type="description">The name of the asset to update.</para>
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByName))]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
+        /// <summary>
+        /// <para type="description">The id of the asset to update.</para>
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByInternalId))]
         public int Id { get; set; }
 
+        /// <summary>
+        /// <para type="description">The asset tag of the asset to update.</para>
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByAssetTag))]
         [ValidateNotNullOrEmpty]
         public string AssetTag { get; set; }
 
+        /// <summary>
+        /// <para type="description">The serial number of the asset to update.</para>
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.BySerial))]
         [ValidateNotNullOrEmpty]
         public string Serial { get; set; }
@@ -97,6 +112,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public Dictionary<string, string> CustomFields { get; set; }
 
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             switch(ParameterSetName)

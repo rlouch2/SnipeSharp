@@ -76,6 +76,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public Dictionary<string, string> CustomFields { get; set; }
 
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Asset {

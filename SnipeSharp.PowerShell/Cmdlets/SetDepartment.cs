@@ -1,44 +1,43 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Department")]
+    [Cmdlet(VerbsCommon.Set, nameof(Department))]
     [OutputType(typeof(Depreciation))]
-    public class SetDepartment: PSCmdlet
+    public class SetDepartment: SetObject<Department>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        [ValidateIdentityNotNull]
-        public DepartmentIdentity Department { get; set; }
+        [Parameter]
+        public string NewName { get; set; }
 
         [Parameter]
-        public string Name { get; set; }
+        public Uri ImageUri { get; set; }
 
         [Parameter]
-        public CompanyIdentity Company { get; set; }
+        public ObjectBinding<Company> Company { get; set; }
 
         [Parameter]
-        public UserIdentity Manager { get; set; }
+        public ObjectBinding<User> Manager { get; set; }
 
         [Parameter]
-        public LocationIdentity Location { get; set; }
+        public ObjectBinding<Location> Location { get; set; }
 
-        protected override void ProcessRecord()
+        protected override void PopulateItem(Department item)
         {
-            var item = this.Department.Department;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = this.NewName;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
+                item.ImageUri = this.ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Company;
+                item.Company = this.Company?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager?.User;
+                item.Manager = this.Manager?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Location;
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.DepartmentManager.Update(item).Payload);
+                item.Location = this.Location?.Object;
         }
     }
 }

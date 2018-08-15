@@ -1,29 +1,22 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
-using SnipeSharp.PowerShell.BindingTypes;
-using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.EndPoint.Models;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "FieldSet")]
+    [Cmdlet(VerbsCommon.Set, nameof(FieldSet))]
     [OutputType(typeof(FieldSet))]
-    public class SetFieldSet: PSCmdlet
+    public class SetFieldSet: SetObject<FieldSet>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        [ValidateIdentityNotNull]
-        public FieldSetIdentity FieldSet { get; set; }
-
         [Parameter]
-        public string Name { get; set; }
+        public string NewName { get; set; }
         
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(FieldSet item)
         {
-            var item = this.FieldSet.FieldSet;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = Name;
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.FieldSetManager.Update(item).Payload);
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = NewName;
         }
     }
 }

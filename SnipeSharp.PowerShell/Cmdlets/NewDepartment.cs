@@ -1,13 +1,13 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.New, "Department")]
-    [OutputType(typeof(Depreciation))]
+    [Cmdlet(VerbsCommon.New, nameof(Department))]
+    [OutputType(typeof(Department))]
     public class NewDepartment: PSCmdlet
     {
         [Parameter(
@@ -19,27 +19,29 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Name { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public CompanyIdentity Company { get; set; }
+        public Uri ImageUri { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public UserIdentity Manager { get; set; }
+        public ObjectBinding<Company> Company { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public LocationIdentity Location { get; set; }
+        public ObjectBinding<User> Manager { get; set; }
 
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public ObjectBinding<Location> Location { get; set; }
+
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Department {
                 Name = this.Name,
-                Company = this.Company?.Company,
-                Manager = this.Manager?.User,
-                Location = this.Location?.Location
+                ImageUri = this.ImageUri,
+                Company = this.Company?.Object,
+                Manager = this.Manager?.Object,
+                Location = this.Location?.Object
             };
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.DepartmentManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.Departments.Create(item));
         }
     }
 }

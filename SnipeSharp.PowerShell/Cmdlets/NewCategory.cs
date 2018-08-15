@@ -1,6 +1,9 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint;
+using SnipeSharp.EndPoint.Models;
+using SnipeSharp.PowerShell.BindingTypes;
+using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
@@ -8,43 +11,31 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [OutputType(typeof(Category))]
     public class NewCategory: PSCmdlet
     {
-        [Parameter(
-            Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true
-        )]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(
-            Mandatory = true,
-            Position = 1,
-            ValueFromPipelineByPropertyName = true
-        )]
-        [ValidateNotNullOrEmpty]
-        [ValidateSet("asset", "accessory", "consumable", "component")]
-        public string Type { get; set; }
+        [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
+        public CategoryType Type { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public SwitchParameter Eula { get; set; }
+        [Parameter]
+        public bool EmailUserOnCheckInOrOut { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public SwitchParameter CheckInEmail { get; set; }
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public SwitchParameter RequireAcceptance { get; set; }
+        [Parameter]
+        public bool IsAcceptanceRequired { get; set; }
 
         protected override void ProcessRecord()
         {
             var item = new Category {
                 Name = this.Name,
-                Type = this.Type,
-                eula = this.Eula.IsPresent,
-                CheckinEmail = this.CheckInEmail.IsPresent,
-                RequireAcceptance = this.RequireAcceptance.IsPresent
+                CategoryType = this.Type
             };
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(EmailUserOnCheckInOrOut)))
+                item.EmailUserOnCheckInOrOut = this.EmailUserOnCheckInOrOut;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(IsAcceptanceRequired)))
+                item.IsAcceptanceRequired = this.IsAcceptanceRequired;
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.CategoryManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.Categories.Create(item));
         }
     }
 }

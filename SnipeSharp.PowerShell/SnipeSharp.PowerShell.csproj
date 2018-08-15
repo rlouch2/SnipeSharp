@@ -16,13 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Temporary while we work on updating these cmdlets -->
-    <Compile Remove="Cmdlets/SetCategory.cs" />
-    <Compile Remove="Cmdlets/SetCompany.cs" />
-    <Compile Remove="Cmdlets/SetComponent.cs" />
-    <Compile Remove="Cmdlets/SetConsumable.cs" />
-    <Compile Remove="Cmdlets/SetDepartment.cs" />
     <Compile Remove="Cmdlets/SetDepreciation.cs" />
-    <Compile Remove="Cmdlets/SetFieldSet.cs" />
     <Compile Remove="Cmdlets/SetLicense.cs" />
     <Compile Remove="Cmdlets/SetLocation.cs" />
     <Compile Remove="Cmdlets/SetManufacturer.cs" />
@@ -30,14 +24,7 @@
     <Compile Remove="Cmdlets/SetStatusLabel.cs" />
     <Compile Remove="Cmdlets/SetSupplier.cs" />
     <Compile Remove="Cmdlets/SetUser.cs" />
-    <Compile Remove="Cmdlets/FindUser.cs" />
-    <Compile Remove="Cmdlets/NewCategory.cs" />
-    <Compile Remove="Cmdlets/NewCompany.cs" />
-    <Compile Remove="Cmdlets/NewComponent.cs" />
-    <Compile Remove="Cmdlets/NewConsumable.cs" />
-    <Compile Remove="Cmdlets/NewDepartment.cs" />
     <Compile Remove="Cmdlets/NewDepreciation.cs" />
-    <Compile Remove="Cmdlets/NewFieldSet.cs" />
     <Compile Remove="Cmdlets/NewLicense.cs" />
     <Compile Remove="Cmdlets/NewLocation.cs" />
     <Compile Remove="Cmdlets/NewManufacturer.cs" />

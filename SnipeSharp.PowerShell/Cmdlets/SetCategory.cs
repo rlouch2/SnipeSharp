@@ -1,50 +1,40 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Category")]
+    [Cmdlet(VerbsCommon.Set, nameof(Category))]
     [OutputType(typeof(Category))]
-    public class SetCategory: PSCmdlet
+    public class SetCategory: SetObject<Category>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        [ValidateIdentityNotNull]
-        public CategoryIdentity Category { get; set; }
+        [Parameter]
+        public string NewName { get; set; }
 
         [Parameter]
-        public string Name { get; set; }
+        public CategoryType Type { get; set; }
 
         [Parameter]
-        [ValidateSet("asset", "accessory", "consumable", "component")]
-        public string Type { get; set; }
+        public bool EmailUserOnCheckInOrOut { get; set; }
 
         [Parameter]
-        public bool Eula { get; set; }
+        public bool IsAcceptanceRequired { get; set; }
 
-        [Parameter]
-        public bool CheckInEmail { get; set; }
-
-        [Parameter]
-        public bool RequireAcceptance { get; set; }
-
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(Category item)
         {
-            var item = this.Category.Category;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Type)))
-                item.Type = this.Type;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Eula)))
-                item.eula = this.Eula;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(CheckInEmail)))
-                item.CheckinEmail = this.CheckInEmail;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(RequireAcceptance)))
-                item.RequireAcceptance = this.RequireAcceptance;
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.CategoryManager.Update(item).Payload);
+                item.CategoryType = this.Type;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(EmailUserOnCheckInOrOut)))
+                item.EmailUserOnCheckInOrOut = this.EmailUserOnCheckInOrOut;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(IsAcceptanceRequired)))
+                item.IsAcceptanceRequired = this.IsAcceptanceRequired;
         }
     }
 }

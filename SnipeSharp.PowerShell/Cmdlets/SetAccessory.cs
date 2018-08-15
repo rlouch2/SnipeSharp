@@ -3,31 +3,14 @@ using System.Management.Automation;
 using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Set, "Accessory")]
     [OutputType(typeof(Accessory))]
-    public class SetAccessory: PSCmdlet
+    public class SetAccessory: SetObject<Accessory>
     {
-        internal enum ParameterSets
-        {
-            ByIdentity,
-            ByName,
-            ByInternalId
-        }
-
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByIdentity))]
-        [ValidateIdentityNotNull]
-        public ObjectBinding<Accessory> Identity { get; set; }
-
-        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByName))]
-        [ValidateNotNullOrEmpty]
-        public string Name { get; set; }
-
-        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByInternalId))]
-        public int Id { get; set; }
-
         [Parameter]
         public string NewName { get; set; }
 
@@ -67,25 +50,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public Uri ImageUri { get; set; }
 
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(Accessory item)
         {
-            switch(ParameterSetName)
-            {
-                case nameof(ParameterSets.ByInternalId):
-                    Identity = ObjectBinding<Accessory>.FromId(Id);
-                    break;
-                case nameof(ParameterSets.ByName):
-                    Identity = ObjectBinding<Accessory>.FromName(Name);
-                    break;
-                case nameof(ParameterSets.ByIdentity):
-                    break;
-            }
-            if(Identity.IsNull)
-            {
-                WriteError(new ErrorRecord(Identity.Error, $"Accessory not found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
-                return;
-            }
-            var item = Identity.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
@@ -112,9 +79,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.MinimumQuantity = this.MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
                 item.ImageUri = this.ImageUri;
-
-            // TODO: error handling
-            WriteObject(ApiHelper.Instance.Accessories.Update(item));
         }
     }
 }

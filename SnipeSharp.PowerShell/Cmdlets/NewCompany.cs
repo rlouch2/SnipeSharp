@@ -1,10 +1,14 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint;
+using SnipeSharp.EndPoint.Models;
+using SnipeSharp.PowerShell.BindingTypes;
+using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.New, "Company")]
+    [Cmdlet(VerbsCommon.New, nameof(Company))]
     [OutputType(typeof(Company))]
     public class NewCompany: PSCmdlet
     {
@@ -16,13 +20,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
         
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Company {
                 Name = this.Name
             };
             // TODO: error handling
-            WriteObject(ApiHelper.Instance.CompanyManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.Companies.Create(item));
         }
     }
 }
