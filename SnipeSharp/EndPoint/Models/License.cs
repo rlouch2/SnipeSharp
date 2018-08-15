@@ -47,7 +47,7 @@ namespace SnipeSharp.EndPoint.Models
 
         /// <value>The Product Key for this license.</value>
         [Field("product_key", "serial")]
-        public string ProductKey { get; private set; }
+        public string ProductKey { get; set; }
 
         /// <value>The order number associated with this License's purchase.</value>
         [Field("order_number", true)]

@@ -139,9 +139,6 @@ namespace SnipeSharp
                 RequestFormat = DataFormat.Json,
                 JsonSerializer = serializerDeserializer
             };
-
-        public string Serialize(object @object)
-            => serializerDeserializer.Serialize(@object);
     }
 
     internal static class RestRequestExtensions

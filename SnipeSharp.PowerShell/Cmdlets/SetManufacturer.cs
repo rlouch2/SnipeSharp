@@ -7,44 +7,43 @@ using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Manufacturer")]
+    [Cmdlet(VerbsCommon.Set, nameof(Manufacturer))]
     [OutputType(typeof(Manufacturer))]
-    public class SetManufacturer: PSCmdlet
+    public class SetManufacturer: SetObject<Manufacturer>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        [ValidateIdentityNotNull]
-        public ManufacturerIdentity Manufacturer { get; set; }
-
         [Parameter]
+        [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
         [Parameter]
-        public string Url { get; set; }
+        public Uri Url { get; set; }
 
         [Parameter]
-        public string SupportUrl { get; set; }
+        public Uri ImageUri { get; set; }
 
         [Parameter]
-        public string SupportPhone { get; set; }
+        public Uri SupportUrl { get; set; }
 
         [Parameter]
-        public string SupportEmail { get; set; }
+        public string SupportPhoneNumber { get; set; }
+
+        [Parameter]
+        public string SupportEmailAddress { get; set; }
         
-        protected override void ProcessRecord()
+        protected override void PopulateItem(Manufacturer item)
         {
-            var item = this.Manufacturer.Manufacturer;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.Name;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Url)))
                 item.Url = this.Url;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
+                item.ImageUri = this.ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(SupportUrl)))
                 item.SupportUrl = this.SupportUrl;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(SupportPhone)))
-                item.SupportPhone = this.SupportPhone;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(SupportEmail)))
-                item.SupportEmail = this.SupportEmail;
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.ManufacturerManager.Update(item).Payload);
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(SupportPhoneNumber)))
+                item.SupportPhoneNumber = this.SupportPhoneNumber;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(SupportEmailAddress)))
+                item.SupportEmailAddress = this.SupportEmailAddress;
         }
     }
 }

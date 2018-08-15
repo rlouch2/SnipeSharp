@@ -44,6 +44,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Serial { get; set; }
 
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Component {

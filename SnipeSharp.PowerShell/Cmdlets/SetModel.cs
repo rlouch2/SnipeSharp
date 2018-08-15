@@ -7,61 +7,59 @@ using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Model")]
+    [Cmdlet(VerbsCommon.Set, nameof(Model))]
     [OutputType(typeof(Model))]
-    public class SetModel: PSCmdlet
+    public class SetModel: SetObject<Model>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        [ValidateIdentityNotNull]
-        public ModelIdentity Model { get; set; }
-
         [Parameter]
         [ValidateNotNullOrEmpty]
-        public string Name { get; set; }
+        public string NewName { get; set; }
 
         [Parameter]
-        public ManufacturerIdentity Manufacturer { get; set; }
+        public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
         [Parameter]
-        public CategoryIdentity Category { get; set; }
+        public Uri ImageUri { get; set; }
 
         [Parameter]
         public string ModelNumber { get; set; }
 
         [Parameter]
-        public DepreciationIdentity Depreciation { get; set; }
+        public ObjectBinding<Depreciation> Depreciation { get; set; }
 
         [Parameter]
-        public string Eol { get; set; }
+        public ObjectBinding<Category> Category { get; set; }
+
+        [Parameter]
+        public ObjectBinding<FieldSet> FieldSet { get; set; }
+        
+        [Parameter]
+        public int EndOfLife { get; set; }
 
         [Parameter]
         public string Notes { get; set; }
 
-        [Parameter]
-        public FieldSetIdentity FieldSet { get; set; }
-        
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(Model item)
         {
-            var item = this.Model.Model;
-
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Manufacturer;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Category;
+                item.Manufacturer = this.Manufacturer?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
+                item.ImageUri = this.ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
-                item.Depreciation = this.Depreciation?.Depreciation;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Eol)))
-                item.Eol = this.Eol;
+                item.Depreciation = this.Depreciation?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+                item.Category = this.Category?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(FieldSet)))
+                item.FieldSet = this.FieldSet?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(EndOfLife)))
+                item.EndOfLife = this.EndOfLife;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = this.Notes;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(FieldSet)))
-                item.FieldSet = this.FieldSet?.FieldSet;
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.ModelManager.Update(item).Payload);
         }
     }
 }

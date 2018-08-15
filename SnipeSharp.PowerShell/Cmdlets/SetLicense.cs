@@ -7,108 +7,102 @@ using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "License")]
+    [Cmdlet(VerbsCommon.Set, nameof(License))]
     [OutputType(typeof(License))]
-    public class SetLicense: PSCmdlet
+    public class SetLicense: SetObject<License>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        [ValidateIdentityNotNull]
-        public LicenseIdentity License { get; set; }
+        [Parameter]
+        public string NewName { get; set; }
 
         [Parameter]
-        public string Name { get; set; }
+        public ObjectBinding<Company> Company { get; set; }
 
         [Parameter]
-        public CompanyIdentity Company { get; set; }
+        public ObjectBinding<Depreciation> Depreciation { get; set; }
 
         [Parameter]
-        public string ExpirationDate { get; set; }
-
-        [Parameter]
-        public long FreeSeatsCount { get; set; }
-
-        [Parameter]
-        public string LicenseEmail { get; set; }
-
-        [Parameter]
-        public string LicenseName { get; set; }
-
-        [Parameter]
-        public bool Maintained { get; set; }
-
-        [Parameter]
-        public ManufacturerIdentity Manufacturer { get; set; }
-
-        [Parameter]
-        public string Notes { get; set; }
-
-        [Parameter]
-        public string OrderNumber { get; set; }
+        public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
         [Parameter]
         public string ProductKey { get; set; }
 
         [Parameter]
-        public string PurchaseCost { get; set; }
-
-        [Parameter]
-        public string PurchaseDate { get; set; }
+        public string OrderNumber { get; set; }
 
         [Parameter]
         public string PurchaseOrder { get; set; }
 
         [Parameter]
-        public long Seats { get; set; }
+        public DateTime PurchaseDate { get; set; }
 
         [Parameter]
-        public CompanyIdentity Supplier { get; set; }
+        public decimal PurchaseCost { get; set; }
 
         [Parameter]
-        public bool UserCanCheckout { get; set; }
+        public string Notes { get; set; }
+
+        /*[Parameter]
+        public DateTime ExpirationDate { get; set; }*/
+
+        [Parameter]
+        public int Seats { get; set; }
+
+        [Parameter]
+        public string LicensedToName { get; set; }
+
+        [Parameter]
+        public string LicensedToEmailAddress { get; set; }
+
+        [Parameter]
+        public bool IsMaintained { get; set; }
+
+        [Parameter]
+        [ValidateIdentityNotNull]
+        public ObjectBinding<Category> Category { get; set; }
+
+        [Parameter]
+        public bool IsReassignable { get; set; }
         
-        protected override void ProcessRecord()
+        [Parameter]
+        public ObjectBinding<Supplier> Supplier { get; set; }
+
+        /// <inheritdoc />
+        protected override void PopulateItem(License item)
         {
-            var item = this.License.License;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Company;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(FreeSeatsCount)))
-                item.FreeSeatsCount = this.FreeSeatsCount;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(LicenseEmail)))
-                item.LicenseEmail = this.LicenseEmail;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(LicenseName)))
-                item.LicenseName = this.LicenseName;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Maintained)))
-                item.Maintained = this.Maintained;
+                item.Company = this.Company?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
+                item.Depreciation = this.Depreciation?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Manufacturer;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
-                item.Notes = this.Notes;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
-                item.OrderNumber = this.OrderNumber;
+                item.Manufacturer = this.Manufacturer?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ProductKey)))
                 item.ProductKey = this.ProductKey;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
-                item.PurchaseCost = this.PurchaseCost;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
+                item.OrderNumber = this.OrderNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseOrder)))
                 item.PurchaseOrder = this.PurchaseOrder;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Seats)))
-                item.Seats = this.Seats;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                item.Supplier = this.Supplier?.Company;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(UserCanCheckout)))
-                item.UserCanCheckout = this.UserCanCheckout;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(ExpirationDate)))
-                item.ExpirationDate = new Date {
-                    DateObj = this.ExpirationDate
-                };
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
-                item.PurchaseDate = new Date {
-                    DateObj = this.PurchaseDate
-                };
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.LicenseManager.Update(item).Payload);
+                item.PurchaseDate = this.PurchaseDate;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
+                item.PurchaseCost = this.PurchaseCost;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
+                item.Notes = this.Notes;
+            /*if(MyInvocation.BoundParameters.ContainsKey(nameof(ExpirationDate)))
+                item.ExpirationDate = this.ExpirationDate;*/
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Seats)))
+                item.TotalSeats = this.Seats;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(LicensedToName)))
+                item.LicensedToName = this.LicensedToName;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(LicensedToEmailAddress)))
+                item.LicensedToEmailAddress = this.LicensedToEmailAddress;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(IsMaintained)))
+                item.IsMaintained = this.IsMaintained;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
+                item.Supplier = this.Supplier?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(IsReassignable)))
+                item.IsReassignable = this.IsReassignable;
         }
     }
 }

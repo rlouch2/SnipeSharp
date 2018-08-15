@@ -1,56 +1,32 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.New, "StatusLabel")]
+    [Cmdlet(VerbsCommon.New, nameof(StatusLabel))]
     [OutputType(typeof(StatusLabel))]
     public class NewStatusLabel: PSCmdlet
     {
-        [Parameter(
-            Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true
-        )]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         public string Name { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateSet("deployable", "pending", "archived")]
-        public string Type { get; set; }
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public string Color { get; set; }
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public bool ShowInNav { get; set; }
+        [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
+        public StatusType Type { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Notes { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public bool Deployable { get; set; }
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public bool Pending { get; set; }
-
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public bool Archived { get; set; }
-
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new StatusLabel {
                 Name = this.Name,
                 Type = this.Type,
-                Color = this.Color,
-                ShowInNav = this.ShowInNav,
-                Notes = this.Notes,
-                Deployable = this.Deployable,
-                Pending = this.Pending,
-                Archived = this.Archived
+                Notes = this.Notes
             };
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.ModelManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.StatusLabels.Create(item));
         }
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
+using SnipeSharp.EndPoint.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.New, "Supplier")]
+    [Cmdlet(VerbsCommon.New, nameof(Supplier))]
     [OutputType(typeof(Supplier))]
     public class NewSupplier: PSCmdlet
     {
@@ -13,7 +13,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Name { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
+        public Uri ImageUri { get; set; }
+
+        [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Address { get; set; }
+
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string Address2 { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string City { get; set; }
@@ -25,16 +31,16 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Country { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public string Zip { get; set; }
+        public string ZipCode { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public string Fax { get; set; }
+        public string FaxNumber { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Contact { get; set; }
@@ -42,23 +48,26 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Notes { get; set; }
         
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Supplier {
                 Name = this.Name,
+                ImageUri = this.ImageUri,
                 Address = this.Address,
+                Address2 = this.Address2,
                 City = this.City,
                 State = this.State,
                 Country = this.Country,
-                Zip = this.Zip,
-                Fax = this.Fax,
-                Phone = this.Phone,
-                Email = this.Email,
+                ZipCode = this.ZipCode,
+                FaxNumber = this.FaxNumber,
+                PhoneNumber = this.PhoneNumber,
+                EmailAddress = this.EmailAddress,
                 Contact = this.Contact,
                 Notes = this.Notes
             };
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.SupplierManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.Suppliers.Create(item));
         }
     }
 }

@@ -7,7 +7,7 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.New, "Category")]
+    [Cmdlet(VerbsCommon.New, nameof(Category))]
     [OutputType(typeof(Category))]
     public class NewCategory: PSCmdlet
     {
@@ -24,6 +24,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public bool IsAcceptanceRequired { get; set; }
 
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Category {

@@ -7,7 +7,7 @@ using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Accessory")]
+    [Cmdlet(VerbsCommon.Set, nameof(Accessory))]
     [OutputType(typeof(Accessory))]
     public class SetAccessory: SetObject<Accessory>
     {

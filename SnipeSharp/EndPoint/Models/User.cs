@@ -141,7 +141,7 @@ namespace SnipeSharp.EndPoint.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("company", converter: CommonModelConverter)]
+        [Field("company", "company_id", converter: CommonModelConverter)]
         public Company Company { get; set; }
 
         /// <inheritdoc />

@@ -14,23 +14,4 @@
   <ItemGroup>
     <None Update="SnipeSharp.PowerShell.psd1;SnipeSharp.PowerShell*.ps1xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-  <ItemGroup>
-    <!-- Temporary while we work on updating these cmdlets -->
-    <Compile Remove="Cmdlets/SetDepreciation.cs" />
-    <Compile Remove="Cmdlets/SetLicense.cs" />
-    <Compile Remove="Cmdlets/SetLocation.cs" />
-    <Compile Remove="Cmdlets/SetManufacturer.cs" />
-    <Compile Remove="Cmdlets/SetModel.cs" />
-    <Compile Remove="Cmdlets/SetStatusLabel.cs" />
-    <Compile Remove="Cmdlets/SetSupplier.cs" />
-    <Compile Remove="Cmdlets/SetUser.cs" />
-    <Compile Remove="Cmdlets/NewDepreciation.cs" />
-    <Compile Remove="Cmdlets/NewLicense.cs" />
-    <Compile Remove="Cmdlets/NewLocation.cs" />
-    <Compile Remove="Cmdlets/NewManufacturer.cs" />
-    <Compile Remove="Cmdlets/NewModel.cs" />
-    <Compile Remove="Cmdlets/NewStatusLabel.cs" />
-    <Compile Remove="Cmdlets/NewSupplier.cs" />
-    <Compile Remove="Cmdlets/NewUser.cs" />
-  </ItemGroup>
 </Project>

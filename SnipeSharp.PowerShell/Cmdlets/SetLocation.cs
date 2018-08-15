@@ -7,19 +7,21 @@ using SnipeSharp.PowerShell.Cmdlets.AbstractCmdlets;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "Location")]
+    [Cmdlet(VerbsCommon.Set, nameof(Location))]
     [OutputType(typeof(Location))]
-    public class SetLocation: PSCmdlet
+    public class SetLocation: SetObject<Location>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        [ValidateIdentityNotNull]
-        public LocationIdentity Location { get; set; }
+        [Parameter]
+        public string NewName { get; set; }
 
         [Parameter]
-        public string Name { get; set; }
+        public Uri ImageUri { get; set; }
 
         [Parameter]
         public string Address { get; set; }
+
+        [Parameter]
+        public string Address2 { get; set; }
 
         [Parameter]
         public string City { get; set; }
@@ -31,35 +33,37 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Country { get; set; }
 
         [Parameter]
-        public string Zip { get; set; }
+        public string ZipCode { get; set; }
 
         [Parameter]
-        public LocationIdentity Parent { get; set; }
+        public string Currency { get; set; }
 
         [Parameter]
-        public UserIdentity Manager { get; set; }
+        public ObjectBinding<Location> ParentLocation { get; set; }
         
-        protected override void ProcessRecord()
+        /// <inheritdoc />
+        protected override void PopulateItem(Location item)
         {
-            var item = this.Location.Location;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
-                item.Name = this.Name;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
+                item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Address)))
                 item.Address = this.Address;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Address2)))
+                item.Address2 = this.Address2;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(City)))
                 item.City = this.City;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(State)))
                 item.State = this.State;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Country)))
                 item.Country = this.Country;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Zip)))
-                item.Zip = this.Zip;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Parent)))
-                item.Parent = this.Parent?.Location;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager?.User;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(ZipCode)))
+                item.ZipCode = this.ZipCode;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Currency)))
+                item.Currency = this.Currency;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(ParentLocation)))
+                item.ParentLocation = this.ParentLocation?.Object;
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.LocationManager.Update(item).Payload);
+            WriteObject(ApiHelper.Instance.Locations.Update(item));
         }
     }
 }

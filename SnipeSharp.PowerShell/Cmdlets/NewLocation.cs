@@ -1,25 +1,23 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp.Endpoints.Models;
-using SnipeSharp.PowerShell.Attributes;
+using SnipeSharp.EndPoint.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.New, "Location")]
+    [Cmdlet(VerbsCommon.New, nameof(Location))]
     [OutputType(typeof(Location))]
     public class NewLocation: PSCmdlet
     {
-        [Parameter(
-            Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true
-        )]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Address { get; set; }
+
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string Address2 { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string City { get; set; }
@@ -31,30 +29,30 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Country { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public string Zip { get; set; }
+        public string ZipCode { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public LocationIdentity Parent { get; set; }
+        public string Currency { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        [ValidateIdentityNotNull]
-        public UserIdentity Manager { get; set; }
-        
+        public ObjectBinding<Location> ParentLocation { get; set; }
+
+        /// <inheritdoc />
         protected override void ProcessRecord()
         {
             var item = new Location {
                 Name = this.Name,
                 Address = this.Address,
+                Address2 = this.Address2,
                 City = this.City,
                 State = this.State,
                 Country = this.Country,
-                Zip = this.Zip,
-                Parent = this.Parent?.Location,
-                Manager = this.Manager?.User
+                ZipCode = this.ZipCode,
+                Currency = this.Currency,
+                ParentLocation = this.ParentLocation?.Object
             };
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.LocationManager.Create(item).Payload);
+            WriteObject(ApiHelper.Instance.Locations.Create(item));
         }
     }
 }
