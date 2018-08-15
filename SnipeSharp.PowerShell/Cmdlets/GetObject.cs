@@ -56,7 +56,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<T>[] Identity { get; set; }
 
         /// <summary>
-        /// <para type="description">If present, return the result as a <see cref="SnipeSharp.EndPoint.Models.ResponseCollection{T}"/> rather than enumerating.</para>
+        /// <para type="description">If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</para>
         /// </summary>
         [Parameter(ParameterSetName = nameof(ParameterSets.All))]
         public SwitchParameter NoEnumerate { get; set; }
