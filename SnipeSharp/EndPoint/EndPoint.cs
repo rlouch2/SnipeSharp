@@ -132,7 +132,7 @@ namespace SnipeSharp.EndPoint
         private T CheckRequiredFields(T @object, bool creating = false)
         {
             foreach(var property in typeof(T).GetProperties())
-                if((property.GetCustomAttribute<FieldAttribute>()?.IsRequired ?? false) && (property.GetValue(@object) is null)) // if required and null
+                if((property.GetCustomAttribute<FieldAttribute>(true)?.IsRequired ?? false) && (property.GetValue(@object) is null)) // if required and null
                     throw new MissingRequiredFieldException<T>(property.Name);
             return @object;
         }

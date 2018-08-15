@@ -152,7 +152,7 @@ namespace SnipeSharp
                     var type = @object.GetType();
                     foreach(var property in type.GetProperties())
                     {
-                        if(property.GetCustomAttribute<FieldAttribute>() is FieldAttribute attribute && attribute.ShouldSerialize)
+                        if(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute && attribute.ShouldSerialize)
                         {
                             var value = property.GetValue(@object);
                             if(attribute.IsRequired && value is null)
