@@ -5,6 +5,9 @@
     <OutputType>library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">

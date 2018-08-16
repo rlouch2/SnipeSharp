@@ -26,7 +26,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             Position = 1,
             HelpMessage = "API Token to use to connect to Snipe IT."
         )]
-        public string ApiToken { get; set; }
+        public string Token { get; set; }
 
         /// <summary>
         /// <para type="description">The URI for the API endpoint of your Snipe IT instance. Usually this is the same as the URL for your instance, with the path "/api/v1".</para>
@@ -41,7 +41,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void EndProcessing(){
             var instance = new SnipeItApi {
-                Token = this.ApiToken,
+                Token = this.Token,
                 Uri = this.Uri
             };
             

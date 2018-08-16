@@ -16,5 +16,10 @@ namespace SnipeSharp.PowerShell
                     _instance = value;
             }
         }
+        public static bool HasApiInstance => !(_instance is null);
+        internal static void Reset()
+        {
+            _instance = null;
+        }
     }
 }

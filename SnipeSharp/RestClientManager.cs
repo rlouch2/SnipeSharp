@@ -12,44 +12,41 @@ namespace SnipeSharp
 {
     internal sealed class RestClientManager
     {
-        private readonly SnipeItApi api;
-        private readonly IRestClient client;
+        private readonly SnipeItApi Api;
+        private readonly IRestClient Client;
 
         private readonly NewtonsoftJsonSerializer serializerDeserializer = new NewtonsoftJsonSerializer();
 
-        internal RestClientManager(SnipeItApi api): this(api, new RestClient())
+        internal RestClientManager(SnipeItApi api)
         {
-            client.AddDefaultHeader("Accept", "application/json");
-            client.AddDefaultHeader("Cache-Control", "no-cache");
-            client.AddDefaultHeader("Content-type", "application/json");
-        }
+            this.Api = api;
+            this.Client = Utility.Instance.NewRestClient();
 
-        internal RestClientManager(SnipeItApi api, IRestClient client)
-        {
-            this.api = api;
-            this.client = client;
+            Client.AddDefaultHeader("Accept", "application/json");
+            Client.AddDefaultHeader("Cache-Control", "no-cache");
+            Client.AddDefaultHeader("Content-type", "application/json");
         }
 
         internal void SetTokenAndUri()
         {
-            if(api.Uri is null)
+            if(Api.Uri is null)
                 throw new NullApiUriException();
-            if(api.Token is null)
+            if(Api.Token is null)
                 throw new NullApiTokenException();
-            if(client.BaseUrl is null)
-                client.BaseUrl = api.Uri;
-            if(client.Authenticator is null)
-                client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(api.Token, "Bearer");
+            if(Client.BaseUrl is null)
+                Client.BaseUrl = Api.Uri;
+            if(Client.Authenticator is null)
+                Client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(Api.Token, "Bearer");
         }
 
         internal void ResetToken()
-            => client.Authenticator = null;
+            => Client.Authenticator = null;
         internal void ResetUri()
-            => client.BaseUrl = null;
+            => Client.BaseUrl = null;
 
         internal string GetRaw(string path)
         {
-            var response = client.Execute(new RestRequest(path));
+            var response = Client.Execute(new RestRequest(path));
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
             return response.Content;
@@ -93,7 +90,7 @@ namespace SnipeSharp
         private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
-            var response = client.Execute(request);
+            var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
@@ -114,7 +111,7 @@ namespace SnipeSharp
         private RequestResponse<R> ExecuteRequest2<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
-            var response = client.Execute(request);
+            var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);

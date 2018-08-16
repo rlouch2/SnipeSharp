@@ -11,9 +11,9 @@ using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Deserializers;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Tests.Mock
 {
-    internal class StubRestClient : IRestClient
+    internal class FakeRestClient : IRestClient
     {
         internal readonly Queue<IRestResponse> Responses = new Queue<IRestResponse>();
 
@@ -28,7 +28,7 @@ namespace SnipeSharp.Tests
         public Uri BaseUrl { get; set; }
         public Encoding Encoding { get; set; }
         public bool PreAuthenticate { get; set; } = false;
-        public IList<Parameter> DefaultParameters => throw new NotImplementedException();
+        public IList<Parameter> DefaultParameters { get; } = new List<Parameter>();
         public string BaseHost { get; set; }
         public X509CertificateCollection ClientCertificates { get; set; }
         public IWebProxy Proxy { get; set; }
@@ -37,103 +37,107 @@ namespace SnipeSharp.Tests
         public bool FollowRedirects { get; set; } = false;
         public RemoteCertificateValidationCallback RemoteCertificateValidationCallback { get; set; }
 
-        public IRestResponse Response { get => Responses.Dequeue(); set => throw new NotImplementedException(); }
+        public IRestResponse Response { get => Responses.Dequeue(); set {} }
         public string ConnectionGroupName { get; set; }
         public bool UnsafeAuthenticatedConnectionSharing { get; set; }
         public bool AllowMultipleDefaultParametersWithSameName { get; set; }
 
         public void AddHandler(string contentType, IDeserializer deserializer)
-            => throw new NotImplementedException();
+        {
+        }
 
         public Uri BuildUri(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public void ClearHandlers()
-            => throw new NotImplementedException();
+        {
+        }
 
         public void ConfigureWebRequest(Action<HttpWebRequest> configurator)
-            => throw new NotImplementedException();
+        {
+        }
 
         public IRestResponse<T> Deserialize<T>(IRestResponse response)
-            => throw new NotImplementedException();
+            => null;
 
         public byte[] DownloadData(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public byte[] DownloadData(IRestRequest request, bool throwOnError)
-            => throw new NotImplementedException();
+            => null;
 
         public IRestResponse Execute(IRestRequest request)
             => Response;
 
         public IRestResponse<T> Execute<T>(IRestRequest request) where T : new()
-            => throw new NotImplementedException();
+            => null;
 
         public IRestResponse ExecuteAsGet(IRestRequest request, string httpMethod)
-            => throw new NotImplementedException();
+            => null;
 
         public IRestResponse<T> ExecuteAsGet<T>(IRestRequest request, string httpMethod) where T : new()
-            => throw new NotImplementedException();
+            => null;
 
         public IRestResponse ExecuteAsPost(IRestRequest request, string httpMethod)
-            => throw new NotImplementedException();
+            => null;
 
         public IRestResponse<T> ExecuteAsPost<T>(IRestRequest request, string httpMethod) where T : new()
-            => throw new NotImplementedException();
+            => null;
 
         public RestRequestAsyncHandle ExecuteAsync(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback)
-            => throw new NotImplementedException();
+            => null;
 
         public RestRequestAsyncHandle ExecuteAsync<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback)
-            => throw new NotImplementedException();
+            => null;
 
         public RestRequestAsyncHandle ExecuteAsyncGet(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback, string httpMethod)
-            => throw new NotImplementedException();
+            => null;
 
         public RestRequestAsyncHandle ExecuteAsyncGet<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback, string httpMethod)
-            => throw new NotImplementedException();
+            => null;
 
         public RestRequestAsyncHandle ExecuteAsyncPost(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback, string httpMethod)
-            => throw new NotImplementedException();
+            => null;
 
         public RestRequestAsyncHandle ExecuteAsyncPost<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback, string httpMethod)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse<T>> ExecuteGetTaskAsync<T>(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse<T>> ExecuteGetTaskAsync<T>(IRestRequest request, CancellationToken token)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse> ExecuteGetTaskAsync(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse> ExecuteGetTaskAsync(IRestRequest request, CancellationToken token)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse<T>> ExecutePostTaskAsync<T>(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse<T>> ExecutePostTaskAsync<T>(IRestRequest request, CancellationToken token)
-            => throw new NotImplementedException();
+            => null;
         public Task<IRestResponse> ExecutePostTaskAsync(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse> ExecutePostTaskAsync(IRestRequest request, CancellationToken token)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request, CancellationToken token)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request, CancellationToken token)
-            => throw new NotImplementedException();
+            => null;
         public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request)
-            => throw new NotImplementedException();
+            => null;
 
         public void RemoveHandler(string contentType)
-            => throw new NotImplementedException();
+        {
+        }
     }
 }

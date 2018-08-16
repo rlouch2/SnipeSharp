@@ -13,18 +13,10 @@ namespace SnipeSharp.Tests
     // Test object detection
     public class DeserializationTests
     {
-        private static NewtonsoftJsonSerializer Serializer = new NewtonsoftJsonSerializer();
-        private static StubRestClient StubRestClient = new StubRestClient();
-        private static SnipeItApi Api = new SnipeItApi(StubRestClient) {
-            Token = "xxxx",
-            Uri = new Uri("http://localhost/api/v1")
-        };
-
         [Fact]
         public void DeserializeAsset()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/asset.json")));
-            var result = Api.GetEndPoint<Asset>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/asset.json").GetEndPoint<Asset>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Asset>(result);
         }
@@ -32,8 +24,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeModel()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/model.json")));
-            var result = Api.GetEndPoint<Model>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/model.json").GetEndPoint<Model>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Model>(result);
         }
@@ -41,8 +32,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeCompany()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/company.json")));
-            var result = Api.GetEndPoint<Company>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/company.json").GetEndPoint<Company>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Company>(result);
         }
@@ -50,8 +40,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeLocation()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/location.json")));
-            var result = Api.GetEndPoint<Location>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/location.json").GetEndPoint<Location>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Location>(result);
         }
@@ -59,8 +48,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeAccessory()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/accessory.json")));
-            var result = Api.GetEndPoint<Accessory>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/accessory.json").GetEndPoint<Accessory>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Accessory>(result);
         }
@@ -68,8 +56,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeConsumable()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/consumable.json")));
-            var result = Api.GetEndPoint<Consumable>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/consumable.json").GetEndPoint<Consumable>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Consumable>(result);
         }
@@ -77,8 +64,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeComponent()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/component.json")));
-            var result = Api.GetEndPoint<Component>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/component.json").GetEndPoint<Component>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Component>(result);
         }
@@ -86,8 +72,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeUser()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/user.json")));
-            var result = Api.GetEndPoint<User>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/user.json").GetEndPoint<User>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<User>(result);
         }
@@ -95,8 +80,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusLabel()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/statuslabel.json")));
-            var result = Api.GetEndPoint<StatusLabel>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/statuslabel.json").GetEndPoint<StatusLabel>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<StatusLabel>(result);
         }
@@ -104,8 +88,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusLicense()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/license.json")));
-            var result = Api.GetEndPoint<License>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/license.json").GetEndPoint<License>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<License>(result);
         }
@@ -113,8 +96,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusCategory()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/category.json")));
-            var result = Api.GetEndPoint<Category>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/category.json").GetEndPoint<Category>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Category>(result);
         }
@@ -122,8 +104,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusManufacturer()
         {
-            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/manufacturer.json")));
-            var result = Api.GetEndPoint<Manufacturer>().Get(0);
+            var result = Utility.OneUseApi("./Resources/IndividualModels/manufacturer.json").GetEndPoint<Manufacturer>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Manufacturer>(result);
         }

@@ -4,7 +4,7 @@ using System.Net;
 using SnipeSharp.Models;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Exceptions;
-using SnipeSharp.Tests.Mocks;
+using SnipeSharp.Tests.Mock;
 
 namespace SnipeSharp.Tests.Main.EndPoint
 {
@@ -13,7 +13,7 @@ namespace SnipeSharp.Tests.Main.EndPoint
         [Fact]
         public void GetsPathSegmentAttribute()
         {
-            var endPoint = new EndPoint<TestModel>(Utility.NewApi());
+            var endPoint = new EndPoint<TestModel>(Utility.OneUseApi());
             Assert.NotNull(endPoint.EndPointInfo);
         }
 
@@ -21,7 +21,7 @@ namespace SnipeSharp.Tests.Main.EndPoint
         public void ThrowsIfNoPathSegmentAttribute()
         {
             Assert.Throws<MissingRequiredAttributeException>(() => {
-                var endPoint = new EndPoint<FaultyTestModel>(Utility.NewApi());
+                var endPoint = new EndPoint<FaultyTestModel>(Utility.OneUseApi());
             });
         }
 

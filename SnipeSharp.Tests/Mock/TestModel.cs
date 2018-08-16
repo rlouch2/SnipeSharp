@@ -2,7 +2,7 @@ using System;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
 
-namespace SnipeSharp.Tests.Mocks
+namespace SnipeSharp.Tests.Mock
 {
     [PathSegment("test")]
     internal sealed class TestModel : CommonEndPointModel

@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Xunit;
 
 [assembly: AssemblyTitle("SnipeSharp.Tests")]
 [assembly: AssemblyDescription("")]
@@ -18,3 +19,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.0.0.0")]
 [assembly: AssemblyFileVersion("2.0.0.0")]
+
+// Stop Xunit from breaking my tests because my code is poorly designed
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly, MaxParallelThreads = 1, DisableTestParallelization = true)]

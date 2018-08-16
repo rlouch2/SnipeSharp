@@ -1,25 +1,40 @@
+using RestSharp;
 using System;
 using System.IO;
 using System.Net;
-using RestSharp;
+using SnipeSharp.Tests.Mock;
 
 namespace SnipeSharp.Tests
 {
     internal static class Utility
     {
-        internal static SnipeItApi OneUseApi(string responsePath, bool isSuccessful = true, HttpStatusCode? statusCode = null)
+        internal static void ReplaceSnipeSharpUtility()
         {
-            var client = new StubRestClient();
-            client.Responses.Enqueue(new StubResponse(File.ReadAllText(responsePath), isSuccessful, statusCode));
-            return NewApi(client);
+            if(!(SnipeSharp.Utility.Instance is Mock.FakeUtility))
+                SnipeSharp.Utility.Instance = new Mock.FakeUtility();
         }
-        internal static SnipeItApi NewApi(IRestClient client = null, string token = "xxxx", string uri = "http://localhost/api/v1")
-            => new SnipeItApi(client ?? NewRestClient())
-            {
-                Token = token,
-                Uri = new Uri(uri)
-            };
-        internal static StubRestClient NewRestClient()
-            => new StubRestClient();
+        internal static void ResetSnipeSharpUtility()
+        {
+            SnipeSharp.Utility.Instance = new SnipeSharp.Utility();
+        }
+        internal static void QueueResponse(string content, bool isSuccessful = true, HttpStatusCode? statusCode = null)
+        {
+            ReplaceSnipeSharpUtility();
+            ((Mock.FakeUtility) SnipeSharp.Utility.Instance).RestClient.Responses.Enqueue(new FakeResponse(content, isSuccessful, statusCode));
+        }
+        internal static void QueueResponseFromFile(string path, bool isSuccessful = true, HttpStatusCode? statusCode = null)
+            => QueueResponse(path is null ? "" : File.ReadAllText(path), isSuccessful, statusCode);
+        internal static void ResetQueue()
+        {
+            ReplaceSnipeSharpUtility();
+            ((Mock.FakeUtility) SnipeSharp.Utility.Instance).RestClient.Responses.Clear();
+        }
+        internal static SnipeItApi OneUseApi(string responsePath = null, bool isSuccessful = true, HttpStatusCode? statusCode = null)
+        {
+            ReplaceSnipeSharpUtility();
+            ResetQueue();
+            QueueResponseFromFile(responsePath);
+            return new SnipeItApi { Token = "xxxx", Uri = new Uri("http://localhost/api/v1") };
+        }
     }
 }

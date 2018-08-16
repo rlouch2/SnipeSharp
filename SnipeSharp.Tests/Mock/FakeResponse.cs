@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Net;
 using RestSharp;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Tests.Mock
 {
-    internal class StubResponse : IRestResponse
+    internal class FakeResponse : IRestResponse
     {
-        public StubResponse(string content, bool isSuccessful = true, HttpStatusCode? statusCode = null)
+        public FakeResponse(string content, bool isSuccessful = true, HttpStatusCode? statusCode = null)
         {
             Content = content;
             IsSuccessful = isSuccessful;

@@ -184,15 +184,5 @@ namespace SnipeSharp
         {
             RequestManager = new RestClientManager(this);
         }
-
-        /// <summary>
-        /// <para>Constructs a wrapper for the Snipe-IT web API using the specified IRestClient for use in testing.</para>
-        /// <para>The Token and Uri must be set either in an initializer or manually after construction.</para>
-        /// </summary>
-        /// <param name="client">An IRestClient subclass instance.</param>
-        internal SnipeItApi(IRestClient client)
-        {
-            RequestManager = new RestClientManager(this, client);
-        }
     }
 }
