@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        "ms-vscode.csharp",
+        "ryanluker.vscode-coverage-gutters"
+    ]
+}
