@@ -15,6 +15,8 @@ namespace SnipeSharp.Tests
 {
     internal class StubRestClient : IRestClient
     {
+        internal readonly Queue<IRestResponse> Responses = new Queue<IRestResponse>();
+
         public CookieContainer CookieContainer { get; set; } = new CookieContainer();
         public bool AutomaticDecompression { get; set; } = false;
         public int? MaxRedirects { get; set; }
@@ -35,7 +37,7 @@ namespace SnipeSharp.Tests
         public bool FollowRedirects { get; set; } = false;
         public RemoteCertificateValidationCallback RemoteCertificateValidationCallback { get; set; }
 
-        public StubResponse Response { get; set; }
+        public IRestResponse Response { get => Responses.Dequeue(); set => throw new NotImplementedException(); }
         public string ConnectionGroupName { get; set; }
         public bool UnsafeAuthenticatedConnectionSharing { get; set; }
         public bool AllowMultipleDefaultParametersWithSameName { get; set; }

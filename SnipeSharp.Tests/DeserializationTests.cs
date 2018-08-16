@@ -23,7 +23,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeAsset()
         {
-            StubRestClient.Response = new StubResponse(File.ReadAllText("./Resources/asset.json"));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/asset.json")));
             var result = Api.GetEndPoint<Asset>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Asset>(result);
@@ -32,89 +32,99 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeModel()
         {
-            StubRestClient.Response = new StubResponse(File.ReadAllText("./Resources/model.json"));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/model.json")));
             var result = Api.GetEndPoint<Model>().Get(0);
             Assert.NotNull(result);
             Assert.IsType<Model>(result);
         }
 
         [Fact]
-        public void DeserializeCompany_ValidObject_ReturnAsset()
+        public void DeserializeCompany()
         {
-            var obj = File.ReadAllText("./Resources/company.json");
-            var result = Serializer.Deserialize<Company>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/company.json")));
+            var result = Api.GetEndPoint<Company>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<Company>(result);
         }
 
         [Fact]
-        public void DeserializeLocation_ValidObject_ReturnAsset()
+        public void DeserializeLocation()
         {
-            var obj = File.ReadAllText("./Resources/location.json");
-            var result = Serializer.Deserialize<Location>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/location.json")));
+            var result = Api.GetEndPoint<Location>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<Location>(result);
         }
 
         [Fact]
-        public void DeserializeAccessory_ValidObject_ReturnAsset()
+        public void DeserializeAccessory()
         {
-            var obj = File.ReadAllText("./Resources/accessory.json");
-            var result = Serializer.Deserialize<Accessory>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/accessory.json")));
+            var result = Api.GetEndPoint<Accessory>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<Accessory>(result);
         }
 
         [Fact]
-        public void DeserializeConsumable_ValidObject_ReturnAsset()
+        public void DeserializeConsumable()
         {
-            var obj = File.ReadAllText("./Resources/consumable.json");
-            var result = Serializer.Deserialize<Consumable>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/consumable.json")));
+            var result = Api.GetEndPoint<Consumable>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<Consumable>(result);
         }
 
         [Fact]
-        public void DeserializeComponent_ValidObject_ReturnAsset()
+        public void DeserializeComponent()
         {
-            var obj = File.ReadAllText("./Resources/component.json");
-            var result = Serializer.Deserialize<Component>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/component.json")));
+            var result = Api.GetEndPoint<Component>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<Component>(result);
         }
 
         [Fact]
-        public void DeserializeUser_ValidObject_ReturnAsset()
+        public void DeserializeUser()
         {
-            var obj = File.ReadAllText("./Resources/user.json");
-            var result = Serializer.Deserialize<User>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/user.json")));
+            var result = Api.GetEndPoint<User>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<User>(result);
         }
 
         [Fact]
-        public void DeserializeStatusLabel_ValidObject_ReturnAsset()
+        public void DeserializeStatusLabel()
         {
-            var obj = File.ReadAllText("./Resources/statuslabel.json");
-            var result = Serializer.Deserialize<StatusLabel>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/statuslabel.json")));
+            var result = Api.GetEndPoint<StatusLabel>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<StatusLabel>(result);
         }
 
         [Fact]
-        public void DeserializeStatusLicense_ValidObject_ReturnAsset()
+        public void DeserializeStatusLicense()
         {
-            var obj = File.ReadAllText("./Resources/license.json");
-            var result = Serializer.Deserialize<License>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/license.json")));
+            var result = Api.GetEndPoint<License>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<License>(result);
         }
 
         [Fact]
-        public void DeserializeStatusCategory_ValidObject_ReturnAsset()
+        public void DeserializeStatusCategory()
         {
-            var obj = File.ReadAllText("./Resources/category.json");
-            var result = Serializer.Deserialize<Category>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/category.json")));
+            var result = Api.GetEndPoint<Category>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<Category>(result);
         }
 
         [Fact]
-        public void DeserializeStatusManufacturer_ValidObject_ReturnAsset()
+        public void DeserializeStatusManufacturer()
         {
-            var obj = File.ReadAllText("./Resources/manufacturer.json");
-            var result = Serializer.Deserialize<Manufacturer>(new StubResponse(obj));
+            StubRestClient.Responses.Enqueue(new StubResponse(File.ReadAllText("./Resources/IndividualModels/manufacturer.json")));
+            var result = Api.GetEndPoint<Manufacturer>().Get(0);
+            Assert.NotNull(result);
             Assert.IsType<Manufacturer>(result);
         }
     }

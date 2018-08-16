@@ -7,10 +7,12 @@ namespace SnipeSharp.Tests
 {
     internal class StubResponse : IRestResponse
     {
-        public StubResponse(string content, bool isSuccessful = true)
+        public StubResponse(string content, bool isSuccessful = true, HttpStatusCode? statusCode = null)
         {
             Content = content;
             IsSuccessful = isSuccessful;
+            if(statusCode.HasValue)
+                StatusCode = statusCode.Value;
         }
         public IRestRequest Request { get; set; }
         public string ContentType { get; set; }
