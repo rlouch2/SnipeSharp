@@ -213,7 +213,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="user">The user to get the assigned assets of.</param>
         /// <returns>A ResponseCollection list of Assets.</returns>
         public static ResponseCollection<Asset> GetAssignedAssets(this EndPoint<User> endPoint, User user)
-            => endPoint.Api.RequestManager.GetAll<Asset>($"{endPoint.EndPointInfo.BaseUri}/{user.Id}/assetlist");
+            => endPoint.Api.RequestManager.GetAll<Asset>($"{endPoint.EndPointInfo.BaseUri}/{user.Id}/assets");
         
         /// <summary>
         /// Get the current user of the API.

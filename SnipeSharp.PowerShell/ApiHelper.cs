@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell
             set
             {
                 if(!(value is null) && !(_instance is null))
-                    throw new InvalidOperationException("Cannot connec to an instance when already connected.");
+                    throw new InvalidOperationException("Cannot connect to an instance when already connected.");
                 else
                     _instance = value;
             }
