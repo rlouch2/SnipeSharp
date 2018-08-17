@@ -17,6 +17,9 @@
     <ProjectReference Include="..\SnipeSharp\SnipeSharp.csproj" />
     <ProjectReference Include="..\SnipeSharp.PowerShell\SnipeSharp.PowerShell.csproj" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <PackageReference Include="System.Management.Automation" Version="6.0.4" />
+  </ItemGroup>
   <ItemGroup>
     <None Update="Resources/**/*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
