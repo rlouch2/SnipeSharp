@@ -27,7 +27,7 @@ namespace SnipeSharp.Models
         public User AssignedUser { get; private set; }
 
         /// <value>What the type of the assigned object is.</value>
-        [Field("checkout_to_type", true, converter: CommonModelConverter)]
+        [Field("checkout_to_type", true)]
         public AssignedToType AssignedToType { get; private set; }
 
         /// <value>The date the asset was checked out; if null, then the current timestamp.</value>

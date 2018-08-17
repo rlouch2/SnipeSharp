@@ -50,7 +50,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ParameterSetName = "ToUser",
             ValueFromPipelineByPropertyName = true
         )]
-        public ObjectBinding<User> AssignedUser { get; set; }
+        public UserBinding AssignedUser { get; set; }
 
         /// <summary>
         /// <para type="description">The identity of a Location to assign the Asset to.</para>

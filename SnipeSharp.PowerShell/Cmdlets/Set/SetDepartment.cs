@@ -20,7 +20,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         public ObjectBinding<Company> Company { get; set; }
 
         [Parameter]
-        public ObjectBinding<User> Manager { get; set; }
+        public UserBinding Manager { get; set; }
 
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }

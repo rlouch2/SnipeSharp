@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using SnipeSharp.Exceptions;
+using SnipeSharp.Filters;
 using SnipeSharp.Models;
 
 namespace SnipeSharp.EndPoint
@@ -221,6 +223,68 @@ namespace SnipeSharp.EndPoint
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API.</exception>
         public static User Me(this EndPoint<User> endPoint)
             => endPoint.Api.RequestManager.Get<User>($"{endPoint.EndPointInfo.BaseUri}/me");
+
+        /// <summary>
+        /// Gets a user by their username.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for users.</param>
+        /// <param name="username">The username of the user to search for.</param>
+        /// <returns>The user information for the user with the provided username.</returns>
+        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API or the user was not found.</exception>
+        public static User GetByUserName(this EndPoint<User> endPoint, string username)
+        {
+            var results = endPoint.FindAll(new UserSearchFilter(username));
+            foreach(var user in results)
+                if(user.UserName == username)
+                    return user;
+            throw new ApiErrorException($"No user was found by the username \"{username}\".");
+        }
+
+        /// <summary>
+        /// Gets a user by their email address.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for users.</param>
+        /// <param name="email">The email address of the user to search for.</param>
+        /// <returns>The user information for the user with the provided email address.</returns>
+        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API or the user was not found.</exception>
+        public static User GetByEmailAddress(this EndPoint<User> endPoint, string email)
+        {
+            var results = endPoint.FindAll(new UserSearchFilter(email));
+            foreach(var user in results)
+                if(user.EmailAddress == email)
+                    return user;
+            throw new ApiErrorException($"No user was found by the email address \"{email}\".");
+        }
+        
+        /// <summary>
+        /// Gets a user by their username, but do not throw any errors.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for users.</param>
+        /// <param name="username">The username of the user to search for.</param>
+        /// <returns>A tuple containing the user (if it was found), and any error (if there was one).</returns>
+        public static (User Value, Exception Error) GetByUserNameOrNull(this EndPoint<User> endPoint, string username)
+        {
+            var results = endPoint.FindAll(new UserSearchFilter(username));
+            foreach(var user in results)
+                if(user.UserName == username)
+                    return (user, null);
+            return (null, new ApiErrorException($"No user was found by the username \"{username}\"."));
+        }
+        
+        /// <summary>
+        /// Gets a user by their email address, but do not throw any errors.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for users.</param>
+        /// <param name="email">The email address of the user to search for.</param>
+        /// <returns>A tuple containing the user (if it was found), and any error (if there was one).</returns>
+        public static (User Value, Exception Error) GetByEmailAddressOrNull(this EndPoint<User> endPoint, string email)
+        {
+            var results = endPoint.FindAll(new UserSearchFilter(email));
+            foreach(var user in results)
+                if(user.EmailAddress == email)
+                    return (user, null);
+            return (null, new ApiErrorException($"No user was found by the email address \"{email}\"."));
+        }
         #endregion
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
+using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Get
 {
@@ -23,10 +24,10 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     /// </example>
     /// <para type="link">Find-Component</para>
     [Cmdlet(VerbsCommon.Get, nameof(Component),
-        DefaultParameterSetName = nameof(GetObject<Component>.ParameterSets.All)
+        DefaultParameterSetName = nameof(GetComponent.ParameterSets.All)
     )]
     [OutputType(typeof(Component))]
-    public sealed class GetComponent: GetObject<Component>
+    public sealed class GetComponent: GetObject<Component, ObjectBinding<Component>>
     {
     }
 }

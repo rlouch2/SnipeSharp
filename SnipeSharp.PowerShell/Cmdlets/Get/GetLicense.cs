@@ -1,6 +1,7 @@
 using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
+using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Get
 {
@@ -23,10 +24,10 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     /// </example>
     /// <para type="link">Find-License</para>
     [Cmdlet(VerbsCommon.Get, nameof(License),
-        DefaultParameterSetName = nameof(GetObject<License>.ParameterSets.All)
+        DefaultParameterSetName = nameof(GetLicense.ParameterSets.All)
     )]
     [OutputType(typeof(License))]
-    public sealed class GetLicense: GetObject<License>
+    public sealed class GetLicense: GetObject<License, ObjectBinding<License>>
     {
     }
 }

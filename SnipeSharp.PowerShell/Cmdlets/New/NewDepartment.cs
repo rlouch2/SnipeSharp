@@ -25,7 +25,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
         public ObjectBinding<Company> Company { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public ObjectBinding<User> Manager { get; set; }
+        public UserBinding Manager { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Location> Location { get; set; }

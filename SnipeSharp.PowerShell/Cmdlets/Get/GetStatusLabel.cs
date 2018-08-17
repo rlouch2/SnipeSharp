@@ -1,6 +1,7 @@
 using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
+using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Get
 {
@@ -23,10 +24,10 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     /// </example>
     /// <para type="link">Find-StatusLabel</para>
     [Cmdlet(VerbsCommon.Get, nameof(StatusLabel),
-        DefaultParameterSetName = nameof(GetObject<StatusLabel>.ParameterSets.All)
+        DefaultParameterSetName = nameof(GetStatusLabel.ParameterSets.All)
     )]
     [OutputType(typeof(StatusLabel))]
-    public sealed class GetStatusLabel: GetObject<StatusLabel>
+    public sealed class GetStatusLabel: GetObject<StatusLabel, ObjectBinding<StatusLabel>>
     {
     }
 }

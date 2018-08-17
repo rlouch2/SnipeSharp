@@ -71,7 +71,7 @@ namespace SnipeSharp.Models
         public int? ConsumablesCount { get; private set; }
 
         /// <value>The number of components in this category.</value>
-        [Field("copmonents_count")]
+        [Field("components_count")]
         public int? ComponentsCount { get; private set; }
 
         /// <value>The number of licenses in this category.</value>

@@ -15,21 +15,25 @@ namespace SnipeSharp.PowerShell.Cmdlets.Find
         /// <summary>
         /// <para type="description">Filter by owning company.</para>
         /// </summary>
+        [Parameter]
         public ObjectBinding<Company> Company { get; set; }
         
         /// <summary>
         /// <para type="description">Filter by accessory category.</para>
         /// </summary>
+        [Parameter]
         public ObjectBinding<Category> Category { get; set; }
 
         /// <summary>
         /// <para type="description">Filter by manufactuerer.</para>
         /// </summary>
+        [Parameter]
         public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
         /// <summary>
         /// <para type="description">Filter by supplier.</para>
         /// </summary>
+        [Parameter]
         public ObjectBinding<Supplier> Supplier { get; set; }
 
 

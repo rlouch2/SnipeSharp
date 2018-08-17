@@ -50,6 +50,8 @@ namespace  SnipeSharp.PowerShell.BindingTypes
                     (Object, Error) = endPoint.GetOrNull(id);
                 else
                     (Object, Error) = endPoint.GetOrNull(value);
+                if(Object is null)
+                    Error = new ArgumentException($"Cannot find an object for query: {value}", nameof(query));
             } else
             {
                 switch(type)

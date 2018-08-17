@@ -1,9 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Management.Automation;
-using static SnipeSharp.EndPoint.EndPointExtensions;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
-using System.Collections.Generic;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Get
 {
@@ -29,54 +28,20 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
         DefaultParameterSetName = nameof(GetAsset.ParameterSets.All)
     )]
     [OutputType(typeof(Asset))]
-    public sealed class GetAsset: PSCmdlet
+    public sealed class GetAsset: GetObject<Asset, AssetBinding>
     {
-        internal enum ParameterSets
+        internal enum AssetParameterSets
         {
             ByAssetTag,
-            ByIdentity,
-            ByInternalId,
-            ByName,
-            BySerial,
-            All
+            BySerial
         }
-
-        /// <summary>
-        /// <para type="description">A device identity for an Asset.</para>
-        /// </summary>
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByIdentity),
-            Position = 0,
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
-        )]
-        public AssetBinding[] Identity { get; set; }
-
-        /// <summary>
-        /// <para type="description">The internal Id of the Asset.</para>
-        /// </summary>
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByInternalId)
-        )]
-        public int[] InternalId { get; set; }
-
-        /// <summary>
-        /// <para type="description">The name of the Asset.</para>
-        /// </summary>
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByName)
-        )]
-        public string[] Name { get; set; }
 
         /// <summary>
         /// <para type="description">The asset tag for the Asset.</para>
         /// </summary>
         [Parameter(
             Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByAssetTag)
+            ParameterSetName = nameof(AssetParameterSets.ByAssetTag)
         )]
         public string[] AssetTag { get; set; }
 
@@ -85,95 +50,21 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
         /// </summary>
         [Parameter(
             Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.BySerial)
+            ParameterSetName = nameof(AssetParameterSets.BySerial)
         )]
         public string[] Serial { get; set; }
 
-        /// <summary>
-        /// <para type="description">If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</para>
-        /// </summary>
-        [Parameter(ParameterSetName = nameof(ParameterSets.All))]
-        public SwitchParameter NoEnumerate { get; set; }
-
         /// <inheritdoc />
-        protected override void ProcessRecord()
+        protected override IEnumerable<ObjectBinding<Asset>> GetBoundObjects()
         {
-            switch(ParameterSetName)
+            if(ParameterSetName == nameof(AssetParameterSets.ByAssetTag))
             {
-                case nameof(ParameterSets.All):
-                    var (assets, err) = ApiHelper.Instance.Assets.GetAllOrNull();
-                    if(!(err is null))
-                    {
-                        WriteError(new ErrorRecord(err, $"An error occurred retrieving all assets.", ErrorCategory.NotSpecified, null));
-                    } else
-                    {
-                        WriteObject(assets, !NoEnumerate.IsPresent);
-                    }
-                    break;
-                case nameof(ParameterSets.ByIdentity):
-                    foreach(var item in Identity)
-                    {
-                        if(item.Object is null)
-                        {
-                            WriteError(new ErrorRecord(item.Error, $"Asset not found by Identity {item.Object}", ErrorCategory.InvalidArgument, item.Query));
-                        } else
-                        {
-                            WriteObject(item.Object);
-                        }
-                    }
-                    break;
-                case nameof(ParameterSets.ByInternalId):
-                    foreach(var item in InternalId)
-                    {
-                        var (asset, error) = ApiHelper.Instance.Assets.GetOrNull(item);
-                        if(asset is null)
-                        {
-                            WriteError(new ErrorRecord(error, $"Asset not found by internal Id {item}", ErrorCategory.InvalidArgument, item));
-                        } else
-                        {
-                            WriteObject(asset);
-                        }
-                    }
-                    break;
-                case nameof(ParameterSets.ByAssetTag):
-                    foreach(var item in AssetTag)
-                    {
-                        var (asset, error) = ApiHelper.Instance.Assets.GetByTagOrNull(item);
-                        if(asset is null)
-                        {
-                            WriteError(new ErrorRecord(error, $"Asset not found by Asset Tag \"{item}\"", ErrorCategory.InvalidArgument, item));
-                        } else
-                        {
-                            WriteObject(asset);
-                        }
-                    }
-                    break;
-                case nameof(ParameterSets.ByName):
-                    foreach(var item in Name)
-                    {
-                        var (asset, error) = ApiHelper.Instance.Assets.GetOrNull(item);
-                        if(asset is null)
-                        {
-                            WriteError(new ErrorRecord(error, $"Asset not found by Name \"{item}\"", ErrorCategory.InvalidArgument, item));
-                        } else
-                        {
-                            WriteObject(asset);
-                        }
-                    }
-                    break;
-                case nameof(ParameterSets.BySerial):
-                    foreach(var item in Serial)
-                    {
-                        var (asset, error) = ApiHelper.Instance.Assets.GetBySerialOrNull(item);
-                        if(asset is null)
-                        {
-                            WriteError(new ErrorRecord(error, $"Asset not found by Serial \"{item}\"", ErrorCategory.InvalidArgument, item));
-                        } else
-                        {
-                            WriteObject(asset);
-                        }
-                    }
-                    break;
+                foreach(var item in AssetTag)
+                    yield return AssetBinding.FromTag(item);
+            } else
+            {
+                foreach(var item in Serial)
+                    yield return AssetBinding.FromSerial(item);
             }
         }
     }

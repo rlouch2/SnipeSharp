@@ -1,6 +1,8 @@
 using System.Management.Automation;
+using System.Collections.Generic;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
+using System.Linq;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
@@ -8,7 +10,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// Base class for most Get* Cmdlets, as they are fairly identical.
     /// </summary>
     /// <typeparam name="T">The type of object this cmdlet gets.</typeparam>
-    public abstract class GetObject<T>: PSCmdlet where T: CommonEndPointModel
+    public abstract class GetObject<T, IdType>: PSCmdlet where T: CommonEndPointModel where IdType: ObjectBinding<T>
     {
         internal enum ParameterSets
         {
@@ -36,7 +38,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(
             Mandatory = true,
             ParameterSetName = nameof(ParameterSets.ByName),
-            Position = 0,
             ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true
         )]
@@ -53,7 +54,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true
         )]
-        public ObjectBinding<T>[] Identity { get; set; }
+        public IdType[] Identity { get; set; }
 
         /// <summary>
         /// <para type="description">If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</para>
@@ -79,7 +80,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var name in Name)
                 {
                     var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(name);
-                    if(item is null)
+                    if(!(error is null))
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
                     } else
@@ -92,7 +93,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var id in InternalId)
                 {
                     var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(id);
-                    if(item is null)
+                    if(!(error is null))
                     {
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
                     } else
@@ -100,7 +101,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteObject(item);
                     }
                 }
-            } else
+            } else if(ParameterSetName == nameof(ParameterSets.ByIdentity))
             {
                 foreach(var item in Identity)
                 {
@@ -109,10 +110,28 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
                     } else
                     {
-                        WriteObject(item);
+                        WriteObject(item.Object);
+                    }
+                }
+            } else
+            {
+                foreach(var item in GetBoundObjects())
+                {
+                    if(item.IsNull)
+                    {
+                        WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
+                    } else
+                    {
+                        WriteObject(item.Object);
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// Get the list of object bindings to process if no default parameter set matches.
+        /// </summary>
+        protected virtual IEnumerable<ObjectBinding<T>> GetBoundObjects()
+            => Enumerable.Empty<ObjectBinding<T>>();
     }
 }
