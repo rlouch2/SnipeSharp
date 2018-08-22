@@ -55,7 +55,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
         public string[] Serial { get; set; }
 
         /// <inheritdoc />
-        protected override IEnumerable<ObjectBinding<Asset>> GetBoundObjects()
+        protected override IEnumerable<AssetBinding> GetBoundObjects()
         {
             if(ParameterSetName == nameof(AssetParameterSets.ByAssetTag))
             {

@@ -1,5 +1,6 @@
 using System.Management.Automation;
 using SnipeSharp.Models;
+using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Remove
 {
@@ -22,12 +23,12 @@ namespace SnipeSharp.PowerShell.Cmdlets.Remove
     /// </example>
     /// <para type="link">Find-Category</para>
     [Cmdlet(VerbsCommon.Remove, nameof(Category),
-        DefaultParameterSetName = nameof(RemoveObject<Category>.ParameterSets.ByName),
+        DefaultParameterSetName = nameof(RemoveObject<Category, ObjectBinding<Category>>.ParameterSets.ByName),
         ConfirmImpact = ConfirmImpact.High,
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<Category>))]
-    public sealed class RemoveCategory: RemoveObject<Category>
+    public sealed class RemoveCategory: RemoveObject<Category, ObjectBinding<Category>>
     {
     }
 }

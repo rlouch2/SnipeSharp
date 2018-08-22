@@ -10,6 +10,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// Base class for most Get* Cmdlets, as they are fairly identical.
     /// </summary>
     /// <typeparam name="T">The type of object this cmdlet gets.</typeparam>
+    /// <typeparam name="IdType">The type of the Identity property.</typeparam>
     public abstract class GetObject<T, IdType>: PSCmdlet where T: CommonEndPointModel where IdType: ObjectBinding<T>
     {
         internal enum ParameterSets
@@ -131,7 +132,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>
         /// Get the list of object bindings to process if no default parameter set matches.
         /// </summary>
-        protected virtual IEnumerable<ObjectBinding<T>> GetBoundObjects()
-            => Enumerable.Empty<ObjectBinding<T>>();
+        protected virtual IEnumerable<IdType> GetBoundObjects()
+            => Enumerable.Empty<IdType>();
     }
 }

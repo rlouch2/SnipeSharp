@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Management.Automation;
 using SnipeSharp.Models;
+using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Remove
 {
@@ -22,12 +24,43 @@ namespace SnipeSharp.PowerShell.Cmdlets.Remove
     /// </example>
     /// <para type="link">Find-User</para>
     [Cmdlet(VerbsCommon.Remove, nameof(User),
-        DefaultParameterSetName = nameof(RemoveObject<User>.ParameterSets.ByName),
+        DefaultParameterSetName = nameof(RemoveObject<User, UserBinding>.ParameterSets.ByName),
         ConfirmImpact = ConfirmImpact.High,
         SupportsShouldProcess = true
     )]
     [OutputType(typeof(RequestResponse<User>))]
-    public sealed class RemoveUser: RemoveObject<User>
+    public sealed class RemoveUser: RemoveObject<User, UserBinding>
     {
+        internal enum UserParameterSets
+        {
+            ByUserName,
+            ByEmailAddress
+        }
+
+        /// <summary>
+        /// <para type="description">The username for the User.</para>
+        /// </summary>
+        [Parameter(Mandatory = true, ParameterSetName = nameof(UserParameterSets.ByUserName), ValueFromPipelineByPropertyName = true)]
+        public string[] UserName { get; set; }
+
+        /// <summary>
+        /// <para type="description">The email address for the User.</para>
+        /// </summary>
+        [Parameter(Mandatory = true, ParameterSetName = nameof(UserParameterSets.ByEmailAddress), ValueFromPipelineByPropertyName = true)]
+        public string[] EmailAddress { get; set; }
+
+        /// <inheritdoc />
+        protected override IEnumerable<UserBinding> GetBoundObjects()
+        {
+            if(ParameterSetName == nameof(UserParameterSets.ByUserName))
+            {
+                foreach(var item in UserName)
+                    yield return UserBinding.FromUserName(item);
+            } else
+            {
+                foreach(var item in EmailAddress)
+                    yield return UserBinding.FromEmailAddress(item);
+            }
+        }
     }
 }

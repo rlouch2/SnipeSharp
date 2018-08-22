@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
@@ -8,7 +10,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// Base class for most Remove* Cmdlets, as they are fairly identical.
     /// </summary>
     /// <typeparam name="T">The type of object this cmdlet gets.</typeparam>
-    public abstract class RemoveObject<T>: PSCmdlet where T: CommonEndPointModel
+    /// <typeparam name="IdType">The type of the Identity property.</typeparam>
+    public abstract class RemoveObject<T, IdType>: PSCmdlet where T: CommonEndPointModel where IdType: ObjectBinding<T>
     {
         internal enum ParameterSets
         {
@@ -20,25 +23,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>
         /// <para type="description">The name of the Object.</para>
         /// </summary>
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByInternalId),
-            Position = 0,
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
-        )]
+        [Parameter(Mandatory = true, ParameterSetName = nameof(ParameterSets.ByInternalId), ValueFromPipelineByPropertyName = true)]
         public int[] InternalId { get; set; }
 
         /// <summary>
         /// <para type="description">The internal Id of the Object.</para>
         /// </summary>
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByName),
-            Position = 0,
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
-        )]
+        [Parameter(Mandatory = true, ParameterSetName = nameof(ParameterSets.ByName), ValueFromPipelineByPropertyName = true)]
         public string[] Name { get; set; }
 
 
@@ -52,7 +43,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true
         )]
-        public ObjectBinding<T>[] Identity { get; set; }
+        public IdType[] Identity { get; set; }
 
         /// <summary>
         /// <para type="description">If present, write the response from the Api to the pipeline.</para>
@@ -93,7 +84,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                             WriteObject(response);
                     }
                 }
-            } else
+            } else if(ParameterSetName == nameof(ParameterSets.ByIdentity))
             {
                 foreach(var item in Identity)
                 {
@@ -107,7 +98,27 @@ namespace SnipeSharp.PowerShell.Cmdlets
                             WriteObject(response);
                     }
                 }
+            } else
+            {
+                foreach(var item in GetBoundObjects())
+                {
+                    if(item.IsNull)
+                    {
+                        WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
+                    } else
+                    {
+                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Object.Id);
+                        if(ShowResponse.IsPresent)
+                            WriteObject(response);
+                    }
+                }
             }
         }
+
+        /// <summary>
+        /// Get the list of object bindings to process if no default parameter set matches.
+        /// </summary>
+        protected virtual IEnumerable<IdType> GetBoundObjects()
+            => Enumerable.Empty<IdType>();
     }
 }

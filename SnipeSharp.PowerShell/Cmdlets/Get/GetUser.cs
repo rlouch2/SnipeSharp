@@ -49,7 +49,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
         public string[] EmailAddress { get; set; }
 
         /// <inheritdoc />
-        protected override IEnumerable<ObjectBinding<User>> GetBoundObjects()
+        protected override IEnumerable<UserBinding> GetBoundObjects()
         {
             if(ParameterSetName == nameof(UserParameterSets.ByUserName))
             {
