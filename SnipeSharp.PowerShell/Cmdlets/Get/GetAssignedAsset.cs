@@ -42,6 +42,9 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
         public SwitchParameter Locations { get; set; }
         */
 
+        /// <summary>
+        /// <para type="description">If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</para>
+        /// </summary>
         [Parameter]
         public SwitchParameter NoEnumerate { get; set; }
 

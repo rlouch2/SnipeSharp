@@ -86,7 +86,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
                     } else
                     {
-                        WriteObject(item);
+                        WriteObject(item, !NoEnumerate.IsPresent);
                     }
                 }
             } else if(ParameterSetName == nameof(ParameterSets.ByInternalId))
@@ -99,7 +99,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
                     } else
                     {
-                        WriteObject(item);
+                        WriteObject(item, !NoEnumerate.IsPresent);
                     }
                 }
             } else if(ParameterSetName == nameof(ParameterSets.ByIdentity))
@@ -111,7 +111,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
                     } else
                     {
-                        WriteObject(item.Object);
+                        WriteObject(item.Object, !NoEnumerate.IsPresent);
                     }
                 }
             } else
@@ -123,7 +123,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
                     } else
                     {
-                        WriteObject(item.Object);
+                        WriteObject(item.Object, !NoEnumerate.IsPresent);
                     }
                 }
             }
