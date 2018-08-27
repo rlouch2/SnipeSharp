@@ -4,6 +4,7 @@
 #
 @{
   RootModule = 'SnipeSharp.PowerShell.dll'
+  DefaultCommandPrefix = 'Snipe'
 
   # Version number of this module.
   ModuleVersion = '1.0'
@@ -58,8 +59,4 @@
 
   # HelpInfo URI of this module
   # HelpInfoURI = ''
-
-  # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
-  # TODO: use something like "Inv"? Or rename cmdlets?
-  # DefaultCommandPrefix = ''
 }
