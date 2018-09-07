@@ -14,8 +14,13 @@ namespace SnipeSharp.Serialization
         {
             var rawDictionary = serializer.Deserialize<Dictionary<string, int>>(reader);
             var newDictionary = new Dictionary<string, bool>();
-            foreach(var pair in rawDictionary)
-                newDictionary[pair.Key] = pair.Value != 0;
+            if(!(rawDictionary is null))
+            {
+                foreach(var pair in rawDictionary)
+                {
+                    newDictionary[pair.Key] = pair.Value != 0;
+                }
+            }
             return newDictionary;
         }
 
