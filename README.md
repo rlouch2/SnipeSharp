@@ -142,7 +142,7 @@ snipe.Assets.Update(asset);
 Get all assets from made by a certain manufacturer
 ```csharp
 var filter = new AssetSearchFilter {
-    Manufacturer = snipe.ManufacturerManager.Get("Lenovo")
+    Manufacturer = snipe.Manufacturers.Get("Lenovo")
 };
 
 var result = snipe.Assets.FindAll(filter);
