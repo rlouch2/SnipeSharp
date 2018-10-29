@@ -46,7 +46,7 @@ snipe.Assets.GetAll()
 ```
 
 > ```powershell
-> PS C:\> Find-Asset
+> PS C:\> Get-Asset
 > ```
 
 Or, in a generic form:
@@ -74,7 +74,7 @@ snipe.GetEndPoint<T>().Get(int Id)
 ```
 
 > ```powershell
-> PS C:\> Get-Asset "Id"
+> PS C:\> Get-Asset $Id
 > ```
 
 Search for object with given name
@@ -106,7 +106,7 @@ snipe.GetEndPoint<T>().Delete(int id)
 ```
 
 > ```powershell
-> PS C:\> Remove-Asset "Id"
+> PS C:\> Remove-Asset $Id
 > ```
 
 ## Examples
