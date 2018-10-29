@@ -1,19 +1,19 @@
 # SnipeSharp
 
-A .NET wrapper for the Snipe IT API written (poorly) in C#.
+A .NET wrapper for the Snipe IT API written (poorly) in C# for C# and PowerShell.
 
 ## Before You Dive In
 
-The goal of this project is to give easy access to all endpoints of the Snipe IT API via C#.  With that said, this build is currently a rough demo. Most of the endpoints work as expected but plan on things breaking or not working 100%.
+The goal of this project is to give easy access to all endpoints of the Snipe IT API via C# and PowerShell. With that said, this build is currently a rough demo. Most of the endpoints work as expected but plan on things breaking or not working 100%.
 
-This project was built to support my own needs.  As such features are being worked on in the order I personally need them. However, if you want a feature or find a bug please open an issue. 
+This project was built to support my own needs. As such, features are being worked on in the order I personally need them. However, if you want a feature or find a bug please open an issue. 
 
-Final note, this is my first C# project of this scale.  I'm not up on all the best practices.  If you see something I've done that should be done differently, I encourage you to let me know. 
+If you see something we've done that should be done differently, we encourage you to let us know.
 
 ### Prerequisites
 
 ```
-A Working Install of Snipe IT V4+
+A Working Install of Snipe IT V4.6.5+
 ```
 
 ## Installation
@@ -31,6 +31,10 @@ SnipeItApi snipe = new SnipeItApi {
 };
 ```
 
+> ```powershell
+> PS C:\> Connect-SnipeInstance -Token "XXXXXXXX" -Uri "http://xxxxx.com/api/v1"
+> ```
+
 Each endpoint has its own manager assigned to the SnipeItApi object.  Example, SnipeItApi.Assets 
 
 Each endpoint has a common set of actions. Additional methods for each endpoint are made available as extensions in the EndPointExtensions class.
@@ -40,6 +44,10 @@ Return all objects at this end point
 ```csharp
 snipe.Assets.GetAll()
 ```
+
+> ```powershell
+> PS C:\> Find-Asset
+> ```
 
 Or, in a generic form:
 ```csharp
@@ -51,6 +59,10 @@ Find all objects matching certain filtering criteria
 snipe.GetEndPoint<T>().FindAll(ISearchFilter filter)
 ```
 
+> ```powershell
+> PS C:\> Find-Asset @filter
+> ```
+
 Find first object matching search criteria
 ```csharp
 snipe.GetEndPoint<T>().FindOne(ISearchFilter filter)
@@ -60,6 +72,10 @@ Get object with ID
 ```csharp
 snipe.GetEndPoint<T>().Get(int Id)
 ```
+
+> ```powershell
+> PS C:\> Get-Asset "Id"
+> ```
 
 Search for object with given name
 ```csharp
@@ -71,15 +87,27 @@ Create an object
 snipe.GetEndPoint<T>().Create(T item)
 ```
 
+> ```powershell
+> PS C:\> New-Asset @properties
+> ```
+
 Update an object
 ```csharp
 snipe.GetEndPoint<T>().Update(T item)
 ```
 
+> ```powershell
+> PS C:\> Set-Asset @properties
+> ```
+
 Delete an object
 ```csharp
 snipe.GetEndPoint<T>().Delete(int id)
 ```
+
+> ```powershell
+> PS C:\> Remove-Asset "Id"
+> ```
 
 ## Examples
 
@@ -96,12 +124,20 @@ var asset = new Asset {
 snipe.Assets.Create(asset);
 ```
 
+> ```powershell
+> PS C:\> New-Asset -Name "Loaner 1" -AssetTag 12345678 -Model Lenovo -Status "Ready to Deploy" -Location Maine
+> ```
+
 Update an Asset
 ```csharp
 var asset = snipe.Assets.Get("Loaner1");
 asset.Serial = "1i37dpc3k";
 snipe.Assets.Update(asset);
 ```
+
+> ```powershell
+> PS C:\> Set-Asset -Name "Loaner1" -NewSerial "1i37dpc3k"
+> ```
 
 Get all assets from made by a certain manufacturer
 ```csharp
@@ -111,6 +147,10 @@ var filter = new AssetSearchFilter {
 
 var result = snipe.Assets.FindAll(filter);
 ```
+
+> ```powershell
+> PS C:\> Find-Asset -Manufacturer Lenovo
+> ```
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
