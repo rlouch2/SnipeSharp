@@ -39,6 +39,9 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
 
         [Parameter]
         public ObjectBinding<Location> ParentLocation { get; set; }
+
+        [Parameter]
+        public UserBinding Manager { get; set; }
         
         /// <inheritdoc />
         protected override void PopulateItem(Location item)
@@ -61,6 +64,8 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
                 item.Currency = this.Currency;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ParentLocation)))
                 item.ParentLocation = this.ParentLocation?.Object;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
+                item.Manager = this.Manager?.Object;
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Locations.Update(item));
         }

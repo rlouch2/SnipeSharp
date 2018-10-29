@@ -37,6 +37,9 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Location> ParentLocation { get; set; }
 
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public UserBinding Manager { get; set; }
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
@@ -49,7 +52,8 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
                 Country = this.Country,
                 ZipCode = this.ZipCode,
                 Currency = this.Currency,
-                ParentLocation = this.ParentLocation?.Object
+                ParentLocation = this.ParentLocation?.Object,
+                Manager = this.Manager?.Object
             };
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Locations.Create(item));

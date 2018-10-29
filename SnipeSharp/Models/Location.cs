@@ -86,10 +86,9 @@ namespace SnipeSharp.Models
         /// <remarks>
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// <para>This is not currently setable.</para>
         /// </remarks>
-        [Field("manager", converter: CommonModelConverter)]
-        public User Manager { get; private set; }
+        [Field("manager", "manager_id", converter: CommonModelConverter)]
+        public User Manager { get; set; }
 
         /// <value>The list of child locations for this location.</value>
         /// <remarks>When deserialized, these values do not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</remarks>
