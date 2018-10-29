@@ -74,7 +74,7 @@ namespace SnipeSharp.EndPoint
                 NextAuditDate = nextAuditDate,
                 Note = notes
             };
-            return endPoint.Api.RequestManager.Post<AssetAudit, AssetAudit>($"{endPoint.EndPointInfo.BaseUri}/audit", audit);
+            return endPoint.Api.RequestManager.Post<AssetAudit>($"{endPoint.EndPointInfo.BaseUri}/audit", audit);
         }
 
         /// <summary>
@@ -144,26 +144,30 @@ namespace SnipeSharp.EndPoint
             => endPoint.Api.RequestManager.GetAll<ComponentAssignee>($"{endPoint.EndPointInfo.BaseUri}/{component.Id}/assets");
         #endregion
         #region CustomField
-        //TODO: return type
-        public static object Associate(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet)
+        public static RequestResponse<FieldSet> Associate(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet, bool required = false, int? order = null)
         {
-            // TODO
-            return null;
+            var obj = new CustomFieldAssociation { FieldSet = fieldSet };
+            if(required)
+                obj.IsRequired = true;
+            if(!(order is null))
+                obj.Order = order.Value;
+            return endPoint.Api.RequestManager.Post<CustomFieldAssociation, FieldSet>($"{endPoint.EndPointInfo.BaseUri}/{field.Id}/associate", obj);
         }
 
-        //TODO: return type
-        public static object Disassociate(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet)
-        {
-            // TODO
-            return null;
-        }
+        public static RequestResponse<FieldSet> Disassociate(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet)
+            => endPoint.Api.RequestManager.Post<CustomFieldAssociation, FieldSet>($"{endPoint.EndPointInfo.BaseUri}/{field.Id}/disassociate", new CustomFieldAssociation { FieldSet = fieldSet });
 
-        //TODO: return type, signature
-        public static object Reorder(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet)
+        public static RequestResponse<ApiObject> Reorder(this EndPoint<CustomField> endPoint, FieldSet fieldSet, IList<CustomField> customFields)
         {
-            // TODO
-            return null;
+            var arr = new CustomField[customFields.Count];
+            customFields.CopyTo(arr, 0);
+            return Reorder(endPoint, fieldSet, arr);
         }
+        
+        public static RequestResponse<ApiObject> Reorder(this EndPoint<CustomField> endPoint, FieldSet fieldSet, params CustomField[] customFields)
+            => endPoint.Api.RequestManager.Post<CustomFieldReordering, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/fieldsets/{fieldSet.Id}/order", new CustomFieldReordering { Fields = customFields });
+        
+
         #endregion
         #region FieldSet
         public static ResponseCollection<CustomField> GetFields(this EndPoint<FieldSet> endPoint, FieldSet fieldSet)

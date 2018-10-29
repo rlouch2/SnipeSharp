@@ -22,6 +22,9 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.CommonModelConverter:
                         property.Converter = CustomCommonModelConverter.Instance;
                         break;
+                    case FieldConverter.CommonModelArrayConverter:
+                        property.Converter = CustomCommonModelArrayConverter.Instance;
+                        break;
                     case FieldConverter.TimeSpanConverter:
                         property.Converter = CustomTimeSpanConverter.Instance;
                         break;

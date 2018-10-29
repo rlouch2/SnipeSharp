@@ -34,6 +34,9 @@ namespace SnipeSharp.Serialization
 
         /// <seealso cref="CustomCommonModelConverter" />
         CommonModelConverter,
+
+        /// <seealso cref="CustomCommonModelArrayConverter" />
+        CommonModelArrayConverter,
         
         /// <seealso cref="CustomAssetStatusConverter" />
         AssetStatusConverter,
