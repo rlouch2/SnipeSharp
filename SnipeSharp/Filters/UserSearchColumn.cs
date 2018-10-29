@@ -37,16 +37,22 @@ namespace SnipeSharp.Filters
         /// <summary>The user's employee number.</summary>
         [EnumMember(Value = "employee_num")]
         EmployeeNumber,
-        [EnumMember(Value = "assets")]
-        Assets,
-        [EnumMember(Value = "accessories")]
-        Accessories,
-        [EnumMember(Value = "consumables")]
-        Consumables,
-        [EnumMember(Value = "licenses")]
-        Licenses,
-        [EnumMember(Value = "groups")]
-        Groups,
+        
+        /* These columns, while technically present in the allowed column list,
+         * will cause many errors if you try to actually use them.
+         * I'm disabling them for now, maybe these'll be fixed in the future.
+         *
+         * [EnumMember(Value = "assets")]
+         * Assets,
+         * [EnumMember(Value = "accessories")]
+         * Accessories,
+         * [EnumMember(Value = "consumables")]
+         * Consumables,
+         * [EnumMember(Value = "licenses")]
+         * Licenses,
+         * [EnumMember(Value = "groups")]
+         * Groups,
+         */
         /// <summary>Whether or not the user is activated.</summary>
         [EnumMember(Value = "activated")]
         IsActivated,

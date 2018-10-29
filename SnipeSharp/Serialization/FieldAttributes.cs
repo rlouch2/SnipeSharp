@@ -25,17 +25,38 @@ namespace SnipeSharp.Serialization
         }
     }
 
+    /// <summary>
+    /// Converters for various fields.
+    /// </summary>
     internal enum FieldConverter
     {
         None,
+
+        /// <seealso cref="CustomCommonModelConverter" />
         CommonModelConverter,
+        
+        /// <seealso cref="CustomAssetStatusConverter" />
         AssetStatusConverter,
+        
+        /// <seealso cref="CustomMonthsConverter" />
         MonthsConverter,
+        
+        /// <seealso cref="CustomDateTimeConverter" />
         DateTimeConverter,
+        
+        /// <seealso cref="CustomTimeSpanConverter" />
         TimeSpanConverter,
+        
+        /// <seealso cref="CustomIntBoolDictionaryConverter" />
         PermissionsConverter,
+        
+        /// <seealso cref="CustomMessageConverter" />
         MessagesConverter,
+        
+        /// <seealso cref="CustomAvailableActionsConverter" />
         AvailableActionsConverter,
+        
+        /// <seealso cref="CustomFieldDictionaryConverter" />
         CustomFieldDictionaryConverter
     }
 }

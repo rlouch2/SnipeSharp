@@ -56,11 +56,25 @@ namespace SnipeSharp.EndPoint
         public static RequestResponse<ApiObject> CheckIn(this EndPoint<Asset> endPoint, AssetCheckInRequest request)
             => endPoint.Api.RequestManager.Post<AssetCheckInRequest, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/{request.Asset.Id}/checkin", request);
 
-        // TODO: return type, signature
-        public static object Audit(this EndPoint<Asset> endPoint, Asset asset, Location location = null, DateTime? nextAuditDate = null, string notes = null)
+        /// <summary>
+        /// Marks an asset as audited.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for assets.</param>
+        /// <param name="asset">An asset to audit.</param>
+        /// <param name="location">The location of the audit.</param>
+        /// <param name="nextAuditDate">The date of the next audit.</param>
+        /// <param name="notes">A note for the audit log.</param>
+        /// <returns>An <see cref="AssetAudit"/> with no location, </returns>
+        public static RequestResponse<AssetAudit> Audit(this EndPoint<Asset> endPoint, Asset asset, Location location = null, DateTime? nextAuditDate = null, string notes = null)
         {
-            //TODO
-            return null;
+            var audit = new AssetAudit
+            {
+                Asset = asset,
+                Location = location,
+                NextAuditDate = nextAuditDate,
+                Note = notes
+            };
+            return endPoint.Api.RequestManager.Post<AssetAudit, AssetAudit>($"{endPoint.EndPointInfo.BaseUri}/audit", audit);
         }
 
         /// <summary>
