@@ -125,7 +125,7 @@ snipe.Assets.Create(asset);
 ```
 
 > ```powershell
-> PS C:\> New-Asset -Name "Loaner 1" -AssetTag 12345678 -Model Lenovo -Status "Ready to Deploy" -Location Maine
+> PS C:\> New-Asset -Name "Loaner1" -AssetTag 12345678 -Model Lenovo -Status "Ready to Deploy" -Location Maine
 > ```
 
 Update an Asset
