@@ -22,7 +22,20 @@ namespace SnipeSharp.Tests
         }
         internal static List<POSH.ErrorRecord> PSHasErrorRecord(string script)
         {
-            var list = new List<POSH.ErrorRecord>();
+            ExecuteScript(script, out _, out var errors);
+            return errors;
+        }
+
+        internal static List<POSH.PSObject> PSHasOutput(string script)
+        {
+            ExecuteScript(script, out var output, out _);
+            return output;
+        }
+
+        private static void ExecuteScript(string script, out List<POSH.PSObject> output, out List<POSH.ErrorRecord> errors)
+        {
+            errors = new List<POSH.ErrorRecord>();
+            output = new List<POSH.PSObject>();
             using(var posh = POSH.PowerShell
                 #if NETCORE
                 .Create()
@@ -31,11 +44,10 @@ namespace SnipeSharp.Tests
                 #endif
                 .AddScript($"Import-Module {Path.Combine(Environment.CurrentDirectory, "SnipeSharp.PowerShell.psd1")}").AddScript(script))
             {
-                posh.Invoke();
+                output.AddRange(posh.Invoke());
                 if(posh.HadErrors)
-                    list.AddRange(posh.Streams.Error);
+                    errors.AddRange(posh.Streams.Error);
             }
-            return list;
         }
     }
 }

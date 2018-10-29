@@ -19,7 +19,7 @@ namespace SnipeSharp.Tests.PowerShell
         public void CanDisconnectWhenNotConnected()
         {
             var errors = PSAssert.PSHasErrorRecord(@"
-                Disconnect-SnipeIT
+                Disconnect-SnipeInstance
             ");
             Assert.Empty(errors);
             Assert.False(ApiHelper.HasApiInstance);
@@ -30,8 +30,8 @@ namespace SnipeSharp.Tests.PowerShell
         {
             Utility.QueueResponseFromFile("./Resources/IndividualModels/user.json");
             var errors = PSAssert.PSHasErrorRecord(@"
-                Connect-SnipeIT -Uri 'http://not.exist.localhost/api/v1' -Token 'xxxx'
-                Disconnect-SnipeIT
+                Connect-SnipeInstance -Uri 'http://not.exist.localhost/api/v1' -Token 'xxxx'
+                Disconnect-SnipeInstance
             ");
             Assert.Empty(errors);
             Assert.False(ApiHelper.HasApiInstance);

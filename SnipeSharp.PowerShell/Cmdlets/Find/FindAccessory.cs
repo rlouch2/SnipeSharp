@@ -6,6 +6,22 @@ using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Find
 {
+    /// <summary>
+    /// <para type="synopsis">Finds a Snipe IT accessory.</para>
+    /// <para type="description">The Find-Accessory cmdlet finds accessory objects by filter, company, category, manufacturer, or supplier.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Find-Accessory</code>
+    ///   <para>Finds all accessories.</para>
+    /// </example>
+    /// <example>
+    ///   <code>Find-Accessory "PotatoPeeler"</code>
+    ///   <para>Finds accessories that match the search string "PotatoPeeler".</para>
+    /// </example>
+    /// <example>
+    ///   <code>Find-Accessory -Company $x</code>
+    ///   <para>Finds accessories owned by the company stored in $x.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Find, nameof(Accessory),
         SupportsPaging = true
     )]
