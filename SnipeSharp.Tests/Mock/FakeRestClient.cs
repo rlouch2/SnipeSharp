@@ -69,7 +69,13 @@ namespace SnipeSharp.Tests.Mock
         public IRestResponse Execute(IRestRequest request)
             => Response;
 
+        public IRestResponse Execute(IRestRequest request, Method httpMethod)
+            => Response;
+
         public IRestResponse<T> Execute<T>(IRestRequest request) where T : new()
+            => null;
+
+        public IRestResponse<T> Execute<T>(IRestRequest request, Method httpMethod) where T: new()
             => null;
 
         public IRestResponse ExecuteAsGet(IRestRequest request, string httpMethod)
@@ -87,7 +93,13 @@ namespace SnipeSharp.Tests.Mock
         public RestRequestAsyncHandle ExecuteAsync(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback)
             => null;
 
+        public RestRequestAsyncHandle ExecuteAsync(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback, Method httpMethod)
+            => null;
+        
         public RestRequestAsyncHandle ExecuteAsync<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback)
+            => null;
+
+        public RestRequestAsyncHandle ExecuteAsync<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback, Method httpMethod)
             => null;
 
         public RestRequestAsyncHandle ExecuteAsyncGet(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback, string httpMethod)
@@ -128,11 +140,18 @@ namespace SnipeSharp.Tests.Mock
         public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request, CancellationToken token)
             => null;
 
+        public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request, Method httpMethod)
+            => null;
+
         public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request)
             => null;
 
         public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request, CancellationToken token)
             => null;
+
+        public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request, CancellationToken token, Method httpMethod)
+            => null;
+
         public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request)
             => null;
 
