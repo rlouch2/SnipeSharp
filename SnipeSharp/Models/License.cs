@@ -75,12 +75,6 @@ namespace SnipeSharp.Models
         [Field("expiration_date", true, converter: DateTimeConverter)]
         public DateTime? ExpirationDate { get; private set; }
 
-        /* TODO: this is disabled as it cannot be retrieved from the API.
-         * /// <value>The date this license was terminated. This is not the <see cref="ExpirationDate"/>!</value>
-         * [Field("termination_date", true, converter: DateTimeConverter)]
-         * public DateTime? TerminationDate { get; private set; }
-         */
-
         /// <value>The number of seats this license is good for.</value>
         /// <remarks>This field is required.</remarks>
         [Field("seats", true, required: true)]
@@ -133,11 +127,5 @@ namespace SnipeSharp.Models
         /// <value>Gets/sets the supplier who sold this license.</value>
         [Field("supplier", "supplier_id", converter: CommonModelConverter)]
         public Supplier Supplier { get; set; }
-
-        /* TODO: there isn't currently a way to get this from the API.
-         * /// <value>Gets/sets the termination date.</value>
-         * [Field("termination_date", true, converter: DateTimeConverter)]
-         * public DateTime? TerminationDate { get; set; }
-         */
     }
 }

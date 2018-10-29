@@ -98,11 +98,5 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field("available_actions", converter: AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
-
-        /* TODO: not currently possible to get the LDAP OU.
-         * /// <value>Gets/sets the LDAP OU associated with this location.</value>
-         * [Field("ldap_ou", true)]
-         * public string LDAPOU { get; set; }
-         */
     }
 }

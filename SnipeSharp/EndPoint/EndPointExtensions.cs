@@ -28,7 +28,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="endPoint">An endpoint for assets.</param>
         /// <param name="request">An asset check-out request.</param>
         /// <returns></returns>
-        // TODO: is there a better return type?
         public static RequestResponse<ApiObject> CheckOut(this EndPoint<Asset> endPoint, AssetCheckOutRequest request)
             => endPoint.Api.RequestManager.Post<AssetCheckOutRequest, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/{request.Asset.Id}/checkout", request);
 
@@ -39,7 +38,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="asset">An asset to check in.</param>
         /// <param name="note">An optional message for the check-in log.</param>
         /// <returns></returns>
-        // TODO: is there a better return type?
         public static RequestResponse<ApiObject> CheckIn(this EndPoint<Asset> endPoint, Asset asset, string note = null)
             => endPoint.CheckIn(new AssetCheckInRequest(asset){
                 AssetName = asset.Name,
@@ -52,7 +50,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="endPoint">An endpoint for assets.</param>
         /// <param name="request">An asset check-in request.</param>
         /// <returns></returns>
-        // TODO: is there a better return type?
         public static RequestResponse<ApiObject> CheckIn(this EndPoint<Asset> endPoint, AssetCheckInRequest request)
             => endPoint.Api.RequestManager.Post<AssetCheckInRequest, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/{request.Asset.Id}/checkin", request);
 
