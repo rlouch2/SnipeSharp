@@ -25,7 +25,7 @@ namespace SnipeSharp.Models
         public override string Name { get; set; }
 
         /// <value>Gets the CustomFields in this FieldSet.</value>
-        /// <remarks>To set the fields in a set, see <see cref="EndPointExtensions.Associate(EndPoint{CustomField}, CustomField, FieldSet)"/> and <see cref="EndPointExtensions.Disassociate(EndPoint{CustomField}, CustomField, FieldSet)" />.</remarks>
+        /// <remarks>To set the fields in a set, see <see cref="EndPointExtensions.Associate(EndPoint{CustomField}, CustomField, FieldSet, bool, int?)"/> and <see cref="EndPointExtensions.Disassociate(EndPoint{CustomField}, CustomField, FieldSet)" />.</remarks>
         [Field("fields")]
         public ResponseCollection<CustomField> Fields { get; private set; }
 

@@ -12,12 +12,10 @@ namespace SnipeSharp.PowerShell.Cmdlets.Find
     [OutputType(typeof(Asset))]
     public class FindAsset: FindObject<Asset, AssetSearchColumn, AssetSearchFilter>
     {
-        // TODO: parameters
-
         /// <inheritdoc />
         protected override void PopulateFilter(AssetSearchFilter filter)
         {
-            //TODO: parameters
+            //nop
         }
     }
 }
