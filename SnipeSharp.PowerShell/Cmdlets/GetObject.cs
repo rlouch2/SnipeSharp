@@ -13,6 +13,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="IdType">The type of the Identity property.</typeparam>
     public abstract class GetObject<T, IdType>: PSCmdlet where T: CommonEndPointModel where IdType: ObjectBinding<T>
     {
+        /// <summary>
+        /// Parameter sets supported by Get* cmdlets.
+        /// </summary>
         internal enum ParameterSets
         {
             ByIdentity,

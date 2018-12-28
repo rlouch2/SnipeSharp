@@ -11,9 +11,9 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Company))]
     public class SetCompany: SetObject<Company>
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-        public ObjectBinding<Company> Company { get; set; }
-
+        /// <summary>
+        /// The new name of the company.
+        /// </summary>
         [Parameter]
         [ValidateNotNullOrEmpty]
         public string NewName { get; set; }

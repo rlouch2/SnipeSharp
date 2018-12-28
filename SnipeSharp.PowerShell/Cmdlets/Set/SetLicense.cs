@@ -10,58 +10,110 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(License))]
     public class SetLicense: SetObject<License>
     {
+        /// <summary>
+        /// The new name of the license.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The update company that owns the license.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The new depreciation to use for the license.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Depreciation> Depreciation { get; set; }
 
+        /// <summary>
+        /// The updated manufacturer of the product the license is for.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
+        /// <summary>
+        /// The updated license product key.
+        /// </summary>
         [Parameter]
         public string ProductKey { get; set; }
 
+        /// <summary>
+        /// The udpated order the license was purchased in, supplied by the supplier.
+        /// </summary>
         [Parameter]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The updated order the license was purchased in, supplied by the purchaser.
+        /// </summary>
+        /// <value></value>
         [Parameter]
         public string PurchaseOrder { get; set; }
 
+        /// <summary>
+        /// The updated purchase date of the license.
+        /// </summary>
         [Parameter]
         public DateTime PurchaseDate { get; set; }
 
+        /// <summary>
+        /// The updated purchase cost of the license.
+        /// </summary>
         [Parameter]
         public decimal PurchaseCost { get; set; }
 
+        /// <summary>
+        /// Any notes for the license.
+        /// </summary>
         [Parameter]
         public string Notes { get; set; }
 
         /*[Parameter]
         public DateTime ExpirationDate { get; set; }*/
 
+        /// <summary>
+        /// The updated seat coutn for the license.
+        /// </summary>
         [Parameter]
         public int Seats { get; set; }
 
+        /// <summary>
+        /// The updated licensee name.
+        /// </summary>
         [Parameter]
         public string LicensedToName { get; set; }
 
+        /// <summary>
+        /// The updated licensee email address.
+        /// </summary>
         [Parameter]
         public string LicensedToEmailAddress { get; set; }
 
+        /// <summary>
+        /// Is the license maintained?
+        /// </summary>
         [Parameter]
         public bool IsMaintained { get; set; }
 
+        /// <summary>
+        /// The updated category of the license.
+        /// </summary>
         [Parameter]
         [ValidateIdentityNotNull]
         public ObjectBinding<Category> Category { get; set; }
 
+        /// <summary>
+        /// Are seats on this license reassignable?
+        /// </summary>
         [Parameter]
         public bool IsReassignable { get; set; }
         
+        /// <summary>
+        /// The updated supplier that sold the license.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Supplier> Supplier { get; set; }
 

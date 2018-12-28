@@ -10,43 +10,83 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Supplier))]
     public class SetSupplier: SetObject<Supplier>
     {
+        /// <summary>
+        /// The new name of the supplier.
+        /// </summary>
         [Parameter(Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated uri of the image for the supplier.
+        /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
 
+        /// <summary>
+        /// The supplier's updated address line.
+        /// </summary>
         [Parameter]
         public string Address { get; set; }
 
+        /// <summary>
+        /// The supplier's updated second address line.
+        /// </summary>
         [Parameter]
         public string Address2 { get; set; }
 
+        /// <summary>
+        /// The supplier's updated address city.
+        /// </summary>
         [Parameter]
         public string City { get; set; }
 
+        /// <summary>
+        /// The supplier's updated address state.
+        /// </summary>
         [Parameter]
         public string State { get; set; }
 
+        /// <summary>
+        /// The supplier's updated address country.
+        /// </summary>
         [Parameter]
         public string Country { get; set; }
 
+        /// <summary>
+        /// The supplier's updated address zip code.
+        /// </summary>
         [Parameter]
         public string ZipCode { get; set; }
 
+        /// <summary>
+        /// The supplier contact's updated fax number.
+        /// </summary>
         [Parameter]
         public string FaxNumber { get; set; }
 
+        /// <summary>
+        /// The supplier contact's updated phone number.
+        /// </summary>
         [Parameter]
         public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// The supplier contact's updated email address.
+        /// </summary>
         [Parameter]
         public string EmailAddress { get; set; }
 
+        /// <summary>
+        /// The updated name of the supplier contact.
+        /// </summary>
+        /// <value></value>
         [Parameter]
         public string Contact { get; set; }
 
+        /// <summary>
+        /// Any notes about the supplier.
+        /// </summary>
         [Parameter]
         public string Notes { get; set; }
         

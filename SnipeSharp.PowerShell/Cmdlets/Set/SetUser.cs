@@ -10,61 +10,117 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(User))]
     public class SetUser: SetObject<User>
     {
+        /// <summary>
+        /// The updated uri of the image for the user's avatar.
+        /// </summary>
         [Parameter]
         public Uri AvatarUrl { get; set; }
 
+        /// <summary>
+        /// The user's new first name.
+        /// </summary>
         [Parameter]
         [ValidateNotNullOrEmpty]
         public string FirstName { get; set; }
 
+        /// <summary>
+        /// The user's new surname.
+        /// </summary>
         [Parameter]
         public string LastName { get; set; }
 
+        /// <summary>
+        /// The updated unique username for the user.
+        /// </summary>
         [Parameter]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// The updated password for the user.
+        /// </summary>
         [Parameter]
         public string Password { get; set; }
 
+        /// <summary>
+        /// The updated employee number for the user.
+        /// </summary>
         [Parameter]
         public string EmployeeNumber { get; set; }
 
+        /// <summary>
+        /// The new manager for the user.
+        /// </summary>
         [Parameter]
         public UserBinding Manager { get; set; }
 
+        /// <summary>
+        /// The updated position of the user.
+        /// </summary>
         [Parameter]
         public string JobTitle { get; set; }
 
+        /// <summary>
+        /// The updated phone number to contact the user.
+        /// </summary>
+        /// <value></value>
         [Parameter]
         public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// The user's updated street address.
+        /// </summary>
         [Parameter]
         public string Address { get; set; }
 
+        /// <summary>
+        /// The user's updated address city.
+        /// </summary>
         [Parameter]
         public string City { get; set; }
 
+        /// <summary>
+        /// The user's updated address country.
+        /// </summary>
         [Parameter]
         public string Country { get; set; }
 
+        /// <summary>
+        /// The user's updated address state.
+        /// </summary>
         [Parameter]
         public string State { get; set; }
 
+        /// <summary>
+        /// The user's updated address zip code.
+        /// </summary>
         [Parameter]
         public string ZipCode { get; set; }
 
+        /// <summary>
+        /// The updated email address for the user.
+        /// </summary>
         [Parameter]
         public string EmailAddress { get; set; }
 
+        /// <summary>
+        /// The updated department the user works for.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Department> Department { get; set; }
 
+        /// <summary>
+        /// The updated location the user works at.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <summary>
+        /// The updated company the user works for.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <inheritdoc />
         protected override void PopulateItem(User item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(AvatarUrl)))

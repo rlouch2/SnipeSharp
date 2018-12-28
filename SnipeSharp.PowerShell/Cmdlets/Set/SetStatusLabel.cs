@@ -11,12 +11,21 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(StatusLabel))]
     public class SetStatusLabel: SetObject<StatusLabel>
     {
+        /// <summary>
+        /// The new name of the status label.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated type of status the label represents.
+        /// </summary>
         [Parameter]
         public StatusType Type { get; set; }
 
+        /// <summary>
+        /// Any notes about the status label.
+        /// </summary>
         [Parameter]
         public string Notes { get; set; }
 

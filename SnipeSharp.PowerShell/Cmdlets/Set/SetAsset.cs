@@ -9,13 +9,13 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
-    [Cmdlet(VerbsCommon.Set, nameof(Asset),
-        SupportsShouldProcess = true,
-        DefaultParameterSetName = nameof(ParameterSets.ByIdentity)
-    )]
+    [Cmdlet(VerbsCommon.Set, nameof(Asset), SupportsShouldProcess = true, DefaultParameterSetName = nameof(ParameterSets.ByIdentity))]
     [OutputType(typeof(Asset))]
     public sealed class SetAsset: PSCmdlet
     {
+        /// <summary>
+        /// Parameter sets supported by this cmdlet.
+        /// </summary>
         internal enum ParameterSets
         {
             ByIdentity,
@@ -59,57 +59,111 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         [ValidateNotNullOrEmpty]
         public string Serial { get; set; }
 
+        /// <summary>
+        /// The updated asset tag of the asset.
+        /// </summary>
         [Parameter]
         public string NewAssetTag { get; set; }
 
+        /// <summary>
+        /// The updated name of the asset.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated serial number of the asset.
+        /// </summary>
         [Parameter]
         public string NewSerial { get; set; }
         
+        /// <summary>
+        /// The updated model of the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Model> Model { get; set; }
 
+        /// <summary>
+        /// The updated status label of the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<StatusLabel> Status { get; set; }
 
+        /// <summary>
+        /// The updated supplier for the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Supplier> Supplier { get; set; }
 
+        /// <summary>
+        /// Any notes for the asset.
+        /// </summary>
         [Parameter]
         public string Notes { get; set; }
 
+        /// <summary>
+        /// The updated order number for the asset's purchase.
+        /// </summary>
         [Parameter]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The updated owner company of the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The updated location of the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <summary>
+        /// The updated default location the asset will return to when unassigned.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> DefaultLocation { get; set; }
 
+        /// <summary>
+        /// The updated uri of the image for the asset.
+        /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
         
+        /// <summary>
+        /// The updated assignee object.
+        /// </summary>
         [Parameter(DontShow = true)]
         public CommonEndPointModel AssignedTo { get; set; }
 
+        /// <summary>
+        /// The updated assignee object type.
+        /// </summary>
         [Parameter(DontShow = true)]
         public AssignedToType AssignedType { get; set; }
 
+        /// <summary>
+        /// The updated purchase date for the asset.
+        /// </summary>
         [Parameter]
         public DateTime PurchaseDate { get; set; }
 
+        /// <summary>
+        /// The updated purchase cost for the asset.
+        /// </summary>
         [Parameter]
         public decimal PurchaseCost { get; set; }
 
+        /// <summary>
+        /// The updated warranty period for the asset in months.
+        /// </summary>
         [Parameter]
         public int WarrantyMonths { get; set; }
 
+        /// <summary>
+        /// Custom fields used by the asset's model's field set.
+        /// </summary>
         [Parameter]
         public Dictionary<string, string> CustomFields { get; set; }
 

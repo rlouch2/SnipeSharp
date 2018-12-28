@@ -11,35 +11,65 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Component))]
     public class SetComponent: SetObject<Component>
     {
+        /// <summary>
+        /// The new name of the component.
+        /// </summary>
         [Parameter]
         [ValidateNotNullOrEmpty]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated serial number(s) for the component(s).
+        /// </summary>
         [Parameter]
         public string Serial { get; set; }
 
+        /// <summary>
+        /// The updated location for the component.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <summary>
+        /// The updated quantity of the component.
+        /// </summary>
         [Parameter]
         [ValidateRange(1, int.MaxValue)]
         public int Quantity { get; set; }
 
+        /// <summary>
+        /// The updated minimum quantity before warning for the component.
+        /// </summary>
         [Parameter]
         public int MinimumQuantity { get; set; }
 
+        /// <summary>
+        /// The updated category of the component.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Category> Category { get; set; }
 
+        /// <summary>
+        /// The updated order the component was purchased in.
+        /// </summary>
         [Parameter]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The updated date the component was purchased.
+        /// </summary>
         [Parameter]
         public DateTime PurchaseDate { get; set; }
 
+        /// <summary>
+        /// The updated cost the component was purchased for.
+        /// </summary>
         [Parameter]
         public decimal PurchaseCost { get; set; }
 
+        /// <summary>
+        /// The updated company that owns the component.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 

@@ -10,21 +10,37 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Depreciation))]
     public class SetDepartment: SetObject<Department>
     {
+        /// <summary>
+        /// The new name of the department.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated uri of the image for the department.
+        /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
 
+        /// <summary>
+        /// The update company the department belongs to.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The updated manager of the department.
+        /// </summary>
         [Parameter]
         public UserBinding Manager { get; set; }
 
+        /// <summary>
+        /// The updated location of the department.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <inheritdoc />
         protected override void PopulateItem(Department item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))

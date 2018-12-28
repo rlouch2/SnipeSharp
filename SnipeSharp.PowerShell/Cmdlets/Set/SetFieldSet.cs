@@ -8,6 +8,9 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(FieldSet))]
     public class SetFieldSet: SetObject<FieldSet>
     {
+        /// <summary>
+        /// The new name for the field set.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
         

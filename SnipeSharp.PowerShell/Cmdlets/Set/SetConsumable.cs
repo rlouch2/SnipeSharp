@@ -10,45 +10,84 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Consumable))]
     public class SetConsumable: SetObject<Consumable>
     {
+        /// <summary>
+        /// The new name for the consumable.
+        /// </summary>
         [Parameter]
         [ValidateNotNullOrEmpty]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated category of the consumable.
+        /// </summary>
         [Parameter]
         [ValidateIdentityNotNull]
         public ObjectBinding<Category> Category { get; set; }
         
+        /// <summary>
+        /// The updated company that owns the consumable.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The updated item number of the consumable.
+        /// </summary>
         [Parameter]
         public string ItemNumber { get; set; }
 
+        /// <summary>
+        /// The updated location of the consumable.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <summary>
+        /// The update maker of the consumable.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
+        /// <summary>
+        /// The updated quantity of the consumable.
+        /// </summary>
         [Parameter]
         [ValidateRange(1, int.MaxValue)]
         public int Quantity { get; set; }
 
+        /// <summary>
+        /// The updated minimum quantity before warning for the consumable.
+        /// </summary>
         [Parameter]
         public int MinimumQuantity { get; set; }
 
+        /// <summary>
+        /// The updated model number for the consumable.
+        /// </summary>
         [Parameter]
         public string ModelNumber { get; set; }
 
+        /// <summary>
+        /// The updated order number for the consumable's purchase.
+        /// </summary>
         [Parameter]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The update cost the consumable was purchased for.
+        /// </summary>
         [Parameter]
         public decimal PurchaseCost { get; set; }
 
+        /// <summary>
+        /// The updated date the consumable was purchased.
+        /// </summary>
         [Parameter]
         public DateTime PurchaseDate { get; set; }
 
+        /// <summary>
+        /// Is the consumable requestable by users?
+        /// </summary>
         [Parameter]
         public bool IsRequestable { get; set; }
 

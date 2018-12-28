@@ -8,10 +8,16 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Depreciation))]
     public class SetDepreciation: SetObject<Depreciation>
     {
+        /// <summary>
+        /// The new name of the depreciation.
+        /// </summary>
         [Parameter]
         [ValidateNotNullOrEmpty]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The new duration of the depreciation in months.
+        /// </summary>
         [Parameter]
         public int Months { get; set; }
 

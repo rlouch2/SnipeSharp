@@ -117,7 +117,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
         public int WarrantyMonths { get; set; }
 
         /// <summary>
-        /// Custom fields required by the asset's model's field set.
+        /// Custom fields used by the asset's model's field set.
         /// </summary>
         [Parameter]
         public Dictionary<string, string> CustomFields { get; set; }

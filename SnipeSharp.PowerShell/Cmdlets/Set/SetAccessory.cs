@@ -10,42 +10,81 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Accessory))]
     public class SetAccessory: SetObject<Accessory>
     {
+        /// <summary>
+        /// The new name of the accessory.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The new company that owns the accessory.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The updated manufacturer who made the accessory.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
+        /// <summary>
+        /// The updated supplier who sold the accessory.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Supplier> Supplier { get; set; }
 
+        /// <summary>
+        /// The updated model number of the accessory.
+        /// </summary>
         [Parameter]
         public string ModelNumber { get; set; }
 
+        /// <summary>
+        /// The updated category of the accessory.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Category> Category { get; set; }
 
+        /// <summary>
+        /// The updated location of the accessory.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <summary>
+        /// The updated quantity of the accessory.
+        /// </summary>
         [Parameter]
         public int Quantity { get; set; }
 
+        /// <summary>
+        /// The updated date of purchase for the accessory.
+        /// </summary>
         [Parameter]
         public DateTime PurchaseDate { get; set; }
 
+        /// <summary>
+        /// The updated purchase cost for the accessory.
+        /// </summary>
         [Parameter]
         public decimal PurchaseCost { get; set; }
 
+        /// <summary>
+        /// The updated order number for the accessory.
+        /// </summary>
         [Parameter]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The updated minimum quantity before warning for the accessory.
+        /// </summary>
         [Parameter]
         public int MinimumQuantity { get; set; }
 
+        /// <summary>
+        /// The updated uri of the image for the accessory.
+        /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
 

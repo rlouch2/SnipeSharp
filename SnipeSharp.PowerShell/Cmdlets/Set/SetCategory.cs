@@ -12,15 +12,27 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Category))]
     public class SetCategory: SetObject<Category>
     {
+        /// <summary>
+        /// The new name of the category.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated type the category is for.
+        /// </summary>
         [Parameter]
         public CategoryType Type { get; set; }
 
+        /// <summary>
+        /// Should users be emailed when they check in/out things from this category?
+        /// </summary>
         [Parameter]
         public bool EmailUserOnCheckInOrOut { get; set; }
 
+        /// <summary>
+        /// Is it required to accept the EULA?
+        /// </summary>
         [Parameter]
         public bool IsAcceptanceRequired { get; set; }
 

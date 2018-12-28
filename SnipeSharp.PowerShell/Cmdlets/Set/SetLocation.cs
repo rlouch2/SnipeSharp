@@ -10,36 +10,69 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
     [OutputType(typeof(Location))]
     public class SetLocation: SetObject<Location>
     {
+        /// <summary>
+        /// The new name of the location.
+        /// </summary>
         [Parameter]
         public string NewName { get; set; }
 
+        /// <summary>
+        /// The updated uri of the image for the location.
+        /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
 
+        /// <summary>
+        /// The location's updated address line.
+        /// </summary>
         [Parameter]
         public string Address { get; set; }
 
+        /// <summary>
+        /// The location's updated second address line.
+        /// </summary>
         [Parameter]
         public string Address2 { get; set; }
 
+        /// <summary>
+        /// The location's udpated address city.
+        /// </summary>
         [Parameter]
         public string City { get; set; }
 
+        /// <summary>
+        /// The location's updated address state.
+        /// </summary>
         [Parameter]
         public string State { get; set; }
 
+        /// <summary>
+        /// The location's updated address country.
+        /// </summary>
         [Parameter]
         public string Country { get; set; }
 
+        /// <summary>
+        /// The location's updated address zip code.
+        /// </summary>
         [Parameter]
         public string ZipCode { get; set; }
 
+        /// <summary>
+        /// The new currency used at the location.
+        /// </summary>
         [Parameter]
         public string Currency { get; set; }
 
+        /// <summary>
+        /// The updated parent location.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> ParentLocation { get; set; }
 
+        /// <summary>
+        /// The updated manager of the location.
+        /// </summary>
         [Parameter]
         public UserBinding Manager { get; set; }
         

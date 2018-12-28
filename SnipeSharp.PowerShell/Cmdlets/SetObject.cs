@@ -11,6 +11,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="T">Type of object to set.</typeparam>
     public abstract class SetObject<T>: PSCmdlet where T: CommonEndPointModel
     {
+        /// <summary>
+        /// Parameter sets supported by Set* cmdlets.
+        /// </summary>
         internal enum ParameterSets
         {
             ByIdentity,
