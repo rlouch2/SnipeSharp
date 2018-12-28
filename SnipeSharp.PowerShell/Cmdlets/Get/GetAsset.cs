@@ -24,12 +24,13 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 assets by their identities.</para>
     /// </example>
     /// <para type="link">Find-Asset</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Asset),
-        DefaultParameterSetName = nameof(GetAsset.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Asset), DefaultParameterSetName = nameof(GetAsset.ParameterSets.All))]
     [OutputType(typeof(Asset))]
     public sealed class GetAsset: GetObject<Asset, AssetBinding>
     {
+        /// <summary>
+        /// Extra parameter sets this cmdlet supports.
+        /// </summary>
         internal enum AssetParameterSets
         {
             ByAssetTag,

@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Consumable</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Consumable),
-        DefaultParameterSetName = nameof(GetConsumable.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Consumable), DefaultParameterSetName = nameof(GetConsumable.ParameterSets.All))]
     [OutputType(typeof(Consumable))]
     public sealed class GetConsumable: GetObject<Consumable, ObjectBinding<Consumable>>
     {

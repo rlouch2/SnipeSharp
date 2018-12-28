@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Company</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Company),
-        DefaultParameterSetName = nameof(GetCompany.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Company), DefaultParameterSetName = nameof(GetCompany.ParameterSets.All))]
     [OutputType(typeof(Company))]
     public sealed class GetCompany: GetObject<Company, ObjectBinding<Company>>
     {

@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-License</para>
-    [Cmdlet(VerbsCommon.Get, nameof(License),
-        DefaultParameterSetName = nameof(GetLicense.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(License), DefaultParameterSetName = nameof(GetLicense.ParameterSets.All))]
     [OutputType(typeof(License))]
     public sealed class GetLicense: GetObject<License, ObjectBinding<License>>
     {

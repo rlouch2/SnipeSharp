@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Component</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Component),
-        DefaultParameterSetName = nameof(GetComponent.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Component), DefaultParameterSetName = nameof(GetComponent.ParameterSets.All))]
     [OutputType(typeof(Component))]
     public sealed class GetComponent: GetObject<Component, ObjectBinding<Component>>
     {

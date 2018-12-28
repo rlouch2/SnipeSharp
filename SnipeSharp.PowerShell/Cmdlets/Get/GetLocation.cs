@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Location</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Location),
-        DefaultParameterSetName = nameof(GetLocation.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Location), DefaultParameterSetName = nameof(GetLocation.ParameterSets.All))]
     [OutputType(typeof(Location))]
     public sealed class GetLocation: GetObject<Location, ObjectBinding<Location>>
     {

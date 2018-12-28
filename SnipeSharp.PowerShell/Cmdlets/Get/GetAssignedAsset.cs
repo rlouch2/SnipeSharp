@@ -6,9 +6,25 @@ using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Get
 {
+    /// <summary>
+    /// <para type="synopsis">Gets the Snipe IT assets assigned to a user.</para>
+    /// <para type="description">The Get-AssignedAsset cmdlet get, for each user provided, the asset objects associated with that user.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Get-AssignedAsset User1234</code>
+    ///   <para>Retrieves the assets assigned to the user User1234.</para>
+    /// </example>
+    /// <example>
+    ///   <code>Get-Asset User1234, User5678</code>
+    ///   <para>Retrieve the assets assigned to the user User1234 or the user User5678.</para>
+    /// </example>
+    /// <para type="link">Find-Asset</para>
     [Cmdlet(VerbsCommon.Get, "AssignedAsset", DefaultParameterSetName = nameof(ParameterSets.ByUser))]
     public sealed class GetAssignedAsset: PSCmdlet
     {
+        /// <summary>
+        /// Parameter sets this cmdlet supports
+        /// </summary>
         internal enum ParameterSets
         {
             ByUser,
@@ -22,13 +38,13 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByUser))]
         public UserBinding[] User { get; set; }
 
+        /*
         /// <summary>
         /// <para type="description">Indicates that incoming pipeline objects are users.</para>
         /// </summary>
         [Parameter(ParameterSetName = nameof(ParameterSets.ByUser))]
         public SwitchParameter Users { get; set; }
 
-        /*
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByAsset))]
         public AssetBinding[] Asset { get; set; }
 

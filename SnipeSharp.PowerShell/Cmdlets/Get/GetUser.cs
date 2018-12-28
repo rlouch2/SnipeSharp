@@ -24,12 +24,13 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-User</para>
-    [Cmdlet(VerbsCommon.Get, nameof(User),
-        DefaultParameterSetName = nameof(GetUser.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(User), DefaultParameterSetName = nameof(GetUser.ParameterSets.All))]
     [OutputType(typeof(User))]
     public sealed class GetUser: GetObject<User, UserBinding>
     {
+        /// <summary>
+        /// Extra parameter sets this cmdlet supports.
+        /// </summary>
         internal enum UserParameterSets
         {
             ByUserName,

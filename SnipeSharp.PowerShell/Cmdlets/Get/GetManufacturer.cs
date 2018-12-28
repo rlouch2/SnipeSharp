@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Manufacturer</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Manufacturer),
-        DefaultParameterSetName = nameof(GetManufacturer.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Manufacturer), DefaultParameterSetName = nameof(GetManufacturer.ParameterSets.All))]
     [OutputType(typeof(Manufacturer))]
     public sealed class GetManufacturer: GetObject<Manufacturer, ObjectBinding<Manufacturer>>
     {

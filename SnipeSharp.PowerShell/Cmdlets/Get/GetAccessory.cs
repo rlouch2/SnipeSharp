@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 accessories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Accessory</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Accessory),
-        DefaultParameterSetName = nameof(GetAccessory.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Accessory), DefaultParameterSetName = nameof(GetAccessory.ParameterSets.All))]
     [OutputType(typeof(Accessory))]
     public sealed class GetAccessory: GetObject<Accessory, ObjectBinding<Accessory>>
     {

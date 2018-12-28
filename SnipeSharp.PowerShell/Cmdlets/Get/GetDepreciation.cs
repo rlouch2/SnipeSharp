@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Depreciation</para>
-    [Cmdlet(VerbsCommon.Get, nameof(Depreciation),
-        DefaultParameterSetName = nameof(GetDepreciation.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(Depreciation), DefaultParameterSetName = nameof(GetDepreciation.ParameterSets.All))]
     [OutputType(typeof(Depreciation))]
     public sealed class GetDepreciation: GetObject<Depreciation, ObjectBinding<Depreciation>>
     {

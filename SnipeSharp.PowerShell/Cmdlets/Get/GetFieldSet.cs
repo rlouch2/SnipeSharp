@@ -23,9 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-FieldSet</para>
-    [Cmdlet(VerbsCommon.Get, nameof(FieldSet),
-        DefaultParameterSetName = nameof(GetFieldSet.ParameterSets.All)
-    )]
+    [Cmdlet(VerbsCommon.Get, nameof(FieldSet), DefaultParameterSetName = nameof(GetFieldSet.ParameterSets.All))]
     [OutputType(typeof(FieldSet))]
     public sealed class GetFieldSet: GetObject<FieldSet, ObjectBinding<FieldSet>>
     {
