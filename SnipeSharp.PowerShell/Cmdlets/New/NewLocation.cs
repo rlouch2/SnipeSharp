@@ -9,34 +9,64 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(Location))]
     public class NewLocation: PSCmdlet
     {
+        /// <summary>
+        /// The name of the location.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The location's address line.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Address { get; set; }
 
+        /// <summary>
+        /// The location's second address line.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Address2 { get; set; }
 
+        /// <summary>
+        /// The location's address city.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string City { get; set; }
 
+        /// <summary>
+        /// The location's address state.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string State { get; set; }
 
+        /// <summary>
+        /// The location's address country.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Country { get; set; }
 
+        /// <summary>
+        /// The location's address zip code.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string ZipCode { get; set; }
 
+        /// <summary>
+        /// The currency used at the location.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Currency { get; set; }
 
+        /// <summary>
+        /// The location of the location (its parent location).
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Location> ParentLocation { get; set; }
 
+        /// <summary>
+        /// The manager of the location.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public UserBinding Manager { get; set; }
 

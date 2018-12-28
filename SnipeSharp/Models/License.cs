@@ -51,11 +51,11 @@ namespace SnipeSharp.Models
         [Field("product_key", "serial")]
         public string ProductKey { get; set; }
 
-        /// <value>The order number associated with this License's purchase.</value>
+        /// <value>The supplier order number associated with this License's purchase.</value>
         [Field("order_number", true)]
         public string OrderNumber { get; set; }
 
-        /// <value>The order number associated with this License's purchase.</value>
+        /// <value>The purchase order associated with this License's purchase.</value>
         [Field("purchase_order", true)]
         public string PurchaseOrder { get; set; }
 

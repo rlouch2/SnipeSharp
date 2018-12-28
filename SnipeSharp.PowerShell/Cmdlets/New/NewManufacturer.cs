@@ -8,22 +8,40 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(Manufacturer))]
     public class NewManufacturer: PSCmdlet
     {
+        /// <summary>
+        /// The name of the manufacturer.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The url of the manufacturer's website.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public Uri Url { get; set; }
 
+        /// <summary>
+        /// The uri of the image for the manufacturer.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public Uri ImageUri { get; set; }
 
+        /// <summary>
+        /// The url for the manufacturer's support portal.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public Uri SupportUrl { get; set; }
 
+        /// <summary>
+        /// The phone number for the manufacturer's support line.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string SupportPhoneNumber { get; set; }
 
+        /// <summary>
+        /// The email address to contact the manufacturer by for support.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string SupportEmailAddress { get; set; }
         

@@ -9,12 +9,21 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(StatusLabel))]
     public class NewStatusLabel: PSCmdlet
     {
+        /// <summary>
+        /// The name of the status label.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The type of status this label represents.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
         public StatusType Type { get; set; }
 
+        /// <summary>
+        /// Any notes for the label.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Notes { get; set; }
 

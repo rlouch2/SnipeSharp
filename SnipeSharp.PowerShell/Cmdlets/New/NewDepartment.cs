@@ -10,23 +10,34 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(Department))]
     public class NewDepartment: PSCmdlet
     {
-        [Parameter(
-            Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true
-        )]
+        /// <summary>
+        /// The name of the department.
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The uri of the image for the department.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public Uri ImageUri { get; set; }
 
+        /// <summary>
+        /// The company the department is in.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The manager of the department.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public UserBinding Manager { get; set; }
 
+        /// <summary>
+        /// Where the department is located.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Location> Location { get; set; }
 

@@ -8,6 +8,9 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(FieldSet))]
     public class NewFieldSet: PSCmdlet
     {
+        /// <summary>
+        /// The name of the field set.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }

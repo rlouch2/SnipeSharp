@@ -8,10 +8,16 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(Depreciation))]
     public class NewDepreciation: PSCmdlet
     {
+        /// <summary>
+        /// The name of the depreciation.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
+        /// <summary>
+        /// How long the depreciation lasts in months.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
         public int Months { get; set; }
 

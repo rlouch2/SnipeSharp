@@ -10,59 +10,111 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(License))]
     public class NewLicense: PSCmdlet
     {
+        /// <summary>
+        /// The name of the license.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The total seats available on the license.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
         public int Seats { get; set; }
 
+        /// <summary>
+        /// The category of the license.
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateIdentityNotNull]
         public ObjectBinding<Category> Category { get; set; }
 
+        /// <summary>
+        /// The company that owns the license.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The depreciation to use for the license.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Depreciation> Depreciation { get; set; }
 
+        /// <summary>
+        /// The manufacturer of the product the license is for.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
+        /// <summary>
+        /// The license product key.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string ProductKey { get; set; }
 
+        /// <summary>
+        /// The order the license was purchased in, supplied by the supplier.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The order the license was purchased in, supplied by the purchaser.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string PurchaseOrder { get; set; }
 
+        /// <summary>
+        /// The date the license was purchased.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public DateTime PurchaseDate { get; set; }
 
+        /// <summary>
+        /// The cost the license was purchased for.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public decimal PurchaseCost { get; set; }
 
+        /// <summary>
+        /// Any notes about the license.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Notes { get; set; }
 
         /*[Parameter(ValueFromPipelineByPropertyName = true)]
         public DateTime ExpirationDate { get; set; }*/
 
+        /// <summary>
+        /// The registered name of the licensee.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string LicensedToName { get; set; }
 
+        /// <summary>
+        /// The registered email address of the licensee.
+        /// </summary>
+        /// <value></value>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string LicensedToEmailAddress { get; set; }
 
+        /// <summary>
+        /// Is the license maintained?
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public bool IsMaintained { get; set; }
 
+        /// <summary>
+        /// Are the seats on this license reassignable?
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public bool IsReassignable { get; set; }
         
+        /// <summary>
+        /// The supplier who sold the license.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Supplier> Supplier { get; set; }
         

@@ -10,58 +10,112 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(User))]
     public class NewUser: PSCmdlet
     {
+        /// <summary>
+        /// The uri of the image for the user's avatar.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public Uri AvatarUrl { get; set; }
 
+        /// <summary>
+        /// The user's given name.
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string FirstName { get; set; }
 
+        /// <summary>
+        /// The user's surname.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string LastName { get; set; }
 
+        /// <summary>
+        /// The unique username of the user.
+        /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// The user's initial password.
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         public string Password { get; set; }
 
+        /// <summary>
+        /// The employee number of the user.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string EmployeeNumber { get; set; }
 
+        /// <summary>
+        /// The manager of the user.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public UserBinding Manager { get; set; }
 
+        /// <summary>
+        /// The title of the user's position.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string JobTitle { get; set; }
 
+        /// <summary>
+        /// The phone number for reaching the user.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// The user's street address.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Address { get; set; }
 
+        /// <summary>
+        /// The user's address city.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string City { get; set; }
 
+        /// <summary>
+        /// The user's address country.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Country { get; set; }
 
+        /// <summary>
+        /// The user's address state.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string State { get; set; }
 
+        /// <summary>
+        /// The user's address zip code.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string ZipCode { get; set; }
 
+        /// <summary>
+        /// The email address for the user.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string EmailAddress { get; set; }
 
+        /// <summary>
+        /// The department the user works for.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Department> Department { get; set; }
 
+        /// <summary>
+        /// The location the user works at.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <summary>
+        /// The company the user works for.
+        /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Company> Company { get; set; }
 

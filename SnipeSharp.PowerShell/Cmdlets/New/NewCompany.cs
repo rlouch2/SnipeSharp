@@ -11,11 +11,10 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(Company))]
     public class NewCompany: PSCmdlet
     {
-        [Parameter(
-            Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true
-        )]
+        /// <summary>
+        /// The name of the company.
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
         

@@ -13,67 +13,112 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
     [OutputType(typeof(Asset))]
     public class NewAsset: PSCmdlet
     {
-        [Parameter(
-            Mandatory = true,
-            Position = 0
-        )]
+        /// <summary>
+        /// The asset tag of the Asset.
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 0)]
         [ValidateNotNullOrEmpty]
         public string AssetTag { get; set; }
 
-        [Parameter(
-            Mandatory = true,
-            Position = 1
-        )]
+        /// <summary>
+        /// The model of the Asset.
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 1)]
         public ObjectBinding<Model> Model { get; set; }
 
-        [Parameter(
-            Mandatory = true,
-            Position = 2
-        )]
+        /// <summary>
+        /// The status of the asset.
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 2)]
         public ObjectBinding<StatusLabel> Status { get; set; }
         
+        /// <summary>
+        /// The name of the asset.
+        /// </summary>
         [Parameter]
         public string Name { get; set; }
         
+        /// <summary>
+        /// The serial number of the asset.
+        /// </summary>
         [Parameter]
         public string Serial { get; set; }
 
+        /// <summary>
+        /// The supplier who sold the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Supplier> Supplier { get; set; }
 
+        /// <summary>
+        /// Any notes for the asset.
+        /// </summary>
         [Parameter]
         public string Notes { get; set; }
 
+        /// <summary>
+        /// The order number the asset was purchased in.
+        /// </summary>
         [Parameter]
         public string OrderNumber { get; set; }
 
+        /// <summary>
+        /// The company that owns the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The location of the asset.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
+        /// <summary>
+        /// The default location the asset returns to when unassigned.
+        /// </summary>
         [Parameter]
         public ObjectBinding<Location> DefaultLocation { get; set; }
 
+        /// <summary>
+        /// The uri for the image of the Asset.
+        /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
         
+        /// <summary>
+        /// What the asset is assigned to.
+        /// </summary>
         [Parameter(DontShow = true)]
         public CommonEndPointModel AssignedTo { get; set; }
 
+        /// <summary>
+        /// What kind of thing the asset is assigned to.
+        /// </summary>
         [Parameter(DontShow = true)]
         public AssignedToType AssignedType { get; set; }
 
+        /// <summary>
+        /// When the asset was purchased.
+        /// </summary>
         [Parameter]
         public DateTime PurchaseDate { get; set; }
 
+        /// <summary>
+        /// How much the asset cost.
+        /// </summary>
         [Parameter]
         public decimal PurchaseCost { get; set; }
 
+        /// <summary>
+        /// How long the asset's warranty is.
+        /// </summary>
         [Parameter]
         public int WarrantyMonths { get; set; }
 
+        /// <summary>
+        /// Custom fields required by the asset's model's field set.
+        /// </summary>
         [Parameter]
         public Dictionary<string, string> CustomFields { get; set; }
 
