@@ -32,7 +32,7 @@ namespace SnipeSharp.Models
         public AssignedToType Type { get; private set; }
         
         /// <value>The creation date of this object in Snipe-IT.</value>
-        [Field("created_at")]
+        [Field("created_at", converter: FieldConverter.DateTimeConverter)]
         public DateTime? CreatedAt { get; private set; }
 
         /// <inheritdoc />

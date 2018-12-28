@@ -20,11 +20,11 @@ namespace SnipeSharp.Models
         public override string Name { get; set; }
 
         /// <value>The creation date of this object in Snipe-IT.</value>
-        [Field("created_at")]
+        [Field("created_at", converter: FieldConverter.DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <value>The most recent date this object was modified in Snipe-IT.</value>
-        [Field("updated_at")]
+        [Field("updated_at", converter: FieldConverter.DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
     }
 }
