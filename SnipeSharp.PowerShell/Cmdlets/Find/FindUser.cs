@@ -6,9 +6,23 @@ using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Find
 {
-    [Cmdlet(VerbsCommon.Find, nameof(User),
-        SupportsPaging = true
-    )]
+    /// <summary>
+    /// <para type="synopsis">Finds a Snipe IT user.</para>
+    /// <para type="description">The Find-User cmdlet finds user objects by filter, company, location, group, or department.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Find-User -IncludeDeleted</code>
+    ///   <para>Finds all users, included deleted ones.</para>
+    /// </example>
+    /// <example>
+    ///   <code>Find-User "ThePotatoPeeler"</code>
+    ///   <para>Finds users that match the search string "ThePotatoPeeler".</para>
+    /// </example>
+    /// <example>
+    ///   <code>Find-User -Company $x</code>
+    ///   <para>Finds users that work for company $x.</para>
+    /// </example>
+    [Cmdlet(VerbsCommon.Find, nameof(User), SupportsPaging = true)]
     [OutputType(typeof(User))]
     public class FindUser: FindObject<User, UserSearchColumn, UserSearchFilter>
     {

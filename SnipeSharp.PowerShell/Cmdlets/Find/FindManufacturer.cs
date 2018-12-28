@@ -5,9 +5,19 @@ using SnipeSharp.Filters;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Find
 {
-    [Cmdlet(VerbsCommon.Find, nameof(Manufacturer),
-        SupportsPaging = true
-    )]
+    /// <summary>
+    /// <para type="synopsis">Finds a Snipe IT manufacturer.</para>
+    /// <para type="description">The Find-Asset cmdlet finds manufacturer objects by filter.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Find-Manufacturer</code>
+    ///   <para>Finds all manufacturers.</para>
+    /// </example>
+    /// <example>
+    ///   <code>Find-Manufacturer "Potato Peelers United"</code>
+    ///   <para>Finds manufacturers that match the search string "Potato Peelers United".</para>
+    /// </example>
+    [Cmdlet(VerbsCommon.Find, nameof(Manufacturer), SupportsPaging = true)]
     [OutputType(typeof(Manufacturer))]
     public class FindManufacturer: FindObject<Manufacturer, string, SearchFilter>
     {
