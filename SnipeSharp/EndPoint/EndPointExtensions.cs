@@ -61,7 +61,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="location">The location of the audit.</param>
         /// <param name="nextAuditDate">The date of the next audit.</param>
         /// <param name="notes">A note for the audit log.</param>
-        /// <returns>An <see cref="AssetAudit"/> with no location, </returns>
+        /// <returns>An <see cref="AssetAudit"/> with some fields missing, and the request status.</returns>
         public static RequestResponse<AssetAudit> Audit(this EndPoint<Asset> endPoint, Asset asset, Location location = null, DateTime? nextAuditDate = null, string notes = null)
         {
             var audit = new AssetAudit
@@ -141,6 +141,15 @@ namespace SnipeSharp.EndPoint
             => endPoint.Api.RequestManager.GetAll<ComponentAssignee>($"{endPoint.EndPointInfo.BaseUri}/{component.Id}/assets");
         #endregion
         #region CustomField
+        /// <summary>
+        /// Associates a custom field with a custom field set.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for fields.</param>
+        /// <param name="field">The field to associate.</param>
+        /// <param name="fieldSet">The field set to associate to.</param>
+        /// <param name="required">Is the field required?</param>
+        /// <param name="order">The field's order in the set.</param>
+        /// <returns>The request status.</returns>
         public static RequestResponse<FieldSet> Associate(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet, bool required = false, int? order = null)
         {
             var obj = new CustomFieldAssociation { FieldSet = fieldSet };
@@ -151,26 +160,60 @@ namespace SnipeSharp.EndPoint
             return endPoint.Api.RequestManager.Post<CustomFieldAssociation, FieldSet>($"{endPoint.EndPointInfo.BaseUri}/{field.Id}/associate", obj);
         }
 
+        /// <summary>
+        /// Disassociates a custom field from a custom field set.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for fields.</param>
+        /// <param name="field">The field to disassociate.</param>
+        /// <param name="fieldSet">The field set to disassociate from.</param>
+        /// <returns>The request status.</returns>
         public static RequestResponse<FieldSet> Disassociate(this EndPoint<CustomField> endPoint, CustomField field, FieldSet fieldSet)
             => endPoint.Api.RequestManager.Post<CustomFieldAssociation, FieldSet>($"{endPoint.EndPointInfo.BaseUri}/{field.Id}/disassociate", new CustomFieldAssociation { FieldSet = fieldSet });
 
-        public static RequestResponse<ApiObject> Reorder(this EndPoint<CustomField> endPoint, FieldSet fieldSet, IList<CustomField> customFields)
+        /// <summary>
+        /// Reorders the fields in a field set.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for fields.</param>
+        /// <param name="fieldSet">The fieldset to reorder.</param>
+        /// <param name="customFields">The fields of the field set in their new order.</param>
+        /// <returns>The request status.</returns>
+        public static RequestResponse<ApiObject> Reorder(this EndPoint<CustomField> endPoint, FieldSet fieldSet, ICollection<CustomField> customFields)
         {
             var arr = new CustomField[customFields.Count];
             customFields.CopyTo(arr, 0);
             return Reorder(endPoint, fieldSet, arr);
         }
         
+        /// <summary>
+        /// Reorders the fields in a field set.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for fields.</param>
+        /// <param name="fieldSet">The fieldset to reorder.</param>
+        /// <param name="customFields">The fields of the field set in their new order.</param>
+        /// <returns>The request status.</returns>
         public static RequestResponse<ApiObject> Reorder(this EndPoint<CustomField> endPoint, FieldSet fieldSet, params CustomField[] customFields)
             => endPoint.Api.RequestManager.Post<CustomFieldReordering, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/fieldsets/{fieldSet.Id}/order", new CustomFieldReordering { Fields = customFields });
         
 
         #endregion
         #region FieldSet
+        /// <summary>
+        /// Retrieve the fields of a fieldset.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for field sets.</param>
+        /// <param name="fieldSet">The fieldset to retrieve fields from.</param>
+        /// <returns>A response collection with the request status and fields.</returns>
         public static ResponseCollection<CustomField> GetFields(this EndPoint<FieldSet> endPoint, FieldSet fieldSet)
             => endPoint.Api.RequestManager.GetAll<CustomField>($"{endPoint.EndPointInfo.BaseUri}/{fieldSet.Id}/fields");
-        public static ResponseCollection<CustomField> GetFieldsWithDefaults(this EndPoint<FieldSet> endPoint, FieldSet fieldSet, Model model)
-            => endPoint.Api.RequestManager.GetAll<CustomField>($"{endPoint.EndPointInfo.BaseUri}/{fieldSet.Id}/fields/{model.Id}");
+
+        /// <summary>
+        /// Retrieve the fields of a fieldset with the default values of the fields for a given model.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for field sets.</param>
+        /// <param name="model">The model to retrieve fields with default values for.</param>
+        /// <returns>A response collection with the request status and fields with default values.</returns>
+        public static ResponseCollection<CustomField> GetFieldsWithDefaults(this EndPoint<FieldSet> endPoint, Model model)
+            => endPoint.Api.RequestManager.GetAll<CustomField>($"{endPoint.EndPointInfo.BaseUri}/{model.FieldSet.Id}/fields/{model.Id}");
         #endregion
         #region License
         /// <summary>
