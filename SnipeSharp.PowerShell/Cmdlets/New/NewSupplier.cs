@@ -4,6 +4,14 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT supplier.</para>
+    /// <para type="description">The New-Supplier cmdlet creates a new supplier object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Supplier -Name "Potato Warehouse &amp; Wholesale"</code>
+    ///   <para>Create a new supplier named "Potato Warehouse &amp; Wholesale" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Supplier))]
     [OutputType(typeof(Supplier))]
     public class NewSupplier: PSCmdlet
@@ -11,7 +19,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
         /// <summary>
         /// The name of the supplier.
         /// </summary>
-        [Parameter(Position = 0, ValueFromPipelineByPropertyName = true)]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 

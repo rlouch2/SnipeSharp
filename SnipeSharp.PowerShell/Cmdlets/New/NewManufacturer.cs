@@ -4,6 +4,14 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT manufacturer.</para>
+    /// <para type="description">The New-Manufacturer cmdlet creates a new manufacturer object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Manufacturer -Name "Potato Peelers Inc."</code>
+    ///   <para>Create a new manufacturer named "Potato Peelers Inc." with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Manufacturer))]
     [OutputType(typeof(Manufacturer))]
     public class NewManufacturer: PSCmdlet

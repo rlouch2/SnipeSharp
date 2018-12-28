@@ -8,6 +8,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT category.</para>
+    /// <para type="description">The New-Category cmdlet creates a new category object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Category -Name "Utility" -Type Accessory</code>
+    ///   <para>Create a new category for accessories named "Utility".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Category))]
     [OutputType(typeof(Category))]
     public class NewCategory: PSCmdlet

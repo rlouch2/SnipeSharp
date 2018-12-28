@@ -7,6 +7,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT component.</para>
+    /// <para type="description">The New-Component cmdlet creates a new component object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Component -Name "Potato Peeler Blade" -Quantity 215 -Company "Potato Inc." -Category "Potato"</code>
+    ///   <para>Create a new component named "Potato Peeler Blade" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Component))]
     [OutputType(typeof(Component))]
     public class NewComponent: PSCmdlet

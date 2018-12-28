@@ -4,6 +4,14 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT depreciation.</para>
+    /// <para type="description">The New-Depreciation cmdlet creates a new depreciation object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Depreciation -Name "General Potato Peeler" -Months 36</code>
+    ///   <para>Create a new depreciation named "General Potato Peeler" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Depreciation))]
     [OutputType(typeof(Depreciation))]
     public class NewDepreciation: PSCmdlet

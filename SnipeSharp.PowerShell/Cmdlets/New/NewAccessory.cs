@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT accessory.</para>
+    /// <para type="description">The New-Accessory cmdlet creates a new accessory object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Accessory -Name "Potato Peeler Wrist strap" -Quantity 9001 -Manufacturer "Potato Peeler Accessories Ltd." -Category "Utility"</code>
+    ///   <para>Create a new accessory named "Potato Peeler Wrist strap" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Accessory))]
     [OutputType(typeof(Accessory))]
     public class NewAccessory: PSCmdlet

@@ -5,6 +5,14 @@ using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT location.</para>
+    /// <para type="description">The New-Location cmdlet creates a new location object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Location -Name "Potato Farm #12"</code>
+    ///   <para>Create a new location named "Potato Farm #12" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Location))]
     [OutputType(typeof(Location))]
     public class NewLocation: PSCmdlet

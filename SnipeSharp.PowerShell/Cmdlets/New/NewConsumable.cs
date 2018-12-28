@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT consumable.</para>
+    /// <para type="description">The New-Consumable cmdlet creates a new consumable object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Consumable -Name "Frying Oil" -Quantity 9001 -Category "Perishable"</code>
+    ///   <para>Create a new consumable named "Frying oil" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Consumable))]
     [OutputType(typeof(Consumable))]
     public class NewConsumable: PSCmdlet

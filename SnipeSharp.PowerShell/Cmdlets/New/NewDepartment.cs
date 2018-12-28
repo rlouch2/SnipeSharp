@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT department.</para>
+    /// <para type="description">The New-Department cmdlet creates a new department object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Department -Name "Potato Peeling"</code>
+    ///   <para>Create a new department named "Potato Peeling".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Department))]
     [OutputType(typeof(Department))]
     public class NewDepartment: PSCmdlet

@@ -9,6 +9,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT asset.</para>
+    /// <para type="description">The New-Asset cmdlet creates a new asset object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-Accessory -AssetTag '06514' -Model 'PotatoPeeler Plus 3000' -Status 'Assignable'</code>
+    ///   <para>Create a new asset with the asset tag "06541" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Asset))]
     [OutputType(typeof(Asset))]
     public class NewAsset: PSCmdlet

@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT license.</para>
+    /// <para type="description">The New-License cmdlet creates a new license object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-License -Name "State Potato Peeling License" -Seats 12000 -Category "Gov't Required"</code>
+    ///   <para>Create a new license named "State Potato Peeling License" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(License))]
     [OutputType(typeof(License))]
     public class NewLicense: PSCmdlet

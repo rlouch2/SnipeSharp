@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.New
 {
+    /// <summary>
+    /// <para type="synopsis">Creates a new Snipe-IT user.</para>
+    /// <para type="description">The New-User cmdlet creates a new user object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>New-User -FirstName "Craig" -UserName "cjohnson"</code>
+    ///   <para>Create a new user named "cjohnson" with all required properties set.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.New, nameof(User))]
     [OutputType(typeof(User))]
     public class NewUser: PSCmdlet
