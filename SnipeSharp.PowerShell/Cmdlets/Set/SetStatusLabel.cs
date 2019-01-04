@@ -7,6 +7,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT status label.</para>
+    /// <para type="description">The Set-StatusLabel cmdlet changes the properties of an existing Snipe-IT status label object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-StatusLabel -Name "Assignable" -Type "Deployable"</code>
+    ///   <para>Changes the status label "Assignable" to be a label for deployable objects.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(StatusLabel))]
     [OutputType(typeof(StatusLabel))]
     public class SetStatusLabel: SetObject<StatusLabel>

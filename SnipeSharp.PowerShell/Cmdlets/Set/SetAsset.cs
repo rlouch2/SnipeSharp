@@ -9,6 +9,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT asset.</para>
+    /// <para type="description">The Set-Asset cmdlet changes the properties of an existing Snipe-IT asset object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Asset -AssetTag '06514' -Status 'Retired'</code>
+    ///   <para>Changes the status of the asset with the asset tag "06541" to "Retired".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Asset), SupportsShouldProcess = true, DefaultParameterSetName = nameof(ParameterSets.ByIdentity))]
     [OutputType(typeof(Asset))]
     public sealed class SetAsset: PSCmdlet

@@ -7,6 +7,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT component.</para>
+    /// <para type="description">The Set-Component cmdlet changes the properties of an existing Snipe-IT component object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Component -Name "Potato Peeler Blade" -Category "Hazardous"</code>
+    ///   <para>Changes the category of component "Potato Peeler Blade" to "Hazardous".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Component))]
     [OutputType(typeof(Component))]
     public class SetComponent: SetObject<Component>

@@ -4,6 +4,14 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT depreciation.</para>
+    /// <para type="description">The Set-Depreciation cmdlet changes the properties of an existing Snipe-IT depreciation object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Depreciation -Name "General Potato Peeler" -NewName "Generic Potato Peeler"</code>
+    ///   <para>Changes the name of depreciation "General Potato Peeler" to "Generic Potato Peeler".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Depreciation))]
     [OutputType(typeof(Depreciation))]
     public class SetDepreciation: SetObject<Depreciation>

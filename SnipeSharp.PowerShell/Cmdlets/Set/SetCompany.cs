@@ -7,6 +7,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT company.</para>
+    /// <para type="description">The Set-Company cmdlet changes the properties of an existing Snipe-IT company object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Company -Name 'Potato Inc.' -NewName 'Global Potato Unlimited'</code>
+    ///   <para>Changes the name of company "Potato Inc." to "Global Potato Unlimited".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Company))]
     [OutputType(typeof(Company))]
     public class SetCompany: SetObject<Company>

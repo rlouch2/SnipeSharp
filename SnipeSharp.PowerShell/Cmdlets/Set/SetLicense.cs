@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT license.</para>
+    /// <para type="description">The Set-License cmdlet changes the properties of an existing Snipe-IT license object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-License -Name "State Potato Peeling License" -IsReassignable $false</code>
+    ///   <para>Pulls into question if it really makes sense to not require every employee have their own potato peeling license, if only because they can no longer be reassigned.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(License))]
     [OutputType(typeof(License))]
     public class SetLicense: SetObject<License>

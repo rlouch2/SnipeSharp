@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT location.</para>
+    /// <para type="description">The Set-Location cmdlet changes the properties of an existing Snipe-IT location object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Location -Name "Warehouse 19" -Manager "respud"</code>
+    ///   <para>Changes the manager of "Warehouse 19" to the user "respud".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Location))]
     [OutputType(typeof(Location))]
     public class SetLocation: SetObject<Location>

@@ -8,6 +8,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT category.</para>
+    /// <para type="description">The Set-Category cmdlet changes the properties of an existing Snipe-IT category object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Category -Name 'Utility' -IsAcceptanceRequired $true</code>
+    ///   <para>Changes the category 'Utility' to require EULA acceptance.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Category))]
     [OutputType(typeof(Category))]
     public class SetCategory: SetObject<Category>

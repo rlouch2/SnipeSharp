@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT user.</para>
+    /// <para type="description">The Set-User cmdlet changes the properties of an existing Snipe-IT user object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-User -Identity "atuber" -LastName 'Spud'</code>
+    ///   <para>Changes the last name of user "atuber" to "Spud" without updating their username.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(User))]
     [OutputType(typeof(User))]
     public class SetUser: SetObject<User>

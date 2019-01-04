@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT consumable.</para>
+    /// <para type="description">The Set-Consumable cmdlet changes the properties of an existing Snipe-IT consumable object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Consumable -Name "Frying Oil" -Category "Nonperishable" -Location "Warehouse 19"</code>
+    ///   <para>Changes the category of consumable "Frying oil" to "Nonperishable" and its location to "Warehouse 19".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Consumable))]
     [OutputType(typeof(Consumable))]
     public class SetConsumable: SetObject<Consumable>

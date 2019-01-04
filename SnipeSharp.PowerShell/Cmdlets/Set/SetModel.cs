@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT model.</para>
+    /// <para type="description">The Set-Model cmdlet changes the properties of an existing Snipe-IT model object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Model -Name "PotatoPeeler Plus 3000" -EndOfLife 36</code>
+    ///   <para>Acknowledges that even the mighty "PotatoPeeler Plus 3000" will only last about 3 years before it's time for a new one.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Model))]
     [OutputType(typeof(Model))]
     public class SetModel: SetObject<Model>

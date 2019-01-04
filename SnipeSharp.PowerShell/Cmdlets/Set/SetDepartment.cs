@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT department.</para>
+    /// <para type="description">The Set-Department cmdlet changes the properties of an existing Snipe-IT department object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Department -Name "Potato Peeling" -NewName "Potato Preparation" -Manager respud</code>
+    ///   <para>Changes the name of department "Potato Peeling" to "Potato Preparation" and its manager to "R. E. Spud".</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Department))]
     [OutputType(typeof(Depreciation))]
     public class SetDepartment: SetObject<Department>

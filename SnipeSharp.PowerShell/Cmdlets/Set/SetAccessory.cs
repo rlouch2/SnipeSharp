@@ -6,6 +6,14 @@ using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set
 {
+    /// <summary>
+    /// <para type="synopsis">Changes the properties of an existing Snipe-IT accessory.</para>
+    /// <para type="description">The Set-Accessory cmdlet changes the properties of an existing Snipe-IT accessory object.</para>
+    /// </summary>
+    /// <example>
+    ///   <code>Set-Accessory -Name "Potato Peeler Wrist strap" -NewName "Potato Peeler Wriststrap" -MinimumQuantity 12</code>
+    ///   <para>Changes the name of the accessory "Potato Peeler Wrist strap" to "Potato Peeler Wriststrap" and sets the new minimum quantity before warning to 12.</para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Accessory))]
     [OutputType(typeof(Accessory))]
     public class SetAccessory: SetObject<Accessory>
