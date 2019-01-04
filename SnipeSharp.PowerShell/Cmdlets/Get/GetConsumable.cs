@@ -20,7 +20,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     /// </example>
     /// <example>
     ///   <code>1..100 | Get-Consumable</code>
-    ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
+    ///   <para>Retrieve the first 100 consumables by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-Consumable</para>
     [Cmdlet(VerbsCommon.Get, nameof(Consumable), DefaultParameterSetName = nameof(GetConsumable.ParameterSets.All))]

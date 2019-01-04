@@ -100,7 +100,7 @@ namespace SnipeSharp.Models
         [Field("show_in_email", true)]
         public bool? ShowInCheckOutEmail { get; set; }
 
-        /// <value>Gets/setse the help text for the field.</value>
+        /// <value>Gets/sets the help text for the field.</value>
         [Field("help_text", true)]
         public string HelpText { get; set; }
 

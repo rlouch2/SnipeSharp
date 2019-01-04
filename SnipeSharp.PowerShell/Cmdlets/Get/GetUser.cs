@@ -21,7 +21,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     /// </example>
     /// <example>
     ///   <code>1..100 | Get-User</code>
-    ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
+    ///   <para>Retrieve the first 100 users by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-User</para>
     [Cmdlet(VerbsCommon.Get, nameof(User), DefaultParameterSetName = nameof(GetUser.ParameterSets.All))]

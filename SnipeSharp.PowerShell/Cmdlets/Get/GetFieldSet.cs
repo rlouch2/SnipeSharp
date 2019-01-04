@@ -20,7 +20,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     /// </example>
     /// <example>
     ///   <code>1..100 | Get-FieldSet</code>
-    ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
+    ///   <para>Retrieve the first 100 fieldsets by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-FieldSet</para>
     [Cmdlet(VerbsCommon.Get, nameof(FieldSet), DefaultParameterSetName = nameof(GetFieldSet.ParameterSets.All))]
