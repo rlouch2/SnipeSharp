@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using SnipeSharp.EndPoint;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Filters;
 using SnipeSharp.Models;
 
-namespace SnipeSharp.EndPoint
+namespace SnipeSharp
 {
     /// <summary>
     /// Extension functions for <see cref="EndPoint{T}" /> to fill specific functions for specific EndPoints.
