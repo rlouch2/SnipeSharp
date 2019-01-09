@@ -5,26 +5,31 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-SnipeLocation
+# Get-SnipeCustomField
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
 
 ## SYNTAX
 
-### ByName (Default)
+### All (Default)
 ```
-Remove-SnipeLocation -Name <String[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+Get-SnipeCustomField [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Remove-SnipeLocation -InternalId <Int32[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+Get-SnipeCustomField [-InternalId] <Int32[]> [<CommonParameters>]
+```
+
+### ByName
+```
+Get-SnipeCustomField -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Remove-SnipeLocation [-Identity] <ObjectBinding`1[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+Get-SnipeCustomField [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -65,9 +70,9 @@ Parameter Sets: ByInternalId
 Aliases:
 
 Required: True
-Position: Named
+Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -82,48 +87,17 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-{{Fill ShowResponse Description}}
+### -NoEnumerate
+{{Fill NoEnumerate Description}}
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: All
 Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
 
 Required: False
 Position: Named
@@ -141,11 +115,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String[]
 
-### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]][]
+### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.CustomField, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]][]
 
 ## OUTPUTS
 
-### SnipeSharp.Models.RequestResponse`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
+### SnipeSharp.Models.CustomField
 
 ## NOTES
 

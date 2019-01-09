@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-SnipeLocation
+# Remove-SnipeCustomField
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -14,17 +14,18 @@ schema: 2.0.0
 
 ### ByName (Default)
 ```
-Remove-SnipeLocation -Name <String[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-SnipeCustomField -Name <String[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Remove-SnipeLocation -InternalId <Int32[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-SnipeCustomField -InternalId <Int32[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Remove-SnipeLocation [-Identity] <ObjectBinding`1[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-SnipeCustomField [-Identity] <ObjectBinding`1[]> [-ShowResponse] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -40,6 +41,21 @@ PS C:\> {{ Add example code here }}
 {{ Add example description here }}
 
 ## PARAMETERS
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Identity
 {{Fill Identity Description}}
@@ -101,21 +117,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -141,11 +142,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String[]
 
-### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]][]
+### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.CustomField, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]][]
 
 ## OUTPUTS
 
-### SnipeSharp.Models.RequestResponse`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
+### SnipeSharp.Models.RequestResponse`1[[SnipeSharp.Models.CustomField, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

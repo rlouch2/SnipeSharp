@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: SnipeSharp.PowerShell.dll-Help.xml
 Module Name: SnipeSharp.PowerShell
 online version:
@@ -31,8 +31,7 @@ Disconnect from the current Snipe IT session, or verify that there isn't a curre
 ## PARAMETERS
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -44,4 +43,5 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
-- [Connect-SnipeIT](Connect-SnipeIT.md)
+
+[Connect-SnipeIT](Connect-SnipeIT.md)

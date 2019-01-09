@@ -15,7 +15,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     /// <para type="link">Disconnect-SnipeIT</para>
     /// <para type="link" uri="(https://snipe-it.readme.io/reference#generating-api-tokens)">[Generating API tokens for Snipe IT]</para>
-    [Cmdlet(VerbsCommunications.Connect, "Instance")]
+    [Cmdlet(VerbsCommunications.Connect, "IT")]
     public sealed class ConnectInstance: PSCmdlet
     {
         /// <summary>

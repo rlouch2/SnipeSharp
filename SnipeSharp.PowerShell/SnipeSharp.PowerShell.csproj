@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <Target Name="WarnBuildPowerShellDocs" AfterTargets="Build">
-    <Warning Text="If you have changed cmdlets or cmdlet parameters, please run build-docs.ps1 to update the documentation, then fill in the missing components (search for {{)." />
+    <Message Text="If you have changed cmdlets or cmdlet parameters, please run build-docs.ps1 to update the documentation, then fill in the missing components (search for {{)." />
   </Target>
 
 </Project>

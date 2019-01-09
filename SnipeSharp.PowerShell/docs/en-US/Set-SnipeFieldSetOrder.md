@@ -5,31 +5,28 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-SnipeManufacturer
+# Set-SnipeFieldSetOrder
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
 
 ## SYNTAX
 
-### All (Default)
+### ByIdentity
 ```
-Get-SnipeManufacturer [-NoEnumerate] [<CommonParameters>]
-```
-
-### ByInternalId
-```
-Get-SnipeManufacturer [-InternalId] <Int32[]> [<CommonParameters>]
+Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]>
+ [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeManufacturer -Name <String[]> [<CommonParameters>]
+Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Name <String> [<CommonParameters>]
 ```
 
-### ByIdentity
+### ByInternalId
 ```
-Get-SnipeManufacturer [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Id <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -46,33 +43,33 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
+### -Id
+{{Fill Id Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: ByInternalId
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Identity
 {{Fill Identity Description}}
 
 ```yaml
-Type: ObjectBinding`1[]
+Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]
 Parameter Sets: ByIdentity
 Aliases:
 
 Required: True
 Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -InternalId
-{{Fill InternalId Description}}
-
-```yaml
-Type: Int32[]
-Parameter Sets: ByInternalId
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -80,26 +77,26 @@ Accept wildcard characters: False
 {{Fill Name Description}}
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: ByName
 Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
+### -Order
+{{Fill Order Description}}
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: All
-Aliases:
+Type: ObjectBinding`1[]
+Parameter Sets: (All)
+Aliases: Fields
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -111,15 +108,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Int32[]
-
-### System.String[]
-
-### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.Manufacturer, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]][]
+### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.FieldSet, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## OUTPUTS
 
-### SnipeSharp.Models.Manufacturer
+### SnipeSharp.Models.FieldSet
 
 ## NOTES
 

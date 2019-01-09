@@ -5,26 +5,16 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-SnipeLocation
+# Find-SnipeCustomField
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
 
 ## SYNTAX
 
-### ByName (Default)
 ```
-Remove-SnipeLocation -Name <String[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### ByInternalId
-```
-Remove-SnipeLocation -InternalId <Int32[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### ByIdentity
-```
-Remove-SnipeLocation [-Identity] <ObjectBinding`1[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+Find-SnipeCustomField [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <String>]
+ [-NoEnumerate] [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,56 +31,72 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -Identity
-{{Fill Identity Description}}
+### -First
+Gets only the first 'n' objects.
 
 ```yaml
-Type: ObjectBinding`1[]
-Parameter Sets: ByIdentity
+Type: UInt64
+Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IncludeTotalCount
+Reports the number of objects in the data set (an integer) followed by the objects.
+If the cmdlet cannot determine the total count, it returns 'Unknown total count'.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NoEnumerate
+{{Fill NoEnumerate Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchString
+{{Fill SearchString Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -InternalId
-{{Fill InternalId Description}}
+### -Skip
+Ignores the first 'n' objects and then gets the remaining objects.
 
 ```yaml
-Type: Int32[]
-Parameter Sets: ByInternalId
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Name
-{{Fill Name Description}}
-
-```yaml
-Type: String[]
-Parameter Sets: ByName
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -ShowResponse
-{{Fill ShowResponse Description}}
-
-```yaml
-Type: SwitchParameter
+Type: UInt64
 Parameter Sets: (All)
 Aliases:
 
@@ -101,13 +107,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -SortColumn
+{{Fill SortColumn Description}}
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
 Position: Named
@@ -116,14 +122,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+### -SortOrder
+{{Fill SortOrder Description}}
 
 ```yaml
-Type: SwitchParameter
+Type: SearchOrder
 Parameter Sets: (All)
-Aliases: wi
+Aliases:
+Accepted values: Ascending, Descending
 
 Required: False
 Position: Named
@@ -137,15 +143,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Int32[]
-
-### System.String[]
-
-### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]][]
+### System.String
 
 ## OUTPUTS
 
-### SnipeSharp.Models.RequestResponse`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
+### SnipeSharp.Models.CustomField
 
 ## NOTES
 

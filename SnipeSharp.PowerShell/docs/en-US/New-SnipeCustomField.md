@@ -5,26 +5,16 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-SnipeLocation
+# New-SnipeCustomField
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
 
 ## SYNTAX
 
-### ByName (Default)
 ```
-Remove-SnipeLocation -Name <String[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### ByInternalId
-```
-Remove-SnipeLocation -InternalId <Int32[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### ByIdentity
-```
-Remove-SnipeLocation [-Identity] <ObjectBinding`1[]> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-SnipeCustomField [-Name] <String> [-Type <CustomFieldElement>] [-Format <String>] [-FieldValue <String[]>]
+ [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,30 +31,60 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -Identity
-{{Fill Identity Description}}
+### -FieldValue
+{{Fill FieldValue Description}}
 
 ```yaml
-Type: ObjectBinding`1[]
-Parameter Sets: ByIdentity
+Type: String[]
+Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: 0
+Required: False
+Position: Named
 Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -InternalId
-{{Fill InternalId Description}}
+### -Format
+{{Fill Format Description}}
 
 ```yaml
-Type: Int32[]
-Parameter Sets: ByInternalId
+Type: String
+Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -HelpText
+{{Fill HelpText Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -IsFieldEncrypted
+{{Fill IsFieldEncrypted Description}}
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
@@ -75,60 +95,45 @@ Accept wildcard characters: False
 {{Fill Name Description}}
 
 ```yaml
-Type: String[]
-Parameter Sets: ByName
+Type: String
+Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ShowInCheckOutEmail
+{{Fill ShowInCheckOutEmail Description}}
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-{{Fill ShowResponse Description}}
+### -Type
+{{Fill Type Description}}
 
 ```yaml
-Type: SwitchParameter
+Type: CustomFieldElement
 Parameter Sets: (All)
 Aliases:
+Accepted values: List, Text, TextArea
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -137,15 +142,17 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Int32[]
+### System.String
+
+### SnipeSharp.Models.Enumerations.CustomFieldElement
 
 ### System.String[]
 
-### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]][]
+### System.Boolean
 
 ## OUTPUTS
 
-### SnipeSharp.Models.RequestResponse`1[[SnipeSharp.Models.Location, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
+### SnipeSharp.Models.CustomField
 
 ## NOTES
 

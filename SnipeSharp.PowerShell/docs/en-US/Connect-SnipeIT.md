@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: SnipeSharp.PowerShell.dll-Help.xml
 Module Name: SnipeSharp.PowerShell
 online version:
@@ -63,8 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -76,5 +75,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
-- [Disconnect-SnipeIT](Disconnect-SnipeIT.md)
-- [Generating API tokens for Snipe IT](https://snipe-it.readme.io/reference#generating-api-tokens)
+
+[Disconnect-SnipeIT](Disconnect-SnipeIT.md)
+
+[Generating API tokens for Snipe IT](https://snipe-it.readme.io/reference#generating-api-tokens)

@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Find
     /// </summary>
     /// <example>
     ///   <code>Find-Company</code>
-    ///   <para>Finds all company.</para>
+    ///   <para>Finds all companies.</para>
     /// </example>
     /// <example>
     ///   <code>Find-Company "Potato Heavy Industries"</code>

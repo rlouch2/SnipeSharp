@@ -5,17 +5,33 @@ online version:
 schema: 2.0.0
 ---
 
-# New-SnipeSupplier
+# Set-SnipeCustomField
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
 
 ## SYNTAX
 
+### ByIdentity
 ```
-New-SnipeSupplier [-Name] <String> [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>] [-City <String>]
- [-State <String>] [-Country <String>] [-ZipCode <String>] [-FaxNumber <String>] [-PhoneNumber <String>]
- [-EmailAddress <String>] [-Contact <String>] [-Notes <String>] [<CommonParameters>]
+Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
+ [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.CustomField]>
+ [<CommonParameters>]
+```
+
+### ByName
+```
+Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
+ [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
+ -Name <String> [<CommonParameters>]
+```
+
+### ByInternalId
+```
+Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
+ [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
+ -Id <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,8 +48,23 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -Address
-{{Fill Address Description}}
+### -FieldValue
+{{Fill FieldValue Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Format
+{{Fill Format Description}}
 
 ```yaml
 Type: String
@@ -47,8 +78,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Address2
-{{Fill Address2 Description}}
+### -HelpText
+{{Fill HelpText Description}}
 
 ```yaml
 Type: String
@@ -62,86 +93,41 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -City
-{{Fill City Description}}
+### -Id
+{{Fill Id Description}}
 
 ```yaml
-Type: String
-Parameter Sets: (All)
+Type: Int32
+Parameter Sets: ByInternalId
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Contact
-{{Fill Contact Description}}
+### -Identity
+{{Fill Identity Description}}
 
 ```yaml
-Type: String
-Parameter Sets: (All)
+Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.CustomField]
+Parameter Sets: ByIdentity
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Country
-{{Fill Country Description}}
+### -IsFieldEncrypted
+{{Fill IsFieldEncrypted Description}}
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -EmailAddress
-{{Fill EmailAddress Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -FaxNumber
-{{Fill FaxNumber Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -ImageUri
-{{Fill ImageUri Description}}
-
-```yaml
-Type: Uri
+Type: Boolean
 Parameter Sets: (All)
 Aliases:
 
@@ -157,21 +143,36 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: ByName
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NewName
+{{Fill NewName Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Notes
-{{Fill Notes Description}}
+### -ShowInCheckOutEmail
+{{Fill ShowInCheckOutEmail Description}}
 
 ```yaml
-Type: String
+Type: Boolean
 Parameter Sets: (All)
 Aliases:
 
@@ -182,43 +183,14 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -PhoneNumber
-{{Fill PhoneNumber Description}}
+### -Type
+{{Fill Type Description}}
 
 ```yaml
-Type: String
+Type: CustomFieldElement
 Parameter Sets: (All)
 Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -State
-{{Fill State Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -ZipCode
-{{Fill ZipCode Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
+Accepted values: List, Text, TextArea
 
 Required: False
 Position: Named
@@ -234,11 +206,17 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-### System.Uri
+### SnipeSharp.Models.Enumerations.CustomFieldElement
+
+### System.String[]
+
+### System.Boolean
+
+### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.CustomField, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## OUTPUTS
 
-### SnipeSharp.Models.Supplier
+### SnipeSharp.Models.CustomField
 
 ## NOTES
 

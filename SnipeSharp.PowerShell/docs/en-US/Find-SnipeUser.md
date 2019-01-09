@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: SnipeSharp.PowerShell.dll-Help.xml
 Module Name: SnipeSharp.PowerShell
 online version:
@@ -112,7 +112,7 @@ Accept wildcard characters: False
 ```
 
 ### -NoEnumerate
-{{Fill NoEnumerate Description}}
+If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
@@ -127,7 +127,7 @@ Accept wildcard characters: False
 ```
 
 ### -SearchString
-{{Fill SearchString Description}}
+The string to search for.
 
 ```yaml
 Type: String
@@ -142,7 +142,7 @@ Accept wildcard characters: False
 ```
 
 ### -SortColumn
-{{Fill SortColumn Description}}
+On which column to sort the data.
 
 ```yaml
 Type: UserSearchColumn
@@ -158,7 +158,7 @@ Accept wildcard characters: False
 ```
 
 ### -SortOrder
-{{Fill SortOrder Description}}
+Which way to sort the data.
 
 ```yaml
 Type: SearchOrder
@@ -220,8 +220,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

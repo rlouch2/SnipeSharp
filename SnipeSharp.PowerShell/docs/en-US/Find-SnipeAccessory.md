@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: SnipeSharp.PowerShell.dll-Help.xml
 Module Name: SnipeSharp.PowerShell
 online version:
@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeAccessory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT accessory.
 
 ## SYNTAX
 
@@ -22,21 +22,28 @@ Find-SnipeAccessory [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-Accessory cmdlet finds accessory objects by filter, company, category, manufacturer, or supplier.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-Accessory "PotatoPeeler"
 ```
 
-{{ Add example description here }}
+Finds accessories that match the search string "PotatoPeeler".
+
+### Example 2
+```powershell
+PS C:\> Find-Accessory -Company $x
+```
+
+Finds accessories owned by the company stored in `$x`.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+Filter by accessory category.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -51,7 +58,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+Filter by owning company.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -66,7 +73,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+Filter by manufactuerer.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -81,7 +88,7 @@ Accept wildcard characters: False
 ```
 
 ### -NoEnumerate
-{{Fill NoEnumerate Description}}
+If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
@@ -96,7 +103,7 @@ Accept wildcard characters: False
 ```
 
 ### -SearchString
-{{Fill SearchString Description}}
+The string to search for.
 
 ```yaml
 Type: String
@@ -111,7 +118,7 @@ Accept wildcard characters: False
 ```
 
 ### -SortColumn
-{{Fill SortColumn Description}}
+On which column to sort the data.
 
 ```yaml
 Type: AccessorySearchColumn
@@ -127,7 +134,7 @@ Accept wildcard characters: False
 ```
 
 ### -SortOrder
-{{Fill SortOrder Description}}
+Which way to sort the data.
 
 ```yaml
 Type: SearchOrder
@@ -143,7 +150,7 @@ Accept wildcard characters: False
 ```
 
 ### -Supplier
-{{Fill Supplier Description}}
+Filter by supplier.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
@@ -204,8 +211,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
