@@ -12,8 +12,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
     ///   <para>Disconnect from the current Snipe IT session, or verify that there isn't a current session.</para>
     /// </example>
     /// <para type="link">Connect-SnipeIT</para>
-    [Cmdlet(VerbsCommunications.Disconnect, "Instance")]
-    public sealed class DisconnectInstance: PSCmdlet
+    [Cmdlet(VerbsCommunications.Disconnect, "IT")]
+    public sealed class DisconnectSnipeIT: PSCmdlet
     {
         /// <inheritdoc />
         protected override void EndProcessing(){

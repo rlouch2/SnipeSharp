@@ -70,7 +70,7 @@ namespace SnipeSharp.Models
         /// <remarks>
         /// <para>This field will be converted to the value of its StatusId when serialized.</para>
         /// </remarks>
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.FromAssetStatus(EndPoint{StatusLabel}, AssetStatus)" />
+        /// <seealso cref="EndPointExtensions.FromAssetStatus(EndPoint{StatusLabel}, AssetStatus)" />
         /// <seealso cref="StatusLabel.ToAssetStatus" />
         [Field("status_label", "status_id", converter: AssetStatusConverter, required: true)]
         public AssetStatus Status { get; set; }
@@ -132,7 +132,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// <para>The location this asset is currently at.</para>
         /// <para>It is preferable to check out the asset than to set its location directly.</para>
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
+        /// <seealso cref="EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
         /// <para>When an asset is checked in, its location will be set to its <see cref="DefaultLocation">DefaultLocation</see>.</para>
         /// </summary>
         /// <remarks>
@@ -172,7 +172,7 @@ namespace SnipeSharp.Models
 
         /// <summary>
         /// <para>The type of the assignee.</para>
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
+        /// <seealso cref="EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
         /// </summary>
         [Field("assigned_type", true)]
         public AssignedToType? AssignedType { get; set; }
@@ -199,14 +199,14 @@ namespace SnipeSharp.Models
 
         /// <summary>
         /// <para>The date this asset was last audited.</para>
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.Audit(EndPoint{Asset}, Asset, Location, Nullable{DateTime}, string)"/>
+        /// <seealso cref="EndPointExtensions.Audit(EndPoint{Asset}, Asset, Location, Nullable{DateTime}, string)"/>
         /// </summary>
         [Field("last_audit_date", converter: DateTimeConverter)]
         public DateTime? LastAuditDate { get; private set; }
 
         /// <summary>
         /// <para>The date this asset will next be audited.</para>
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.Audit(EndPoint{Asset}, Asset, Location, Nullable{DateTime}, string)"/>
+        /// <seealso cref="EndPointExtensions.Audit(EndPoint{Asset}, Asset, Location, Nullable{DateTime}, string)"/>
         /// </summary>
         [Field("next_audit_date", converter: DateTimeConverter)]
         public DateTime? NextAuditDate { get; private set; }
@@ -227,14 +227,14 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The date this Asset was last checked out.
         /// </summary>
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
+        /// <seealso cref="EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
         [Field("last_checkout", converter: DateTimeConverter)]
         public DateTime? LastCheckOut { get; private set; }
 
         /// <summary>
         /// The date this Asset is expected to be checked back in.
         /// </summary>
-        /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
+        /// <seealso cref="EndPointExtensions.CheckOut(EndPoint{Asset}, AssetCheckOutRequest)" />
         [Field("expected_checkin", converter: DateTimeConverter)]
         public DateTime? ExpectedCheckIn { get; private set; }
 

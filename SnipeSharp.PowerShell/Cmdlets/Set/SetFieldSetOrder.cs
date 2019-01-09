@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
+using SnipeSharp;
 using SnipeSharp.Models;
-using SnipeSharp.EndPoint;
 using SnipeSharp.PowerShell.BindingTypes;
 
 namespace SnipeSharp.PowerShell.Cmdlets.Set

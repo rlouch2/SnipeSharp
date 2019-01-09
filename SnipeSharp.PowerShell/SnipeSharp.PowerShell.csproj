@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>library</OutputType>
     <AssemblyName>SnipeSharp.PowerShell</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>7.3</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-RC1" />
     
     <ProjectReference Include="../SnipeSharp/SnipeSharp.csproj" />
     <None Update="$(AssemblyName).psd1;$(AssemblyName)*.ps1xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+
+  <Target Name="WarnBuildPowerShellDocs" AfterTargets="Build">
+    <Warning Text="If you have changed cmdlets or cmdlet parameters, please run build-docs.ps1 to update the documentation, then fill in the missing components (search for {{)." />
+  </Target>
+
 </Project>

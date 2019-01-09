@@ -32,7 +32,7 @@ SnipeItApi snipe = new SnipeItApi {
 ```
 
 > ```powershell
-> PS C:\> Connect-SnipeInstance -Token "XXXXXXXX" -Uri "http://xxxxx.com/api/v1"
+> PS C:\> Connect-SnipeIT -Token "XXXXXXXX" -Uri "http://xxxxx.com/api/v1"
 > ```
 
 Each endpoint has its own manager assigned to the SnipeItApi object.  Example, SnipeItApi.Assets 

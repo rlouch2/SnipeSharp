@@ -7,7 +7,7 @@ namespace SnipeSharp.Models
     /// The status of an <see cref="Asset">Asset</see>.
     /// </summary>
     /// <remarks>Yes, it's not a <see cref="StatusLabel">StatusLabel</see>, but the Id's are the same.</remarks>
-    /// <seealso cref="SnipeSharp.EndPoint.EndPointExtensions.FromAssetStatus(EndPoint.EndPoint{StatusLabel}, AssetStatus)" />
+    /// <seealso cref="EndPointExtensions.FromAssetStatus(EndPoint.EndPoint{StatusLabel}, AssetStatus)" />
     /// <seealso cref="SnipeSharp.Models.StatusLabel.ToAssetStatus" />
     public sealed class AssetStatus
     {

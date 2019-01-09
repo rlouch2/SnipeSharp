@@ -23,7 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve the first 100 custom fields by their Snipe IT internal Id numbers.</para>
     /// </example>
     /// <para type="link">Find-CustomField</para>
-    [Cmdlet(VerbsCommon.Get, nameof(FieldSet), DefaultParameterSetName = nameof(GetFieldSet.ParameterSets.All))]
+    [Cmdlet(VerbsCommon.Get, nameof(CustomField), DefaultParameterSetName = nameof(GetCustomField.ParameterSets.All))]
     [OutputType(typeof(CustomField))]
     public sealed class GetCustomField: GetObject<CustomField, ObjectBinding<CustomField>>
     {

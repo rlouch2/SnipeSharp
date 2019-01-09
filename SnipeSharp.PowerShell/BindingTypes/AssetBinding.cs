@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using SnipeSharp;
 using SnipeSharp.Models;
-using static SnipeSharp.EndPoint.EndPointExtensions;
 
 namespace SnipeSharp.PowerShell.BindingTypes
 {
