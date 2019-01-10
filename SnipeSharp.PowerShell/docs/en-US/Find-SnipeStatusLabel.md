@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeStatusLabel
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT status label.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeStatusLabel [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-So
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-StatusLabel cmdlet finds status label objects by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-StatusLabel
 ```
 
-{{ Add example description here }}
+Finds all status labels.
+
+### Example 2
+```powershell
+PS C:\> Find-StatusLabel "Pending"
+```
+
+Finds status labels that match the search string "Pending".
 
 ## PARAMETERS
 

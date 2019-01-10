@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeModel
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT model.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeModel [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColu
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-Model cmdlet finds model objects by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-Model
 ```
 
-{{ Add example description here }}
+Finds all models.
+
+### Example 2
+```powershell
+PS C:\> Find-Model "PotatoPeeler Plus"
+```
+
+Finds models that match the search string "PotatoPeeler Plus".
 
 ## PARAMETERS
 

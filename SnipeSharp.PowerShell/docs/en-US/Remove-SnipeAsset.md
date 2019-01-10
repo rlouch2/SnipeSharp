@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-SnipeAsset
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a Snipe IT asset.
 
 ## SYNTAX
 
@@ -38,21 +38,37 @@ Remove-SnipeAsset [-Identity] <AssetBinding[]> [-ShowResponse] [-WhatIf] [-Confi
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Remove-Asset cmdlet removes one or more asset objects from the Snipe IT database.
+
+The Identity, InteralId, Name, AssetTag, and Serial parameters specify the Snipe IT asset to get. InternalId is the Snipe IT-internal Id number. Identity is a catch-all accepting pipeline input and attempting conversion accordingly.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-Asset -InternalId 12
 ```
 
-{{ Add example description here }}
+Removes an accessory by its Internal Id.
+
+### Example 2
+```powershell
+PS C:\> Remove-Asset Asset4368
+```
+
+Removes an asset by its Name.
+
+### Example 3
+```powershell
+PS C:\> 1..100 | Get-Asset | Remove-Asset
+```
+
+Removes the first 100 assets by their Snipe IT internal Id numbers.
 
 ## PARAMETERS
 
 ### -AssetTag
-{{Fill AssetTag Description}}
+The asset tag for the Asset.
 
 ```yaml
 Type: String[]
@@ -67,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -Identity
-{{Fill Identity Description}}
+An identity for an object.
 
 ```yaml
 Type: AssetBinding[]
@@ -82,7 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -InternalId
-{{Fill InternalId Description}}
+The internal Id of the Object.
 
 ```yaml
 Type: Int32[]
@@ -97,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the Object.
 
 ```yaml
 Type: String[]
@@ -112,7 +128,7 @@ Accept wildcard characters: False
 ```
 
 ### -Serial
-{{Fill Serial Description}}
+The serial Id for the Asset.
 
 ```yaml
 Type: String[]
@@ -127,7 +143,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowResponse
-{{Fill ShowResponse Description}}
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter
@@ -190,3 +206,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Get-SnipeAsset](Get-SnipeAsset.md)

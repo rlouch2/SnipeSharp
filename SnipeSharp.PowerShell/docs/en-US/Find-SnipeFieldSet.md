@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeFieldSet
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT custom field set.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeFieldSet [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortC
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-FieldSet cmdlet finds custom field sets by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-FieldSet
 ```
 
-{{ Add example description here }}
+Finds all field sets.
+
+### Example 2
+```powershell
+PS C:\> Find-FieldSet "PotatoPeeler"
+```
+
+Finds field sets that match the search string "PotatoPeeler".
 
 ## PARAMETERS
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-SnipeCategory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets a Snipe IT category.
 
 ## SYNTAX
 
@@ -33,21 +33,37 @@ Get-SnipeCategory [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Get-Category cmdlet gets one or more category objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-Category 14
 ```
 
-{{ Add example description here }}
+Retrieve an category by its Internal Id.
+
+### Example 2
+```powershell
+PS C:\> Get-Category Category4368
+```
+
+Retrieve an category explicitly by its Name.
+
+### Example 3
+```powershell
+PS C:\> 1..100 | Get-Category
+```
+
+Retrieve the first 100 categories by their Snipe IT internal Id numbers.
 
 ## PARAMETERS
 
 ### -Identity
-{{Fill Identity Description}}
+An identity for an object.
 
 ```yaml
 Type: ObjectBinding`1[]
@@ -62,7 +78,7 @@ Accept wildcard characters: False
 ```
 
 ### -InternalId
-{{Fill InternalId Description}}
+The internal Id of the Object.
 
 ```yaml
 Type: Int32[]
@@ -77,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the Object.
 
 ```yaml
 Type: String[]
@@ -124,3 +140,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Find-SnipeCategory](Find-SnipeCategory.md)

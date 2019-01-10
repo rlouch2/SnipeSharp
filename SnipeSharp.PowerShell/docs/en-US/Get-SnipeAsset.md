@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-SnipeAsset
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets a Snipe IT asset.
 
 ## SYNTAX
 
@@ -43,21 +43,37 @@ Get-SnipeAsset [-Identity] <AssetBinding[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Get-Asset cmdlet gets one or more asset objects.
+
+The Identity, InteralId, Name, AssetTag, and Serial parameters specify the Snipe IT asset to get. InternalId is the Snipe IT-internal Id number. Identity is a catch-all accepting pipeline input and attempting conversion accordingly.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-Asset Asset4638
 ```
 
-{{ Add example description here }}
+Retrieve an asset by its Identity.
+
+### Example 2
+```powershell
+PS C:\> Get-Asset -Name Asset4368
+```
+
+Retrieve an asset explicitly by its Name.
+
+### Example 3
+```powershell
+1..100 | Get-Asset
+```
+
+Retrieve the first 100 assets by their identities.
 
 ## PARAMETERS
 
 ### -AssetTag
-{{Fill AssetTag Description}}
+The asset tag for the Asset.
 
 ```yaml
 Type: String[]
@@ -72,7 +88,7 @@ Accept wildcard characters: False
 ```
 
 ### -Identity
-{{Fill Identity Description}}
+An identity for an object.
 
 ```yaml
 Type: AssetBinding[]
@@ -87,7 +103,7 @@ Accept wildcard characters: False
 ```
 
 ### -InternalId
-{{Fill InternalId Description}}
+The internal Id of the Object.
 
 ```yaml
 Type: Int32[]
@@ -102,7 +118,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the Object.
 
 ```yaml
 Type: String[]
@@ -132,7 +148,7 @@ Accept wildcard characters: False
 ```
 
 ### -Serial
-{{Fill Serial Description}}
+The serial Id for the Asset.
 
 ```yaml
 Type: String[]
@@ -164,3 +180,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Find-SnipeAsset](Find-SnipeAsset.md)

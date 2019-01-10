@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-SnipeUser
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a Snipe IT User.
 
 ## SYNTAX
 
@@ -38,21 +38,37 @@ Remove-SnipeUser [-Identity] <UserBinding[]> [-ShowResponse] [-WhatIf] [-Confirm
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Remove-User cmdlet removes one or more User objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-User 12
 ```
 
-{{ Add example description here }}
+Removes a User by its Internal Id.
+
+### Example 2
+```powershell
+PS C:\> Remove-User User4368
+```
+
+Removes a User explicitly by its Name.
+
+### Example 3
+```powershell
+PS C:\> 1..100 | Remove-User
+```
+
+Removes the first 100 User objects by their Snipe IT internal Id numbers.
 
 ## PARAMETERS
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+The email address for the User.
 
 ```yaml
 Type: String[]
@@ -67,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -Identity
-{{Fill Identity Description}}
+An identity for an object.
 
 ```yaml
 Type: UserBinding[]
@@ -82,7 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -InternalId
-{{Fill InternalId Description}}
+The internal Id of the Object.
 
 ```yaml
 Type: Int32[]
@@ -97,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the Object.
 
 ```yaml
 Type: String[]
@@ -112,7 +128,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowResponse
-{{Fill ShowResponse Description}}
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter
@@ -127,7 +143,7 @@ Accept wildcard characters: False
 ```
 
 ### -UserName
-{{Fill UserName Description}}
+The username for the User.
 
 ```yaml
 Type: String[]
@@ -190,3 +206,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Find-SnipeUser](Find-SnipeUser.md)

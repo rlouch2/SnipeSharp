@@ -18,7 +18,6 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <code>Get-Asset User1234, User5678</code>
     ///   <para>Retrieve the assets assigned to the user User1234 or the user User5678.</para>
     /// </example>
-    /// <para type="link">Find-Asset</para>
     [Cmdlet(VerbsCommon.Get, "AssignedAsset", DefaultParameterSetName = nameof(ParameterSets.ByUser))]
     public sealed class GetAssignedAsset: PSCmdlet
     {

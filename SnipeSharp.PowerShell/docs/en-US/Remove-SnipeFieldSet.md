@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-SnipeFieldSet
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a Snipe IT Field set.
 
 ## SYNTAX
 
@@ -28,21 +28,37 @@ Remove-SnipeFieldSet [-Identity] <ObjectBinding`1[]> [-ShowResponse] [-WhatIf] [
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Remove-FieldSet cmdlet removes one or more FieldSet objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-FieldSet 12
 ```
 
-{{ Add example description here }}
+Removes a FieldSet by its Internal Id.
+
+### Example 2
+```powershell
+PS C:\> Remove-FieldSet FieldSet4368
+```
+
+Removes a FieldSet explicitly by its Name.
+
+### Example 3
+```powershell
+PS C:\> 1..100 | Remove-FieldSet
+```
+
+Removes the first 100 FieldSet objects by their Snipe IT internal Id numbers.
 
 ## PARAMETERS
 
 ### -Identity
-{{Fill Identity Description}}
+An identity for an object.
 
 ```yaml
 Type: ObjectBinding`1[]
@@ -57,7 +73,7 @@ Accept wildcard characters: False
 ```
 
 ### -InternalId
-{{Fill InternalId Description}}
+The internal Id of the Object.
 
 ```yaml
 Type: Int32[]
@@ -72,7 +88,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the Object.
 
 ```yaml
 Type: String[]
@@ -87,7 +103,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowResponse
-{{Fill ShowResponse Description}}
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter
@@ -150,3 +166,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Find-SnipeFieldSet](Find-SnipeFieldSet.md)

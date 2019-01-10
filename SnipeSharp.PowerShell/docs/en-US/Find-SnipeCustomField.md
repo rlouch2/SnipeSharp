@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeCustomField
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT custom field.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeCustomField [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-So
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-CustomField cmdlet finds custom fields by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-CustomField
 ```
 
-{{ Add example description here }}
+Finds all fields.
+
+### Example 2
+```powershell
+PS C:\> Find-CustomField "Length"
+```
+
+Finds field sets that match the search string "Length".
 
 ## PARAMETERS
 
@@ -63,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -NoEnumerate
-{{Fill NoEnumerate Description}}
+If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
@@ -78,7 +85,7 @@ Accept wildcard characters: False
 ```
 
 ### -SearchString
-{{Fill SearchString Description}}
+The string to search for.
 
 ```yaml
 Type: String
@@ -108,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -SortColumn
-{{Fill SortColumn Description}}
+On which column to sort the data.
 
 ```yaml
 Type: String
@@ -123,7 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -SortOrder
-{{Fill SortOrder Description}}
+Which way to sort the data.
 
 ```yaml
 Type: SearchOrder

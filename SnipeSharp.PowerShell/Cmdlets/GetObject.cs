@@ -25,7 +25,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         }
 
         /// <summary>
-        /// <para type="description">The name of the Object.</para>
+        /// <para type="description">The internal Id of the Object.</para>
         /// </summary>
         [Parameter(
             Mandatory = true,
@@ -37,7 +37,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public int[] InternalId { get; set; }
 
         /// <summary>
-        /// <para type="description">The internal Id of the Object.</para>
+        /// <para type="description">The name of the Object.</para>
         /// </summary>
         [Parameter(
             Mandatory = true,

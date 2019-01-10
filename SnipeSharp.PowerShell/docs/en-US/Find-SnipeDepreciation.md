@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeDepreciation
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT depreciation.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeDepreciation [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-S
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-Depreciation cmdlet finds depreciations by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-Depreciation
 ```
 
-{{ Add example description here }}
+Finds all depreciations.
+
+### Example 2
+```powershell
+PS C:\> Find-Depreciation "PotatoPeeler"
+```
+
+Finds depreciations that match the search string "PotatoPeeler".
 
 ## PARAMETERS
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeUser
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT user.
 
 ## SYNTAX
 
@@ -23,21 +23,35 @@ Find-SnipeUser [-IncludeDeleted]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-User cmdlet finds user objects by filter, company, location, group, or department.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-User -IncludeDeleted
 ```
 
-{{ Add example description here }}
+Finds all users, included deleted ones.
+
+### Example 2
+```powershell
+PS C:\> Find-User "ThePotatoPeeler"
+```
+
+Finds users that match the search string "ThePotatoPeeler".
+
+### Example 3
+```powershell
+PS C:\> Find-User -Company $x
+```
+
+Finds users that work for company `$x`.
 
 ## PARAMETERS
 
 ### -Company
-{{Fill Company Description}}
+Filter by company.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -52,7 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -Department
-{{Fill Department Description}}
+Filter by department.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]
@@ -67,7 +81,7 @@ Accept wildcard characters: False
 ```
 
 ### -Group
-{{Fill Group Description}}
+Filter by group membership.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Group]
@@ -82,7 +96,7 @@ Accept wildcard characters: False
 ```
 
 ### -IncludeDeleted
-{{Fill IncludeDeleted Description}}
+If present, also search for deleted users.
 
 ```yaml
 Type: SwitchParameter
@@ -97,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+Filter by location.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]

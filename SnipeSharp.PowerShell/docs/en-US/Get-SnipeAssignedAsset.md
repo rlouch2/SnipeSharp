@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-SnipeAssignedAsset
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets the Snipe IT assets assigned to a user.
 
 ## SYNTAX
 
@@ -17,16 +17,23 @@ Get-SnipeAssignedAsset [-User] <UserBinding[]> [-NoEnumerate] [<CommonParameters
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Get-AssignedAsset cmdlet get, for each user provided, the asset objects associated with that user.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-AssignedAsset User1234
 ```
 
-{{ Add example description here }}
+Retrieves the assets assigned to the user User1234.
+
+### Example 2
+```powershell
+PS C:\> Get-Asset User1234, User5678
+```
+
+Retrieve the assets assigned to the user User1234 or the user User5678.
 
 ## PARAMETERS
 
@@ -46,7 +53,7 @@ Accept wildcard characters: False
 ```
 
 ### -User
-{{Fill User Description}}
+The user to find the assets of.
 
 ```yaml
 Type: UserBinding[]

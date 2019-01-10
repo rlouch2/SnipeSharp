@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeDepartment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT department.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeDepartment [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-Sor
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-Asset cmdlet finds departments by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-Department
 ```
 
-{{ Add example description here }}
+Finds all department.
+
+### Example 2
+```powershell
+PS C:\> Find-Department "Potato Peeling"
+```
+
+Finds departments that match the search string "Potato Peeling".
 
 ## PARAMETERS
 

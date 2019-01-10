@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeSupplier
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT supplier.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeSupplier [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortC
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-Supplier cmdlet finds supplier objects by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-Supplier
 ```
 
-{{ Add example description here }}
+Finds all suppliers.
+
+### Example 2
+```powershell
+PS C:\> Find-Supplier "Potato Supplier Inc"
+```
+
+Finds suppliers that match the search string "Potato Supplier Inc".
 
 ## PARAMETERS
 

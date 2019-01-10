@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeLicense
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT license.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeLicense [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortCo
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-License cmdlet finds license objects by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-License
 ```
 
-{{ Add example description here }}
+Finds all licenses.
+
+### Example 2
+```powershell
+PS C:\> Find-License "Potato Tracker"
+```
+
+Finds licenses that match the search string "Potato Tracker".
 
 ## PARAMETERS
 

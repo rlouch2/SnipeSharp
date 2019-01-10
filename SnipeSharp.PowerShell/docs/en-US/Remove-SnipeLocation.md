@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-SnipeLocation
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a Snipe IT Location.
 
 ## SYNTAX
 
@@ -28,21 +28,37 @@ Remove-SnipeLocation [-Identity] <ObjectBinding`1[]> [-ShowResponse] [-WhatIf] [
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Remove-Location cmdlet removes one or more Location objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-Location 12
 ```
 
-{{ Add example description here }}
+Removes a Location by its Internal Id.
+
+### Example 2
+```powershell
+PS C:\> Remove-Location Location4368
+```
+
+Removes a Location explicitly by its Name.
+
+### Example 3
+```powershell
+PS C:\> 1..100 | Remove-Location
+```
+
+Removes the first 100 Location objects by their Snipe IT internal Id numbers.
 
 ## PARAMETERS
 
 ### -Identity
-{{Fill Identity Description}}
+An identity for an object.
 
 ```yaml
 Type: ObjectBinding`1[]
@@ -57,7 +73,7 @@ Accept wildcard characters: False
 ```
 
 ### -InternalId
-{{Fill InternalId Description}}
+The internal Id of the Object.
 
 ```yaml
 Type: Int32[]
@@ -72,7 +88,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the Object.
 
 ```yaml
 Type: String[]
@@ -87,7 +103,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowResponse
-{{Fill ShowResponse Description}}
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter
@@ -150,3 +166,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Find-SnipeLocation](Find-SnipeLocation.md)

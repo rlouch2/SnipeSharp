@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-SnipeUser
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets a Snipe IT user.
 
 ## SYNTAX
 
@@ -43,21 +43,39 @@ Get-SnipeUser [-Identity] <UserBinding[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Get-User cmdlet gets one or more user objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-User 14
 ```
 
-{{ Add example description here }}
+Retrieve an user by its Internal Id.
+
+### Example 2
+```powershell
+PS C:\> Get-User -UserName User4368
+```
+
+Retrieve an user explicitly by its Name.
+
+### Example 3
+```powershell
+PS C:\> 1..100 | Get-User
+```
+
+Retrieve the first 100 users by their Snipe IT internal Id numbers.
+
+### Example 3
 
 ## PARAMETERS
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+The email address for the User.
 
 ```yaml
 Type: String[]
@@ -72,7 +90,7 @@ Accept wildcard characters: False
 ```
 
 ### -Identity
-{{Fill Identity Description}}
+An identity for an object.
 
 ```yaml
 Type: UserBinding[]
@@ -87,7 +105,7 @@ Accept wildcard characters: False
 ```
 
 ### -InternalId
-{{Fill InternalId Description}}
+The internal Id of the Object.
 
 ```yaml
 Type: Int32[]
@@ -102,7 +120,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the Object.
 
 ```yaml
 Type: String[]
@@ -132,7 +150,7 @@ Accept wildcard characters: False
 ```
 
 ### -UserName
-{{Fill UserName Description}}
+The username for the User.
 
 ```yaml
 Type: String[]
@@ -164,3 +182,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Find-User](Find-User.md)

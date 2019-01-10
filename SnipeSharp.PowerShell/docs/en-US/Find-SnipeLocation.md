@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeLocation
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT location.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeLocation [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortC
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-Asset cmdlet finds location objects by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-Location
 ```
 
-{{ Add example description here }}
+Finds all locations.
+
+### Example 2
+```powershell
+PS C:\> Find-Location "Potato Farm"
+```
+
+Finds location that match the search string "Potato Farm".
 
 ## PARAMETERS
 

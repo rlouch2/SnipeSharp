@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-SnipeManufacturer
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Finds a Snipe IT manufacturer.
 
 ## SYNTAX
 
@@ -18,16 +18,23 @@ Find-SnipeManufacturer [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-S
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Find-Asset cmdlet finds manufacturer objects by filter.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-Manufacturer
 ```
 
-{{ Add example description here }}
+Finds all manufacturers.
+
+### Example 2
+```powershell
+PS C:\> Find-Manufacturer "Potato Peelers United"
+```
+
+Finds manufacturers that match the search string "Potato Peelers United".
 
 ## PARAMETERS
 

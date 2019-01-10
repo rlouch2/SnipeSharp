@@ -16,7 +16,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <para>Retrieve an user by its Internal Id.</para>
     /// </example>
     /// <example>
-    ///   <code>Get-User User4368</code>
+    ///   <code>Get-User -UserName User4368</code>
     ///   <para>Retrieve an user explicitly by its Name.</para>
     /// </example>
     /// <example>
