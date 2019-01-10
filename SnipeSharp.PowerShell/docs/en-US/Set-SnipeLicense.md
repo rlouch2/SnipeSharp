@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeLicense
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT license.
 
 ## SYNTAX
 
@@ -59,21 +59,21 @@ Set-SnipeLicense [-NewName <String>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-License cmdlet changes the properties of an existing Snipe-IT license object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-License -Name "State Potato Peeling License" -IsReassignable $false
 ```
 
-{{ Add example description here }}
+Pulls into question if it really makes sense to not require every employee have their own potato peeling license, if only because they can no longer be reassigned.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The updated category of the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -88,7 +88,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The update company that owns the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -103,7 +103,7 @@ Accept wildcard characters: False
 ```
 
 ### -Depreciation
-{{Fill Depreciation Description}}
+The new depreciation to use for the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]
@@ -148,7 +148,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsMaintained
-{{Fill IsMaintained Description}}
+Is the license maintained?
 
 ```yaml
 Type: Boolean
@@ -163,7 +163,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsReassignable
-{{Fill IsReassignable Description}}
+Are seats on this license reassignable?
 
 ```yaml
 Type: Boolean
@@ -178,7 +178,7 @@ Accept wildcard characters: False
 ```
 
 ### -LicensedToEmailAddress
-{{Fill LicensedToEmailAddress Description}}
+The updated licensee email address.
 
 ```yaml
 Type: String
@@ -193,7 +193,7 @@ Accept wildcard characters: False
 ```
 
 ### -LicensedToName
-{{Fill LicensedToName Description}}
+The updated licensee name.
 
 ```yaml
 Type: String
@@ -208,7 +208,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+The updated manufacturer of the product the license is for.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -238,7 +238,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the license.
 
 ```yaml
 Type: String
@@ -253,7 +253,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes for the license.
 
 ```yaml
 Type: String
@@ -268,7 +268,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The updated order the license was purchased in, supplied by the supplier.
 
 ```yaml
 Type: String
@@ -283,7 +283,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProductKey
-{{Fill ProductKey Description}}
+The updated license product key.
 
 ```yaml
 Type: String
@@ -298,7 +298,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The updated purchase cost of the license.
 
 ```yaml
 Type: Decimal
@@ -313,7 +313,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The updated purchase date of the license.
 
 ```yaml
 Type: DateTime
@@ -328,7 +328,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseOrder
-{{Fill PurchaseOrder Description}}
+The updated order the license was purchased in, supplied by the purchaser.
 
 ```yaml
 Type: String
@@ -343,7 +343,7 @@ Accept wildcard characters: False
 ```
 
 ### -Seats
-{{Fill Seats Description}}
+The updated seat coutn for the license.
 
 ```yaml
 Type: Int32
@@ -358,7 +358,7 @@ Accept wildcard characters: False
 ```
 
 ### -Supplier
-{{Fill Supplier Description}}
+The updated supplier that sold the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]

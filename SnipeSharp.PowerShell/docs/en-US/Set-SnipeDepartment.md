@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeDepartment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT department.
 
 ## SYNTAX
 
@@ -41,21 +41,21 @@ Set-SnipeDepartment [-NewName <String>] [-ImageUri <Uri>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Department cmdlet changes the properties of an existing Snipe-IT department object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Department -Name "Potato Peeling" -NewName "Potato Preparation" -Manager respud
 ```
 
-{{ Add example description here }}
+Changes the name of department "Potato Peeling" to "Potato Preparation" and its manager to "R. E. Spud".
 
 ## PARAMETERS
 
 ### -Company
-{{Fill Company Description}}
+The update company the department belongs to.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -100,7 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The updated uri of the image for the department.
 
 ```yaml
 Type: Uri
@@ -115,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The updated location of the department.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -130,7 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manager
-{{Fill Manager Description}}
+The updated manager of the department.
 
 ```yaml
 Type: UserBinding
@@ -160,7 +160,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the department.
 
 ```yaml
 Type: String

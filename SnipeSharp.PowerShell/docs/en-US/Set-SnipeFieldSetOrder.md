@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeFieldSetOrder
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the order of fields in an existing Snipe-IT field set.
 
 ## SYNTAX
 
@@ -30,16 +30,16 @@ Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Id <Int32> [<CommonParameters
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-FieldSetOrder cmdlet changes the order of custom fields in an existing Snipe-IT field set object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-FieldSetOrder -Name "Potato Peeler" -Order "Length", "Width", "Handle Size"
 ```
 
-{{ Add example description here }}
+Changes the order of fields in the fieldset "Potato Peeler" to  "Length, Width, Handle Size".
 
 ## PARAMETERS
 
@@ -89,7 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -Order
-{{Fill Order Description}}
+The fields of the field set, in the order desired.
 
 ```yaml
 Type: ObjectBinding`1[]

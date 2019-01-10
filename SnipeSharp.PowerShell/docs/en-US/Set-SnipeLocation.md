@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeLocation
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT location.
 
 ## SYNTAX
 
@@ -39,21 +39,21 @@ Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Ad
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Location cmdlet changes the properties of an existing Snipe-IT location object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Location -Name "Warehouse 19" -Manager "respud"
 ```
 
-{{ Add example description here }}
+Changes the manager of "Warehouse 19" to the user "respud".
 
 ## PARAMETERS
 
 ### -Address
-{{Fill Address Description}}
+The location's updated address line.
 
 ```yaml
 Type: String
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 ```
 
 ### -Address2
-{{Fill Address2 Description}}
+The location's updated second address line.
 
 ```yaml
 Type: String
@@ -83,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -City
-{{Fill City Description}}
+The location's udpated address city.
 
 ```yaml
 Type: String
@@ -98,7 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -Country
-{{Fill Country Description}}
+The location's updated address country.
 
 ```yaml
 Type: String
@@ -113,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -Currency
-{{Fill Currency Description}}
+The new currency used at the location.
 
 ```yaml
 Type: String
@@ -158,7 +158,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The updated uri of the image for the location.
 
 ```yaml
 Type: Uri
@@ -173,7 +173,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manager
-{{Fill Manager Description}}
+The updated manager of the location.
 
 ```yaml
 Type: UserBinding
@@ -203,7 +203,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the location.
 
 ```yaml
 Type: String
@@ -218,7 +218,7 @@ Accept wildcard characters: False
 ```
 
 ### -ParentLocation
-{{Fill ParentLocation Description}}
+The updated parent location.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -233,7 +233,7 @@ Accept wildcard characters: False
 ```
 
 ### -State
-{{Fill State Description}}
+The location's updated address state.
 
 ```yaml
 Type: String
@@ -248,7 +248,7 @@ Accept wildcard characters: False
 ```
 
 ### -ZipCode
-{{Fill ZipCode Description}}
+The location's updated address zip code.
 
 ```yaml
 Type: String

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeAccessory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT accessory.
 
 ## SYNTAX
 
@@ -54,21 +54,21 @@ Set-SnipeAccessory [-NewName <String>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Accessory cmdlet changes the properties of an existing Snipe-IT accessory object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Accessory -Name "Potato Peeler Wrist strap" -NewName "Potato Peeler Wriststrap" -MinimumQuantity 12
 ```
 
-{{ Add example description here }}
+Changes the name of the accessory "Potato Peeler Wrist strap" to "Potato Peeler Wriststrap" and sets the new minimum quantity before warning to 12.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The updated category of the accessory.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -83,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The new company that owns the accessory.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -128,7 +128,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The updated uri of the image for the accessory.
 
 ```yaml
 Type: Uri
@@ -143,7 +143,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The updated location of the accessory.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -158,7 +158,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+The updated manufacturer who made the accessory.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -173,7 +173,7 @@ Accept wildcard characters: False
 ```
 
 ### -MinimumQuantity
-{{Fill MinimumQuantity Description}}
+The updated minimum quantity before warning for the accessory.
 
 ```yaml
 Type: Int32
@@ -188,7 +188,7 @@ Accept wildcard characters: False
 ```
 
 ### -ModelNumber
-{{Fill ModelNumber Description}}
+The updated model number of the accessory.
 
 ```yaml
 Type: String
@@ -218,7 +218,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the accessory.
 
 ```yaml
 Type: String
@@ -233,7 +233,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The updated order number for the accessory.
 
 ```yaml
 Type: String
@@ -248,7 +248,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The updated purchase cost for the accessory.
 
 ```yaml
 Type: Decimal
@@ -263,7 +263,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The updated date of purchase for the accessory.
 
 ```yaml
 Type: DateTime
@@ -278,7 +278,7 @@ Accept wildcard characters: False
 ```
 
 ### -Quantity
-{{Fill Quantity Description}}
+The updated quantity of the accessory.
 
 ```yaml
 Type: Int32
@@ -293,7 +293,7 @@ Accept wildcard characters: False
 ```
 
 ### -Supplier
-{{Fill Supplier Description}}
+The updated supplier who sold the accessory.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeFieldSet
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT field set.
 
 ## SYNTAX
 
@@ -33,21 +33,21 @@ Set-SnipeFieldSet [-NewName <String>] [-Add <ObjectBinding`1[]>] [-AddRequired <
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-FieldSet cmdlet changes the properties of an existing Snipe-IT field set object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-FieldSet -Name "Peeler" -NewName "Potato Peeler"
 ```
 
-{{ Add example description here }}
+Changes the name of fieldset "Peeler" to "Potato Peeler" to distinguish it from "Carrot Peeler".
 
 ## PARAMETERS
 
 ### -Add
-{{Fill Add Description}}
+A list of fields to associate with this fieldset.
 
 ```yaml
 Type: ObjectBinding`1[]
@@ -62,7 +62,7 @@ Accept wildcard characters: False
 ```
 
 ### -AddRequired
-{{Fill AddRequired Description}}
+A list of fields to associate with this fieldset, marked required.
 
 ```yaml
 Type: ObjectBinding`1[]
@@ -122,7 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name for the field set.
 
 ```yaml
 Type: String
@@ -137,7 +137,7 @@ Accept wildcard characters: False
 ```
 
 ### -Remove
-{{Fill Remove Description}}
+A list of fields to disassociate with this fieldset.
 
 ```yaml
 Type: ObjectBinding`1[]

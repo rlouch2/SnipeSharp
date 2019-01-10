@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeManufacturer
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT manufacturer.
 
 ## SYNTAX
 
@@ -33,16 +33,16 @@ Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-Suppo
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Manufacturer cmdlet changes the properties of an existing Snipe-IT manufacturer object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Manufacturer -Name "Potato Peelers Inc." -SupportPhoneNumber '+1 (555) 555-5555'
 ```
 
-{{ Add example description here }}
+Changes the support phone number for manufacturer "Potato Peelers Inc." to "+1 (555) 555-5555".
 
 ## PARAMETERS
 
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The updated uri of the image for the manufacturer.
 
 ```yaml
 Type: Uri
@@ -107,7 +107,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name for the manufacturer.
 
 ```yaml
 Type: String
@@ -122,7 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### -SupportEmailAddress
-{{Fill SupportEmailAddress Description}}
+The updated email address to contact the manufacturer by for support.
 
 ```yaml
 Type: String
@@ -137,7 +137,7 @@ Accept wildcard characters: False
 ```
 
 ### -SupportPhoneNumber
-{{Fill SupportPhoneNumber Description}}
+The updated phone number for the manufacturer's support line.
 
 ```yaml
 Type: String
@@ -152,7 +152,7 @@ Accept wildcard characters: False
 ```
 
 ### -SupportUrl
-{{Fill SupportUrl Description}}
+The updated url for the manufacturer's support portal.
 
 ```yaml
 Type: Uri
@@ -167,7 +167,7 @@ Accept wildcard characters: False
 ```
 
 ### -Url
-{{Fill Url Description}}
+The updated url for the manufacturer's website.
 
 ```yaml
 Type: Uri

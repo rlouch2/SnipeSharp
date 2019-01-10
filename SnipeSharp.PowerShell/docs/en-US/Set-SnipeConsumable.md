@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeConsumable
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT consumable.
 
 ## SYNTAX
 
@@ -53,21 +53,21 @@ Set-SnipeConsumable [-NewName <String>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Consumable cmdlet changes the properties of an existing Snipe-IT consumable object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Consumable -Name "Frying Oil" -Category "Nonperishable" -Location "Warehouse 19"
 ```
 
-{{ Add example description here }}
+Changes the category of consumable "Frying oil" to "Nonperishable" and its location to "Warehouse 19".
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The updated category of the consumable.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -82,7 +82,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The updated company that owns the consumable.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -127,7 +127,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsRequestable
-{{Fill IsRequestable Description}}
+Is the consumable requestable by users?
 
 ```yaml
 Type: Boolean
@@ -142,7 +142,7 @@ Accept wildcard characters: False
 ```
 
 ### -ItemNumber
-{{Fill ItemNumber Description}}
+The updated item number of the consumable.
 
 ```yaml
 Type: String
@@ -157,7 +157,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The updated location of the consumable.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -172,7 +172,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+The update maker of the consumable.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -187,7 +187,7 @@ Accept wildcard characters: False
 ```
 
 ### -MinimumQuantity
-{{Fill MinimumQuantity Description}}
+The updated minimum quantity before warning for the consumable.
 
 ```yaml
 Type: Int32
@@ -202,7 +202,7 @@ Accept wildcard characters: False
 ```
 
 ### -ModelNumber
-{{Fill ModelNumber Description}}
+The updated model number for the consumable.
 
 ```yaml
 Type: String
@@ -232,7 +232,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name for the consumable.
 
 ```yaml
 Type: String
@@ -247,7 +247,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The updated order number for the consumable's purchase.
 
 ```yaml
 Type: String
@@ -262,7 +262,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The update cost the consumable was purchased for.
 
 ```yaml
 Type: Decimal
@@ -277,7 +277,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The updated date the consumable was purchased.
 
 ```yaml
 Type: DateTime
@@ -292,7 +292,7 @@ Accept wildcard characters: False
 ```
 
 ### -Quantity
-{{Fill Quantity Description}}
+The updated quantity of the consumable.
 
 ```yaml
 Type: Int32

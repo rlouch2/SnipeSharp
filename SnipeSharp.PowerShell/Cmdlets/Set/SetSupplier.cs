@@ -88,7 +88,6 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         /// <summary>
         /// The updated name of the supplier contact.
         /// </summary>
-        /// <value></value>
         [Parameter]
         public string Contact { get; set; }
 

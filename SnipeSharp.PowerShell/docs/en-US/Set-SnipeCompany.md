@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeCompany
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT company.
 
 ## SYNTAX
 
@@ -30,16 +30,16 @@ Set-SnipeCompany [-NewName <String>] -Id <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Company cmdlet changes the properties of an existing Snipe-IT company object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Company -Name 'Potato Inc.' -NewName 'Global Potato Unlimited'
 ```
 
-{{ Add example description here }}
+Changes the name of company "Potato Inc." to "Global Potato Unlimited".
 
 ## PARAMETERS
 
@@ -89,7 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the company.
 
 ```yaml
 Type: String

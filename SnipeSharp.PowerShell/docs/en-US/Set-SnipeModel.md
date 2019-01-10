@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeModel
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT model.
 
 ## SYNTAX
 
@@ -47,21 +47,21 @@ Set-SnipeModel [-NewName <String>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Model cmdlet changes the properties of an existing Snipe-IT model object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Model -Name "PotatoPeeler Plus 3000" -EndOfLife 36
 ```
 
-{{ Add example description here }}
+Acknowledges that even the mighty "PotatoPeeler Plus 3000" will only last about 3 years before it's time for a new one.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The updated category of the model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -76,7 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -Depreciation
-{{Fill Depreciation Description}}
+The new depreciation to use for the model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]
@@ -91,7 +91,7 @@ Accept wildcard characters: False
 ```
 
 ### -EndOfLife
-{{Fill EndOfLife Description}}
+The updated lifetime of the model in months.
 
 ```yaml
 Type: Int32
@@ -106,7 +106,7 @@ Accept wildcard characters: False
 ```
 
 ### -FieldSet
-{{Fill FieldSet Description}}
+The new custom field set that applies to the model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]
@@ -151,7 +151,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The updated uri of the image for the model.
 
 ```yaml
 Type: Uri
@@ -166,7 +166,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+The updated maker of this model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -181,7 +181,7 @@ Accept wildcard characters: False
 ```
 
 ### -ModelNumber
-{{Fill ModelNumber Description}}
+The updated model number for the model.
 
 ```yaml
 Type: String
@@ -211,7 +211,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the model.
 
 ```yaml
 Type: String
@@ -226,7 +226,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes about the model.
 
 ```yaml
 Type: String

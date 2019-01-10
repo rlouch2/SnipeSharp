@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeDepreciation
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT depreciation.
 
 ## SYNTAX
 
@@ -30,16 +30,16 @@ Set-SnipeDepreciation [-NewName <String>] [-Months <Int32>] -Id <Int32> [<Common
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Depreciation cmdlet changes the properties of an existing Snipe-IT depreciation object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Depreciation -Name "General Potato Peeler" -NewName "Generic Potato Peeler"
 ```
 
-{{ Add example description here }}
+Changes the name of depreciation "General Potato Peeler" to "Generic Potato Peeler".
 
 ## PARAMETERS
 
@@ -74,7 +74,7 @@ Accept wildcard characters: False
 ```
 
 ### -Months
-{{Fill Months Description}}
+The new duration of the depreciation in months.
 
 ```yaml
 Type: Int32
@@ -104,7 +104,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the depreciation.
 
 ```yaml
 Type: String

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeComponent
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT component.
 
 ## SYNTAX
 
@@ -47,21 +47,21 @@ Set-SnipeComponent [-NewName <String>] [-Serial <String>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Component cmdlet changes the properties of an existing Snipe-IT component object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Component -Name "Potato Peeler Blade" -Category "Hazardous"
 ```
 
-{{ Add example description here }}
+Changes the category of component "Potato Peeler Blade" to "Hazardous".
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The updated category of the component.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -76,7 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The updated company that owns the component.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -121,7 +121,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The updated location for the component.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -136,7 +136,7 @@ Accept wildcard characters: False
 ```
 
 ### -MinimumQuantity
-{{Fill MinimumQuantity Description}}
+The updated minimum quantity before warning for the component.
 
 ```yaml
 Type: Int32
@@ -166,7 +166,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the component.
 
 ```yaml
 Type: String
@@ -181,7 +181,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The updated order the component was purchased in.
 
 ```yaml
 Type: String
@@ -196,7 +196,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The updated cost the component was purchased for.
 
 ```yaml
 Type: Decimal
@@ -211,7 +211,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The updated date the component was purchased.
 
 ```yaml
 Type: DateTime
@@ -226,7 +226,7 @@ Accept wildcard characters: False
 ```
 
 ### -Quantity
-{{Fill Quantity Description}}
+The updated quantity of the component.
 
 ```yaml
 Type: Int32
@@ -241,7 +241,7 @@ Accept wildcard characters: False
 ```
 
 ### -Serial
-{{Fill Serial Description}}
+The updated serial number(s) for the component(s).
 
 ```yaml
 Type: String

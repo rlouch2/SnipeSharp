@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeAsset
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT asset.
 
 ## SYNTAX
 
@@ -93,21 +93,21 @@ Set-SnipeAsset -Serial <String> [-NewAssetTag <String>] [-NewName <String>] [-Ne
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Asset cmdlet changes the properties of an existing Snipe-IT asset object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Asset -AssetTag '06514' -Status 'Retired'
 ```
 
-{{ Add example description here }}
+Changes the status of the asset with the asset tag "06541" to "Retired".
 
 ## PARAMETERS
 
 ### -AssetTag
-{{Fill AssetTag Description}}
+The asset tag of the asset to update.
 
 ```yaml
 Type: String
@@ -122,7 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssignedTo
-{{Fill AssignedTo Description}}
+The updated assignee object.
 
 ```yaml
 Type: CommonEndPointModel
@@ -137,7 +137,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssignedType
-{{Fill AssignedType Description}}
+The updated assignee object type.
 
 ```yaml
 Type: AssignedToType
@@ -153,7 +153,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The updated owner company of the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -168,7 +168,7 @@ Accept wildcard characters: False
 ```
 
 ### -CustomFields
-{{Fill CustomFields Description}}
+Custom fields used by the asset's model's field set.
 
 ```yaml
 Type: System.Collections.Generic.Dictionary`2[System.String,System.String]
@@ -183,7 +183,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultLocation
-{{Fill DefaultLocation Description}}
+The updated default location the asset will return to when unassigned.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -198,7 +198,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-The id of the item to update.
+The id of the asset to update.
 
 ```yaml
 Type: Int32
@@ -213,7 +213,7 @@ Accept wildcard characters: False
 ```
 
 ### -Identity
-The identity of the item to update.
+The identity of the asset to update.
 
 ```yaml
 Type: AssetBinding
@@ -228,7 +228,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The updated uri of the image for the asset.
 
 ```yaml
 Type: Uri
@@ -243,7 +243,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The updated location of the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -258,7 +258,7 @@ Accept wildcard characters: False
 ```
 
 ### -Model
-{{Fill Model Description}}
+The updated model of the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]
@@ -273,7 +273,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-The name of the item to update.
+The name of the asset to update.
 
 ```yaml
 Type: String
@@ -288,7 +288,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewAssetTag
-{{Fill NewAssetTag Description}}
+The updated asset tag of the asset.
 
 ```yaml
 Type: String
@@ -303,7 +303,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The updated name of the asset.
 
 ```yaml
 Type: String
@@ -318,7 +318,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewSerial
-{{Fill NewSerial Description}}
+The updated serial number of the asset.
 
 ```yaml
 Type: String
@@ -333,7 +333,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes for the asset.
 
 ```yaml
 Type: String
@@ -348,7 +348,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The updated order number for the asset's purchase.
 
 ```yaml
 Type: String
@@ -363,7 +363,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The updated purchase cost for the asset.
 
 ```yaml
 Type: Decimal
@@ -378,7 +378,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The updated purchase date for the asset.
 
 ```yaml
 Type: DateTime
@@ -393,7 +393,7 @@ Accept wildcard characters: False
 ```
 
 ### -Serial
-{{Fill Serial Description}}
+The serial number of the asset to update.
 
 ```yaml
 Type: String
@@ -408,7 +408,7 @@ Accept wildcard characters: False
 ```
 
 ### -Status
-{{Fill Status Description}}
+The updated status label of the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]
@@ -423,7 +423,7 @@ Accept wildcard characters: False
 ```
 
 ### -Supplier
-{{Fill Supplier Description}}
+The updated supplier for the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
@@ -438,7 +438,7 @@ Accept wildcard characters: False
 ```
 
 ### -WarrantyMonths
-{{Fill WarrantyMonths Description}}
+The updated warranty period for the asset in months.
 
 ```yaml
 Type: Int32

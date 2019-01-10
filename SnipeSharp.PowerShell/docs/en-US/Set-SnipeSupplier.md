@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeSupplier
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT supplier.
 
 ## SYNTAX
 
@@ -38,21 +38,21 @@ Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Supplier cmdlet changes the properties of an existing Snipe-IT supplier object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Supplier -Name "Potato Warehouse &amp; Wholesale" -PhoneNumber '+1 (555) 555-5555'
 ```
 
-{{ Add example description here }}
+Changes the contact phone number for supplier "Potato Warehouse &amp; Wholesale" to "+1 (555) 555-5555".
 
 ## PARAMETERS
 
 ### -Address
-{{Fill Address Description}}
+The supplier's updated address line.
 
 ```yaml
 Type: String
@@ -67,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -Address2
-{{Fill Address2 Description}}
+The supplier's updated second address line.
 
 ```yaml
 Type: String
@@ -82,7 +82,7 @@ Accept wildcard characters: False
 ```
 
 ### -City
-{{Fill City Description}}
+The supplier's updated address city.
 
 ```yaml
 Type: String
@@ -97,7 +97,7 @@ Accept wildcard characters: False
 ```
 
 ### -Contact
-{{Fill Contact Description}}
+The updated name of the supplier contact.
 
 ```yaml
 Type: String
@@ -112,7 +112,7 @@ Accept wildcard characters: False
 ```
 
 ### -Country
-{{Fill Country Description}}
+The supplier's updated address country.
 
 ```yaml
 Type: String
@@ -127,7 +127,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+The supplier contact's updated email address.
 
 ```yaml
 Type: String
@@ -142,7 +142,7 @@ Accept wildcard characters: False
 ```
 
 ### -FaxNumber
-{{Fill FaxNumber Description}}
+The supplier contact's updated fax number.
 
 ```yaml
 Type: String
@@ -187,7 +187,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The updated uri of the image for the supplier.
 
 ```yaml
 Type: Uri
@@ -217,7 +217,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the supplier.
 
 ```yaml
 Type: String
@@ -232,7 +232,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes about the supplier.
 
 ```yaml
 Type: String
@@ -247,7 +247,7 @@ Accept wildcard characters: False
 ```
 
 ### -PhoneNumber
-{{Fill PhoneNumber Description}}
+The supplier contact's updated phone number.
 
 ```yaml
 Type: String
@@ -262,7 +262,7 @@ Accept wildcard characters: False
 ```
 
 ### -State
-{{Fill State Description}}
+The supplier's updated address state.
 
 ```yaml
 Type: String
@@ -277,7 +277,7 @@ Accept wildcard characters: False
 ```
 
 ### -ZipCode
-{{Fill ZipCode Description}}
+The supplier's updated address zip code.
 
 ```yaml
 Type: String

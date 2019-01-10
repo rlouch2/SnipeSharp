@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeStatusLabel
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT status label.
 
 ## SYNTAX
 
@@ -32,16 +32,16 @@ Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>] 
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-StatusLabel cmdlet changes the properties of an existing Snipe-IT status label object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-StatusLabel -Name "Assignable" -Type "Deployable"
 ```
 
-{{ Add example description here }}
+Changes the status label "Assignable" to be a label for deployable objects.
 
 ## PARAMETERS
 
@@ -91,7 +91,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the status label.
 
 ```yaml
 Type: String
@@ -106,7 +106,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes about the status label.
 
 ```yaml
 Type: String
@@ -121,7 +121,7 @@ Accept wildcard characters: False
 ```
 
 ### -Type
-{{Fill Type Description}}
+The updated type of status the label represents.
 
 ```yaml
 Type: StatusType

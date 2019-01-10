@@ -70,7 +70,6 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         /// <summary>
         /// The updated phone number to contact the user.
         /// </summary>
-        /// <value></value>
         [Parameter]
         public string PhoneNumber { get; set; }
 

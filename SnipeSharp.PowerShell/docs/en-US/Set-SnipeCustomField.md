@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeCustomField
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT custom field.
 
 ## SYNTAX
 
@@ -35,21 +35,21 @@ Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-CustomField cmdlet changes the properties of an existing Snipe-IT custom field object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-CustomField -Name "Length" -Format "numeric"
 ```
 
-{{ Add example description here }}
+Changes the format of field "Length" to "numeric".
 
 ## PARAMETERS
 
 ### -FieldValue
-{{Fill FieldValue Description}}
+The values of this field.
 
 ```yaml
 Type: String[]
@@ -64,7 +64,21 @@ Accept wildcard characters: False
 ```
 
 ### -Format
-{{Fill Format Description}}
+The format of the field, for example:
+
+| Format     | Description                           |
+|------------|---------------------------------------|
+| alpha      | Only alphabetical characters.         |
+| alpha_dash | Only alphabetical characters and '-'. |
+| numeric    | Only numbers.                         |
+| alpha_num  | Only alphanumeric characters.         |
+| email      | A string in an email format.          |
+| date       | A date.                               |
+| url        | A url.                                |
+| ip         | Any IP address.                       |
+| ipv4       | Explicitly an IPv4 address.           |
+| ipv6       | Explicitly an IPv6 address.           |
+| boolean    | A boolean value.                      |
 
 ```yaml
 Type: String
@@ -79,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -HelpText
-{{Fill HelpText Description}}
+The help text for the field in the UI.
 
 ```yaml
 Type: String
@@ -124,7 +138,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsFieldEncrypted
-{{Fill IsFieldEncrypted Description}}
+Is the field encrypted?
 
 ```yaml
 Type: Boolean
@@ -154,7 +168,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The name of the field set.
 
 ```yaml
 Type: String
@@ -169,7 +183,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowInCheckOutEmail
-{{Fill ShowInCheckOutEmail Description}}
+Should the field be listed in emails sent to users?
 
 ```yaml
 Type: Boolean
@@ -184,7 +198,7 @@ Accept wildcard characters: False
 ```
 
 ### -Type
-{{Fill Type Description}}
+The type of the field.
 
 ```yaml
 Type: CustomFieldElement

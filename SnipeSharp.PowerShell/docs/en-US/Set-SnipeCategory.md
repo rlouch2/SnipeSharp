@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-SnipeCategory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Changes the properties of an existing Snipe-IT category.
 
 ## SYNTAX
 
@@ -33,21 +33,21 @@ Set-SnipeCategory [-NewName <String>] [-Type <CategoryType>] [-EmailUserOnCheckI
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The Set-Category cmdlet changes the properties of an existing Snipe-IT category object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-Category -Name 'Utility' -IsAcceptanceRequired $true
 ```
 
-{{ Add example description here }}
+Changes the category 'Utility' to require EULA acceptance.
 
 ## PARAMETERS
 
 ### -EmailUserOnCheckInOrOut
-{{Fill EmailUserOnCheckInOrOut Description}}
+Should users be emailed when they check in/out things from this category?
 
 ```yaml
 Type: Boolean
@@ -92,7 +92,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsAcceptanceRequired
-{{Fill IsAcceptanceRequired Description}}
+Is it required to accept the EULA?
 
 ```yaml
 Type: Boolean
@@ -122,7 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### -NewName
-{{Fill NewName Description}}
+The new name of the category.
 
 ```yaml
 Type: String
@@ -137,7 +137,7 @@ Accept wildcard characters: False
 ```
 
 ### -Type
-{{Fill Type Description}}
+The updated type the category is for.
 
 ```yaml
 Type: CategoryType

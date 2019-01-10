@@ -49,7 +49,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         public string ProductKey { get; set; }
 
         /// <summary>
-        /// The udpated order the license was purchased in, supplied by the supplier.
+        /// The updated order the license was purchased in, supplied by the supplier.
         /// </summary>
         [Parameter]
         public string OrderNumber { get; set; }
@@ -57,7 +57,6 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         /// <summary>
         /// The updated order the license was purchased in, supplied by the purchaser.
         /// </summary>
-        /// <value></value>
         [Parameter]
         public string PurchaseOrder { get; set; }
 
