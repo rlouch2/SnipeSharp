@@ -8,261 +8,349 @@ Locale: en-US
 
 # SnipeSharp.PowerShell Module
 ## Description
-{{Manually Enter Description Here}}
+The SnipeSharp.PowerShell module allows the management of SnipeIT with PowerShell using the SnipeSharp library.
 
 ## SnipeSharp.PowerShell Cmdlets
 ### [CheckIn-SnipeAsset](CheckIn-SnipeAsset.md)
-{{Manually Enter CheckIn-SnipeAsset Description Here}}
+The CheckIn-Asset cmdlet checks in one or more asset objects.
 
 ### [CheckOut-SnipeAsset](CheckOut-SnipeAsset.md)
-{{Manually Enter CheckOut-SnipeAsset Description Here}}
+The CheckOut-Asset cmdlet checks out an asset to a user, location, or another asset.
 
 ### [Connect-SnipeIT](Connect-SnipeIT.md)
-{{Manually Enter Connect-SnipeIT Description Here}}
+## DESCRIPTION
+The Connect-SnipeIT cmdlet begins a session with a Snipe IT instance.
+
+You may only have one SnipeIT session per PowerShell session.
 
 ### [Disconnect-SnipeIT](Disconnect-SnipeIT.md)
-{{Manually Enter Disconnect-SnipeIT Description Here}}
+The Disconnect-SnipeIT cmdlet ends the current session with Snipe IT. This cmdlet does not throw any errors if there is no connected session.
 
 ### [Find-SnipeAccessory](Find-SnipeAccessory.md)
-{{Manually Enter Find-SnipeAccessory Description Here}}
+The Find-Accessory cmdlet finds accessory objects by filter, company, category, manufacturer, or supplier.
 
 ### [Find-SnipeAsset](Find-SnipeAsset.md)
-{{Manually Enter Find-SnipeAsset Description Here}}
+The Find-Asset cmdlet finds asset objects by filter.
 
 ### [Find-SnipeCategory](Find-SnipeCategory.md)
-{{Manually Enter Find-SnipeCategory Description Here}}
+The Find-Category cmdlet finds category objects by filter.
 
 ### [Find-SnipeCompany](Find-SnipeCompany.md)
-{{Manually Enter Find-SnipeCompany Description Here}}
+The Find-Company cmdlet finds company objects by filter.
 
 ### [Find-SnipeComponent](Find-SnipeComponent.md)
-{{Manually Enter Find-SnipeComponent Description Here}}
+The Find-Component cmdlet finds component objects by filter.
 
 ### [Find-SnipeConsumable](Find-SnipeConsumable.md)
-{{Manually Enter Find-SnipeConsumable Description Here}}
+The Find-Consumable cmdlet finds consumable objects by filter.
+
+### [Find-SnipeCustomField](Find-SnipeCustomField.md)
+The Find-CustomField cmdlet finds custom fields by filter.
 
 ### [Find-SnipeDepartment](Find-SnipeDepartment.md)
-{{Manually Enter Find-SnipeDepartment Description Here}}
+The Find-Asset cmdlet finds departments by filter.
 
 ### [Find-SnipeDepreciation](Find-SnipeDepreciation.md)
-{{Manually Enter Find-SnipeDepreciation Description Here}}
+The Find-Depreciation cmdlet finds depreciations by filter.
 
 ### [Find-SnipeFieldSet](Find-SnipeFieldSet.md)
-{{Manually Enter Find-SnipeFieldSet Description Here}}
+The Find-FieldSet cmdlet finds custom field sets by filter.
 
 ### [Find-SnipeLicense](Find-SnipeLicense.md)
-{{Manually Enter Find-SnipeLicense Description Here}}
+The Find-License cmdlet finds license objects by filter.
 
 ### [Find-SnipeLocation](Find-SnipeLocation.md)
-{{Manually Enter Find-SnipeLocation Description Here}}
+The Find-Asset cmdlet finds location objects by filter.
 
 ### [Find-SnipeManufacturer](Find-SnipeManufacturer.md)
-{{Manually Enter Find-SnipeManufacturer Description Here}}
+The Find-Asset cmdlet finds manufacturer objects by filter.
 
 ### [Find-SnipeModel](Find-SnipeModel.md)
-{{Manually Enter Find-SnipeModel Description Here}}
+The Find-Model cmdlet finds model objects by filter.
 
 ### [Find-SnipeStatusLabel](Find-SnipeStatusLabel.md)
-{{Manually Enter Find-SnipeStatusLabel Description Here}}
+The Find-StatusLabel cmdlet finds status label objects by filter.
 
 ### [Find-SnipeSupplier](Find-SnipeSupplier.md)
-{{Manually Enter Find-SnipeSupplier Description Here}}
+The Find-Supplier cmdlet finds supplier objects by filter.
 
 ### [Find-SnipeUser](Find-SnipeUser.md)
-{{Manually Enter Find-SnipeUser Description Here}}
+The Find-User cmdlet finds user objects by filter, company, location, group, or department.
 
 ### [Get-SnipeAccessory](Get-SnipeAccessory.md)
-{{Manually Enter Get-SnipeAccessory Description Here}}
+The Get-Accessory cmdlet gets one or more accessory objects by name or by Snipe-IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeAsset](Get-SnipeAsset.md)
-{{Manually Enter Get-SnipeAsset Description Here}}
+The Get-Asset cmdlet gets one or more asset objects.
+
+The Identity, InteralId, Name, AssetTag, and Serial parameters specify the Snipe IT asset to get. InternalId is the Snipe IT-internal Id number. Identity is a catch-all accepting pipeline input and attempting conversion accordingly.
 
 ### [Get-SnipeAssignedAsset](Get-SnipeAssignedAsset.md)
-{{Manually Enter Get-SnipeAssignedAsset Description Here}}
+The Get-AssignedAsset cmdlet get, for each user provided, the asset objects associated with that user.
 
 ### [Get-SnipeCategory](Get-SnipeCategory.md)
-{{Manually Enter Get-SnipeCategory Description Here}}
+The Get-Category cmdlet gets one or more category objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeCompany](Get-SnipeCompany.md)
-{{Manually Enter Get-SnipeCompany Description Here}}
+The Get-Company cmdlet gets one or more company objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeComponent](Get-SnipeComponent.md)
-{{Manually Enter Get-SnipeComponent Description Here}}
+The Get-Component cmdlet gets one or more component objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeConsumable](Get-SnipeConsumable.md)
-{{Manually Enter Get-SnipeConsumable Description Here}}
+The Get-Consumable cmdlet gets one or more consumable objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
+
+### [Get-SnipeCustomField](Get-SnipeCustomField.md)
+The Get-CustomField cmdlet gets one or more custom field objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeDepartment](Get-SnipeDepartment.md)
-{{Manually Enter Get-SnipeDepartment Description Here}}
+The Get-Department cmdlet gets one or more department objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeDepreciation](Get-SnipeDepreciation.md)
-{{Manually Enter Get-SnipeDepreciation Description Here}}
+The Get-Depreciation cmdlet gets one or more depreciation objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeFieldSet](Get-SnipeFieldSet.md)
-{{Manually Enter Get-SnipeFieldSet Description Here}}
+The Get-FieldSet cmdlet gets one or more fieldset objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeLicense](Get-SnipeLicense.md)
-{{Manually Enter Get-SnipeLicense Description Here}}
+The Get-License cmdlet gets one or more license objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeLocation](Get-SnipeLocation.md)
-{{Manually Enter Get-SnipeLocation Description Here}}
+The Get-Location cmdlet gets one or more location objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeManufacturer](Get-SnipeManufacturer.md)
-{{Manually Enter Get-SnipeManufacturer Description Here}}
+The Get-Manufacturer cmdlet gets one or more manufacturer objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeModel](Get-SnipeModel.md)
-{{Manually Enter Get-SnipeModel Description Here}}
+The Get-Model cmdlet gets one or more model objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeStatusLabel](Get-SnipeStatusLabel.md)
-{{Manually Enter Get-SnipeStatusLabel Description Here}}
+The Get-StatusLabel cmdlet gets one or more status label objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeSupplier](Get-SnipeSupplier.md)
-{{Manually Enter Get-SnipeSupplier Description Here}}
+The Get-Supplier cmdlet gets one or more supplier objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Get-SnipeUser](Get-SnipeUser.md)
-{{Manually Enter Get-SnipeUser Description Here}}
+The Get-User cmdlet gets one or more user objects by name or by Snipe IT internal id number.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [New-SnipeAccessory](New-SnipeAccessory.md)
-{{Manually Enter New-SnipeAccessory Description Here}}
+The New-Accessory cmdlet creates a new accessory object.
 
 ### [New-SnipeAsset](New-SnipeAsset.md)
-{{Manually Enter New-SnipeAsset Description Here}}
+The New-Asset cmdlet creates a new asset object.
 
 ### [New-SnipeCategory](New-SnipeCategory.md)
-{{Manually Enter New-SnipeCategory Description Here}}
+The New-Category cmdlet creates a new category object.
 
 ### [New-SnipeCompany](New-SnipeCompany.md)
-{{Manually Enter New-SnipeCompany Description Here}}
+The New-Company cmdlet creates a new company object.
 
 ### [New-SnipeComponent](New-SnipeComponent.md)
-{{Manually Enter New-SnipeComponent Description Here}}
+The New-Component cmdlet creates a new component object.
 
 ### [New-SnipeConsumable](New-SnipeConsumable.md)
-{{Manually Enter New-SnipeConsumable Description Here}}
+The New-Consumable cmdlet creates a new consumable object.
+
+### [New-SnipeCustomField](New-SnipeCustomField.md)
+The New-CustomField cmdlet creates a new custom field object, but does not associate it with any field sets.
 
 ### [New-SnipeDepartment](New-SnipeDepartment.md)
-{{Manually Enter New-SnipeDepartment Description Here}}
+The New-Department cmdlet creates a new department object.
 
 ### [New-SnipeDepreciation](New-SnipeDepreciation.md)
-{{Manually Enter New-SnipeDepreciation Description Here}}
+The New-Depreciation cmdlet creates a new depreciation object.
 
 ### [New-SnipeFieldSet](New-SnipeFieldSet.md)
-{{Manually Enter New-SnipeFieldSet Description Here}}
+The New-FieldSet cmdlet creates a new field set object.
 
 ### [New-SnipeLicense](New-SnipeLicense.md)
-{{Manually Enter New-SnipeLicense Description Here}}
+The New-License cmdlet creates a new license object.
 
 ### [New-SnipeLocation](New-SnipeLocation.md)
-{{Manually Enter New-SnipeLocation Description Here}}
+The New-Location cmdlet creates a new location object.
 
 ### [New-SnipeManufacturer](New-SnipeManufacturer.md)
-{{Manually Enter New-SnipeManufacturer Description Here}}
+The New-Manufacturer cmdlet creates a new manufacturer object.
 
 ### [New-SnipeModel](New-SnipeModel.md)
-{{Manually Enter New-SnipeModel Description Here}}
+The New-Model cmdlet creates a new model object.
 
 ### [New-SnipeStatusLabel](New-SnipeStatusLabel.md)
-{{Manually Enter New-SnipeStatusLabel Description Here}}
+The New-StatusLabel cmdlet creates a new status label object.
 
 ### [New-SnipeSupplier](New-SnipeSupplier.md)
-{{Manually Enter New-SnipeSupplier Description Here}}
+The New-Supplier cmdlet creates a new supplier object.
 
 ### [New-SnipeUser](New-SnipeUser.md)
-{{Manually Enter New-SnipeUser Description Here}}
+The New-User cmdlet creates a new user object.
 
 ### [Remove-SnipeAccessory](Remove-SnipeAccessory.md)
-{{Manually Enter Remove-SnipeAccessory Description Here}}
+The Remove-Accessory cmdlet removes one or more accessory objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeAsset](Remove-SnipeAsset.md)
-{{Manually Enter Remove-SnipeAsset Description Here}}
+The Remove-Asset cmdlet removes one or more asset objects from the Snipe IT database.
+
+The Identity, InteralId, Name, AssetTag, and Serial parameters specify the Snipe IT asset to get. InternalId is the Snipe IT-internal Id number. Identity is a catch-all accepting pipeline input and attempting conversion accordingly.
 
 ### [Remove-SnipeCategory](Remove-SnipeCategory.md)
-{{Manually Enter Remove-SnipeCategory Description Here}}
+The Remove-Category cmdlet removes one or more Category objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeCompany](Remove-SnipeCompany.md)
-{{Manually Enter Remove-SnipeCompany Description Here}}
+The Remove-Company cmdlet removes one or more Company objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeComponent](Remove-SnipeComponent.md)
-{{Manually Enter Remove-SnipeComponent Description Here}}
+The Remove-Component cmdlet removes one or more Component objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeConsumable](Remove-SnipeConsumable.md)
-{{Manually Enter Remove-SnipeConsumable Description Here}}
+The Remove-Consumable cmdlet removes one or more Consumable objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
+
+### [Remove-SnipeCustomField](Remove-SnipeCustomField.md)
+The Remove-FieldSet cmdlet removes one or more custom field objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeDepartment](Remove-SnipeDepartment.md)
-{{Manually Enter Remove-SnipeDepartment Description Here}}
+The Remove-Department cmdlet removes one or more Department objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeDepreciation](Remove-SnipeDepreciation.md)
-{{Manually Enter Remove-SnipeDepreciation Description Here}}
+The Remove-Depreciation cmdlet removes one or more Depreciation objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeFieldSet](Remove-SnipeFieldSet.md)
-{{Manually Enter Remove-SnipeFieldSet Description Here}}
+The Remove-FieldSet cmdlet removes one or more FieldSet objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeLicense](Remove-SnipeLicense.md)
-{{Manually Enter Remove-SnipeLicense Description Here}}
+The Remove-License cmdlet removes one or more License objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeLocation](Remove-SnipeLocation.md)
-{{Manually Enter Remove-SnipeLocation Description Here}}
+The Remove-Location cmdlet removes one or more Location objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeManufacturer](Remove-SnipeManufacturer.md)
-{{Manually Enter Remove-SnipeManufacturer Description Here}}
+The Remove-Manufacturer cmdlet removes one or more Manufacturer objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeModel](Remove-SnipeModel.md)
-{{Manually Enter Remove-SnipeModel Description Here}}
+The Remove-Model cmdlet removes one or more Model objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeStatusLabel](Remove-SnipeStatusLabel.md)
-{{Manually Enter Remove-SnipeStatusLabel Description Here}}
+The Remove-StatusLabel cmdlet removes one or more StatusLabel objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeSupplier](Remove-SnipeSupplier.md)
-{{Manually Enter Remove-SnipeSupplier Description Here}}
+The Remove-Supplier cmdlet removes one or more Supplier objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Remove-SnipeUser](Remove-SnipeUser.md)
-{{Manually Enter Remove-SnipeUser Description Here}}
+The Remove-User cmdlet removes one or more User objects by name or by Snipe IT internal id number from the Snipe IT database.
+
+Whatever identifier is used, both accept pipeline input.
 
 ### [Set-SnipeAccessory](Set-SnipeAccessory.md)
-{{Manually Enter Set-SnipeAccessory Description Here}}
+The Set-Accessory cmdlet changes the properties of an existing Snipe-IT accessory object.
 
 ### [Set-SnipeAsset](Set-SnipeAsset.md)
-{{Manually Enter Set-SnipeAsset Description Here}}
+The Set-Asset cmdlet changes the properties of an existing Snipe-IT asset object.
 
 ### [Set-SnipeCategory](Set-SnipeCategory.md)
-{{Manually Enter Set-SnipeCategory Description Here}}
+The Set-Category cmdlet changes the properties of an existing Snipe-IT category object.
 
 ### [Set-SnipeCompany](Set-SnipeCompany.md)
-{{Manually Enter Set-SnipeCompany Description Here}}
+The Set-Company cmdlet changes the properties of an existing Snipe-IT company object.
 
 ### [Set-SnipeComponent](Set-SnipeComponent.md)
-{{Manually Enter Set-SnipeComponent Description Here}}
+The Set-Component cmdlet changes the properties of an existing Snipe-IT component object.
 
 ### [Set-SnipeConsumable](Set-SnipeConsumable.md)
-{{Manually Enter Set-SnipeConsumable Description Here}}
+The Set-Consumable cmdlet changes the properties of an existing Snipe-IT consumable object.
+
+### [Set-SnipeCustomField](Set-SnipeCustomField.md)
+The Set-CustomField cmdlet changes the properties of an existing Snipe-IT custom field object.
 
 ### [Set-SnipeDepartment](Set-SnipeDepartment.md)
-{{Manually Enter Set-SnipeDepartment Description Here}}
+The Set-Department cmdlet changes the properties of an existing Snipe-IT department object.
 
 ### [Set-SnipeDepreciation](Set-SnipeDepreciation.md)
-{{Manually Enter Set-SnipeDepreciation Description Here}}
+The Set-Depreciation cmdlet changes the properties of an existing Snipe-IT depreciation object.
 
 ### [Set-SnipeFieldSet](Set-SnipeFieldSet.md)
-{{Manually Enter Set-SnipeFieldSet Description Here}}
+The Set-FieldSet cmdlet changes the properties of an existing Snipe-IT field set object.
+
+### [Set-SnipeFieldSetOrder](Set-SnipeFieldSetOrder.md)
+The Set-FieldSetOrder cmdlet changes the order of custom fields in an existing Snipe-IT field set object.
 
 ### [Set-SnipeLicense](Set-SnipeLicense.md)
-{{Manually Enter Set-SnipeLicense Description Here}}
+The Set-License cmdlet changes the properties of an existing Snipe-IT license object.
 
 ### [Set-SnipeLocation](Set-SnipeLocation.md)
-{{Manually Enter Set-SnipeLocation Description Here}}
+The Set-Location cmdlet changes the properties of an existing Snipe-IT location object.
 
 ### [Set-SnipeManufacturer](Set-SnipeManufacturer.md)
-{{Manually Enter Set-SnipeManufacturer Description Here}}
+The Set-Manufacturer cmdlet changes the properties of an existing Snipe-IT manufacturer object.
 
 ### [Set-SnipeModel](Set-SnipeModel.md)
-{{Manually Enter Set-SnipeModel Description Here}}
+The Set-Model cmdlet changes the properties of an existing Snipe-IT model object.
 
 ### [Set-SnipeStatusLabel](Set-SnipeStatusLabel.md)
-{{Manually Enter Set-SnipeStatusLabel Description Here}}
+The Set-StatusLabel cmdlet changes the properties of an existing Snipe-IT status label object.
 
 ### [Set-SnipeSupplier](Set-SnipeSupplier.md)
-{{Manually Enter Set-SnipeSupplier Description Here}}
+The Set-Supplier cmdlet changes the properties of an existing Snipe-IT supplier object.
 
 ### [Set-SnipeUser](Set-SnipeUser.md)
-{{Manually Enter Set-SnipeUser Description Here}}
-
+The Set-User cmdlet changes the properties of an existing Snipe-IT user object.

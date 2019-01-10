@@ -57,6 +57,7 @@ Retrieve an supplier explicitly by its Name.
 ```powershell
 1..100 | Get-Supplier
 ```
+
 Retrieve the first 100 suppliers by their Snipe IT internal Id numbers.
 
 ## PARAMETERS

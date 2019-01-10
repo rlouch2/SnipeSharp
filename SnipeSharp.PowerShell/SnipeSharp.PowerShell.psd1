@@ -20,7 +20,7 @@
     Copyright = '(c) 2018 Matthew Barrey and Christian LaCourt. MIT License.' # TODO: fix license line
 
     # Description of the functionality provided by this module
-    Description = 'TODO'
+    Description = 'The SnipeSharp.PowerShell module allows the management of SnipeIT with PowerShell using the SnipeSharp library.'
 
     # Minimum version of the Windows PowerShell engine required by this module
     PowerShellVersion = '5.1'
