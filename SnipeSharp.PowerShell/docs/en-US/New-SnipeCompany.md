@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeCompany
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT company.
 
 ## SYNTAX
 
@@ -17,21 +17,21 @@ New-SnipeCompany [-Name] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Company cmdlet creates a new company object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Company -Name "Potato Inc."
 ```
 
-{{ Add example description here }}
+Create a new company named "Potato Inc.".
 
 ## PARAMETERS
 
 ### -Name
-{{Fill Name Description}}
+The name of the company.
 
 ```yaml
 Type: String

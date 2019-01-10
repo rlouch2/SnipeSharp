@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeFieldSet
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT field set.
 
 ## SYNTAX
 
@@ -17,21 +17,21 @@ New-SnipeFieldSet [-Name] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-FieldSet cmdlet creates a new field set object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-FieldSet -Name "Peeler"
 ```
 
-{{ Add example description here }}
+Create a new field set named "Peeler".
 
 ## PARAMETERS
 
 ### -Name
-{{Fill Name Description}}
+The name of the field set.
 
 ```yaml
 Type: String

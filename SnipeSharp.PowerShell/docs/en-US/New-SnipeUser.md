@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeUser
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT user.
 
 ## SYNTAX
 
@@ -24,21 +24,21 @@ New-SnipeUser [-AvatarUrl <Uri>] -FirstName <String> [-LastName <String>] [-User
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-User cmdlet creates a new user object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-User -FirstName "Craig" -UserName "cjohnson"
 ```
 
-{{ Add example description here }}
+Create a new user named "cjohnson" with all required properties set.
 
 ## PARAMETERS
 
 ### -Address
-{{Fill Address Description}}
+The user's street address.
 
 ```yaml
 Type: String
@@ -53,7 +53,7 @@ Accept wildcard characters: False
 ```
 
 ### -AvatarUrl
-{{Fill AvatarUrl Description}}
+The uri of the image for the user's avatar.
 
 ```yaml
 Type: Uri
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 ```
 
 ### -City
-{{Fill City Description}}
+The user's address city.
 
 ```yaml
 Type: String
@@ -83,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The company the user works for.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -98,7 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -Country
-{{Fill Country Description}}
+The user's address country.
 
 ```yaml
 Type: String
@@ -113,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -Department
-{{Fill Department Description}}
+The department the user works for.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]
@@ -128,7 +128,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+The email address for the user.
 
 ```yaml
 Type: String
@@ -143,7 +143,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmployeeNumber
-{{Fill EmployeeNumber Description}}
+The employee number of the user.
 
 ```yaml
 Type: String
@@ -158,7 +158,7 @@ Accept wildcard characters: False
 ```
 
 ### -FirstName
-{{Fill FirstName Description}}
+The user's given name.
 
 ```yaml
 Type: String
@@ -173,7 +173,7 @@ Accept wildcard characters: False
 ```
 
 ### -JobTitle
-{{Fill JobTitle Description}}
+The title of the user's position.
 
 ```yaml
 Type: String
@@ -188,7 +188,7 @@ Accept wildcard characters: False
 ```
 
 ### -LastName
-{{Fill LastName Description}}
+The user's surname.
 
 ```yaml
 Type: String
@@ -203,7 +203,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The location the user works at.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -218,7 +218,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manager
-{{Fill Manager Description}}
+The manager of the user.
 
 ```yaml
 Type: UserBinding
@@ -233,7 +233,7 @@ Accept wildcard characters: False
 ```
 
 ### -Password
-{{Fill Password Description}}
+The user's initial password.
 
 ```yaml
 Type: String
@@ -248,7 +248,7 @@ Accept wildcard characters: False
 ```
 
 ### -PhoneNumber
-{{Fill PhoneNumber Description}}
+The phone number for reaching the user.
 
 ```yaml
 Type: String
@@ -263,7 +263,7 @@ Accept wildcard characters: False
 ```
 
 ### -State
-{{Fill State Description}}
+The user's address state.
 
 ```yaml
 Type: String
@@ -278,7 +278,7 @@ Accept wildcard characters: False
 ```
 
 ### -UserName
-{{Fill UserName Description}}
+The unique username of the user.
 
 ```yaml
 Type: String
@@ -293,7 +293,7 @@ Accept wildcard characters: False
 ```
 
 ### -ZipCode
-{{Fill ZipCode Description}}
+The user's address zip code.
 
 ```yaml
 Type: String

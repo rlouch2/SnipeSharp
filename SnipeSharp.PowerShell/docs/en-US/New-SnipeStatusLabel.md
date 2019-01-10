@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeStatusLabel
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT status label.
 
 ## SYNTAX
 
@@ -17,21 +17,21 @@ New-SnipeStatusLabel [-Name] <String> [-Type] <StatusType> [-Notes <String>] [<C
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-StatusLabel cmdlet creates a new status label object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-StatusLabel -Name "Assignable" -Type Deployable
 ```
 
-{{ Add example description here }}
+Create a new deployable status label named "Assignable".
 
 ## PARAMETERS
 
 ### -Name
-{{Fill Name Description}}
+The name of the status label.
 
 ```yaml
 Type: String
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes for the label.
 
 ```yaml
 Type: String
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -Type
-{{Fill Type Description}}
+The type of status this label represents.
 
 ```yaml
 Type: StatusType

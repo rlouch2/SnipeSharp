@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeLicense
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT license.
 
 ## SYNTAX
 
@@ -26,21 +26,21 @@ New-SnipeLicense [-Name] <String> [-Seats] <Int32>
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-License cmdlet creates a new license object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-License -Name "State Potato Peeling License" -Seats 12000 -Category "Gov't Required"
 ```
 
-{{ Add example description here }}
+Create a new license named "State Potato Peeling License" with all required properties set.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The category of the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -55,7 +55,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The company that owns the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -70,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -Depreciation
-{{Fill Depreciation Description}}
+The depreciation to use for the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]
@@ -85,7 +85,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsMaintained
-{{Fill IsMaintained Description}}
+Is the license maintained?
 
 ```yaml
 Type: Boolean
@@ -100,7 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsReassignable
-{{Fill IsReassignable Description}}
+Are the seats on this license reassignable?
 
 ```yaml
 Type: Boolean
@@ -115,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -LicensedToEmailAddress
-{{Fill LicensedToEmailAddress Description}}
+The registered email address of the licensee.
 
 ```yaml
 Type: String
@@ -130,7 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -LicensedToName
-{{Fill LicensedToName Description}}
+The registered name of the licensee.
 
 ```yaml
 Type: String
@@ -145,7 +145,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+The manufacturer of the product the license is for.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -160,7 +160,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the license.
 
 ```yaml
 Type: String
@@ -175,7 +175,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes about the license.
 
 ```yaml
 Type: String
@@ -190,7 +190,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The order the license was purchased in, supplied by the supplier.
 
 ```yaml
 Type: String
@@ -205,7 +205,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProductKey
-{{Fill ProductKey Description}}
+The license product key.
 
 ```yaml
 Type: String
@@ -220,7 +220,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The cost the license was purchased for.
 
 ```yaml
 Type: Decimal
@@ -235,7 +235,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The date the license was purchased.
 
 ```yaml
 Type: DateTime
@@ -250,7 +250,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseOrder
-{{Fill PurchaseOrder Description}}
+The order the license was purchased in, supplied by the purchaser.
 
 ```yaml
 Type: String
@@ -265,7 +265,7 @@ Accept wildcard characters: False
 ```
 
 ### -Seats
-{{Fill Seats Description}}
+The total seats available on the license.
 
 ```yaml
 Type: Int32
@@ -280,7 +280,7 @@ Accept wildcard characters: False
 ```
 
 ### -Supplier
-{{Fill Supplier Description}}
+The supplier who sold the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]

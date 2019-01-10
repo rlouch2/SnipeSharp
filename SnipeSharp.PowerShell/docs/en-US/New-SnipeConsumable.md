@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeConsumable
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT consumable.
 
 ## SYNTAX
 
@@ -24,21 +24,21 @@ New-SnipeConsumable [-Name] <String>
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Consumable cmdlet creates a new consumable object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Consumable -Name "Frying Oil" -Quantity 9001 -Category "Perishable"
 ```
 
-{{ Add example description here }}
+Create a new consumable named "Frying oil" with all required properties set.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The category the consumable belongs to.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -53,7 +53,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The company that owns the consumable.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsRequestable
-{{Fill IsRequestable Description}}
+Is the consumable requestable by users?
 
 ```yaml
 Type: Boolean
@@ -83,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -ItemNumber
-{{Fill ItemNumber Description}}
+The item number of the consumable.
 
 ```yaml
 Type: String
@@ -98,7 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The consumable's location.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -113,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+The maker of the consumable.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -128,7 +128,7 @@ Accept wildcard characters: False
 ```
 
 ### -MinimumQuantity
-{{Fill MinimumQuantity Description}}
+When to start warning that the consumable is running low.
 
 ```yaml
 Type: Int32
@@ -143,7 +143,7 @@ Accept wildcard characters: False
 ```
 
 ### -ModelNumber
-{{Fill ModelNumber Description}}
+The model number of the consumable.
 
 ```yaml
 Type: String
@@ -158,7 +158,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the consumable.
 
 ```yaml
 Type: String
@@ -173,7 +173,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The order the consumable was purchased in.
 
 ```yaml
 Type: String
@@ -188,7 +188,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The cost the consumable was purchased for.
 
 ```yaml
 Type: Decimal
@@ -203,7 +203,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The date the consumable was purchased.
 
 ```yaml
 Type: DateTime
@@ -218,7 +218,7 @@ Accept wildcard characters: False
 ```
 
 ### -Quantity
-{{Fill Quantity Description}}
+How many of the consumable there are.
 
 ```yaml
 Type: Int32

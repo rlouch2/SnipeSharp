@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeComponent
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT component.
 
 ## SYNTAX
 
@@ -22,21 +22,21 @@ New-SnipeComponent [-Name] <String> [-Quantity] <Int32>
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Component cmdlet creates a new component object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Component -Name "Potato Peeler Blade" -Quantity 215 -Company "Potato Inc." -Category "Potato"
 ```
 
-{{ Add example description here }}
+Create a new component named "Potato Peeler Blade" with all required properties set.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The category of the component.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -51,7 +51,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The company that owns the component.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -66,7 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The location of the component.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -81,7 +81,7 @@ Accept wildcard characters: False
 ```
 
 ### -MinimumQuantity
-{{Fill MinimumQuantity Description}}
+When to start warning that the component is running low.
 
 ```yaml
 Type: Int32
@@ -96,7 +96,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the component.
 
 ```yaml
 Type: String
@@ -111,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The order the component was purchased in.
 
 ```yaml
 Type: String
@@ -126,7 +126,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+The cost the component was purchased for.
 
 ```yaml
 Type: Decimal
@@ -141,7 +141,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+The date the component was purchased.
 
 ```yaml
 Type: DateTime
@@ -156,7 +156,7 @@ Accept wildcard characters: False
 ```
 
 ### -Quantity
-{{Fill Quantity Description}}
+How many of the component there are.
 
 ```yaml
 Type: Int32
@@ -171,7 +171,7 @@ Accept wildcard characters: False
 ```
 
 ### -Serial
-{{Fill Serial Description}}
+The serial number(s) of the component(s).
 
 ```yaml
 Type: String

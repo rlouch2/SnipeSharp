@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeAsset
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT asset.
 
 ## SYNTAX
 
@@ -28,21 +28,21 @@ New-SnipeAsset [-AssetTag] <String>
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Asset cmdlet creates a new asset object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Asset -AssetTag '06514' -Model 'PotatoPeeler Plus 3000' -Status 'Assignable'
 ```
 
-{{ Add example description here }}
+Create a new asset with the asset tag "06541" with all required properties set.
 
 ## PARAMETERS
 
 ### -AssetTag
-{{Fill AssetTag Description}}
+The asset tag of the Asset.
 
 ```yaml
 Type: String
@@ -57,7 +57,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssignedTo
-{{Fill AssignedTo Description}}
+What the asset is assigned to.
 
 ```yaml
 Type: CommonEndPointModel
@@ -72,7 +72,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssignedType
-{{Fill AssignedType Description}}
+What kind of thing the asset is assigned to.
 
 ```yaml
 Type: AssignedToType
@@ -88,7 +88,7 @@ Accept wildcard characters: False
 ```
 
 ### -Company
-{{Fill Company Description}}
+The company that owns the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -103,7 +103,7 @@ Accept wildcard characters: False
 ```
 
 ### -CustomFields
-{{Fill CustomFields Description}}
+Custom fields used by the asset's model's field set.
 
 ```yaml
 Type: System.Collections.Generic.Dictionary`2[System.String,System.String]
@@ -118,7 +118,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultLocation
-{{Fill DefaultLocation Description}}
+The default location the asset returns to when unassigned.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -133,7 +133,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The uri for the image of the Asset.
 
 ```yaml
 Type: Uri
@@ -148,7 +148,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+The location of the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -163,7 +163,7 @@ Accept wildcard characters: False
 ```
 
 ### -Model
-{{Fill Model Description}}
+The model of the Asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]
@@ -178,7 +178,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the asset.
 
 ```yaml
 Type: String
@@ -193,7 +193,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes for the asset.
 
 ```yaml
 Type: String
@@ -208,7 +208,7 @@ Accept wildcard characters: False
 ```
 
 ### -OrderNumber
-{{Fill OrderNumber Description}}
+The order number the asset was purchased in.
 
 ```yaml
 Type: String
@@ -223,7 +223,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseCost
-{{Fill PurchaseCost Description}}
+How much the asset cost.
 
 ```yaml
 Type: Decimal
@@ -238,7 +238,7 @@ Accept wildcard characters: False
 ```
 
 ### -PurchaseDate
-{{Fill PurchaseDate Description}}
+When the asset was purchased.
 
 ```yaml
 Type: DateTime
@@ -253,7 +253,7 @@ Accept wildcard characters: False
 ```
 
 ### -Serial
-{{Fill Serial Description}}
+The serial number of the asset.
 
 ```yaml
 Type: String
@@ -268,7 +268,7 @@ Accept wildcard characters: False
 ```
 
 ### -Status
-{{Fill Status Description}}
+The status of the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]
@@ -283,7 +283,7 @@ Accept wildcard characters: False
 ```
 
 ### -Supplier
-{{Fill Supplier Description}}
+The supplier who sold the asset.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
@@ -298,7 +298,7 @@ Accept wildcard characters: False
 ```
 
 ### -WarrantyMonths
-{{Fill WarrantyMonths Description}}
+How long the asset's warranty is.
 
 ```yaml
 Type: Int32

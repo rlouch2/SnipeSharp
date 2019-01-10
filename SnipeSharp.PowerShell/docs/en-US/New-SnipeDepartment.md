@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeDepartment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT department.
 
 ## SYNTAX
 
@@ -21,21 +21,21 @@ New-SnipeDepartment [-Name] <String> [-ImageUri <Uri>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Department cmdlet creates a new department object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Department -Name "Potato Peeling"
 ```
 
-{{ Add example description here }}
+Create a new department named "Potato Peeling".
 
 ## PARAMETERS
 
 ### -Company
-{{Fill Company Description}}
+The company the department is in.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]
@@ -50,7 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The uri of the image for the department.
 
 ```yaml
 Type: Uri
@@ -65,7 +65,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{Fill Location Description}}
+Where the department is located.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -80,7 +80,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manager
-{{Fill Manager Description}}
+The manager of the department.
 
 ```yaml
 Type: UserBinding
@@ -95,7 +95,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the department.
 
 ```yaml
 Type: String

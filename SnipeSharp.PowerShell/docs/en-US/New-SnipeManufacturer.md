@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeManufacturer
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT manufacturer.
 
 ## SYNTAX
 
@@ -18,21 +18,21 @@ New-SnipeManufacturer [-Name] <String> [-Url <Uri>] [-ImageUri <Uri>] [-SupportU
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Manufacturer cmdlet creates a new manufacturer object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Manufacturer -Name "Potato Peelers Inc."
 ```
 
-{{ Add example description here }}
+Create a new manufacturer named "Potato Peelers Inc." with all required properties set.
 
 ## PARAMETERS
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The uri of the image for the manufacturer.
 
 ```yaml
 Type: Uri
@@ -47,7 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the manufacturer.
 
 ```yaml
 Type: String
@@ -62,7 +62,7 @@ Accept wildcard characters: False
 ```
 
 ### -SupportEmailAddress
-{{Fill SupportEmailAddress Description}}
+The email address to contact the manufacturer by for support.
 
 ```yaml
 Type: String
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -SupportPhoneNumber
-{{Fill SupportPhoneNumber Description}}
+The phone number for the manufacturer's support line.
 
 ```yaml
 Type: String
@@ -92,7 +92,7 @@ Accept wildcard characters: False
 ```
 
 ### -SupportUrl
-{{Fill SupportUrl Description}}
+The url for the manufacturer's support portal.
 
 ```yaml
 Type: Uri
@@ -107,7 +107,7 @@ Accept wildcard characters: False
 ```
 
 ### -Url
-{{Fill Url Description}}
+The url of the manufacturer's website.
 
 ```yaml
 Type: Uri

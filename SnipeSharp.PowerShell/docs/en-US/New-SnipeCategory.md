@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeCategory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT category.
 
 ## SYNTAX
 
@@ -18,21 +18,21 @@ New-SnipeCategory [-Name] <String> [-Type] <CategoryType> [-EmailUserOnCheckInOr
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Category cmdlet creates a new category object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Category -Name "Utility" -Type Accessory
 ```
 
-{{ Add example description here }}
+Create a new category for accessories named "Utility".
 
 ## PARAMETERS
 
 ### -EmailUserOnCheckInOrOut
-{{Fill EmailUserOnCheckInOrOut Description}}
+Should users be emailed when they check in/out things from this category?
 
 ```yaml
 Type: Boolean
@@ -47,7 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsAcceptanceRequired
-{{Fill IsAcceptanceRequired Description}}
+Is it required to accept the EULA?
 
 ```yaml
 Type: Boolean
@@ -62,7 +62,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the category.
 
 ```yaml
 Type: String
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -Type
-{{Fill Type Description}}
+What type the category is for.
 
 ```yaml
 Type: CategoryType

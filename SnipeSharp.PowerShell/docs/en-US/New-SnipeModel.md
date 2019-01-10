@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeModel
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT model.
 
 ## SYNTAX
 
@@ -23,21 +23,21 @@ New-SnipeModel [-Name] <String>
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Model cmdlet creates a new model object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Model -Name "PotatoPeeler Plus 3000" -Manufacturer "Potato Peelers Inc." -Category "Handheld"
 ```
 
-{{ Add example description here }}
+Create a new model named "PotatoPeeler Plus 3000" with all required properties set.
 
 ## PARAMETERS
 
 ### -Category
-{{Fill Category Description}}
+The category of this model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]
@@ -52,7 +52,7 @@ Accept wildcard characters: False
 ```
 
 ### -Depreciation
-{{Fill Depreciation Description}}
+The depreciation to use for this model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]
@@ -67,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -EndOfLife
-{{Fill EndOfLife Description}}
+The lifetime of the model in months.
 
 ```yaml
 Type: Int32
@@ -82,7 +82,7 @@ Accept wildcard characters: False
 ```
 
 ### -FieldSet
-{{Fill FieldSet Description}}
+The custom field set that applies to this model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]
@@ -97,7 +97,7 @@ Accept wildcard characters: False
 ```
 
 ### -ImageUri
-{{Fill ImageUri Description}}
+The uri of the image for the model.
 
 ```yaml
 Type: Uri
@@ -112,7 +112,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manufacturer
-{{Fill Manufacturer Description}}
+The maker of this model.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
@@ -127,7 +127,7 @@ Accept wildcard characters: False
 ```
 
 ### -ModelNumber
-{{Fill ModelNumber Description}}
+The model's model number.
 
 ```yaml
 Type: String
@@ -142,7 +142,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the model.
 
 ```yaml
 Type: String
@@ -157,7 +157,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{Fill Notes Description}}
+Any notes about the model.
 
 ```yaml
 Type: String

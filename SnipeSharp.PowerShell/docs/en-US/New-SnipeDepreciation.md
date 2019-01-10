@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeDepreciation
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT depreciation.
 
 ## SYNTAX
 
@@ -17,21 +17,21 @@ New-SnipeDepreciation [-Name] <String> [-Months] <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Depreciation cmdlet creates a new depreciation object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Depreciation -Name "General Potato Peeler" -Months 36
 ```
 
-{{ Add example description here }}
+Create a new depreciation named "General Potato Peeler" with all required properties set.
 
 ## PARAMETERS
 
 ### -Months
-{{Fill Months Description}}
+How long the depreciation lasts in months.
 
 ```yaml
 Type: Int32
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the depreciation.
 
 ```yaml
 Type: String

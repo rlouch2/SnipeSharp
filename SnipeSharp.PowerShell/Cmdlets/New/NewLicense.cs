@@ -104,7 +104,6 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
         /// <summary>
         /// The registered email address of the licensee.
         /// </summary>
-        /// <value></value>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string LicensedToEmailAddress { get; set; }
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-SnipeLocation
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new Snipe-IT location.
 
 ## SYNTAX
 
@@ -20,21 +20,21 @@ New-SnipeLocation [-Name] <String> [-Address <String>] [-Address2 <String>] [-Ci
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+The New-Location cmdlet creates a new location object.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-Location -Name "Potato Farm #12"
 ```
 
-{{ Add example description here }}
+Create a new location named "Potato Farm #12" with all required properties set.
 
 ## PARAMETERS
 
 ### -Address
-{{Fill Address Description}}
+The location's address line.
 
 ```yaml
 Type: String
@@ -49,7 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -Address2
-{{Fill Address2 Description}}
+The location's second address line.
 
 ```yaml
 Type: String
@@ -64,7 +64,7 @@ Accept wildcard characters: False
 ```
 
 ### -City
-{{Fill City Description}}
+The location's address city.
 
 ```yaml
 Type: String
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Country
-{{Fill Country Description}}
+The location's address country.
 
 ```yaml
 Type: String
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -Currency
-{{Fill Currency Description}}
+The currency used at the location.
 
 ```yaml
 Type: String
@@ -109,7 +109,7 @@ Accept wildcard characters: False
 ```
 
 ### -Manager
-{{Fill Manager Description}}
+The manager of the location.
 
 ```yaml
 Type: UserBinding
@@ -124,7 +124,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name of the location.
 
 ```yaml
 Type: String
@@ -139,7 +139,7 @@ Accept wildcard characters: False
 ```
 
 ### -ParentLocation
-{{Fill ParentLocation Description}}
+The location of the location (its parent location).
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -154,7 +154,7 @@ Accept wildcard characters: False
 ```
 
 ### -State
-{{Fill State Description}}
+The location's address state.
 
 ```yaml
 Type: String
@@ -169,7 +169,7 @@ Accept wildcard characters: False
 ```
 
 ### -ZipCode
-{{Fill ZipCode Description}}
+The location's address zip code.
 
 ```yaml
 Type: String

@@ -67,7 +67,6 @@ namespace SnipeSharp.PowerShell.Cmdlets.New
         /// <summary>
         /// The cost the component was purchased for.
         /// </summary>
-        /// <value></value>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public decimal PurchaseCost { get; set; }
 
