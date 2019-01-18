@@ -15,6 +15,9 @@ namespace SnipeSharp
     public sealed class SnipeItApi
     {
 #if DEBUG
+        /// <summary>
+        /// A list of URI's accessed by the RestClientManager. Used for debugging purposes.
+        /// </summary>
         public List<string> DebugList = new List<string>();
 #endif
         private string _token;

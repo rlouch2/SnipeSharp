@@ -93,8 +93,10 @@ namespace SnipeSharp
         private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
+#if DEBUG
             var uri = Client.BuildUri(request);
             Api.DebugList.Add(uri.ToString());
+#endif
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
@@ -116,8 +118,10 @@ namespace SnipeSharp
         private RequestResponse<R> ExecuteRequest2<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
+#if DEBUG
             var uri = Client.BuildUri(request);
             Api.DebugList.Add(uri.ToString());
+#endif
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
