@@ -14,7 +14,9 @@ namespace SnipeSharp
     /// </summary>
     public sealed class SnipeItApi
     {
+#if DEBUG
         public List<string> DebugList = new List<string>();
+#endif
         private string _token;
 
         /// <summary>
