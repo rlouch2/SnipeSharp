@@ -24,7 +24,7 @@ Set-SnipeLicense [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-IsReassignable <Boolean>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.License]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.License]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -40,7 +40,7 @@ Set-SnipeLicense [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-IsReassignable <Boolean>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] -Name <String>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -55,7 +55,7 @@ Set-SnipeLicense [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-IsReassignable <Boolean>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] -Id <Int32>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -362,6 +362,21 @@ The updated supplier that sold the license.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

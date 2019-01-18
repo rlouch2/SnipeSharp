@@ -11,13 +11,13 @@ namespace SnipeSharp.Models
         /// <summary>
         /// FieldSet to (dis)associate to/from.
         /// </summary>
-        [Field("fieldset_id", true, CommonModelConverter, true)]
+        [Field("fieldset_id", Converter =  CommonModelConverter, IsRequired = true)]
         public FieldSet FieldSet { get; set; }
 
         /// <summary>
         /// Backing field for <see cref="IsRequired"/>
         /// </summary>
-        [Field("required", true)]
+        [Field("required")]
         private string isRequired;
         
         /// <summary>
@@ -31,7 +31,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The order of the field in the fieldset.
         /// </summary>
-        [Field("order", true)]
+        [Field("order")]
         public int Order { get; set ;}
     }
 }

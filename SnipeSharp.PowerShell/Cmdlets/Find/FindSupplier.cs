@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT supplier.</para>
-    /// <para type="description">The Find-Supplier cmdlet finds supplier objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT supplier.</summary>
+    /// <remarks>The Find-Supplier cmdlet finds supplier objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Supplier</code>
     ///   <para>Finds all suppliers.</para>

@@ -4,23 +4,21 @@ using System.Management.Automation;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Connects to Snipe IT.</para>
-    /// <para type="description">The Connect-SnipeIT cmdlet begins a session with a Snipe IT instance.</para>
-    /// <para type="description">You may only have one SnipeIT session per PowerShell session.</para>
-    /// </summary>
+    /// <summary>Connects to Snipe IT.</summary>
+    /// <remarks>
+    ///   <para>The Connect-SnipeIT cmdlet begins a session with a Snipe IT instance.</para>
+    ///   <para>You may only have one SnipeIT session per PowerShell session.</para>
+    /// </remarks>
     /// <example>
     ///   <code>Connect-SnipeIT -Uri 'https://inventory.example.com/api/v1' -ApiToken $ApiToken</code>
     ///   <para>Connect to a Snipe IT session at "inventory.example.com" with the token in $ApiToken.</para>
     /// </example>
-    /// <para type="link">Disconnect-SnipeIT</para>
-    /// <para type="link" uri="(https://snipe-it.readme.io/reference#generating-api-tokens)">[Generating API tokens for Snipe IT]</para>
+    /// <seealso cref="DisconnectSnipeIT" />
+    /// <seealso link="https://snipe-it.readme.io/reference#generating-api-tokens">Generating API tokens for Snipe IT</seealso>
     [Cmdlet(VerbsCommunications.Connect, "IT")]
-    public sealed class ConnectInstance: PSCmdlet
+    public sealed class ConnectSnipeIT: PSCmdlet
     {
-        /// <summary>
-        /// <para type="description">The Api token to connect to Snipe IT with.</para>
-        /// </summary>
+        /// <summary>The Api token to connect to Snipe IT with.</summary>
         [Parameter(
             Mandatory = true,
             Position = 1,
@@ -28,9 +26,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public string Token { get; set; }
 
-        /// <summary>
-        /// <para type="description">The URI for the API endpoint of your Snipe IT instance. Usually this is the same as the URL for your instance, with the path "/api/v1".</para>
-        /// </summary>
+        /// <summary>The URI for the API endpoint of your Snipe IT instance. Usually this is the same as the URL for your instance, with the path "/api/v1".</summary>
         [Parameter(
             Mandatory = true,
             Position = 0,
@@ -49,6 +45,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 ApiHelper.Instance = instance;
             else
                 throw new ApiErrorException($"Could not validate a connection to Snipe-IT at Uri \"{Uri}\".");
+            
+            WriteObject(ApiHelper.Instance);
         }
     }
 }

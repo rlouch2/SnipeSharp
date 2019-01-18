@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT location.</para>
-    /// <para type="description">The Find-Asset cmdlet finds location objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT location.</summary>
+    /// <remarks>The Find-Asset cmdlet finds location objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Location</code>
     ///   <para>Finds all locations.</para>

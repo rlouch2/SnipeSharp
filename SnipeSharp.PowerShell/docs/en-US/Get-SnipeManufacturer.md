@@ -14,22 +14,22 @@ Gets a Snipe IT manufacturer.
 
 ### All (Default)
 ```
-Get-SnipeManufacturer [-NoEnumerate] [<CommonParameters>]
+Get-SnipeManufacturer [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeManufacturer [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeManufacturer [-Deleted <Boolean>] [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeManufacturer -Name <String[]> [<CommonParameters>]
+Get-SnipeManufacturer [-Deleted <Boolean>] -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeManufacturer [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Get-SnipeManufacturer [-Deleted <Boolean>] [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,7 +112,22 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Deleted
+Find deleted manufacturers, or non-deleted manufacturers?
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
 Aliases:
 
 Required: False

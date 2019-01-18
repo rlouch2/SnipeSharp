@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT model.</para>
-    /// <para type="description">The New-Model cmdlet creates a new model object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT model.</summary>
+    /// <remarks>The New-Model cmdlet creates a new model object.</remarks>
     /// <example>
     ///   <code>New-Model -Name "PotatoPeeler Plus 3000" -Manufacturer "Potato Peelers Inc." -Category "Handheld"</code>
     ///   <para>Create a new model named "PotatoPeeler Plus 3000" with all required properties set.</para>

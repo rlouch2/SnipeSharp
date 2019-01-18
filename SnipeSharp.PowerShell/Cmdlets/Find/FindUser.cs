@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.Filters;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT user.</para>
-    /// <para type="description">The Find-User cmdlet finds user objects by filter, company, location, group, or department.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT user.</summary>
+    /// <remarks>The Find-User cmdlet finds user objects by filter, company, location, group, or department.</remarks>
     /// <example>
     ///   <code>Find-User -IncludeDeleted</code>
     ///   <para>Finds all users, included deleted ones.</para>
@@ -26,33 +24,23 @@ namespace SnipeSharp.PowerShell.Cmdlets.Find
     [OutputType(typeof(User))]
     public class FindUser: FindObject<User, UserSearchColumn, UserSearchFilter>
     {
-        /// <summary>
-        /// <para type="description">If present, also search for deleted users.</para>
-        /// </summary>
+        /// <summary>Find deleted users, or non-deleted users?</summary>
         [Parameter]
-        public SwitchParameter IncludeDeleted { get; set; }
+        public bool Deleted { get; set; }
 
-        /// <summary>
-        /// <para type="description">Filter by company.</para>
-        /// </summary>
+        /// <summary>Filter by company.</summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
-        /// <summary>
-        /// <para type="description">Filter by location.</para>
-        /// </summary>
+        /// <summary>Filter by location.</summary>
         [Parameter]
         public ObjectBinding<Location> Location { get; set; }
 
-        /// <summary>
-        /// <para type="description">Filter by group membership.</para>
-        /// </summary>
+        /// <summary>Filter by group membership.</summary>
         [Parameter]
         public ObjectBinding<Group> Group { get; set; }
 
-        /// <summary>
-        /// <para type="description">Filter by department.</para>
-        /// </summary>
+        /// <summary>Filter by department.</summary>
         [Parameter]
         public ObjectBinding<Department> Department { get; set; }
 
@@ -67,8 +55,8 @@ namespace SnipeSharp.PowerShell.Cmdlets.Find
                 filter.Group = Group?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Department)))
                 filter.Department = Department?.Object;
-            if(IncludeDeleted.IsPresent)
-                filter.IncludeDeleted = true;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Deleted)))
+                filter.Deleted = Deleted;
         }
     }
 }

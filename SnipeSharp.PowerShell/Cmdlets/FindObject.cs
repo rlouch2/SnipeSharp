@@ -15,27 +15,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
         where T: CommonEndPointModel
         where K: class, ISortableSearchFilter<S>, new()
     {
-        /// <summary>
-        /// <para type="description">The string to search for.</para>
-        /// </summary>
+        /// <summary>The string to search for.</summary>
         [Parameter(Position = 0, ValueFromPipeline = true)]
         public string SearchString { get; set; }
 
-        /// <summary>
-        /// <para type="description">Which way to sort the data.</para>
-        /// </summary>
+        /// <summary>Which way to sort the data.</summary>
         [Parameter]
         public SearchOrder SortOrder { get; set; }
 
-        /// <summary>
-        /// <para type="description">On which column to sort the data.</para>
-        /// </summary>
+        /// <summary>On which column to sort the data.</summary>
         [Parameter]
         public S SortColumn { get; set; }
 
-        /// <summary>
-        /// <para type="description">If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</para>
-        /// </summary>
+        /// <summary>If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</summary>
         [Parameter]
         public SwitchParameter NoEnumerate { get; set; }
 

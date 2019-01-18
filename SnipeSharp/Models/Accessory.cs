@@ -23,7 +23,7 @@ namespace SnipeSharp.Models
         /// The Name of the Accessory in Snipe-IT.
         /// </summary>
         /// <remarks>This field is required.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("company", "company_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
         public Company Company { get; set; }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("manufacturer", "manufacturer_id", converter: CommonModelConverter, required: true)]
+        [Field(DeserializeAs = "manufacturer", SerializeAs = "manufacturer_id", Converter = CommonModelConverter, IsRequired = true)]
         public Manufacturer Manufacturer { get; set; }
 
         /// <summary>
@@ -53,13 +53,13 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("supplier", "supplier_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "supplier", SerializeAs = "supplier_id", Converter = CommonModelConverter)]
         public Supplier Supplier { get; set; }
 
         /// <summary>
         /// The ModelNumber of this Accessory.
         /// </summary>
-        [Field("model_number", true)]
+        [Field("model_number")]
         public string ModelNumber { get; set; }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace SnipeSharp.Models
         /// <para>The Category must have the CategoryType "Accessory" for the change to be realized in the API; the API won't stop you from giving anything a Category of the wrong type, though.</para>
         /// <para>This field is required.</para>
         /// </remarks>
-        [Field("category", "category_id", converter: CommonModelConverter, required: true)]
+        [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
         public Category Category { get; set; }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("location", "location_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
         public Location Location { get; set; }
 
         /// <summary>
@@ -91,63 +91,63 @@ namespace SnipeSharp.Models
         /// <para>This value must be greater than or equal to one.</para>
         /// <para>This field is required.</para>
         /// </remarks>
-        [Field("qty", true, required: true)]
+        [Field("qty", IsRequired = true)]
         public int Quantity { get; set; }
 
         /// <summary>
         /// The date this Accessory was purchased.
         /// </summary>
-        [Field("purchase_date", true, converter: DateTimeConverter)]
+        [Field("purchase_date", Converter = DateTimeConverter)]
         public DateTime? PurchaseDate { get; set; }
 
         /// <summary>
         /// The cost of this Accessory when purchased.
         /// </summary>
-        [Field("purchase_cost", true)]
+        [Field("purchase_cost")]
         public decimal? PurchaseCost { get; set; }
 
         /// <summary>
         /// The order number associated with this Accessory's purchase.
         /// </summary>
         /// <remarks>A single Accessory only has one OrderNumber field. Multiple orders should use multiple Accessories of the same ModelNumber, IIRC.</remarks>
-        [Field("order_number", true)]
+        [Field("order_number")]
         public string OrderNumber { get; set; }
 
         /// <summary>
         /// The Minimum quantity of this Accessory before an alert should pop up.
         /// </summary>
         /// <remarks>Supposedly this is setable, but the field is not fillable in Snipe-IT.</remarks>
-        [Field("min_qty", "min_amt")]
+        [Field(DeserializeAs = "min_qty", SerializeAs = "min_amt")]
         public int? MinimumQuantity { get; set; }
 
         /// <summary>
         /// The quantity of this Accessory that has not yet been checked out.
         /// </summary>
-        [Field("remaining_qty")]
+        [Field(DeserializeAs = "remaining_qty")]
         public int? RemainingQuantity { get; private set; }
 
         /// <summary>
         /// The Url of the image for this Accessory in the web interface.
         /// </summary>
-        [Field("image", true)]
+        [Field("image")]
         public Uri ImageUri { get; set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("updated_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
 
         /// <summary>
         /// Indicates that this accessory is available to be checked out.
         /// </summary>
-        [Field("user_can_checkout")]
+        [Field(DeserializeAs = "user_can_checkout")]
         public bool? UserCanCheckOut { get; private set; }
 
         /* NOT_IMPL: This field is currently not readable from the API, nor used in SnipeIT.

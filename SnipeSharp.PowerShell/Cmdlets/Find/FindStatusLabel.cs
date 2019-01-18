@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT status label.</para>
-    /// <para type="description">The Find-StatusLabel cmdlet finds status label objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT status label.</summary>
+    /// <remarks>The Find-StatusLabel cmdlet finds status label objects by filter.</remarks>
     /// <example>
     ///   <code>Find-StatusLabel</code>
     ///   <para>Finds all status labels.</para>

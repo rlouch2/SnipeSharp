@@ -19,17 +19,17 @@ Get-SnipeLicense [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeLicense [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeLicense [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeLicense -Name <String[]> [<CommonParameters>]
+Get-SnipeLicense -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeLicense [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Get-SnipeLicense [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,7 +112,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False

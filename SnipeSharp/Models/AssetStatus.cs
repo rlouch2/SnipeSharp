@@ -14,28 +14,28 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The Id of the <see cref="StatusLabel">StatusLabel</see> in the SnipeIT database.
         /// </summary>
-        [Field("id", true)]
+        [Field("id")]
         public int StatusId { get; set; }
         
         /// <summary>
         /// The friendly name of the status.
         /// </summary>
         /// <value></value>
-        [Field("name")]
+        [Field(DeserializeAs = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// The category of statuses that this StatusLabel fits in.
         /// </summary>
         /// <remarks>This will never be <see cref="StatusType.Deployed" />.</remarks>
-        [Field("status_type")]
+        [Field(DeserializeAs = "status_type")]
         public StatusType? StatusType { get; set; }
 
         /// <summary>
         /// The actual category of statuses an asset with this status is in.
         /// </summary>
         /// <value>For deployed assets, this will be <see cref="StatusType.Deployed" />. Otherwise, the value will be the same as <see cref="AssetStatus.StatusType" />.</value>
-        [Field("status_meta")]
+        [Field(DeserializeAs = "status_meta")]
         public StatusType? StatusMeta { get; set; }
     }
 }

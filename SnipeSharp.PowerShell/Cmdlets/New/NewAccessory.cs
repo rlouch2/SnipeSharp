@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT accessory.</para>
-    /// <para type="description">The New-Accessory cmdlet creates a new accessory object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT accessory.</summary>
+    /// <remarks>The New-Accessory cmdlet creates a new accessory object.</remarks>
     /// <example>
     ///   <code>New-Accessory -Name "Potato Peeler Wrist strap" -Quantity 9001 -Manufacturer "Potato Peeler Accessories Ltd." -Category "Utility"</code>
     ///   <para>Create a new accessory named "Potato Peeler Wrist strap" with all required properties set.</para>

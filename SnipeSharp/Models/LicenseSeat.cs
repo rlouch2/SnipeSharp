@@ -11,40 +11,40 @@ namespace SnipeSharp.Models
     public sealed class LicenseSeat : ApiObject, IAvailableActions
     {
         /// <value>Gets the Id of the seat</value>
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public long Id { get; private set; }
 
         /// <value>Gets the id of the corresponding license.</value>
-        [Field("license_id")]
+        [Field(DeserializeAs = "license_id")]
         public long LicenseId { get; private set; }
 
         /// <value>Gets the corresponding assigned user, or null if the license is not assigned to a user.</value>
         /// <remarks>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</remarks>
-        [Field("assigned_user")]
+        [Field(DeserializeAs = "assigned_user")]
         public User AssignedUser { get; private set; }
 
         /// <value>Gets the corresponding assigned asset, or null if the license is not assigned to an asset.</value>
         /// <remarks>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</remarks>
-        [Field("assigned_asset")]
+        [Field(DeserializeAs = "assigned_asset")]
         public Asset AssignedAsset { get; private set; }
 
         /// <value>Gets the location of the assignee, or null if the license is not assigned.</value>
         /// <remarks>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</remarks>
-        [Field("location")]
+        [Field(DeserializeAs = "location")]
         public Location Location { get; private set; }
 
         /// <value>Gets if the license is reassignable.</value>
         /// <seealso cref="License.IsReassignable" />
-        [Field("reassignable")]
+        [Field(DeserializeAs = "reassignable")]
         public bool IsReassignable { get; private set; }
 
         /// <value>Gets if this seat can be checked out.</value>
-        [Field("user_can_checkout")]
+        [Field(DeserializeAs = "user_can_checkout")]
         public bool? UserCanCheckOut { get; set; }
 
         /// <inheritdoc />
         /// <seealso cref="License" />
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
 
         /// <value>Gets if this seat is checked out to an asset or user or not.</value>

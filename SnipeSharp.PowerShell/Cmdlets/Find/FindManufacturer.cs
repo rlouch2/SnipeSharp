@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT manufacturer.</para>
-    /// <para type="description">The Find-Asset cmdlet finds manufacturer objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT manufacturer.</summary>
+    /// <remarks>The Find-Asset cmdlet finds manufacturer objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Manufacturer</code>
     ///   <para>Finds all manufacturers.</para>
@@ -19,12 +17,17 @@ namespace SnipeSharp.PowerShell.Cmdlets.Find
     /// </example>
     [Cmdlet(VerbsCommon.Find, nameof(Manufacturer), SupportsPaging = true)]
     [OutputType(typeof(Manufacturer))]
-    public class FindManufacturer: FindObject<Manufacturer, string, SearchFilter>
+    public class FindManufacturer: FindObject<Manufacturer, ManufacturerSearchColumn, ManufacturerSearchFilter>
     {
+        /// <summary>Find deleted manufacturers, or non-deleted manufacturers?</summary>
+        [Parameter]
+        public bool Deleted { get; set; }
+
         /// <inheritdoc />
-        protected override void PopulateFilter(SearchFilter filter)
+        protected override void PopulateFilter(ManufacturerSearchFilter filter)
         {
-            // nop
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Deleted)))
+                filter.Deleted = Deleted;
         }
     }
 }

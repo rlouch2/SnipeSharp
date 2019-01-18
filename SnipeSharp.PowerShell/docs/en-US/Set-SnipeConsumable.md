@@ -22,7 +22,7 @@ Set-SnipeConsumable [-NewName <String>]
  [-Manufacturer <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>]
  [-Quantity <Int32>] [-MinimumQuantity <Int32>] [-ModelNumber <String>] [-OrderNumber <String>]
  [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Consumable]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Consumable]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -35,7 +35,7 @@ Set-SnipeConsumable [-NewName <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Manufacturer <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>]
  [-Quantity <Int32>] [-MinimumQuantity <Int32>] [-ModelNumber <String>] [-OrderNumber <String>]
- [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Name <String>
+ [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Name <String> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -48,7 +48,7 @@ Set-SnipeConsumable [-NewName <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Manufacturer <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>]
  [-Quantity <Int32>] [-MinimumQuantity <Int32>] [-ModelNumber <String>] [-OrderNumber <String>]
- [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Id <Int32>
+ [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Id <Int32> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -296,6 +296,21 @@ The updated quantity of the consumable.
 
 ```yaml
 Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

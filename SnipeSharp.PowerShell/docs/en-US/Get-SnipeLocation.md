@@ -19,17 +19,17 @@ Get-SnipeLocation [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeLocation [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeLocation [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeLocation -Name <String[]> [<CommonParameters>]
+Get-SnipeLocation -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeLocation [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Get-SnipeLocation [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,7 +112,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False

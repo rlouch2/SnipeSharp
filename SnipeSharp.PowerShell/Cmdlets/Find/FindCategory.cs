@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT category.</para>
-    /// <para type="description">The Find-Category cmdlet finds category objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT category.</summary>
+    /// <remarks>The Find-Category cmdlet finds category objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Category</code>
     ///   <para>Finds all categories.</para>

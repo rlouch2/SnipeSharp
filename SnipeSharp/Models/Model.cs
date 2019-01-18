@@ -15,12 +15,12 @@ namespace SnipeSharp.Models
     public sealed class Model : CommonEndPointModel, IAvailableActions
     {
         /// <inheritdoc />
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         /// <value>The manufacturer for this model.</value>
@@ -28,15 +28,15 @@ namespace SnipeSharp.Models
         /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("manufacturer", "manufacturer_id", converter: CommonModelConverter, required: true)]
+        [Field(DeserializeAs = "manufacturer", SerializeAs = "manufacturer_id", Converter = CommonModelConverter, IsRequired = true)]
         public Manufacturer Manufacturer { get; set; }
 
         /// <value>The url for the image of the asset.</value>
-        [Field("image", true)]
+        [Field("image")]
         public Uri ImageUri { get; set; }
 
         /// <value>The model number for this asset.</value>
-        [Field("model_number", true)]
+        [Field("model_number")]
         public string ModelNumber { get; set; }
 
         /// <value>Gets/sets the depreciation for this model.</value>
@@ -44,11 +44,11 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("depreciation", "depreciation_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "depreciation", SerializeAs = "depreciation_id", Converter = CommonModelConverter)]
         public Depreciation Depreciation { get; set; }
 
         /// <value>The number of assets with this model.</value>
-        [Field("assets_count")]
+        [Field(DeserializeAs = "assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>Gets/sets the category for this model</value>
@@ -56,7 +56,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("category", "category_id", converter: CommonModelConverter, required: true)]
+        [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
         public Category Category { get; set; }
 
         /// <value>Gets/sets the fieldset for this model.</value>
@@ -64,31 +64,31 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("fieldset", "fieldset_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "fieldset", SerializeAs = "fieldset_id", Converter = CommonModelConverter)]
         public FieldSet FieldSet { get; set; }
 
         /// <value>Gets/sets the lifetime for this model in months.</value>
-        [Field("eol", true, converter: MonthsConverter)]
+        [Field("eol", Converter = MonthsConverter)]
         public int? EndOfLife { get; set; }
 
         /// <value>Gets/sets the notes for this model.</value>
-        [Field("notes", true)]
+        [Field("notes")]
         public string Notes { get; set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("updated_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         /// <value>The date this object was soft-deleted in Snipe-IT, or null if it has not been deleted.</value>
-        [Field("deleted_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "deleted_at", Converter = DateTimeConverter)]
         public DateTime? DeletedAt { get ;set; }
 
         /// <inheritdoc />
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

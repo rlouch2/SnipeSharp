@@ -14,64 +14,64 @@ namespace SnipeSharp.Models
     public sealed class Location : CommonEndPointModel, IAvailableActions
     {
         /// <inheritdoc />
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         /// <value>The URL of the image for this location.</value>
-        [Field("image", true)]
+        [Field("image")]
         public Uri ImageUri { get; set; }
 
         /// <value>Gets/sets the first address line for this location.</value>
-        [Field("address", true)]
+        [Field("address")]
         public string Address { get; set; }
 
         /// <value>Gets/sets the second address line for this location.</value>
-        [Field("address2", true)]
+        [Field("address2")]
         public string Address2 { get; set; }
 
         /// <value>Gets/sets the city this location is in.</value>
-        [Field("city", true)]
+        [Field("city")]
         public string City { get; set; }
 
         /// <value>Gets/sets the city this location is in.</value>
-        [Field("state", true)]
+        [Field("state")]
         public string State { get; set; }
 
         /// <value>Gets/sets the city this location is in.</value>
-        [Field("country", true)]
+        [Field("country")]
         public string Country { get; set; }
 
         /// <value>Gets/sets the Zip Code area this location is in.</value>
-        [Field("zip", true)]
+        [Field("zip")]
         public string ZipCode { get; set; }
 
         /// <value>The number of assets assigned to this location.</value>
-        [Field("assigned_assets_count")]
+        [Field(DeserializeAs = "assigned_assets_count")]
         public int? AssignedAssetsCount { get; private set; }
 
         /// <value>The number of assets at this location.</value>
-        [Field("assets_count")]
+        [Field(DeserializeAs = "assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>The number of users at this location.</value>
-        [Field("users_count")]
+        [Field(DeserializeAs = "users_count")]
         public int? UsersCount { get; private set; }
 
         /// <value>Gets/sets the type of currency used at this location.</value>
-        [Field("currency", true)]
+        [Field("currency")]
         public string Currency { get; set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("updated_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         /// <value>Gets/sets the parent location for this location.</value>
@@ -79,7 +79,7 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("parent", "parent_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "parent", SerializeAs = "parent_id", Converter = CommonModelConverter)]
         public Location ParentLocation { get; set; }
 
         /// <value>The manager for this location.</value>
@@ -87,16 +87,16 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("manager", "manager_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "manager", SerializeAs = "manager_id", Converter = CommonModelConverter)]
         public User Manager { get; set; }
 
         /// <value>The list of child locations for this location.</value>
         /// <remarks>When deserialized, these values do not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</remarks>
-        [Field("children")]
+        [Field(DeserializeAs = "children")]
         public List<Location> ChildLocations { get; private set; }
 
         /// <inheritdoc />
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

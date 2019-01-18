@@ -5,19 +5,17 @@ using SnipeSharp.Models.Enumerations;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT status label.</para>
-    /// <para type="description">The Set-StatusLabel cmdlet changes the properties of an existing Snipe-IT status label object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT status label.</summary>
+    /// <remarks>The Set-StatusLabel cmdlet changes the properties of an existing Snipe-IT status label object.</remarks>
     /// <example>
     ///   <code>Set-StatusLabel -Name "Assignable" -Type "Deployable"</code>
     ///   <para>Changes the status label "Assignable" to be a label for deployable objects.</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(StatusLabel))]
     [OutputType(typeof(StatusLabel))]
-    public class SetStatusLabel: SetObject<StatusLabel>
+    public class SetStatusLabel: SetObject<StatusLabel, ObjectBinding<StatusLabel>>
     {
         /// <summary>
         /// The new name of the status label.

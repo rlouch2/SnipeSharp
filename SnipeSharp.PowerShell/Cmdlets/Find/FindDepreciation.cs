@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT depreciation.</para>
-    /// <para type="description">The Find-Depreciation cmdlet finds depreciations by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT depreciation.</summary>
+    /// <remarks>The Find-Depreciation cmdlet finds depreciations by filter.</remarks>
     /// <example>
     ///   <code>Find-Depreciation</code>
     ///   <para>Finds all depreciations.</para>

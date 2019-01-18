@@ -12,40 +12,64 @@ Changes the properties of an existing Snipe-IT user.
 
 ## SYNTAX
 
+### ByUserName
+```
+Set-SnipeUser -UserName <String> [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>]
+ [-NewUserName <String>] [-Password <String>] [-EmployeeNumber <String>] [-Manager <UserBinding>]
+ [-JobTitle <String>] [-PhoneNumber <String>] [-Address <String>] [-City <String>] [-Country <String>]
+ [-State <String>] [-ZipCode <String>] [-NewEmailAddress <String>]
+ [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
+ [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] [-ShowResponse]
+ [<CommonParameters>]
+```
+
+### ByEmailAddress
+```
+Set-SnipeUser -EmailAddress <String> [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>]
+ [-NewUserName <String>] [-Password <String>] [-EmployeeNumber <String>] [-Manager <UserBinding>]
+ [-JobTitle <String>] [-PhoneNumber <String>] [-Address <String>] [-City <String>] [-Country <String>]
+ [-State <String>] [-ZipCode <String>] [-NewEmailAddress <String>]
+ [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
+ [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] [-ShowResponse]
+ [<CommonParameters>]
+```
+
 ### ByIdentity
 ```
-Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-UserName <String>]
+Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-NewUserName <String>]
  [-Password <String>] [-EmployeeNumber <String>] [-Manager <UserBinding>] [-JobTitle <String>]
  [-PhoneNumber <String>] [-Address <String>] [-City <String>] [-Country <String>] [-State <String>]
- [-ZipCode <String>] [-EmailAddress <String>]
+ [-ZipCode <String>] [-NewEmailAddress <String>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.User]> [<CommonParameters>]
+ [-Identity] <UserBinding> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-UserName <String>]
+Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-NewUserName <String>]
  [-Password <String>] [-EmployeeNumber <String>] [-Manager <UserBinding>] [-JobTitle <String>]
  [-PhoneNumber <String>] [-Address <String>] [-City <String>] [-Country <String>] [-State <String>]
- [-ZipCode <String>] [-EmailAddress <String>]
+ [-ZipCode <String>] [-NewEmailAddress <String>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Name <String>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-UserName <String>]
+Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-NewUserName <String>]
  [-Password <String>] [-EmployeeNumber <String>] [-Manager <UserBinding>] [-JobTitle <String>]
  [-PhoneNumber <String>] [-Address <String>] [-City <String>] [-Country <String>] [-State <String>]
- [-ZipCode <String>] [-EmailAddress <String>]
+ [-ZipCode <String>] [-NewEmailAddress <String>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Id <Int32>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -157,10 +181,10 @@ The updated email address for the user.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: ByEmailAddress
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -216,7 +240,7 @@ Accept wildcard characters: False
 The identity of the item to update.
 
 ```yaml
-Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.User]
+Type: UserBinding
 Parameter Sets: ByIdentity
 Aliases:
 
@@ -352,10 +376,10 @@ The updated unique username for the user.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: ByUserName
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -367,6 +391,51 @@ The user's updated address zip code.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NewEmailAddress
+The updated email address for the user.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NewUserName
+The updated unique username for the user.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

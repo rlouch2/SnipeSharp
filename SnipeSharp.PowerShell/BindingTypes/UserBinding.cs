@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using SnipeSharp;
+using SnipeSharp.Filters;
 using SnipeSharp.Models;
 
 namespace SnipeSharp.PowerShell.BindingTypes
@@ -22,77 +23,10 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Fetches a single User using a simplified query. The query is of the form "[type:]value". Valid types are: id, name, iname, cname, username, uname, email, and search.
         /// </summary>
         /// <param name="query">A User Name, Id, Email Address, UserName, or Search for a user.</param>
-        public UserBinding(string query)
+        public UserBinding(string query) : base(query)
         {
-            Query = query;
-            var (type, value) = ParseQuery(query);
-            var endPoint = ApiHelper.Instance.GetEndPoint<User>();
-            if(type is null)
-            {
-                // username -> email -> name -> id
-                (Object, Error) = endPoint.GetByUserNameOrNull(value);
-                if(!(Object is null))
-                    return;
-                (Object, Error) = endPoint.GetByEmailAddressOrNull(value);
-                if(!(Object is null))
-                    return;
-                (Object, Error) = endPoint.GetOrNull(value);
-                if(Object is null && int.TryParse(value, out var id))
-                    (Object, Error) = endPoint.GetOrNull(id);
-                else
-                    Error = new ArgumentException($"Cannot find an object for query: {value}", nameof(query));
-            } else
-            {
-                switch(type)
-                {
-                    case "cname":
-                        (Object, Error) = endPoint.GetOrNull(value, true);
-                        break;
-                    case "name":
-                    case "iname":
-                        (Object, Error) = endPoint.GetOrNull(value, false);
-                        break;
-                    case "id":
-                        if(int.TryParse(value, out var id))
-                            (Object, Error) = endPoint.GetOrNull(id);
-                        else
-                        {
-                            Error = new ArgumentException($"Id is not an integer: {value}", nameof(query));
-                            return;
-                        }
-                        break;
-                    case "username":
-                    case "uname":
-                        (Object, Error) = endPoint.GetByUserNameOrNull(value);
-                        break;
-                    case "email":
-                        (Object, Error) = endPoint.GetByEmailAddressOrNull(value);
-                        break;
-                    case "search":
-                        try
-                        {
-                            Object = endPoint.FindOne(value);
-                        } catch(Exception e)
-                        {
-                            Error = e;
-                            return;
-                        }
-                        break;
-                    default:
-                        Error = new ArgumentException($"Query does not have a proper type: {type}", nameof(query));
-                        return;
-                }
-                if(Object is null)
-                    try
-                    {
-                        Object = endPoint.FindOne(value);
-                    } catch(Exception e)
-                    {
-                        Error = e;
-                    }
-            }
         }
-
+        
         /// <summary>
         /// Fetches a User by name, optionally case-sensitive.
         /// </summary>
@@ -117,13 +51,108 @@ namespace SnipeSharp.PowerShell.BindingTypes
         {
         }
 
-        internal static UserBinding FromUserName(string username)
-            => new UserBinding(username, ApiHelper.Instance.Users.GetByUserNameOrNull(username));
+                /// <inheritdoc />
+        protected override (User, Exception) ResolveBinding(ISearchFilter filter = null)
+        {
+            var endPoint = ApiHelper.Instance.GetEndPoint<User>();
+            (User Object, Exception Error) result;
+            var userFilter = filter as UserSearchFilter;
+
+            switch(QueryUnion.BindingType)
+            {
+                case BindingQueryUnion.Type.String:
+                    var (type, value) = ParseQuery(QueryUnion.StringValue);
+                    
+                    if(type is null)
+                    {
+                        // username -> email -> name -> id
+                        result = endPoint.GetByUserNameOrNull(value, userFilter);
+                        if(null != result.Object)
+                            return result;
+                        result = endPoint.GetByEmailAddressOrNull(value, userFilter);
+                        if(null != result.Object)
+                            return result;
+                        result = endPoint.GetOrNull(value, QueryUnion.CaseSensitive);
+                        if(null != result.Object)
+                            return result;
+                        else if(int.TryParse(value, out var id))
+                            return endPoint.GetOrNull(id);
+                        else
+                            return (null, new ArgumentException($"Cannot find an object for query: {value}", "query"));
+                    } else
+                    {
+                        switch(type)
+                        {
+                            case "cname":
+                                QueryUnion.CaseSensitive = true;
+                                goto case "iname";
+                            case "name":
+                            case "iname":
+                                result = endPoint.GetOrNull(value, QueryUnion.CaseSensitive, filter);
+                                break;
+                            case "id":
+                                if(int.TryParse(value, out var id))
+                                    result = endPoint.GetOrNull(id);
+                                else
+                                    return (null, new ArgumentException($"Id is not an integer: {value}", "query"));
+                                break;
+                            case "username":
+                            case "uname":
+                                result = endPoint.GetByUserNameOrNull(value, userFilter);
+                                break;
+                            case "email":
+                                result = endPoint.GetByEmailAddressOrNull(value, userFilter);
+                                break;
+                            case "search":
+                                try
+                                {
+                                    result = (endPoint.FindOne(value), null);
+                                } catch(Exception e)
+                                {
+                                    return (null, e);
+                                }
+                                break;
+                            default:
+                                return (null, new ArgumentException($"Query does not have a proper type: {type}", "query"));
+                        }
+                        if(result.Object is null)
+                            try
+                            {
+                                return (endPoint.FindOne(value), null);
+                            } catch(Exception e)
+                            {
+                                return (null, e);
+                            }
+                        else
+                            return result;
+                    }
+                case BindingQueryUnion.Type.Integer:
+                    return endPoint.GetOrNull(QueryUnion.IntegerValue);
+                default:
+                    return (null, new InvalidOperationException("Cannot resolve an invalid binding."));
+            }
+        }
+
+        internal static UserBinding FromUserName(string username, UserSearchFilter filter = null)
+            => new UserBinding(username, ApiHelper.Instance.Users.GetByUserNameOrNull(username, filter));
         internal new static UserBinding FromId(int id)
             => new UserBinding(id);
         internal new static UserBinding FromName(string name)
             => new UserBinding(name, ApiHelper.Instance.Users.GetOrNull(name));
-        internal static UserBinding FromEmailAddress(string email)
-            => new UserBinding(email, ApiHelper.Instance.Users.GetByEmailAddressOrNull(email));
+        internal static UserBinding FromEmailAddress(string email, UserSearchFilter filter = null)
+            => new UserBinding(email, ApiHelper.Instance.Users.GetByEmailAddressOrNull(email, filter));
+        
+        internal static UserBinding Me()
+        {
+            User me;
+            try
+            {
+                me = ApiHelper.Instance.Users.Me();
+                return new UserBinding(me.UserName, (me, null));
+            } catch (Exception e)
+            {
+                return new UserBinding(string.Empty, (null, e));
+            }
+        }
     }
 }

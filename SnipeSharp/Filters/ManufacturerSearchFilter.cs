@@ -5,9 +5,9 @@ using static SnipeSharp.Serialization.FieldConverter;
 namespace SnipeSharp.Filters
 {
     /// <summary>
-    /// A filter for assets, with no limit on sort column.
+    /// A filter for manufacturers, featuring manufacturer-only search fields.
     /// </summary>
-    public sealed class CustomAssetSearchFilter : AbstractAssetSearchFilter, ISortableSearchFilter<string>
+    public sealed class ManufacturerSearchFilter : ISortableSearchFilter<ManufacturerSearchColumn>
     {
         /// <inheritdoc />
         [Field("limit")]
@@ -23,23 +23,29 @@ namespace SnipeSharp.Filters
 
         /// <inheritdoc />
         [Field("sort")]
-        public string SortColumn { get; set; }
+        public ManufacturerSearchColumn SortColumn { get; set; }
 
         /// <inheritdoc />
         [Field("order")]
         public SearchOrder? Order { get; set; }
-        
+
         /// <summary>
-        /// Initialize a new instance of the CustomAssetSearchFilter class.
+        /// Search only deleted users.
         /// </summary>
-        public CustomAssetSearchFilter()
+        [Field("deleted", Converter = BoolStringConverter)]
+        public bool? Deleted { get; set; }
+
+        /// <summary>
+        /// Initialize a new instance of the ManufacturerSearchFilter class.
+        /// </summary>
+        public ManufacturerSearchFilter()
         {
         }
 
         /// <summary>
-        /// Initialize a new instance of the CustomAssetSearchFilter class with the specified search string.
+        /// Initialize a new instance of the ManufacturerSearchFilter class with the specified search string.
         /// </summary>
-        public CustomAssetSearchFilter(string searchString)
+        public ManufacturerSearchFilter(string searchString)
         {
             Search = searchString;
         }

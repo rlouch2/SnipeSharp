@@ -1,3 +1,4 @@
+using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
@@ -8,8 +9,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <summary>
     /// Generic base class for Set* Cmdlets.
     /// </summary>
-    /// <typeparam name="T">Type of object to set.</typeparam>
-    public abstract class SetObject<T>: PSCmdlet where T: CommonEndPointModel
+    /// <typeparam name="TObject">Type of object to set.</typeparam>
+    /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
+    public abstract class SetObject<TObject, TBinding>: PSCmdlet
+        where TObject: CommonEndPointModel
+        where TBinding: ObjectBinding<TObject>
     {
         /// <summary>
         /// Parameter sets supported by Set* cmdlets.
@@ -21,55 +25,71 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ByInternalId
         }
 
-        /// <summary>
-        /// <para type="description">The identity of the item to update.</para>
-        /// </summary>
+        /// <summary>The identity of the item to update.</summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByIdentity))]
         [ValidateIdentityNotNull]
-        public ObjectBinding<T> Identity { get; set; }
+        public TBinding Identity { get; set; }
 
-        /// <summary>
-        /// <para type="description">The name of the item to update.</para>
-        /// </summary>
+        /// <summary>The name of the item to update.</summary>
         [Parameter(Mandatory = true, ParameterSetName = nameof(ParameterSets.ByName))]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        /// <summary>
-        /// <para type="description">The id of the item to update.</para>
-        /// </summary>
+        /// <summary>The id of the item to update.</summary>
         [Parameter(Mandatory = true, ParameterSetName = nameof(ParameterSets.ByInternalId))]
         public int Id { get; set; }
+
+        /// <summary>If present, write the response from the Api to the pipeline.</summary>
+        [Parameter]
+        public SwitchParameter ShowResponse { get; set; }
 
         /// <summary>
         /// Populate the fields of the item.
         /// </summary>
         /// <param name="item">The item to populate.</param>
-        protected abstract void PopulateItem(T item);
+        protected abstract void PopulateItem(TObject item);
 
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
+            ObjectBinding<TObject> Object;
             switch(ParameterSetName)
             {
                 case nameof(ParameterSets.ByInternalId):
-                    Identity = ObjectBinding<T>.FromId(Id);
+                    Object = ObjectBinding<TObject>.FromId(Id);
                     break;
                 case nameof(ParameterSets.ByName):
-                    Identity = ObjectBinding<T>.FromName(Name);
+                    Object = ObjectBinding<TObject>.FromName(Name);
                     break;
                 case nameof(ParameterSets.ByIdentity):
+                    Object = Identity;
+                    break;
+                default:
+                    Object = GetBoundObject();
+                    if(null == Object)
+                    {
+                        WriteError(new ErrorRecord(new Exception(), $"{typeof(TObject).Name} not found.", ErrorCategory.InvalidArgument, null));
+                        return;
+                    }
                     break;
             }
-            if(Identity.IsNull)
+            if(Object.IsNull)
             {
-                WriteError(new ErrorRecord(Identity.Error, $"{typeof(T).Name} not found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
+                WriteError(new ErrorRecord(Object.Error, $"{typeof(TObject).Name} not found: {Object.Query}", ErrorCategory.InvalidArgument, null));
                 return;
             }
-            PopulateItem(Identity.Object);
+            PopulateItem(Object.Object);
 
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.GetEndPoint<T>().Update(Identity.Object));
+            var response = ApiHelper.Instance.GetEndPoint<TObject>().Update(Object.Object);
+            if(ShowResponse)
+                WriteObject(response);
         }
+
+        /// <summary>
+        /// Get the object binding to process if no default parameter set matches.
+        /// </summary>
+        protected virtual TBinding GetBoundObject()
+            => null;
     }
 }

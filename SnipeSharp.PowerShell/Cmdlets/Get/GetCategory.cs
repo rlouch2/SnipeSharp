@@ -3,13 +3,11 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Get
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Gets a Snipe IT category.</para>
-    /// <para type="description">The Get-Category cmdlet gets one or more category objects by name or by Snipe IT internal id number.</para>
-    /// <para type="description">Whatever identifier is used, both accept pipeline input.</para>
-    /// </summary>
+    /// <summary>Gets a Snipe IT category.</summary>
+    /// <remarks>The Get-Category cmdlet gets one or more category objects by name or by Snipe IT internal id number.</remarks>
+    /// <remarks>Whatever identifier is used, both accept pipeline input.</remarks>
     /// <example>
     ///   <code>Get-Category 14</code>
     ///   <para>Retrieve an category by its Internal Id.</para>
@@ -22,7 +20,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <code>1..100 | Get-Category</code>
     ///   <para>Retrieve the first 100 categories by their Snipe IT internal Id numbers.</para>
     /// </example>
-    /// <para type="link">Find-Category</para>
+    /// <seealso cref="FindCategory" />
     [Cmdlet(VerbsCommon.Get, nameof(Category), DefaultParameterSetName = nameof(GetCategory.ParameterSets.All))]
     [OutputType(typeof(Category))]
     public class GetCategory: GetObject<Category, ObjectBinding<Category>>

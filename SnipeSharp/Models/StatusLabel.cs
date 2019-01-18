@@ -15,18 +15,18 @@ namespace SnipeSharp.Models
     public sealed class StatusLabel : CommonEndPointModel, IAvailableActions
     {
         /// <inheritdoc />
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required and must have a unique value.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         private StatusType _type = StatusType.Undeployable;
         
         /// <value>Indicates the type of label; valid values are <see cref="StatusType.Pending"/>, <see cref="StatusType.Deployable"/>, <see cref="StatusType.Undeployable"/> and <see cref="StatusType.Archived"/></value>
-        [Field("type", true, required: true)]
+        [Field("type", IsRequired = true)]
         public StatusType? Type
         {
             get => _type;
@@ -48,35 +48,35 @@ namespace SnipeSharp.Models
         public bool IsPending => _type == StatusType.Pending;
 
         /// <value>The color of the lable in the web navigation.</value>
-        [Field("color")]
+        [Field(DeserializeAs = "color")]
         public string Color { get; private set; }
 
         /// <value>Whether or not this label shows in the web navigation.</value>
-        [Field("show_in_nav")]
+        [Field(DeserializeAs = "show_in_nav")]
         public bool? ShouldShowInNav { get; private set; }
 
         /// <value>Whether or not this label is a default label.</value>
-        [Field("default_lable")]
+        [Field(DeserializeAs = "default_lable")]
         public bool? IsDefaultLabel { get; private set; }
 
         /// <value>The number of assets with this label.</value>
-        [Field("assets_count")]
+        [Field(DeserializeAs = "assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>Description of the label.</value>
-        [Field("notes", true)]
+        [Field("notes")]
         public string Notes { get; set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("updated_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
 
         /// <summary>Converts this label into an AssetStatus, for use with Assets.</summary>

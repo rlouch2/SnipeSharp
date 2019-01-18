@@ -5,12 +5,10 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT component.</para>
-    /// <para type="description">The New-Component cmdlet creates a new component object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT component.</summary>
+    /// <remarks>The New-Component cmdlet creates a new component object.</remarks>
     /// <example>
     ///   <code>New-Component -Name "Potato Peeler Blade" -Quantity 215 -Company "Potato Inc." -Category "Potato"</code>
     ///   <para>Create a new component named "Potato Peeler Blade" with all required properties set.</para>

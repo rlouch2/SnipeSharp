@@ -6,7 +6,10 @@ using SnipeSharp.Exceptions;
 using SnipeSharp.Serialization;
 using Newtonsoft.Json;
 
+using System;
+using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace SnipeSharp
 {
@@ -90,6 +93,8 @@ namespace SnipeSharp
         private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
+            var uri = Client.BuildUri(request);
+            Api.DebugList.Add(uri.ToString());
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
@@ -111,6 +116,8 @@ namespace SnipeSharp
         private RequestResponse<R> ExecuteRequest2<R>(RestRequest request) where R: ApiObject
         {
             SetTokenAndUri();
+            var uri = Client.BuildUri(request);
+            Api.DebugList.Add(uri.ToString());
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
@@ -149,13 +156,32 @@ namespace SnipeSharp
                     var type = @object.GetType();
                     foreach(var property in type.GetProperties())
                     {
-                        if(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute && attribute.ShouldSerialize)
+                        if(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute && !string.IsNullOrEmpty(attribute.SerializeAs))
                         {
                             var value = property.GetValue(@object);
                             if(attribute.IsRequired && value is null)
+                            {
                                 throw new MissingRequiredFieldException<object>(type.Name, property.Name);
-                            else
-                                request.AddParameter(attribute.SerializeAs, property.GetValue(@object));
+                            } else
+                            {
+                                var converter = SerializationContractResolver.GetConverter(attribute);
+                                if(converter != null && value != null)
+                                {
+                                    var stringBuilder = new StringBuilder();
+                                    using(var stringWriter = new StringWriter(stringBuilder))
+                                    using(var jsonWriter = new JsonTextWriter(stringWriter))
+                                    {
+                                        converter.WriteJson(jsonWriter, value, JsonSerializer.CreateDefault(NewtonsoftJsonSerializer.SerializerSettings));
+                                    }
+                                    value = stringBuilder.ToString();
+                                    if(string.IsNullOrEmpty((string) value) && attribute.IsRequired)
+                                    {
+                                        throw new MissingRequiredFieldException<object>(nameof(String), property.Name);
+                                    }
+                                }
+                                if(value != null)
+                                    request.AddParameter(attribute.SerializeAs, value);
+                            }
                         }
                     }
                 } else

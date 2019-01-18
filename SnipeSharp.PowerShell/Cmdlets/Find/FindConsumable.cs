@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT consumable.</para>
-    /// <para type="description">The Find-Consumable cmdlet finds consumable objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT consumable.</summary>
+    /// <remarks>The Find-Consumable cmdlet finds consumable objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Consumable</code>
     ///   <para>Finds all consumables.</para>

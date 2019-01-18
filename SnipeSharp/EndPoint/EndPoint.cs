@@ -14,7 +14,8 @@ namespace SnipeSharp.EndPoint
     /// </summary>
     /// <seealso cref="EndPointExtensions" />
     /// <typeparam name="T">A <see cref="Models.CommonEndPointModel">CommonEndPointModel</see> with the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</typeparam>
-    public class EndPoint<T> : IEndPoint<T> where T: CommonEndPointModel
+    public class EndPoint<T> : IEndPoint<T>
+        where T: CommonEndPointModel
     {
         internal readonly SnipeItApi Api;
         internal readonly PathSegmentAttribute EndPointInfo;
@@ -66,25 +67,20 @@ namespace SnipeSharp.EndPoint
         }
 
         /// <inheritdoc />
-        public T Get(string name, bool caseSensitive = false)
+        public T Get(string name, bool caseSensitive = false, ISearchFilter filter = null)
         {
-            if(caseSensitive)
-            {
-                return FindAll(new SearchFilter(name)).Where(i => i.Name == name).FirstOrDefault();   
-            }
-            else
-            {
-                name = name.ToLower();
-                return FindAll(new SearchFilter(name)).Where(i => i.Name.ToLower() == name).FirstOrDefault();
-            }
+            filter = filter ?? new SearchFilter();
+            filter.Search = name;
+            var comparer = caseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
+            return FindAll(filter).Where(i => comparer.Equals(i.Name, name)).FirstOrDefault();
         }
 
         /// <inheritdoc />
-        public (T Value, Exception Error) GetOrNull(string name, bool caseSensitive = false)
+        public (T Value, Exception Error) GetOrNull(string name, bool caseSensitive = false, ISearchFilter filter = null)
         {
             try
             {
-                var @object = Get(name, caseSensitive);
+                var @object = Get(name, caseSensitive, filter);
                 return (@object, null);
             } catch(Exception e)
             {
@@ -126,8 +122,8 @@ namespace SnipeSharp.EndPoint
             => Get(id);
 
         /// <inheritdoc />
-        public T this[string name, bool caseSensitive = false]
-            => Get(name, caseSensitive);
+        public T this[string name, bool caseSensitive = false, ISearchFilter filter = null]
+            => Get(name, caseSensitive, filter);
 
         private T CheckRequiredFields(T @object, bool creating = false)
         {

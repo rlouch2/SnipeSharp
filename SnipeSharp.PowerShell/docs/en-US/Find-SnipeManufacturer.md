@@ -13,8 +13,9 @@ Finds a Snipe IT manufacturer.
 ## SYNTAX
 
 ```
-Find-SnipeManufacturer [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <String>]
- [-NoEnumerate] [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
+Find-SnipeManufacturer [-Deleted <Boolean>] [[-SearchString] <String>] [-SortOrder <SearchOrder>]
+ [-SortColumn <ManufacturerSearchColumn>] [-NoEnumerate] [-IncludeTotalCount] [-Skip <UInt64>]
+ [-First <UInt64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -118,7 +119,7 @@ Accept wildcard characters: False
 On which column to sort the data.
 
 ```yaml
-Type: String
+Type: ManufacturerSearchColumn
 Parameter Sets: (All)
 Aliases:
 
@@ -137,6 +138,21 @@ Type: SearchOrder
 Parameter Sets: (All)
 Aliases:
 Accepted values: Ascending, Descending
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Deleted
+Find deleted manufacturers, or non-deleted manufacturers?
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

@@ -56,16 +56,18 @@ namespace SnipeSharp.EndPoint
         /// <param name="name">The name of the object to fetch from the EndPoint.</param>
         /// <param name="caseSensitive">If true, perform a case-sensitive match. Default false.</param>
         /// <returns>The object with the supplied name, or null if it does not exist.</returns>
+        /// <param name="filter">A filter for specifying further options; the search string will be overridden.</param>
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">When the request was not successful.</exception>
-        T Get(string name, bool caseSensitive = false);
+        T Get(string name, bool caseSensitive = false, ISearchFilter filter = null);
 
         /// <summary>
         /// Get an object of the generic type by Name.
         /// </summary>
         /// <param name="name">The name of the object to fetch from the EndPoint.</param>
         /// <param name="caseSensitive">If true, perform a case-sensitive match. Default false.</param>
+        /// <param name="filter">A filter for specifying further options; the search string will be overridden.</param>
         /// <returns>The object with the supplied name (or null) in a tuple with an error thrown (which is null if there was no error).</returns>
-        (T Value, Exception Error) GetOrNull(string name, bool caseSensitive = false);
+        (T Value, Exception Error) GetOrNull(string name, bool caseSensitive = false, ISearchFilter filter = null);
 
         /// <summary>
         /// Finds all objects of the generic type matching the filter.
@@ -113,7 +115,7 @@ namespace SnipeSharp.EndPoint
         T this[int id] { get; }
 
         /// <value>Gets an object by name.</value>
-        /// <seealso cref="Get(string,bool)" />
-        T this[string name, bool caseSensitive = false] { get; }
+        /// <seealso cref="Get(string,bool,ISearchFilter)" />
+        T this[string name, bool caseSensitive = false, ISearchFilter filter = null] { get; }
     }
 }

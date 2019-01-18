@@ -6,12 +6,10 @@ using SnipeSharp.Models.Enumerations;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT category.</para>
-    /// <para type="description">The New-Category cmdlet creates a new category object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT category.</summary>
+    /// <remarks>The New-Category cmdlet creates a new category object.</remarks>
     /// <example>
     ///   <code>New-Category -Name "Utility" -Type Accessory</code>
     ///   <para>Create a new category for accessories named "Utility".</para>

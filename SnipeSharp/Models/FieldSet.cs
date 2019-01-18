@@ -16,29 +16,29 @@ namespace SnipeSharp.Models
     public sealed class FieldSet : CommonEndPointModel
     {
         /// <inheritdoc />
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         /// <value>Gets the CustomFields in this FieldSet.</value>
         /// <remarks>To set the fields in a set, see <see cref="EndPointExtensions.Associate(EndPoint{CustomField}, CustomField, FieldSet, bool, int?)"/> and <see cref="EndPointExtensions.Disassociate(EndPoint{CustomField}, CustomField, FieldSet)" />.</remarks>
-        [Field("fields")]
+        [Field(DeserializeAs = "fields")]
         public ResponseCollection<CustomField> Fields { get; private set; }
 
         /// <value>Gets the Models this FieldSet applies to.</value>
-        [Field("models")]
+        [Field(DeserializeAs = "models")]
         public ResponseCollection<Model> Models { get; private set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("updated_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
     }
 }

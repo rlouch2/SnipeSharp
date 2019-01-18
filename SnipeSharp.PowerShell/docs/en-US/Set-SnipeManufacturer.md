@@ -17,19 +17,21 @@ Changes the properties of an existing Snipe-IT manufacturer.
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
  [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
- [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Name <String> [<CommonParameters>]
+ [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Name <String> [-ShowResponse]
+ [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
- [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Id <Int32> [<CommonParameters>]
+ [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Id <Int32> [-ShowResponse]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -171,6 +173,21 @@ The updated url for the manufacturer's website.
 
 ```yaml
 Type: Uri
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

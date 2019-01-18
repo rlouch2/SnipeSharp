@@ -57,11 +57,12 @@ try {
         $null = New-ExternalHelp -Path "$DocumentRoot/$_" -OutputPath "$ModuleOutdir/$_" -Force -ErrorAction SilentlyContinue -Verbose:$VerbosePreference -Encoding $Encoding
     }
 
-    if(Test-Path -Path "$ModuleOutDir/$ModuleName.cat")
+    [string]$CatalogPath = "$ModuleOutDir/$ModuleName.cat"
+    if(Test-Path -Path $CatalogPath)
     {
-        $null = Remove-Item -Path "$ModuleOutdir/$ModuleName.cat"
+        $null = Remove-Item -Path $CatalogPath -Force
     }
-    $null = New-FileCatalog -Path $ModuleOutDir -CatalogFilePath "$ModuleOutDir/$ModuleName.cat" -CatalogVersion 2
+    $null = New-FileCatalog -Path $ModuleOutDir -CatalogFilePath $CatalogPath -CatalogVersion 2
 } finally {
     Remove-Module -Name $ModuleName -Force
 }

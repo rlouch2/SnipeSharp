@@ -23,7 +23,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <Int32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
  [-MinimumQuantity <Int32>] [-ImageUri <Uri>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -37,7 +37,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <Int32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <Int32>] [-ImageUri <Uri>] -Name <String> [<CommonParameters>]
+ [-MinimumQuantity <Int32>] [-ImageUri <Uri>] -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -50,7 +50,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <Int32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <Int32>] [-ImageUri <Uri>] -Id <Int32> [<CommonParameters>]
+ [-MinimumQuantity <Int32>] [-ImageUri <Uri>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -297,6 +297,21 @@ The updated supplier who sold the accessory.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

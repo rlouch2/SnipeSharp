@@ -3,13 +3,13 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Get
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Gets a Snipe IT company.</para>
-    /// <para type="description">The Get-Company cmdlet gets one or more company objects by name or by Snipe IT internal id number.</para>
-    /// <para type="description">Whatever identifier is used, both accept pipeline input.</para>
-    /// </summary>
+    /// <summary>Gets a Snipe IT company.</summary>
+    /// <remarks>
+    ///   <para>The Get-Company cmdlet gets one or more company objects by name or by Snipe IT internal id number.</para>
+    ///   <para>Whatever identifier is used, both accept pipeline input.</para>
+    /// </remarks>
     /// <example>
     ///   <code>Get-Company 5</code>
     ///   <para>Retrieve an company by its Internal Id.</para>
@@ -22,7 +22,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <code>1..100 | Get-Company</code>
     ///   <para>Retrieve the first 100 companies by their Snipe IT internal Id numbers.</para>
     /// </example>
-    /// <para type="link">Find-Company</para>
+    /// <seealso cref="FindCompany" />
     [Cmdlet(VerbsCommon.Get, nameof(Company), DefaultParameterSetName = nameof(GetCompany.ParameterSets.All))]
     [OutputType(typeof(Company))]
     public sealed class GetCompany: GetObject<Company, ObjectBinding<Company>>

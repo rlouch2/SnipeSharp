@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT custom field.</para>
-    /// <para type="description">The Find-CustomField cmdlet finds custom fields by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT custom field.</summary>
+    /// <remarks>The Find-CustomField cmdlet finds custom fields by filter.</remarks>
     /// <example>
     ///   <code>Find-CustomField</code>
     ///   <para>Finds all fields.</para>

@@ -14,7 +14,7 @@ Changes the properties of an existing Snipe-IT asset.
 
 ### ByIdentity (Default)
 ```
-Set-SnipeAsset [-Identity] <AssetBinding> [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
+Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-Model <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]>]
  [-Status <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] [-Notes <String>]
@@ -24,40 +24,8 @@ Set-SnipeAsset [-Identity] <AssetBinding> [-NewAssetTag <String>] [-NewName <Str
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
  [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
-```
-
-### ByName
-```
-Set-SnipeAsset -Name <String> [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
- [-Model <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]>]
- [-Status <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]>]
- [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] [-Notes <String>]
- [-OrderNumber <String>]
- [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
-```
-
-### ByInternalId
-```
-Set-SnipeAsset -Id <Int32> [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
- [-Model <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]>]
- [-Status <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]>]
- [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] [-Notes <String>]
- [-OrderNumber <String>]
- [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>]
+ [-Identity] <AssetBinding> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByAssetTag
@@ -72,8 +40,8 @@ Set-SnipeAsset -AssetTag <String> [-NewAssetTag <String>] [-NewName <String>] [-
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
  [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### BySerial
@@ -88,8 +56,40 @@ Set-SnipeAsset -Serial <String> [-NewAssetTag <String>] [-NewName <String>] [-Ne
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
  [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ByName
+```
+Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
+ [-Model <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]>]
+ [-Status <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]>]
+ [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] [-Notes <String>]
+ [-OrderNumber <String>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
+ [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
+ [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
+ [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
+ [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Name <String>
+ [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ByInternalId
+```
+Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
+ [-Model <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]>]
+ [-Status <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]>]
+ [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] [-Notes <String>]
+ [-OrderNumber <String>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
+ [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
+ [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
+ [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
+ [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Id <Int32>
+ [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -223,7 +223,7 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -298,7 +298,7 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -475,6 +475,21 @@ The cmdlet is not run.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

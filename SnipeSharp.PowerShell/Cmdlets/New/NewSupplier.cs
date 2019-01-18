@@ -2,12 +2,10 @@ using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT supplier.</para>
-    /// <para type="description">The New-Supplier cmdlet creates a new supplier object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT supplier.</summary>
+    /// <remarks>The New-Supplier cmdlet creates a new supplier object.</remarks>
     /// <example>
     ///   <code>New-Supplier -Name "Potato Warehouse &amp; Wholesale"</code>
     ///   <para>Create a new supplier named "Potato Warehouse &amp; Wholesale" with all required properties set.</para>

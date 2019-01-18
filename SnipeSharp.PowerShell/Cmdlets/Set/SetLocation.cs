@@ -4,19 +4,17 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT location.</para>
-    /// <para type="description">The Set-Location cmdlet changes the properties of an existing Snipe-IT location object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT location.</summary>
+    /// <remarks>The Set-Location cmdlet changes the properties of an existing Snipe-IT location object.</remarks>
     /// <example>
     ///   <code>Set-Location -Name "Warehouse 19" -Manager "respud"</code>
     ///   <para>Changes the manager of "Warehouse 19" to the user "respud".</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Location))]
     [OutputType(typeof(Location))]
-    public class SetLocation: SetObject<Location>
+    public class SetLocation: SetObject<Location, ObjectBinding<Location>>
     {
         /// <summary>
         /// The new name of the location.

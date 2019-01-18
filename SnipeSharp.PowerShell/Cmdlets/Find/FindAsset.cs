@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.Filters;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT asset.</para>
-    /// <para type="description">The Find-Asset cmdlet finds asset objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT asset.</summary>
+    /// <remarks>The Find-Asset cmdlet finds asset objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Asset</code>
     ///   <para>Finds all assets.</para>

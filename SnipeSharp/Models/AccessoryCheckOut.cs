@@ -62,7 +62,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         /// <remarks>Currently, this will always be <c>{CheckIn}</c>.</remarks>
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field("available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

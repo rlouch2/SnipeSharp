@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT location.</para>
-    /// <para type="description">The New-Location cmdlet creates a new location object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT location.</summary>
+    /// <remarks>The New-Location cmdlet creates a new location object.</remarks>
     /// <example>
     ///   <code>New-Location -Name "Potato Farm #12"</code>
     ///   <para>Create a new location named "Potato Farm #12" with all required properties set.</para>

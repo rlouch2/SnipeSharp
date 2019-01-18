@@ -6,19 +6,17 @@ using SnipeSharp.Models.Enumerations;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT category.</para>
-    /// <para type="description">The Set-Category cmdlet changes the properties of an existing Snipe-IT category object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT category.</summary>
+    /// <remarks>The Set-Category cmdlet changes the properties of an existing Snipe-IT category object.</remarks>
     /// <example>
     ///   <code>Set-Category -Name 'Utility' -IsAcceptanceRequired $true</code>
     ///   <para>Changes the category 'Utility' to require EULA acceptance.</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Category))]
     [OutputType(typeof(Category))]
-    public class SetCategory: SetObject<Category>
+    public class SetCategory: SetObject<Category, ObjectBinding<Category>>
     {
         /// <summary>
         /// The new name of the category.

@@ -17,21 +17,21 @@ Changes the properties of an existing Snipe-IT custom field.
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.CustomField]>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
- -Name <String> [<CommonParameters>]
+ -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
- -Id <Int32> [<CommonParameters>]
+ -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -210,6 +210,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

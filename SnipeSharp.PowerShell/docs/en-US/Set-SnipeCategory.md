@@ -16,20 +16,20 @@ Changes the properties of an existing Snipe-IT category.
 ```
 Set-SnipeCategory [-NewName <String>] [-Type <CategoryType>] [-EmailUserOnCheckInOrOut <Boolean>]
  [-IsAcceptanceRequired <Boolean>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeCategory [-NewName <String>] [-Type <CategoryType>] [-EmailUserOnCheckInOrOut <Boolean>]
- [-IsAcceptanceRequired <Boolean>] -Name <String> [<CommonParameters>]
+ [-IsAcceptanceRequired <Boolean>] -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeCategory [-NewName <String>] [-Type <CategoryType>] [-EmailUserOnCheckInOrOut <Boolean>]
- [-IsAcceptanceRequired <Boolean>] -Id <Int32> [<CommonParameters>]
+ [-IsAcceptanceRequired <Boolean>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -144,6 +144,21 @@ Type: CategoryType
 Parameter Sets: (All)
 Aliases:
 Accepted values: Accessory, Asset, Consumable, Component, License
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

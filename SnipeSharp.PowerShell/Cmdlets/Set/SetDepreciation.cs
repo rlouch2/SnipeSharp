@@ -1,20 +1,19 @@
 using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
+using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT depreciation.</para>
-    /// <para type="description">The Set-Depreciation cmdlet changes the properties of an existing Snipe-IT depreciation object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT depreciation.</summary>
+    /// <remarks>The Set-Depreciation cmdlet changes the properties of an existing Snipe-IT depreciation object.</remarks>
     /// <example>
     ///   <code>Set-Depreciation -Name "General Potato Peeler" -NewName "Generic Potato Peeler"</code>
     ///   <para>Changes the name of depreciation "General Potato Peeler" to "Generic Potato Peeler".</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Depreciation))]
     [OutputType(typeof(Depreciation))]
-    public class SetDepreciation: SetObject<Depreciation>
+    public class SetDepreciation: SetObject<Depreciation, ObjectBinding<Depreciation>>
     {
         /// <summary>
         /// The new name of the depreciation.

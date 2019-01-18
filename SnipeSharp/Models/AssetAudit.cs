@@ -15,26 +15,26 @@ namespace SnipeSharp.Models
         /// The asset tag of the Asset being audited.
         /// </summary>
         /// <remarks>This field is required.</remarks>
-        [Field("asset_tag", true, required: true, converter: CommonModelConverter)]
+        [Field("asset_tag", Converter = CommonModelConverter, IsRequired = true)]
         public Asset Asset { get; set; }
 
         /// <summary>
         /// The audit location.
         /// </summary>
         /// <remarks>This field will not be filled by the API.</remarks>
-        [Field("location_id", true, converter: CommonModelConverter)]
+        [Field(SerializeAs = "location_id", Converter = CommonModelConverter)]
         public Location Location { get; set; }
 
         /// <summary>
         /// The next scheduled audit date.
         /// </summary>
-        [Field("next_audit_date", true, converter: DateTimeConverter)]
+        [Field("next_audit_date", Converter = DateTimeConverter)]
         public DateTime? NextAuditDate { get; set; }
 
         /// <summary>
         /// Notes for the audit log.
         /// </summary>
-        [Field("note", true)]
+        [Field("note")]
         public string Note { get; set; }
     }
 }

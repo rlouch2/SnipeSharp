@@ -16,20 +16,20 @@ Changes the properties of an existing Snipe-IT field set.
 ```
 Set-SnipeFieldSet [-NewName <String>] [-Add <ObjectBinding`1[]>] [-AddRequired <ObjectBinding`1[]>]
  [-Remove <ObjectBinding`1[]>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeFieldSet [-NewName <String>] [-Add <ObjectBinding`1[]>] [-AddRequired <ObjectBinding`1[]>]
- [-Remove <ObjectBinding`1[]>] -Name <String> [<CommonParameters>]
+ [-Remove <ObjectBinding`1[]>] -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeFieldSet [-NewName <String>] [-Add <ObjectBinding`1[]>] [-AddRequired <ObjectBinding`1[]>]
- [-Remove <ObjectBinding`1[]>] -Id <Int32> [<CommonParameters>]
+ [-Remove <ObjectBinding`1[]>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -141,6 +141,21 @@ A list of fields to disassociate with this fieldset.
 
 ```yaml
 Type: ObjectBinding`1[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

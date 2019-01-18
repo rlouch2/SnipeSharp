@@ -2,12 +2,10 @@ using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT field set.</para>
-    /// <para type="description">The New-FieldSet cmdlet creates a new field set object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT field set.</summary>
+    /// <remarks>The New-FieldSet cmdlet creates a new field set object.</remarks>
     /// <example>
     ///   <code>New-FieldSet -Name "Peeler"</code>
     ///   <para>Create a new field set named "Peeler".</para>

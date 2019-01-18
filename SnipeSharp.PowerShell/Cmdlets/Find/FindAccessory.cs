@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.Filters;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT accessory.</para>
-    /// <para type="description">The Find-Accessory cmdlet finds accessory objects by filter, company, category, manufacturer, or supplier.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT accessory.</summary>
+    /// <remarks>The Find-Accessory cmdlet finds accessory objects by filter, company, category, manufacturer, or supplier.</remarks>
     /// <example>
     ///   <code>Find-Accessory</code>
     ///   <para>Finds all accessories.</para>
@@ -28,27 +26,19 @@ namespace SnipeSharp.PowerShell.Cmdlets.Find
     [OutputType(typeof(Accessory))]
     public sealed class FindAccessory: FindObject<Accessory, AccessorySearchColumn, AccessorySearchFilter>
     {
-        /// <summary>
-        /// <para type="description">Filter by owning company.</para>
-        /// </summary>
+        /// <summary>Filter by owning company.</summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
         
-        /// <summary>
-        /// <para type="description">Filter by accessory category.</para>
-        /// </summary>
+        /// <summary>Filter by accessory category.</summary>
         [Parameter]
         public ObjectBinding<Category> Category { get; set; }
 
-        /// <summary>
-        /// <para type="description">Filter by manufactuerer.</para>
-        /// </summary>
+        /// <summary>Filter by manufactuerer.</summary>
         [Parameter]
         public ObjectBinding<Manufacturer> Manufacturer { get; set; }
 
-        /// <summary>
-        /// <para type="description">Filter by supplier.</para>
-        /// </summary>
+        /// <summary>Filter by supplier.</summary>
         [Parameter]
         public ObjectBinding<Supplier> Supplier { get; set; }
 

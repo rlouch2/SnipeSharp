@@ -12,19 +12,19 @@ namespace SnipeSharp.Models
     public sealed class GenericEndPointModel: CommonEndPointModel
     {
         /// <value>The internal Id of the object.</value>
-        [Field("id", true)]
+        [Field("id")]
         public override int Id { get; protected set; }
         
         /// <value>The name of the object.</value>
-        [Field("name")]
+        [Field(DeserializeAs = "name")]
         public override string Name { get; set; }
 
         /// <value>The creation date of this object in Snipe-IT.</value>
-        [Field("created_at", converter: FieldConverter.DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = FieldConverter.DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <value>The most recent date this object was modified in Snipe-IT.</value>
-        [Field("updated_at", converter: FieldConverter.DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = FieldConverter.DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
     }
 }

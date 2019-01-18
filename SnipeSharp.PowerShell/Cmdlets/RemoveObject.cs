@@ -23,22 +23,16 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ByName
         }
 
-        /// <summary>
-        /// <para type="description">The name of the Object.</para>
-        /// </summary>
+        /// <summary>The name of the Object.</summary>
         [Parameter(Mandatory = true, ParameterSetName = nameof(ParameterSets.ByInternalId), ValueFromPipelineByPropertyName = true)]
         public int[] InternalId { get; set; }
 
-        /// <summary>
-        /// <para type="description">The internal Id of the Object.</para>
-        /// </summary>
+        /// <summary>The internal Id of the Object.</summary>
         [Parameter(Mandatory = true, ParameterSetName = nameof(ParameterSets.ByName), ValueFromPipelineByPropertyName = true)]
         public string[] Name { get; set; }
 
 
-        /// <summary>
-        /// <para type="description">An identity for an object.</para>
-        /// </summary>
+        /// <summary>An identity for an object.</summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = nameof(ParameterSets.ByIdentity),
@@ -48,9 +42,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public IdType[] Identity { get; set; }
 
-        /// <summary>
-        /// <para type="description">If present, write the response from the Api to the pipeline.</para>
-        /// </summary>
+        /// <summary>If present, write the response from the Api to the pipeline.</summary>
         [Parameter]
         public SwitchParameter ShowResponse { get; set; }
 
@@ -94,7 +86,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     if(item.IsNull)
                     {
                         WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
-                    } else
+                    } else if(ShouldProcess(item.Object.Name))
                     {
                         var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Object.Id);
                         if(ShowResponse.IsPresent)
@@ -108,7 +100,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     if(item.IsNull)
                     {
                         WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
-                    } else
+                    } else if(ShouldProcess(item.Object.Name))
                     {
                         var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Object.Id);
                         if(ShowResponse.IsPresent)

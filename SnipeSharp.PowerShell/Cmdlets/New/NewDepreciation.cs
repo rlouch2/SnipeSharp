@@ -2,12 +2,10 @@ using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT depreciation.</para>
-    /// <para type="description">The New-Depreciation cmdlet creates a new depreciation object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT depreciation.</summary>
+    /// <remarks>The New-Depreciation cmdlet creates a new depreciation object.</remarks>
     /// <example>
     ///   <code>New-Depreciation -Name "General Potato Peeler" -Months 36</code>
     ///   <para>Create a new depreciation named "General Potato Peeler" with all required properties set.</para>

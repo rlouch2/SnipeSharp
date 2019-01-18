@@ -19,17 +19,17 @@ Get-SnipeStatusLabel [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeStatusLabel [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeStatusLabel [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeStatusLabel -Name <String[]> [<CommonParameters>]
+Get-SnipeStatusLabel -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeStatusLabel [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Get-SnipeStatusLabel [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,7 +112,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False

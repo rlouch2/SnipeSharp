@@ -13,7 +13,7 @@ Finds a Snipe IT user.
 ## SYNTAX
 
 ```
-Find-SnipeUser [-IncludeDeleted]
+Find-SnipeUser [-Deleted <Boolean>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Group <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Group]>]
@@ -100,21 +100,6 @@ Filter by group membership.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Group]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -IncludeDeleted
-If present, also search for deleted users.
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -225,6 +210,21 @@ Type: SearchOrder
 Parameter Sets: (All)
 Aliases:
 Accepted values: Ascending, Descending
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Deleted
+Find deleted users, or non-deleted users?
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

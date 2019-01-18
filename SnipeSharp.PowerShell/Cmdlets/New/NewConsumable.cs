@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT consumable.</para>
-    /// <para type="description">The New-Consumable cmdlet creates a new consumable object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT consumable.</summary>
+    /// <remarks>The New-Consumable cmdlet creates a new consumable object.</remarks>
     /// <example>
     ///   <code>New-Consumable -Name "Frying Oil" -Quantity 9001 -Category "Perishable"</code>
     ///   <para>Create a new consumable named "Frying oil" with all required properties set.</para>

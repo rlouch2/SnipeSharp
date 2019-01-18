@@ -3,13 +3,13 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Get
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Gets a Snipe IT component.</para>
-    /// <para type="description">The Get-Component cmdlet gets one or more component objects by name or by Snipe IT internal id number.</para>
-    /// <para type="description">Whatever identifier is used, both accept pipeline input.</para>
-    /// </summary>
+    /// <summary>Gets a Snipe IT component.</summary>
+    /// <remarks>
+    ///   <para>The Get-Component cmdlet gets one or more component objects by name or by Snipe IT internal id number.</para>
+    ///   <para>Whatever identifier is used, both accept pipeline input.</para>
+    /// </remarks>
     /// <example>
     ///   <code>Get-Component 14</code>
     ///   <para>Retrieve an component by its Internal Id.</para>
@@ -22,7 +22,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <code>1..100 | Get-Component</code>
     ///   <para>Retrieve the first 100 components by their Snipe IT internal Id numbers.</para>
     /// </example>
-    /// <para type="link">Find-Component</para>
+    /// <seealso cref="FindComponent" />
     [Cmdlet(VerbsCommon.Get, nameof(Component), DefaultParameterSetName = nameof(GetComponent.ParameterSets.All))]
     [OutputType(typeof(Component))]
     public sealed class GetComponent: GetObject<Component, ObjectBinding<Component>>

@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT user.</para>
-    /// <para type="description">The New-User cmdlet creates a new user object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT user.</summary>
+    /// <remarks>The New-User cmdlet creates a new user object.</remarks>
     /// <example>
-    ///   <code>New-User -FirstName "Craig" -UserName "cjohnson"</code>
+    ///   <code>New-User -FirstName "Craig" -UserName "cjohnson" -Password $Password</code>
     ///   <para>Create a new user named "cjohnson" with all required properties set.</para>
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(User))]

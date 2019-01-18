@@ -18,7 +18,7 @@ Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Ad
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-Currency <String>]
  [-ParentLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Manager <UserBinding>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -27,7 +27,7 @@ Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Ad
 Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-Currency <String>]
  [-ParentLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Manager <UserBinding>] -Name <String> [<CommonParameters>]
+ [-Manager <UserBinding>] -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -35,7 +35,7 @@ Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Ad
 Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-Currency <String>]
  [-ParentLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Manager <UserBinding>] -Id <Int32> [<CommonParameters>]
+ [-Manager <UserBinding>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -252,6 +252,21 @@ The location's updated address zip code.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

@@ -4,20 +4,35 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT user.</para>
-    /// <para type="description">The Set-User cmdlet changes the properties of an existing Snipe-IT user object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT user.</summary>
+    /// <remarks>The Set-User cmdlet changes the properties of an existing Snipe-IT user object.</remarks>
     /// <example>
     ///   <code>Set-User -Identity "atuber" -LastName 'Spud'</code>
     ///   <para>Changes the last name of user "atuber" to "Spud" without updating their username.</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(User))]
     [OutputType(typeof(User))]
-    public class SetUser: SetObject<User>
+    public class SetUser: SetObject<User, UserBinding>
     {
+        /// <summary>
+        /// Extra parameter sets this cmdlet supports.
+        /// </summary>
+        internal enum UserParameterSets
+        {
+            ByUserName,
+            ByEmailAddress
+        }
+
+        /// <summary>The username for the User.</summary>
+        [Parameter(Mandatory = true, ParameterSetName = nameof(UserParameterSets.ByUserName))]
+        public string UserName { get; set; }
+
+        /// <summary>The email address for the User.</summary>
+        [Parameter(Mandatory = true, ParameterSetName = nameof(UserParameterSets.ByEmailAddress))]
+        public string EmailAddress { get; set; }
+
         /// <summary>
         /// The updated uri of the image for the user's avatar.
         /// </summary>
@@ -41,7 +56,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         /// The updated unique username for the user.
         /// </summary>
         [Parameter]
-        public string UserName { get; set; }
+        public string NewUserName { get; set; }
 
         /// <summary>
         /// The updated password for the user.
@@ -107,7 +122,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
         /// The updated email address for the user.
         /// </summary>
         [Parameter]
-        public string EmailAddress { get; set; }
+        public string NewEmailAddress { get; set; }
 
         /// <summary>
         /// The updated department the user works for.
@@ -136,8 +151,8 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
                 item.FirstName = this.FirstName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(LastName)))
                 item.LastName = this.LastName;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(UserName)))
-                item.UserName = this.UserName;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(NewUserName)))
+                item.UserName = this.NewUserName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Password)))
                 item.Password = this.Password;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(EmployeeNumber)))
@@ -166,6 +181,15 @@ namespace SnipeSharp.PowerShell.Cmdlets.Set
                 item.Location = this.Location?.Object;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
                 item.Company = this.Company?.Object;
+        }
+
+        /// <inheritdoc />
+        protected override UserBinding GetBoundObject()
+        {
+            if(ParameterSetName == nameof(UserParameterSets.ByUserName))
+                return UserBinding.FromUserName(UserName);
+            else
+                return UserBinding.FromEmailAddress(EmailAddress);
         }
     }
 }

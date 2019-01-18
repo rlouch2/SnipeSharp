@@ -20,7 +20,7 @@ Set-SnipeComponent [-NewName <String>] [-Serial <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-OrderNumber <String>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Component]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Component]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -32,7 +32,7 @@ Set-SnipeComponent [-NewName <String>] [-Serial <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-OrderNumber <String>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Name <String>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -43,7 +43,7 @@ Set-SnipeComponent [-NewName <String>] [-Serial <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-OrderNumber <String>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Id <Int32>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -245,6 +245,21 @@ The updated serial number(s) for the component(s).
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

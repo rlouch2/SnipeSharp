@@ -4,19 +4,17 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT supplier.</para>
-    /// <para type="description">The Set-Supplier cmdlet changes the properties of an existing Snipe-IT supplier object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT supplier.</summary>
+    /// <remarks>The Set-Supplier cmdlet changes the properties of an existing Snipe-IT supplier object.</remarks>
     /// <example>
     ///   <code>Set-Supplier -Name "Potato Warehouse &amp; Wholesale" -PhoneNumber '+1 (555) 555-5555'</code>
     ///   <para>Changes the contact phone number for supplier "Potato Warehouse &amp; Wholesale" to "+1 (555) 555-5555".</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Supplier))]
     [OutputType(typeof(Supplier))]
-    public class SetSupplier: SetObject<Supplier>
+    public class SetSupplier: SetObject<Supplier, ObjectBinding<Supplier>>
     {
         /// <summary>
         /// The new name of the supplier.

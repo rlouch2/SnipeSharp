@@ -4,19 +4,17 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT department.</para>
-    /// <para type="description">The Set-Department cmdlet changes the properties of an existing Snipe-IT department object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT department.</summary>
+    /// <remarks>The Set-Department cmdlet changes the properties of an existing Snipe-IT department object.</remarks>
     /// <example>
     ///   <code>Set-Department -Name "Potato Peeling" -NewName "Potato Preparation" -Manager respud</code>
     ///   <para>Changes the name of department "Potato Peeling" to "Potato Preparation" and its manager to "R. E. Spud".</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Department))]
     [OutputType(typeof(Depreciation))]
-    public class SetDepartment: SetObject<Department>
+    public class SetDepartment: SetObject<Department, ObjectBinding<Department>>
     {
         /// <summary>
         /// The new name of the department.

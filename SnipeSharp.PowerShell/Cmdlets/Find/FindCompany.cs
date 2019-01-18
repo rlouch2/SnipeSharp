@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT company.</para>
-    /// <para type="description">The Find-Company cmdlet finds company objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT company.</summary>
+    /// <remarks>The Find-Company cmdlet finds company objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Company</code>
     ///   <para>Finds all companies.</para>

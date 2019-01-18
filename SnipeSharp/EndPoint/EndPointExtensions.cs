@@ -320,10 +320,13 @@ namespace SnipeSharp
         /// </summary>
         /// <param name="endPoint">An endpoint for users.</param>
         /// <param name="username">The username of the user to search for.</param>
+        /// <param name="filter">The search filter to use (the username will override the search string)</param>
         /// <returns>A tuple containing the user (if it was found), and any error (if there was one).</returns>
-        public static (User Value, Exception Error) GetByUserNameOrNull(this EndPoint<User> endPoint, string username)
+        public static (User Value, Exception Error) GetByUserNameOrNull(this EndPoint<User> endPoint, string username, UserSearchFilter filter = null)
         {
-            var results = endPoint.FindAll(new UserSearchFilter(username));
+            filter = filter ?? new UserSearchFilter();
+            filter.Search = username;
+            var results = endPoint.FindAll(filter);
             foreach(var user in results)
                 if(user.UserName == username)
                     return (user, null);
@@ -335,10 +338,13 @@ namespace SnipeSharp
         /// </summary>
         /// <param name="endPoint">An endpoint for users.</param>
         /// <param name="email">The email address of the user to search for.</param>
+        /// <param name="filter">The search filter to use (the email will override the search string)</param>
         /// <returns>A tuple containing the user (if it was found), and any error (if there was one).</returns>
-        public static (User Value, Exception Error) GetByEmailAddressOrNull(this EndPoint<User> endPoint, string email)
+        public static (User Value, Exception Error) GetByEmailAddressOrNull(this EndPoint<User> endPoint, string email, UserSearchFilter filter = null)
         {
-            var results = endPoint.FindAll(new UserSearchFilter(email));
+            filter = filter ?? new UserSearchFilter();
+            filter.Search = email;
+            var results = endPoint.FindAll(filter);
             foreach(var user in results)
                 if(user.EmailAddress == email)
                     return (user, null);

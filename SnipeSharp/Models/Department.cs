@@ -15,28 +15,28 @@ namespace SnipeSharp.Models
     public sealed class Department : CommonEndPointModel, IAvailableActions
     {
         /// <inheritdoc />
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         /// <value>The url for the image of the department.</value>
-        [Field("image", true)]
+        [Field("image")]
         public Uri ImageUri { get; set; }
 
         /// <value>The company this department is a part of.</value>
-        [Field("company", "company_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
         public Company Company { get; set; }
 
         /// <value>The manager of the department.</value>
-        [Field("manager", "manager_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "manager", SerializeAs = "manager_id", Converter = CommonModelConverter)]
         public User Manager { get; set; }
 
         /// <value>Where this department is located.</value>
-        [Field("location", "location_id", converter: CommonModelConverter)]
+        [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
         public Location Location { get; set; }
 
         /* Disabled here until we can also read it from the API.
@@ -46,19 +46,19 @@ namespace SnipeSharp.Models
          */
 
         /// <value>The number of users in this department.</value>
-        [Field("users_count")]
+        [Field(DeserializeAs = "users_count")]
         public int UsersCount { get; private set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("updated_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
         
         /// <inheritdoc />
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

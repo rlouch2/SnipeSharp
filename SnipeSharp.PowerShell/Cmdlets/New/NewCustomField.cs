@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT custom field.</para>
-    /// <para type="description">The New-CustomField cmdlet creates a new custom field object, but does not associate it with any field sets.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT custom field.</summary>
+    /// <remarks>The New-CustomField cmdlet creates a new custom field object, but does not associate it with any field sets.</remarks>
     /// <example>
     ///   <code>New-CustomField -Name "Length"</code>
     ///   <para>Create a new custom field named "Length".</para>

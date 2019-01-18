@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT status label.</para>
-    /// <para type="description">The New-StatusLabel cmdlet creates a new status label object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT status label.</summary>
+    /// <remarks>The New-StatusLabel cmdlet creates a new status label object.</remarks>
     /// <example>
     ///   <code>New-StatusLabel -Name "Assignable" -Type Deployable</code>
     ///   <para>Create a new deployable status label named "Assignable".</para>

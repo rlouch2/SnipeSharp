@@ -11,23 +11,23 @@ namespace SnipeSharp.Filters
     public sealed class AssetSearchFilter : AbstractAssetSearchFilter, ISortableSearchFilter<AssetSearchColumn>
     {
         /// <inheritdoc />
-        [Field("limit", true)]
+        [Field("limit")]
         public int? Limit { get; set; }
 
         /// <inheritdoc />
-        [Field("offset", true)]
+        [Field("offset")]
         public int? Offset { get; set; }
 
         /// <inheritdoc />
-        [Field("search", true)]
+        [Field("search")]
         public string Search { get; set; }
 
         /// <inheritdoc />
-        [Field("sort", true)]
+        [Field("sort")]
         public AssetSearchColumn SortColumn { get; set; }
 
         /// <inheritdoc />
-        [Field("order", true)]
+        [Field("order")]
         public SearchOrder? Order { get; set; }
 
         /// <summary>

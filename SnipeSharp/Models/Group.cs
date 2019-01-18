@@ -15,33 +15,33 @@ namespace SnipeSharp.Models
     public sealed class Group : CommonEndPointModel, IAvailableActions
     {
         /// <inheritdoc />
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         /// <inheritdoc />
         // TODO: see how to set permissions from the API. Just JSON?
-        [Field("permissions", converter: PermissionsConverter)]
+        [Field(DeserializeAs = "permissions", Converter = PermissionsConverter)]
         public Dictionary<string, bool> Permissions { get; private set; }
 
         /// <inheritdoc />
-        [Field("users_count")]
+        [Field(DeserializeAs = "users_count")]
         public int? UsersCount { get; private set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("updated_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("available_actions", converter: AvailableActionsConverter)]
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
     }
 }

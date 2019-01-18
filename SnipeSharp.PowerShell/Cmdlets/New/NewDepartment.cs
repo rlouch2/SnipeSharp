@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT department.</para>
-    /// <para type="description">The New-Department cmdlet creates a new department object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT department.</summary>
+    /// <remarks>The New-Department cmdlet creates a new department object.</remarks>
     /// <example>
     ///   <code>New-Department -Name "Potato Peeling"</code>
     ///   <para>Create a new department named "Potato Peeling".</para>

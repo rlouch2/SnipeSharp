@@ -14,32 +14,37 @@ Gets a Snipe IT user.
 
 ### All (Default)
 ```
-Get-SnipeUser [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByUserName
 ```
-Get-SnipeUser -UserName <String[]> [<CommonParameters>]
+Get-SnipeUser -UserName <String[]> [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByEmailAddress
 ```
-Get-SnipeUser -EmailAddress <String[]> [<CommonParameters>]
-```
-
-### ByInternalId
-```
-Get-SnipeUser [-InternalId] <Int32[]> [<CommonParameters>]
-```
-
-### ByName
-```
-Get-SnipeUser -Name <String[]> [<CommonParameters>]
+Get-SnipeUser -EmailAddress <String[]> [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeUser [-Identity] <UserBinding[]> [<CommonParameters>]
+Get-SnipeUser [-Deleted <Boolean>] [-Identity] <UserBinding[]> [-NoEnumerate] [<CommonParameters>]
+```
+
+### ByName
+```
+Get-SnipeUser [-Deleted <Boolean>] -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+```
+
+### Me
+```
+Get-SnipeUser [-Me] [-NoEnumerate] [<CommonParameters>]
+```
+
+### ByInternalId
+```
+Get-SnipeUser [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -139,7 +144,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -155,6 +160,36 @@ The username for the User.
 ```yaml
 Type: String[]
 Parameter Sets: ByUserName
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Deleted
+Find deleted users, or non-deleted users?
+
+```yaml
+Type: Boolean
+Parameter Sets: All, ByUserName, ByEmailAddress, ByIdentity, ByName
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Me
+Get the current user for the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Me
 Aliases:
 
 Required: True

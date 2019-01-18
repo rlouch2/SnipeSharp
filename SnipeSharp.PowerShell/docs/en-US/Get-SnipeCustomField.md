@@ -19,17 +19,17 @@ Get-SnipeCustomField [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeCustomField [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeCustomField [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeCustomField -Name <String[]> [<CommonParameters>]
+Get-SnipeCustomField -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeCustomField [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Get-SnipeCustomField [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,7 +112,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False

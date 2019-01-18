@@ -79,7 +79,7 @@ namespace SnipeSharp.Exceptions
                     builder.Append(", ");
                 else
                     first = false;
-                builder.Append(messages.Keys);
+                builder.Append('"').Append(key).Append("\":\"").Append(messages[key]).Append('"');
             }
             return builder.Append('}').ToString();
         }

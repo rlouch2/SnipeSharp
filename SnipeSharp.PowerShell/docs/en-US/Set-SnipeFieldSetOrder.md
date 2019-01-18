@@ -15,18 +15,18 @@ Changes the order of fields in an existing Snipe-IT field set.
 ### ByIdentity
 ```
 Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]>
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]>
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]> [-ShowResponse]
  [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Name <String> [<CommonParameters>]
+Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Id <Int32> [<CommonParameters>]
+Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -97,6 +97,21 @@ Parameter Sets: (All)
 Aliases: Fields
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

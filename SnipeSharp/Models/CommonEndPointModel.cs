@@ -12,19 +12,19 @@ namespace SnipeSharp.Models
     public abstract class CommonEndPointModel: ApiObject
     {
         /// <value>The internal Id of the object.</value>
-        [Field("id", true)]
+        [Field("id")]
         public abstract int Id { get; protected set; }
         
         /// <value>The name of the object.</value>
-        [Field("name")]
+        [Field(DeserializeAs = "name")]
         public abstract string Name { get; set; }
 
         /// <value>The creation date of this object in Snipe-IT.</value>
-        [Field("created_at", converter: FieldConverter.DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = FieldConverter.DateTimeConverter)]
         public abstract DateTime? CreatedAt { get; protected set; }
 
         /// <value>The most recent date this object was modified in Snipe-IT.</value>
-        [Field("updated_at", converter: FieldConverter.DateTimeConverter)]
+        [Field(DeserializeAs = "updated_at", Converter = FieldConverter.DateTimeConverter)]
         public abstract DateTime? UpdatedAt { get; protected set; }
 
         /// <inheritdoc />

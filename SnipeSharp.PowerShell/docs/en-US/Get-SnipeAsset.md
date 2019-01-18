@@ -19,27 +19,27 @@ Get-SnipeAsset [-NoEnumerate] [<CommonParameters>]
 
 ### ByAssetTag
 ```
-Get-SnipeAsset -AssetTag <String[]> [<CommonParameters>]
+Get-SnipeAsset -AssetTag <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### BySerial
 ```
-Get-SnipeAsset -Serial <String[]> [<CommonParameters>]
+Get-SnipeAsset -Serial <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeAsset [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeAsset [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeAsset -Name <String[]> [<CommonParameters>]
+Get-SnipeAsset -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeAsset [-Identity] <AssetBinding[]> [<CommonParameters>]
+Get-SnipeAsset [-Identity] <AssetBinding[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -137,7 +137,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False

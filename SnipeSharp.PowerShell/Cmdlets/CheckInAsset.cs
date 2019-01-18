@@ -6,10 +6,8 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Checks in a Snipe IT asset.</para>
-    /// <para type="description">The CheckIn-Asset cmdlet checks in one or more asset objects.</para>
-    /// </summary>
+    /// <summary>Checks in a Snipe IT asset.</summary>
+    /// <remarks>The CheckIn-Asset cmdlet checks in one or more asset objects.</remarks>
     /// <example>
     ///   <code>CheckIn-Asset Asset1234</code>
     ///   <para>Checks in the asset Asset1234.</para>
@@ -18,15 +16,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
     ///   <code>Get-Asset -AssetTag 2345 | CheckIn-Asset</code>
     ///   <para>Checks in the asset with the tag 2345.</para>
     /// </example>
-    /// <para type="link">CheckOut-Asset</para>
-    /// <para type="link">Get-Asset</para>
+    /// <seealso cref="CheckOutAsset" />
+    /// <seealso cref="GetAsset" />
     [Cmdlet("CheckIn", nameof(Asset))]
     [OutputType(typeof(RequestResponse<Asset>))]
     public sealed class CheckInAsset: PSCmdlet
     {
-        /// <summary>
-        /// <para type="description">An Asset object.</para>
-        /// </summary>
+        /// <summary>An Asset object.</summary>
         [Parameter(
             Mandatory = true,
             Position = 0,
@@ -35,27 +31,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public AssetBinding Identity { get; set; }
 
-        /// <summary>
-        /// <para type="description">The note for the Asset's log.</para>
-        /// </summary>
+        /// <summary>The note for the Asset's log.</summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Note { get; set; }
 
-        /// <summary>
-        /// <para type="description">The asset's new name. Defaults to the asset's current name.</para>
-        /// </summary>
+        /// <summary>The asset's new name. Defaults to the asset's current name.</summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string AssetName { get; set; }
 
-        /// <summary>
-        /// <para type="description">The asset's new location. Defaults to the asset's default location.</para>
-        /// </summary>
+        /// <summary>The asset's new location. Defaults to the asset's default location.</summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Location> Location { get; set; }
 
-        /// <summary>
-        /// <para type="description">The asset's new status. Defaults to the asset's current status (minus any 'Deployed' metastatus).</para>
-        /// </summary>
+        /// <summary>The asset's new status. Defaults to the asset's current status (minus any 'Deployed' metastatus).</summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<StatusLabel> Status { get; set; }
 

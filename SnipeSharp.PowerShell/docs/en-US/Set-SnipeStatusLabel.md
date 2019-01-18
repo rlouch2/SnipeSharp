@@ -16,18 +16,18 @@ Changes the properties of an existing Snipe-IT status label.
 ```
 Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]>
- [<CommonParameters>]
+ [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>] -Name <String>
+Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>] -Name <String> [-ShowResponse]
  [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>] -Id <Int32>
+Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>] -Id <Int32> [-ShowResponse]
  [<CommonParameters>]
 ```
 
@@ -128,6 +128,21 @@ Type: StatusType
 Parameter Sets: (All)
 Aliases:
 Accepted values: Pending, Archived, Undeployable, Deployable, Deployed
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

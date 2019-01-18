@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT component.</para>
-    /// <para type="description">The Find-Component cmdlet finds component objects by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT component.</summary>
+    /// <remarks>The Find-Component cmdlet finds component objects by filter.</remarks>
     /// <example>
     ///   <code>Find-Component</code>
     ///   <para>Finds all components.</para>

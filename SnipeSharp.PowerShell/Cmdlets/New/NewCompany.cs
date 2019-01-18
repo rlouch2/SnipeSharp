@@ -5,12 +5,10 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT company.</para>
-    /// <para type="description">The New-Company cmdlet creates a new company object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT company.</summary>
+    /// <remarks>The New-Company cmdlet creates a new company object.</remarks>
     /// <example>
     ///   <code>New-Company -Name "Potato Inc."</code>
     ///   <para>Create a new company named "Potato Inc.".</para>

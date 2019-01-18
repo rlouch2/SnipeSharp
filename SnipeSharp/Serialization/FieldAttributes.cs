@@ -4,24 +4,21 @@ namespace SnipeSharp.Serialization
 {
     internal sealed class FieldAttribute : Attribute
     {
-        public string DeserializeAs { get; private set; }
+        public string DeserializeAs { get; set; }
         public string SerializeAs { get; set; }
         public FieldConverter Converter { get; set; } = FieldConverter.None;
-        public bool ShouldSerialize { get; set; } = false;
         public bool IsRequired { get; set; } = false;
         public bool OverrideAffinity { get; set; } = false;
-        internal FieldAttribute(string deserializeAs, string serializeAs, FieldConverter converter = FieldConverter.None, bool required = false) : this(deserializeAs, true, converter, required)
+
+        internal FieldAttribute()
         {
-            SerializeAs = serializeAs;
+            // the nice one.
         }
-        internal FieldAttribute(string deserializeAs, bool serialize = false, FieldConverter converter = FieldConverter.None, bool required = false)
+
+        internal FieldAttribute(string fieldName)
         {
-            DeserializeAs = deserializeAs;
-            if(serialize)
-                SerializeAs = deserializeAs;
-            Converter = converter;
-            ShouldSerialize = serialize;
-            IsRequired = required;
+            DeserializeAs = fieldName;
+            SerializeAs = fieldName;
         }
     }
 
@@ -37,6 +34,9 @@ namespace SnipeSharp.Serialization
 
         /// <seealso cref="CustomCommonModelArrayConverter" />
         CommonModelArrayConverter,
+
+        /// <seealso cref="CustomBoolStringConverter" />
+        BoolStringConverter,
         
         /// <seealso cref="CustomAssetStatusConverter" />
         AssetStatusConverter,

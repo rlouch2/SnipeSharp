@@ -5,19 +5,17 @@ using SnipeSharp.EndPoint;
 using SnipeSharp.PowerShell.BindingTypes;
 using System.Collections.Generic;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT field set.</para>
-    /// <para type="description">The Set-FieldSet cmdlet changes the properties of an existing Snipe-IT field set object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT field set.</summary>
+    /// <remarks>The Set-FieldSet cmdlet changes the properties of an existing Snipe-IT field set object.</remarks>
     /// <example>
     ///   <code>Set-FieldSet -Name "Peeler" -NewName "Potato Peeler"</code>
     ///   <para>Changes the name of fieldset "Peeler" to "Potato Peeler" to distinguish it from "Carrot Peeler".</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(FieldSet))]
     [OutputType(typeof(FieldSet))]
-    public class SetFieldSet: SetObject<FieldSet>
+    public class SetFieldSet: SetObject<FieldSet, ObjectBinding<FieldSet>>
     {
         /// <summary>
         /// The new name for the field set.

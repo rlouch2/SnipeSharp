@@ -30,7 +30,7 @@ The New-User cmdlet creates a new user object.
 
 ### Example 1
 ```powershell
-PS C:\> New-User -FirstName "Craig" -UserName "cjohnson"
+PS C:\> New-User -FirstName "Craig" -UserName "cjohnson" -Password $Password
 ```
 
 Create a new user named "cjohnson" with all required properties set.

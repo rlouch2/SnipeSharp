@@ -3,13 +3,13 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Get
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Gets a Snipe IT custom field.</para>
-    /// <para type="description">The Get-CustomField cmdlet gets one or more custom field objects by name or by Snipe IT internal id number.</para>
-    /// <para type="description">Whatever identifier is used, both accept pipeline input.</para>
-    /// </summary>
+    /// <summary>Gets a Snipe IT custom field.</summary>
+    /// <remarks>
+    ///   <para>The Get-CustomField cmdlet gets one or more custom field objects by name or by Snipe IT internal id number.</para>
+    ///   <para>Whatever identifier is used, both accept pipeline input.</para>
+    /// </remarks>
     /// <example>
     ///   <code>Get-CustomField 2</code>
     ///   <para>Retrieve an fieldset by its Internal Id.</para>
@@ -22,7 +22,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <code>1..100 | Get-CustomField</code>
     ///   <para>Retrieve the first 100 custom fields by their Snipe IT internal Id numbers.</para>
     /// </example>
-    /// <para type="link">Find-CustomField</para>
+    /// <seealso cref="FindCustomField" />
     [Cmdlet(VerbsCommon.Get, nameof(CustomField), DefaultParameterSetName = nameof(GetCustomField.ParameterSets.All))]
     [OutputType(typeof(CustomField))]
     public sealed class GetCustomField: GetObject<CustomField, ObjectBinding<CustomField>>

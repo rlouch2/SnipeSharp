@@ -15,16 +15,16 @@ namespace SnipeSharp.Models
     public sealed class CustomField : CommonEndPointModel
     {
         /// <inheritdoc />
-        [Field("id")]
+        [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", true, required: true)]
+        [Field("name", IsRequired = true)]
         public override string Name { get; set; }
 
         /// <value>Gets the internal column name.</value>
-        [Field("db_column_name")]
+        [Field(DeserializeAs = "db_column_name")]
         public string ColumnName { get; private set; }
 
         /// <summary>
@@ -85,32 +85,32 @@ namespace SnipeSharp.Models
         /// </list>
         /// </summary>
         /// <value>Gets/sets the format of the field.</value>
-        [Field("format", true)]
+        [Field("format")]
         public string Format { get; set; }
 
         /// <value>Gets/sets the raw value of any list type, separated by newlines.</value>
-        [Field("field_values", true)]
+        [Field("field_values")]
         public string FieldValuesRaw { get; set; }
 
         /// <value>Gets/sets if the field is encrypted or not.</value>
-        [Field("field_encrypted", true)]
+        [Field("field_encrypted")]
         public bool? IsFieldEncrypted { get; set; }
 
         /// <value>Gets/sets if this field will be listed in emails sent to users.</value>
-        [Field("show_in_email", true)]
+        [Field("show_in_email")]
         public bool? ShowInCheckOutEmail { get; set; }
 
         /// <value>Gets/sets the help text for the field.</value>
-        [Field("help_text", true)]
+        [Field("help_text")]
         public string HelpText { get; set; }
 
         /// <value>Gets the values of a list type as an array.</value>
         /// <remarks>If <see cref="FieldValuesRaw" /> is updated, this will not be!</remarks>
-        [Field("field_values_array")]
+        [Field(DeserializeAs = "field_values_array")]
         public string[] FieldValues { get; private set; }
 
         /// <value>Get/sets what the type of the element is.</value>
-        [Field("type", "element")]
+        [Field(DeserializeAs = "type", SerializeAs = "element")]
         public CustomFieldElement Type { get; set; }
 
         /// <value>Gets if this is a required field.</value>
@@ -118,11 +118,11 @@ namespace SnipeSharp.Models
         public bool? IsRequired { get; set; }
 
         /// <inheritdoc />
-        [Field("created_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }
 
         /// <inheritdoc />
-        [Field("deleted_at", converter: DateTimeConverter)]
+        [Field(DeserializeAs = "deleted_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
     }
 }

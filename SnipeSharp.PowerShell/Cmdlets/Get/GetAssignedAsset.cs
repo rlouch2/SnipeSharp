@@ -4,12 +4,10 @@ using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Get
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Gets the Snipe IT assets assigned to a user.</para>
-    /// <para type="description">The Get-AssignedAsset cmdlet get, for each user provided, the asset objects associated with that user.</para>
-    /// </summary>
+    /// <summary>Gets the Snipe IT assets assigned to a user.</summary>
+    /// <remarks>The Get-AssignedAsset cmdlet get, for each user provided, the asset objects associated with that user.</remarks>
     /// <example>
     ///   <code>Get-AssignedAsset User1234</code>
     ///   <para>Retrieves the assets assigned to the user User1234.</para>
@@ -31,16 +29,12 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
             ByAsset
         }
 
-        /// <summary>
-        /// <para type="description">The user to find the assets of.</para>
-        /// </summary>
+        /// <summary>The user to find the assets of.</summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByUser))]
         public UserBinding[] User { get; set; }
 
         /*
-        /// <summary>
-        /// <para type="description">Indicates that incoming pipeline objects are users.</para>
-        /// </summary>
+        /// <summary>Indicates that incoming pipeline objects are users.</summary>
         [Parameter(ParameterSetName = nameof(ParameterSets.ByUser))]
         public SwitchParameter Users { get; set; }
 
@@ -57,9 +51,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
         public SwitchParameter Locations { get; set; }
         */
 
-        /// <summary>
-        /// <para type="description">If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</para>
-        /// </summary>
+        /// <summary>If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</summary>
         [Parameter]
         public SwitchParameter NoEnumerate { get; set; }
 

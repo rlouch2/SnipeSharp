@@ -2,20 +2,19 @@ using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
+using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT custom field.</para>
-    /// <para type="description">The Set-CustomField cmdlet changes the properties of an existing Snipe-IT custom field object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT custom field.</summary>
+    /// <remarks>The Set-CustomField cmdlet changes the properties of an existing Snipe-IT custom field object.</remarks>
     /// <example>
     ///   <code>Set-CustomField -Name "Length" -Format "numeric"</code>
     ///   <para>Changes the format of field "Length" to "numeric".</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(CustomField))]
     [OutputType(typeof(CustomField))]
-    public class SetCustomField: SetObject<CustomField>
+    public class SetCustomField: SetObject<CustomField, ObjectBinding<CustomField>>
     {
         /// <summary>
         /// The name of the field set.

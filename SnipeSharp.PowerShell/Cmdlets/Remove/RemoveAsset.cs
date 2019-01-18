@@ -3,13 +3,13 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Remove
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Removes a Snipe IT asset.</para>
-    /// <para type="description">The Remove-Asset cmdlet removes one or more asset objects from the Snipe IT database.</para>
-    /// <para type="description">The Identity, InteralId, Name, AssetTag, and Serial parameters specify the Snipe IT asset to get. InternalId is the Snipe IT-internal Id number. Identity is a catch-all accepting pipeline input and attempting conversion accordingly.</para>
-    /// </summary>
+    /// <summary>Removes a Snipe IT asset.</summary>
+    /// <remarks>
+    ///   <para>The Remove-Asset cmdlet removes one or more asset objects from the Snipe IT database.</para>
+    ///   <para>The Identity, InteralId, Name, AssetTag, and Serial parameters specify the Snipe IT asset to get. InternalId is the Snipe IT-internal Id number. Identity is a catch-all accepting pipeline input and attempting conversion accordingly.</para>
+    /// </remarks>
     /// <example>
     ///   <code>Remove-Asset -InternalId 12</code>
     ///   <para>Removes an accessory by its Internal Id.</para>
@@ -22,7 +22,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Remove
     ///   <code>1..100 | Get-Asset | Remove-Asset</code>
     ///   <para>Removes the first 100 assets by their Snipe IT internal Id numbers.</para>
     /// </example>
-    /// <para type="link">Get-Asset</para>
+    /// <seealso cref="GetAsset" />
     [Cmdlet(VerbsCommon.Remove, nameof(Asset),
         DefaultParameterSetName = nameof(RemoveAsset.AssetParameterSets.ByAssetTag),
         ConfirmImpact = ConfirmImpact.High,
@@ -37,18 +37,14 @@ namespace SnipeSharp.PowerShell.Cmdlets.Remove
             BySerial
         }
 
-        /// <summary>
-        /// <para type="description">The asset tag for the Asset.</para>
-        /// </summary>
+        /// <summary>The asset tag for the Asset.</summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = nameof(AssetParameterSets.ByAssetTag)
         )]
         public string[] AssetTag { get; set; }
 
-        /// <summary>
-        /// <para type="description">The serial Id for the Asset.</para>
-        /// </summary>
+        /// <summary>The serial Id for the Asset.</summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = nameof(AssetParameterSets.BySerial)

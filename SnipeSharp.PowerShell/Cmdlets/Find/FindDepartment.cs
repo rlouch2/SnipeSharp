@@ -3,12 +3,10 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Find
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Finds a Snipe IT department.</para>
-    /// <para type="description">The Find-Asset cmdlet finds departments by filter.</para>
-    /// </summary>
+    /// <summary>Finds a Snipe IT department.</summary>
+    /// <remarks>The Find-Asset cmdlet finds departments by filter.</remarks>
     /// <example>
     ///   <code>Find-Department</code>
     ///   <para>Finds all department.</para>

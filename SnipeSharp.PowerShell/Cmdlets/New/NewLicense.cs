@@ -4,12 +4,10 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.New
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Creates a new Snipe-IT license.</para>
-    /// <para type="description">The New-License cmdlet creates a new license object.</para>
-    /// </summary>
+    /// <summary>Creates a new Snipe-IT license.</summary>
+    /// <remarks>The New-License cmdlet creates a new license object.</remarks>
     /// <example>
     ///   <code>New-License -Name "State Potato Peeling License" -Seats 12000 -Category "Gov't Required"</code>
     ///   <para>Create a new license named "State Potato Peeling License" with all required properties set.</para>

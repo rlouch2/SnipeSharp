@@ -3,13 +3,13 @@ using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Get
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Gets a Snipe IT location.</para>
-    /// <para type="description">The Get-Location cmdlet gets one or more location objects by name or by Snipe IT internal id number.</para>
-    /// <para type="description">Whatever identifier is used, both accept pipeline input.</para>
-    /// </summary>
+    /// <summary>Gets a Snipe IT location.</summary>
+    /// <remarks>
+    ///   <para>The Get-Location cmdlet gets one or more location objects by name or by Snipe IT internal id number.</para>
+    ///   <para>Whatever identifier is used, both accept pipeline input.</para>
+    /// </remarks>
     /// <example>
     ///   <code>Get-Location 14</code>
     ///   <para>Retrieve an location by its Internal Id.</para>
@@ -22,7 +22,7 @@ namespace SnipeSharp.PowerShell.Cmdlets.Get
     ///   <code>1..100 | Get-Location</code>
     ///   <para>Retrieve the first 100 locations by their Snipe IT internal Id numbers.</para>
     /// </example>
-    /// <para type="link">Find-Location</para>
+    /// <seealso cref="FindLocation" />
     [Cmdlet(VerbsCommon.Get, nameof(Location), DefaultParameterSetName = nameof(GetLocation.ParameterSets.All))]
     [OutputType(typeof(Location))]
     public sealed class GetLocation: GetObject<Location, ObjectBinding<Location>>

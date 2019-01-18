@@ -4,19 +4,17 @@ using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
 
-namespace SnipeSharp.PowerShell.Cmdlets.Set
+namespace SnipeSharp.PowerShell.Cmdlets
 {
-    /// <summary>
-    /// <para type="synopsis">Changes the properties of an existing Snipe-IT model.</para>
-    /// <para type="description">The Set-Model cmdlet changes the properties of an existing Snipe-IT model object.</para>
-    /// </summary>
+    /// <summary>Changes the properties of an existing Snipe-IT model.</summary>
+    /// <remarks>The Set-Model cmdlet changes the properties of an existing Snipe-IT model object.</remarks>
     /// <example>
     ///   <code>Set-Model -Name "PotatoPeeler Plus 3000" -EndOfLife 36</code>
     ///   <para>Acknowledges that even the mighty "PotatoPeeler Plus 3000" will only last about 3 years before it's time for a new one.</para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, nameof(Model))]
     [OutputType(typeof(Model))]
-    public class SetModel: SetObject<Model>
+    public class SetModel: SetObject<Model, ObjectBinding<Model>>
     {
         /// <summary>
         /// The new name of the model.

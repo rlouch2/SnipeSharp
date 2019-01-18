@@ -19,17 +19,17 @@ Get-SnipeConsumable [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeConsumable [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeConsumable [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeConsumable -Name <String[]> [<CommonParameters>]
+Get-SnipeConsumable -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeConsumable [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Get-SnipeConsumable [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,7 +112,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False

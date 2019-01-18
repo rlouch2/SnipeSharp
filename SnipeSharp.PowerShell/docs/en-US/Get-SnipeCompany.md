@@ -19,17 +19,17 @@ Get-SnipeCompany [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeCompany [-InternalId] <Int32[]> [<CommonParameters>]
+Get-SnipeCompany [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeCompany -Name <String[]> [<CommonParameters>]
+Get-SnipeCompany -Name <String[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeCompany [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
+Get-SnipeCompany [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,7 +112,7 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: All
+Parameter Sets: (All)
 Aliases:
 
 Required: False
