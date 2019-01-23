@@ -25,10 +25,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string NewName { get; set; }
         
         /// <inheritdoc />
-        protected override void PopulateItem(Company item)
+        protected override bool PopulateItem(Company item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Name)))
                 item.Name = this.NewName;
+            return true;
         }
     }
 }

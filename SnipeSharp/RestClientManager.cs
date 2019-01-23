@@ -55,42 +55,47 @@ namespace SnipeSharp
             return response.Content;
         }
 
-        internal R Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
+        internal ApiOptionalResponse<R> Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
             => ExecuteRequest<R>(CreateRequest(path, Method.GET).Add(filter));
 
-        internal ResponseCollection<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
+        internal ApiOptionalResponse<ResponseCollection<R>> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
             var result = Get<ResponseCollection<R>>(path, filter);
+            if(result.HasValue)
+                return result;
             var offset = filter?.Offset is null ? 0 : filter.Offset;
-            if(filter?.Limit is null && offset + result.Count < result.Total)
+            if(filter?.Limit is null && offset + result.Value.Count < result.Value.Total)
             {
                 if(filter is null)
                     filter = new SearchFilter();
                 filter.Limit = 1000;
-                filter.Offset = offset + result.Count;
-                while(offset + result.Count < result.Total)
+                filter.Offset = offset + result.Value.Count;
+                while(offset + result.Value.Count < result.Value.Total)
                 {
                     var batch = Get<ResponseCollection<R>>(path, filter);
-                    result.AddRange(batch.Rows);
+                    if(!batch.HasValue)
+                        return batch;
+                    result.Value.AddRange(batch.Value.Rows);
                     filter.Offset += 1000;
                 }
             }
             return result;
         }
 
-        internal RequestResponse<R> Post<R>(string path, R @object) where R: ApiObject
+        internal ApiOptionalResponse<RequestResponse<R>> Post<R>(string path, R @object) where R: ApiObject
             => Post<R, R>(path, @object);
         
-        internal RequestResponse<R> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
+        internal ApiOptionalResponse<RequestResponse<R>> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
             => ExecuteRequest2<R>(CreateRequest(path, Method.POST).Add(@object));
 
-        internal RequestResponse<R> Patch<R>(string path, R @object) where R: ApiObject
+        internal ApiOptionalResponse<RequestResponse<R>> Patch<R>(string path, R @object) where R: ApiObject
             => ExecuteRequest2<R>(CreateRequest(path, Method.PATCH).Add(@object));
 
-        internal RequestResponse<R> Delete<R>(string path) where R: ApiObject
+        internal ApiOptionalResponse<RequestResponse<R>> Delete<R>(string path) where R: ApiObject
             => ExecuteRequest2<R>(CreateRequest(path, Method.DELETE));
 
-        private R ExecuteRequest<R>(RestRequest request) where R: ApiObject
+        private ApiOptionalResponse<R> ExecuteRequest<R>(RestRequest request)
+            where R: ApiObject
         {
             SetTokenAndUri();
 #if DEBUG
@@ -100,22 +105,26 @@ namespace SnipeSharp
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
+#if DEBUG
+            Api.DebugResponseList.Add(response);
+#endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
-            // Check if this is actually a RequestResponse
-            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
+            
+            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status) && asRequestResponse.Status == "error")
             {
-                // It is, do stuff
-                if(asRequestResponse.Status == "error")
+                return new ApiOptionalResponse<R>
                 {
-                    if(asRequestResponse.Messages.ContainsKey("general"))
-                        throw new ApiErrorException(asRequestResponse.Messages["general"]);
-                    else
-                        throw new ApiErrorException(asRequestResponse.Messages);
-                }
+                    Exception = asRequestResponse.Messages.ContainsKey("general")
+                        ? new ApiErrorException(asRequestResponse.Messages["general"])
+                        : new ApiErrorException(asRequestResponse.Messages)
+                };
             }
-            return serializerDeserializer.Deserialize<R>(response);
+
+            return new ApiOptionalResponse<R> { Value = serializerDeserializer.Deserialize<R>(response) };
         }
-        private RequestResponse<R> ExecuteRequest2<R>(RestRequest request) where R: ApiObject
+
+        private ApiOptionalResponse<RequestResponse<R>> ExecuteRequest2<R>(RestRequest request)
+            where R: ApiObject
         {
             SetTokenAndUri();
 #if DEBUG
@@ -125,20 +134,21 @@ namespace SnipeSharp
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
+#if DEBUG
+            Api.DebugResponseList.Add(response);
+#endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
-            // Check if this is actually a RequestResponse
-            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status))
+            
+            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status) && asRequestResponse.Status == "error")
             {
-                // It is, do stuff
-                if(asRequestResponse.Status == "error")
+                return new ApiOptionalResponse<RequestResponse<R>>
                 {
-                    if(asRequestResponse.Messages.ContainsKey("general"))
-                        throw new ApiErrorException(asRequestResponse.Messages["general"]);
-                    else
-                        throw new ApiErrorException(asRequestResponse.Messages);
-                }
+                    Exception = asRequestResponse.Messages.ContainsKey("general")
+                        ? new ApiErrorException(asRequestResponse.Messages["general"])
+                        : new ApiErrorException(asRequestResponse.Messages)
+                };
             }
-            return asRequestResponse;
+            return new ApiOptionalResponse<RequestResponse<R>> { Value = asRequestResponse };
         }
 
         private RestRequest CreateRequest(string path, Method method)

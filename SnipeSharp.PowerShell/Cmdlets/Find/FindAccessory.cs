@@ -47,13 +47,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         protected override void PopulateFilter(AccessorySearchFilter filter)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                filter.Company = Company?.Object;
+                filter.Company = Company?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                filter.Category = Category?.Object;
+                filter.Category = Category?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                filter.Manufacturer = Manufacturer?.Object;
+                filter.Manufacturer = Manufacturer?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                filter.Supplier = Supplier?.Object;
+                filter.Supplier = Supplier?.Value[0];
         }
     }
 }

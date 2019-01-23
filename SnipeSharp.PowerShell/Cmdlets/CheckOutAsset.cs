@@ -25,7 +25,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <seealso cref="GetAsset" />
     [Cmdlet("CheckOut", "Asset", DefaultParameterSetName = "ToUser")]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public sealed class CheckOutAsset: PSCmdlet
+    public sealed class CheckOutAsset: BaseCmdlet
     {
         /// <summary>An Asset identity.</summary>
         [Parameter(
@@ -79,38 +79,26 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(Asset.Object is null)
-            {
-                WriteError(new ErrorRecord(Asset.Error, "Asset not found.", ErrorCategory.InvalidArgument, Asset.Query));
+            if(!ValidateHasExactlyOneValue(Asset, queryType: "Identity"))
                 return;
-            }
+            
             var request = default(AssetCheckOutRequest);
             switch(ParameterSetName)
             {
                 case "ToUser":
-                    if(AssignedUser.Object is null)
-                    {
-                        WriteError(new ErrorRecord(null, "AssignedUser not found.", ErrorCategory.InvalidArgument, AssignedUser.Query));
+                    if(!ValidateHasExactlyOneValue(AssignedUser, queryType: "Identity"))
                         return;
-                    }
-                    request = new AssetCheckOutRequest(Asset.Object, AssignedUser.Object);
-                    
+                    request = new AssetCheckOutRequest(Asset.Value[0], AssignedUser.Value[0]);
                     break;
                 case "ToLocation":
-                    if(AssignedLocation.Object is null)
-                    {
-                        WriteError(new ErrorRecord(null, "AssignedLocation not found.", ErrorCategory.InvalidArgument, AssignedLocation.Query));
+                    if(!ValidateHasExactlyOneValue(AssignedLocation, queryType: "Identity"))
                         return;
-                    }
-                    request = new AssetCheckOutRequest(Asset.Object, AssignedLocation.Object);
+                    request = new AssetCheckOutRequest(Asset.Value[0], AssignedLocation.Value[0]);
                     break;
                 case "ToAsset":
-                    if(AssignedAsset.Object is null)
-                    {
-                        WriteError(new ErrorRecord(null, "AssignedAsset not found.", ErrorCategory.InvalidArgument, AssignedAsset.Object));
+                    if(!ValidateHasExactlyOneValue(AssignedAsset, queryType: "Identity"))
                         return;
-                    }
-                    request = new AssetCheckOutRequest(Asset.Object, AssignedAsset.Object);
+                    request = new AssetCheckOutRequest(Asset.Value[0], AssignedAsset.Value[0]);
                     break;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(CheckOutAt)))

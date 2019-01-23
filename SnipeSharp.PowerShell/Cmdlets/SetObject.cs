@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </summary>
     /// <typeparam name="TObject">Type of object to set.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
-    public abstract class SetObject<TObject, TBinding>: PSCmdlet
+    public abstract class SetObject<TObject, TBinding>: BaseCmdlet
         where TObject: CommonEndPointModel
         where TBinding: ObjectBinding<TObject>
     {
@@ -47,7 +47,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// Populate the fields of the item.
         /// </summary>
         /// <param name="item">The item to populate.</param>
-        protected abstract void PopulateItem(TObject item);
+        /// <returns>True if the operation should proceed.</returns>
+        protected abstract bool PopulateItem(TObject item);
 
         /// <inheritdoc />
         protected override void ProcessRecord()
@@ -68,20 +69,21 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     Object = GetBoundObject();
                     if(null == Object)
                     {
-                        WriteError(new ErrorRecord(new Exception(), $"{typeof(TObject).Name} not found.", ErrorCategory.InvalidArgument, null));
+                        WriteNotFoundError<TObject>("query", null);
                         return;
                     }
                     break;
             }
-            if(Object.IsNull)
-            {
-                WriteError(new ErrorRecord(Object.Error, $"{typeof(TObject).Name} not found: {Object.Query}", ErrorCategory.InvalidArgument, null));
+            if(!ValidateHasExactlyOneValue(Object))
                 return;
-            }
-            PopulateItem(Object.Object);
+            
+            var value = Object.Value[0];
+            
+            if(!PopulateItem(value))
+                return;
 
             //TODO: error handling
-            var response = ApiHelper.Instance.GetEndPoint<TObject>().Update(Object.Object);
+            var response = ApiHelper.Instance.GetEndPoint<TObject>().Update(value);
             if(ShowResponse)
                 WriteObject(response);
         }

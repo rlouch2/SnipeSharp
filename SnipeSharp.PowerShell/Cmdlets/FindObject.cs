@@ -8,12 +8,12 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <summary>
     /// Generic base class for Find* Cmdlets.
     /// </summary>
-    /// <typeparam name="T">Type of object to find.</typeparam>
-    /// <typeparam name="S">Sort column type.</typeparam>
-    /// <typeparam name="K">Search filter type.</typeparam>
-    public abstract class FindObject<T, S, K>: PSCmdlet
-        where T: CommonEndPointModel
-        where K: class, ISortableSearchFilter<S>, new()
+    /// <typeparam name="TObject">Type of object to find.</typeparam>
+    /// <typeparam name="TColumn">Sort column type.</typeparam>
+    /// <typeparam name="TFilter">Search filter type.</typeparam>
+    public abstract class FindObject<TObject, TColumn, TFilter>: PSCmdlet
+        where TObject: CommonEndPointModel
+        where TFilter: class, ISortableSearchFilter<TColumn>, new()
     {
         /// <summary>The string to search for.</summary>
         [Parameter(Position = 0, ValueFromPipeline = true)]
@@ -25,7 +25,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
 
         /// <summary>On which column to sort the data.</summary>
         [Parameter]
-        public S SortColumn { get; set; }
+        public TColumn SortColumn { get; set; }
 
         /// <summary>If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</summary>
         [Parameter]
@@ -35,12 +35,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// Populate the remaining fields of the filter.
         /// </summary>
         /// <param name="filter">The filter to populate.</param>
-        protected abstract void PopulateFilter(K filter);
+        /// <returns>True if the operation should proceed.</returns>
+        protected abstract bool PopulateFilter(TFilter filter);
 
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            var filter = new K();
+            var filter = new TFilter();
             if(MyInvocation.BoundParameters.ContainsKey(nameof(SearchString)))
                 filter.Search = SearchString;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(SortOrder)))
@@ -49,9 +50,10 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 filter.Limit = (int) PagingParameters.First;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PagingParameters.Skip)))
                 filter.Offset = (int) PagingParameters.Skip;
-            PopulateFilter(filter);
+            if(!PopulateFilter(filter))
+                return;
             try {
-                var results = ApiHelper.Instance.GetEndPoint<T>().FindAll(filter);
+                var results = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter);
                 if(PagingParameters.IncludeTotalCount)
                     WriteObject(results.Total);
                 WriteObject(results, !NoEnumerate.IsPresent);

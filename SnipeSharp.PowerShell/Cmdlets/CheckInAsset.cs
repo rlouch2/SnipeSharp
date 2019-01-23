@@ -20,7 +20,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <seealso cref="GetAsset" />
     [Cmdlet("CheckIn", nameof(Asset))]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public sealed class CheckInAsset: PSCmdlet
+    public sealed class CheckInAsset: BaseCmdlet
     {
         /// <summary>An Asset object.</summary>
         [Parameter(
@@ -50,18 +50,16 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(Identity.Object is null)
-            {
-                WriteError(new ErrorRecord(Identity.Error, "Asset not found.", ErrorCategory.InvalidArgument, Identity.Query));
+            if(!ValidateHasExactlyOneValue(Identity, queryType: nameof(Identity)))
                 return;
-            }
-            var request = new AssetCheckInRequest(Identity.Object);
+            
+            var request = new AssetCheckInRequest(Identity.Value[0]);
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Note)))
                 request.Note = Note;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                request.Location = Location?.Object;
+                request.Location = Location?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(StatusLabel)))
-                request.StatusLabel = Status?.Object;
+                request.StatusLabel = Status?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(AssetName)))
                 request.AssetName = AssetName;
             else

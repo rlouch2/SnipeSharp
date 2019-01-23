@@ -12,14 +12,6 @@ namespace SnipeSharp.PowerShell.BindingTypes
     public sealed class AssetBinding: ObjectBinding<Asset>
     {
         /// <summary>
-        /// Fetches a single Asset by its internal Id or AssetTag.
-        /// </summary>
-        /// <param name="id">The Snipe IT internal Id or AssetTag of an asset.</param>
-        public AssetBinding(int id) : base(id.ToString())
-        {
-        }
-
-        /// <summary>
         /// Fetches a single Asset using a simplified query. The query is of the form "[type:]value". Valid types are: id, name, iname, cname, serial, tag, and search.
         /// </summary>
         /// <param name="query">An Asset Tag, Serial, Name, Id, or Search for an asset.</param>
@@ -47,15 +39,22 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <summary>
         /// For use with the internal From* functions.
         /// </summary>
-        internal AssetBinding(string query, (Asset, Exception) item): base(query, item)
+        internal AssetBinding(string query, ApiOptionalResponse<Asset> apiOptionalResponse): base(query, apiOptionalResponse)
+        {
+        }
+
+        /// <summary>
+        /// For use with the internal From* functions.
+        /// </summary>
+        internal AssetBinding(string query, ApiOptionalResponse<ResponseCollection<Asset>> apiOptionalResponse): base(query, apiOptionalResponse)
         {
         }
 
         /// <inheritdoc />
-        protected override (Asset, Exception) ResolveBinding(ISearchFilter filter = null)
+        internal override void Resolve(ISearchFilter filter = null)
         {
             var endPoint = ApiHelper.Instance.GetEndPoint<Asset>();
-            (Asset Object, Exception Error) result;
+            ApiOptionalResponse<Asset> result;
             
             switch(QueryUnion.BindingType)
             {
@@ -65,19 +64,23 @@ namespace SnipeSharp.PowerShell.BindingTypes
                     if(type is null)
                     {
                         // tag -> serial -> name -> id
-                        result = endPoint.GetByTagOrNull(value);
-                        if(null != result.Object)
-                            return result;
-                        result = endPoint.GetBySerialOrNull(value);
-                        if(null != result.Object)
-                            return result;
-                        result = endPoint.GetOrNull(value, QueryUnion.CaseSensitive);
-                        if(null != result.Object)
-                            return result;
+                        result = endPoint.GetByTagOptional(value);
+                        if(result.HasValue)
+                            break;
+                        var multiResponse = endPoint.FindBySerialOptional(value);
+                        if(multiResponse.HasValue)
+                        {
+                            Value = multiResponse.Value;
+                            Error = multiResponse.Exception;
+                            return;
+                        }
+                        result = endPoint.GetOptional(value, QueryUnion.CaseSensitive);
+                        if(result.HasValue)
+                            break;
                         else if(int.TryParse(value, out var id))
-                            return endPoint.GetOrNull(id);
+                            result = endPoint.GetOptional(id);
                         else
-                            return (null, new ArgumentException($"Cannot find an object for query: {value}", "query"));
+                            result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
                     } else
                     {
                         switch(type)
@@ -87,57 +90,71 @@ namespace SnipeSharp.PowerShell.BindingTypes
                                 goto case "iname";
                             case "name":
                             case "iname":
-                                result = endPoint.GetOrNull(value, QueryUnion.CaseSensitive, filter);
+                                result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
                                 break;
                             case "id":
                                 if(int.TryParse(value, out var id))
-                                    result = endPoint.GetOrNull(id);
+                                    result = endPoint.GetOptional(id);
                                 else
-                                    return (null, new ArgumentException($"Id is not an integer: {value}", "query"));
+                                    result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
                                 break;
                             case "serial":
-                                result = endPoint.GetBySerialOrNull(value);
+                                var multiResponse = endPoint.FindBySerialOptional(value);
+                                if(multiResponse.HasValue)
+                                {
+                                    Value = multiResponse.Value;
+                                    Error = multiResponse.Exception;
+                                    return;
+                                } else
+                                {
+                                    result = new ApiOptionalResponse<Asset>
+                                    {
+                                        Value = null,
+                                        Exception = multiResponse.Exception ?? new ArgumentException($"Cannot find an object with serial number: {value}", "query")
+                                    };
+                                }
                                 break;
                             case "tag":
-                                result = endPoint.GetByTagOrNull(value);
+                                result = endPoint.GetByTagOptional(value);
                                 break;
                             case "search":
                                 try
                                 {
-                                    result = (endPoint.FindOne(value), null);
+                                    result = endPoint.FindOneOptional(value);
                                 } catch(Exception e)
                                 {
-                                    return (null, e);
+                                    result = new ApiOptionalResponse<Asset> { Exception = e };
                                 }
                                 break;
                             default:
-                                return (null, new ArgumentException($"Query does not have a proper type: {type}", "query"));
+                                result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Query does not have a proper type: {type}", "query") };
+                                break;
                         }
-                        if(result.Object is null)
+                        if(null != result.Exception)
+                        {
                             try
                             {
-                                return (endPoint.FindOne(value), null);
+                                filter.Search = value;
+                                result = endPoint.FindOneOptional(filter);
                             } catch(Exception e)
                             {
-                                return (null, e);
+                                result = new ApiOptionalResponse<Asset> { Exception = e };
                             }
-                        else
-                            return result;
+                        }
                     }
+                    break;
                 case BindingQueryUnion.Type.Integer:
-                    return endPoint.GetOrNull(QueryUnion.IntegerValue);
+                    result = endPoint.GetOptional(QueryUnion.IntegerValue);
+                    break;
                 default:
-                    return (null, new InvalidOperationException("Cannot resolve an invalid binding."));
+                    result = new ApiOptionalResponse<Asset> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
+                    break;
             }
         }
 
         internal static AssetBinding FromTag(string tag)
-            => new AssetBinding(tag, ApiHelper.Instance.Assets.GetByTagOrNull(tag));
-        internal new static AssetBinding FromId(int id)
-            => new AssetBinding(id);
-        internal new static AssetBinding FromName(string name)
-            => new AssetBinding(name, ApiHelper.Instance.Assets.GetOrNull(name));
+            => new AssetBinding(tag, ApiHelper.Instance.Assets.GetByTagOptional(tag));
         internal static AssetBinding FromSerial(string serial)
-            => new AssetBinding(serial, ApiHelper.Instance.Assets.GetBySerialOrNull(serial));
+            => new AssetBinding(serial, ApiHelper.Instance.Assets.FindBySerialOptional(serial));
     }
 }

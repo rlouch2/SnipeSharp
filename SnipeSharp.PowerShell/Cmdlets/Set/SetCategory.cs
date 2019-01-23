@@ -43,7 +43,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public bool IsAcceptanceRequired { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Category item)
+        protected override bool PopulateItem(Category item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
@@ -53,6 +53,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.EmailUserOnCheckInOrOut = this.EmailUserOnCheckInOrOut;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(IsAcceptanceRequired)))
                 item.IsAcceptanceRequired = this.IsAcceptanceRequired;
+            return true;
         }
     }
 }

@@ -54,11 +54,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
                 item.ImageUri = this.ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Object;
+                item.Company = this.Company?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager?.Object;
+                item.Manager = this.Manager?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Object;
+                item.Location = this.Location?.Value[0];
         }
     }
 }

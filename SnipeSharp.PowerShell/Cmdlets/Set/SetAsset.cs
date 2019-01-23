@@ -147,7 +147,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public Dictionary<string, string> CustomFields { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Asset item)
+        protected override bool PopulateItem(Asset item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewAssetTag)))
                 item.AssetTag = NewAssetTag;
@@ -156,21 +156,45 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewSerial)))
                 item.Serial = NewSerial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
-                item.Model = Model?.Object;
+            {
+                if(!GetSingleValue(Model, out var model))
+                    return false;
+                item.Model = model;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Status)))
-                item.Status = Status?.Object?.ToAssetStatus();
+            {
+                if(!GetSingleValue(Status, out var status))
+                    return false;
+                item.Status = status.ToAssetStatus();
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                item.Supplier = Supplier?.Object;
+            {
+                if(!GetSingleValue(Supplier, out var supplier))
+                    return false;
+                item.Supplier = supplier;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = Notes;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
                 item.OrderNumber = OrderNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = Company?.Object;
+            {
+                if(!GetSingleValue(Company, out var company))
+                    return false;
+                item.Company = company;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = Location?.Object;
+            {
+                if(!GetSingleValue(Location, out var location))
+                    return false;
+                item.Location = location;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(DefaultLocation)))
-                item.DefaultLocation = DefaultLocation?.Object;
+            {
+                if(!GetSingleValue(DefaultLocation, out var defaultLocation))
+                    return false;
+                item.DefaultLocation = defaultLocation;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
                 item.ImageUri = ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(AssignedTo)))
@@ -186,6 +210,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && !(CustomFields is null))
                 foreach(var pair in CustomFields)
                     item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };
+            return true;
         }
 
         /// <inheritdoc />

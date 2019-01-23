@@ -103,15 +103,15 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Object;
+                item.Category = this.Category?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Object;
+                item.Company = this.Company?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ItemNumber)))
                 item.ItemNumber = this.ItemNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Object;
+                item.Location = this.Location?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Object;
+                item.Manufacturer = this.Manufacturer?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
                 item.Quantity = this.Quantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))

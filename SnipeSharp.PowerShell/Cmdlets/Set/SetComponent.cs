@@ -80,20 +80,28 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<Company> Company { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Component item)
+        protected override bool PopulateItem(Component item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Serial)))
                 item.Serial = this.Serial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Object;
+            {
+                if(!GetSingleValue(Location, out var location))
+                    return false;
+                item.Location = location;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
                 item.Quantity = this.Quantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))
                 item.MinimumQuantity = this.MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Object;
+            {
+                if(!GetSingleValue(Category, out var category))
+                    return false;
+                item.Category = category;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
                 item.OrderNumber = this.OrderNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
@@ -101,7 +109,12 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
                 item.PurchaseDate = this.PurchaseDate;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Object;
+            {
+                if(!GetSingleValue(Company, out var company))
+                    return false;
+                item.Company = company;
+            }
+            return true;
         }
     }
 }

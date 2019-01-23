@@ -38,21 +38,31 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 case nameof(ParameterSets.ByIdentity):
                     break;
             }
-            if(Identity.IsNull)
+            if(!Identity.HasValue)
             {
                 WriteError(new ErrorRecord(Identity.Error, $"{nameof(FieldSet)} not found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
+                return;
+            }
+            if(Identity.Value.Count > 1)
+            {
+                WriteError(new ErrorRecord(Identity.Error, $"More than one {nameof(FieldSet)} was found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
                 return;
             }
 
             var orderedFields = new List<CustomField>();
             foreach(var field in Order)
             {
-                if(field.IsNull)
+                if(!field.HasValue)
                 {
                     WriteError(new ErrorRecord(field.Error, $"{nameof(CustomField)} was not found: {field.Query}", ErrorCategory.InvalidArgument, null));
                     return;
                 }
-                orderedFields.Add(field.Object);
+                if(field.Value.Count > 1)
+                {
+                    WriteError(new ErrorRecord(field.Error, $"More than one {nameof(CustomField)} was found: {field.Query}", ErrorCategory.InvalidArgument, null));
+                    return;
+                }
+                orderedFields.Add(field.Value[0]);
             }
 
             WriteObject(ApiHelper.Instance.GetEndPoint<CustomField>().Reorder(Identity.Object, orderedFields));

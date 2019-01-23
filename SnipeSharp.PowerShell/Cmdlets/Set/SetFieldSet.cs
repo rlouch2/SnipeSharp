@@ -58,9 +58,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 case nameof(ParameterSets.ByIdentity):
                     break;
             }
-            if(Identity.IsNull)
+            if(!Identity.HasValue)
             {
                 WriteError(new ErrorRecord(Identity.Error, $"{nameof(FieldSet)} not found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
+                return;
+            }
+            if(Identity.Value.Count > 1)
+            {
+                WriteError(new ErrorRecord(Identity.Error, $"More than one {nameof(FieldSet)} was found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
                 return;
             }
 
@@ -69,9 +74,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var field in Add)
                 {
-                    if(field.IsNull)
+                    if(!field.HasValue)
                     {
                         WriteError(new ErrorRecord(field.Error, $"{nameof(CustomField)} was not found: {field.Query}", ErrorCategory.InvalidArgument, null));
+                        return;
+                    }
+                    if(field.Value.Count > 1)
+                    {
+                        WriteError(new ErrorRecord(field.Error, $"More than one {nameof(CustomField)} was found: {field.Query}", ErrorCategory.InvalidArgument, null));
                         return;
                     }
                 }
@@ -81,9 +91,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var field in AddRequired)
                 {
-                    if(field.IsNull)
+                    if(!field.HasValue)
                     {
                         WriteError(new ErrorRecord(field.Error, $"{nameof(CustomField)} was not found: {field.Query}", ErrorCategory.InvalidArgument, null));
+                        return;
+                    }
+                    if(field.Value.Count > 1)
+                    {
+                        WriteError(new ErrorRecord(field.Error, $"More than one {nameof(CustomField)} was found: {field.Query}", ErrorCategory.InvalidArgument, null));
                         return;
                     }
                 }
@@ -93,16 +108,22 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var field in Remove)
                 {
-                    if(field.IsNull)
+                    if(!field.HasValue)
                     {
                         WriteError(new ErrorRecord(field.Error, $"{nameof(CustomField)} was not found: {field.Query}", ErrorCategory.InvalidArgument, null));
+                        return;
+                    }
+                    if(field.Value.Count > 1)
+                    {
+                        WriteError(new ErrorRecord(field.Error, $"More than one {nameof(CustomField)} was found: {field.Query}", ErrorCategory.InvalidArgument, null));
                         return;
                     }
                 }
             }
 
+            var value = Identity.Value[0];
             // populate record
-            PopulateItem(Identity.Object);
+            PopulateItem(value);
 
             // modify fields
             if(Add != null && Add.Length > 0)
@@ -110,7 +131,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var field in Add)
                 {
                     //TODO: error handling
-                    ApiHelper.Instance.GetEndPoint<CustomField>().Associate(field.Object, Identity.Object, required: false);
+                    ApiHelper.Instance.GetEndPoint<CustomField>().Associate(field.Value[0], value, required: false);
                 }
             }
 
@@ -119,7 +140,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var field in AddRequired)
                 {
                     //TODO: error handling
-                    ApiHelper.Instance.GetEndPoint<CustomField>().Associate(field.Object, Identity.Object, required: true);
+                    ApiHelper.Instance.GetEndPoint<CustomField>().Associate(field.Value[0], value, required: true);
                 }
             }
 
@@ -128,12 +149,12 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var field in Remove)
                 {
                     //TODO: error handling
-                    ApiHelper.Instance.GetEndPoint<CustomField>().Disassociate(field.Object, Identity.Object);
+                    ApiHelper.Instance.GetEndPoint<CustomField>().Disassociate(field.Value[0], value);
                 }
             }
 
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.GetEndPoint<FieldSet>().Update(Identity.Object));
+            WriteObject(ApiHelper.Instance.GetEndPoint<FieldSet>().Update(value));
         }
         
         /// <inheritdoc />

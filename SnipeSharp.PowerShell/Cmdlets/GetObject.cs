@@ -15,7 +15,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TObject">The type of object this cmdlet gets.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
     /// <typeparam name="TFilter">The type of the filter to use for lookup.</typeparam>
-    public abstract class GetObject<TObject, TBinding, TFilter>: PSCmdlet
+    public abstract class GetObject<TObject, TBinding, TFilter>: BaseCmdlet
         where TObject: CommonEndPointModel
         where TBinding: ObjectBinding<TObject>
         where TFilter: class, ISearchFilter, new()
@@ -69,18 +69,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             if(ParameterSetName == nameof(ParameterSets.All))
             {
-                var (item, error) = ApiHelper.Instance.GetEndPoint<TObject>().GetAllOrNull();
-                if(!(error is null))
+                var response = ApiHelper.Instance.GetEndPoint<TObject>().GetAllOptional();
+                if(null != response.Exception)
                 {
-                    WriteError(new ErrorRecord(error, $"An error occurred retrieving all records from endpoint {typeof(TObject).Name}", ErrorCategory.NotSpecified, null));
+                    WriteError(new ErrorRecord(response.Exception, $"An error occurred retrieving all records from endpoint {typeof(TObject).Name}", ErrorCategory.NotSpecified, null));
                 } else
                 {
-                    WriteObject(item, !NoEnumerate.IsPresent);
+                    WriteObject(response.Value, !NoEnumerate.IsPresent);
                 }
             } else
             {
                 TFilter filter = new TFilter();
-                PopulateFilter(filter);
+                if(!PopulateFilter(filter))
+                    return;
                 
                 IEnumerable<TObject> objects;
                 switch(ParameterSetName)
@@ -115,8 +116,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 var item = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter).Where(i => StringComparer.OrdinalIgnoreCase.Compare(i, name) == 0).First();
                 if(item is null)
                 {
-                    var message = "{typeof(TObject).Name} not found by name \"{name}\"";
-                    WriteError(new ErrorRecord(new ApiErrorException(message), message, ErrorCategory.InvalidArgument, name));
+                    WriteNotFoundError<TObject>("name", name);
                     continue;
                 }
                 yield return item;
@@ -133,12 +133,15 @@ namespace SnipeSharp.PowerShell.Cmdlets
             foreach(var item in bindings)
             {
                 item.Resolve(filter);
-                if(item.IsNull)
+                if(!item.HasValue)
                 {
-                    WriteError(new ErrorRecord(item.Error, $"{typeof(TObject).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
+                    WriteNotFoundError<TObject>("identity", item.Query, item.Error);
                     continue;
                 }
-                yield return item.Object;
+                foreach(var value in item.Value)
+                {
+                    yield return value;
+                }
             }
         }
 
@@ -149,13 +152,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             foreach(var id in InternalId)
             {
-                var (item, error) = ApiHelper.Instance.GetEndPoint<TObject>().GetOrNull(id);
-                if(!(error is null))
+                var response = ApiHelper.Instance.GetEndPoint<TObject>().GetOptional(id);
+                if(!response.HasValue)
                 {
-                    WriteError(new ErrorRecord(error, $"{typeof(TObject).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
+                    WriteNotFoundError<TObject>("internal id", id.ToString(), response.Exception);
                     continue;
                 }
-                yield return item;
+                yield return response.Value;
             }
         }
 
@@ -170,7 +173,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// Populate the filter with any remaining or custom properties.
         /// </summary>
         /// <param name="filter">The filter to populate.</param>
-        protected abstract void PopulateFilter(TFilter filter);
+        /// <returns>True if the operation should proceed.</returns>
+        protected abstract bool PopulateFilter(TFilter filter);
     }
 
     /// <summary>
@@ -183,9 +187,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
         where TBinding: ObjectBinding<TObject>
     {
         /// <inheritdoc />
-        protected override void PopulateFilter(SearchFilter filter)
+        protected override bool PopulateFilter(SearchFilter filter)
         {
-            // do-nothing.
+            return true;
         }
 
         /// <inheritdoc />

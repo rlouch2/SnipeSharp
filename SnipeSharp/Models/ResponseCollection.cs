@@ -11,7 +11,8 @@ namespace SnipeSharp.Models
     /// </summary>
     /// <typeparam name="T">The type of elements in this collection.</typeparam>
     [JsonObject]
-    public sealed class ResponseCollection<T> : ApiObject, IList<T> where T: ApiObject
+    public sealed class ResponseCollection<T> : ApiObject, IList<T>, IReadOnlyList<T>, ICollection<T>, IReadOnlyCollection<T>
+        where T: ApiObject
     {
         /// <value>The total number of objects available from the endpoint for whatever filters were applied.</value>
         /// <remarks>This value may not be the same as <see cref="Count"/>.</remarks>

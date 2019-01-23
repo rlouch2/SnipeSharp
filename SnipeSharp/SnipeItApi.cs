@@ -19,6 +19,11 @@ namespace SnipeSharp
         /// A list of URI's accessed by the RestClientManager. Used for debugging purposes.
         /// </summary>
         public List<string> DebugList = new List<string>();
+
+        /// <summary>
+        /// A list of responses from the RestClientManager. Used for debugging purposes.
+        /// </summary>
+        public List<IRestResponse> DebugResponseList = new List<IRestResponse>();
 #endif
         private string _token;
 

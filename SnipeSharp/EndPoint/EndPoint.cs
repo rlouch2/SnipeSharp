@@ -31,61 +31,65 @@ namespace SnipeSharp.EndPoint
         }
 
         /// <inheritdoc />
-        public ResponseCollection<T> FindAll(ISearchFilter filter = null)
+        public ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(ISearchFilter filter = null)
             => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
+
+        /// <inheritdoc />
+        public ResponseCollection<T> FindAll(ISearchFilter filter = null)
+            => FindAllOptional(filter).RethrowExceptionIfAny().Value;
+
+        /// <inheritdoc />
+        public ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(string search)
+            => FindAllOptional(new SearchFilter(search));
 
         /// <inheritdoc />
         public ResponseCollection<T> FindAll(string search)
             => FindAll(new SearchFilter(search));
 
         /// <inheritdoc />
-        public T FindOne(ISearchFilter filter)
+        public ApiOptionalResponse<T> FindOneOptional(ISearchFilter filter)
         {
             filter.Limit = 1;
-            return Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter).FirstOrDefault();
+            var response = Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter);
+            if(!response.HasValue)
+                return new ApiOptionalResponse<T> { Exception = response.Exception };
+            return new ApiOptionalResponse<T> { Value = response.Value.FirstOrDefault() };
         }
 
+        /// <inheritdoc />
+        public T FindOne(ISearchFilter filter)
+            => FindOneOptional(filter).RethrowExceptionIfAny().Value;
+
+        /// <inheritdoc />
+        public ApiOptionalResponse<T> FindOneOptional(string search)
+            => FindOneOptional(new SearchFilter(search));
+        
         /// <inheritdoc />
         public T FindOne(string search)
             => FindOne(new SearchFilter(search));
 
         /// <inheritdoc />
         public T Get(int id)
-            => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
+            => GetOptional(id).RethrowExceptionIfAny().Value;
 
         /// <inheritdoc />
-        public (T Value, Exception Error) GetOrNull(int id)
-        {
-            try
-            {
-                var @object = Get(id);
-                return (@object, null);
-            } catch(Exception e)
-            {
-                return (null, e);
-            }
-        }
-
+        public ApiOptionalResponse<T> GetOptional(int id)
+            => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
+        
         /// <inheritdoc />
         public T Get(string name, bool caseSensitive = false, ISearchFilter filter = null)
+            => GetOptional(name, caseSensitive, filter).RethrowExceptionIfAny().Value;
+
+        /// <inheritdoc />
+        public ApiOptionalResponse<T> GetOptional(string name, bool caseSensitive = false, ISearchFilter filter = null)
         {
             filter = filter ?? new SearchFilter();
             filter.Search = name;
             var comparer = caseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
-            return FindAll(filter).Where(i => comparer.Equals(i.Name, name)).FirstOrDefault();
-        }
-
-        /// <inheritdoc />
-        public (T Value, Exception Error) GetOrNull(string name, bool caseSensitive = false, ISearchFilter filter = null)
-        {
-            try
-            {
-                var @object = Get(name, caseSensitive, filter);
-                return (@object, null);
-            } catch(Exception e)
-            {
-                return (null, e);
-            }
+            var result = FindAllOptional(filter);
+            if(!result.HasValue)
+                return new ApiOptionalResponse<T> { Exception = result.Exception };
+            return new ApiOptionalResponse<T> { Value = result.Value.Where(i => comparer.Equals(i.Name, name)).FirstOrDefault() };
         }
         
         /// <inheritdoc />
@@ -93,29 +97,20 @@ namespace SnipeSharp.EndPoint
             => FindAll();
 
         /// <inheritdoc />
-        public (ResponseCollection<T> Value, Exception Error) GetAllOrNull()
-        {
-            try
-            {
-                var @object = GetAll();
-                return (@object, null);
-            } catch(Exception e)
-            {
-                return (null, e);
-            }
-        }
+        public ApiOptionalResponse<ResponseCollection<T>> GetAllOptional()
+            => FindAllOptional();
 
         /// <inheritdoc />
         public T Create(T toCreate)
-            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate, creating: true)).Payload;
+            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate, creating: true)).RethrowExceptionIfAny().Value.Payload;
 
         /// <inheritdoc />
         public RequestResponse<T> Delete(int id)
-            => Api.RequestManager.Delete<T>($"{EndPointInfo.BaseUri}/{id}");
+            => Api.RequestManager.Delete<T>($"{EndPointInfo.BaseUri}/{id}").RethrowExceptionIfAny().Value;
 
         /// <inheritdoc />
         public T Update(T toUpdate)
-            => Api.RequestManager.Patch($"{EndPointInfo.BaseUri}/{toUpdate.Id}", toUpdate).Payload;
+            => Api.RequestManager.Patch($"{EndPointInfo.BaseUri}/{toUpdate.Id}", toUpdate).RethrowExceptionIfAny().Value.Payload;
 
         /// <inheritdoc />
         public T this[int id]

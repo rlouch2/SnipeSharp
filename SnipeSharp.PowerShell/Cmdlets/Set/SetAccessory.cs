@@ -95,22 +95,42 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public Uri ImageUri { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Accessory item)
+        protected override bool PopulateItem(Accessory item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Object;
+            {
+                if(!GetSingleValue(Company, out var company))
+                    return false;
+                item.Company = company;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Object;
+            {
+                if(!GetSingleValue(Manufacturer, out var manufacturer))
+                    return false;
+                item.Manufacturer = manufacturer;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                item.Supplier = this.Supplier?.Object;
+            {
+                if(!GetSingleValue(Supplier, out var supplier))
+                    return false;
+                item.Supplier = supplier;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Object;
+            {
+                if(!GetSingleValue(Category, out var category))
+                    return false;
+                item.Category = category;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Object;
+            {
+                if(!GetSingleValue(Location, out var location))
+                    return false;
+                item.Location = location;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
                 item.Quantity = this.Quantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
@@ -123,6 +143,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.MinimumQuantity = this.MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
                 item.ImageUri = this.ImageUri;
+            return true;
         }
     }
 }

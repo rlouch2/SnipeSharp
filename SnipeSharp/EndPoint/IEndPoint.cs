@@ -47,8 +47,8 @@ namespace SnipeSharp.EndPoint
         /// Get an object of the generic type by Id.
         /// </summary>
         /// <param name="id">The Id of the object to fetch from the EndPoint.</param>
-        /// <returns>The object with the supplied Id (or null) in a tuple with an error thrown (which is null if there was no error).</returns>
-        (T Value, Exception Error) GetOrNull(int id);
+        /// <returns>An optional response representing either the object with the supplied Id, or any error thrown.</returns>
+        ApiOptionalResponse<T> GetOptional(int id);
 
         /// <summary>
         /// Get an object of the generic type by Name.
@@ -66,8 +66,8 @@ namespace SnipeSharp.EndPoint
         /// <param name="name">The name of the object to fetch from the EndPoint.</param>
         /// <param name="caseSensitive">If true, perform a case-sensitive match. Default false.</param>
         /// <param name="filter">A filter for specifying further options; the search string will be overridden.</param>
-        /// <returns>The object with the supplied name (or null) in a tuple with an error thrown (which is null if there was no error).</returns>
-        (T Value, Exception Error) GetOrNull(string name, bool caseSensitive = false, ISearchFilter filter = null);
+        /// <returns>An optional response representing either the object with the supplied name, or any error thrown.</returns>
+        ApiOptionalResponse<T> GetOptional(string name, bool caseSensitive = false, ISearchFilter filter = null);
 
         /// <summary>
         /// Finds all objects of the generic type matching the filter.
@@ -77,11 +77,25 @@ namespace SnipeSharp.EndPoint
         ResponseCollection<T> FindAll(ISearchFilter filter = null);
 
         /// <summary>
+        /// Finds all objects of the generic type matching the filter.
+        /// </summary>
+        /// <param name="filter">The filter to search by.</param>
+        /// <returns>An optional response representing either a collection of relevant objects, which may be empty, or any error thrown.</returns>
+        ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(ISearchFilter filter = null);
+
+        /// <summary>
         /// Finds all objects of the generic type matching the search string.
         /// </summary>
         /// <param name="search">The search string to filter by.</param>
         /// <returns>A collection of relevant objects, which may be empty.</returns>
         ResponseCollection<T> FindAll(string search);
+
+        /// <summary>
+        /// Finds all objects of the generic type matching the filter.
+        /// </summary>
+        /// <param name="search">The search string to filter by.</param>
+        /// <returns>An optional response representing either a collection of relevant objects, which may be empty, or any error thrown.</returns>
+        ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(string search);
 
         /// <summary>
         /// Gets all objects in the EndPoint.
@@ -93,8 +107,8 @@ namespace SnipeSharp.EndPoint
         /// <summary>
         /// Gets all objects in the EndPoint.
         /// </summary>
-        /// <returns>A collection of relevant objects (or null), which may be empty, in a tuple with an error thrown (which is null if there was no error).</returns>
-        (ResponseCollection<T> Value, Exception Error) GetAllOrNull();
+        /// <returns>An optional response representing a collection of relevant objects, which may be empty, or any error thrown.</returns>
+        ApiOptionalResponse<ResponseCollection<T>> GetAllOptional();
 
         /// <summary>
         /// Finds the first object of the generic type matching the filter.
@@ -104,11 +118,25 @@ namespace SnipeSharp.EndPoint
         T FindOne(ISearchFilter filter);
 
         /// <summary>
+        /// Finds the first object of the generic type matching the filter.
+        /// </summary>
+        /// <param name="filter">The filter to search by. The limit will be forced to 1.</param>
+        /// <returns>An optional response representing the relevant object (null if no object was found matching the filter), or any error thrown.</returns>
+        ApiOptionalResponse<T> FindOneOptional(ISearchFilter filter);
+
+        /// <summary>
         /// Finds the first object of the generic type matching the search string.
         /// </summary>
         /// <param name="search">The search string to filter by.</param>
         /// <returns>The relevant object, or null if no object was found matching the filter.</returns>
         T FindOne(string search);
+
+        /// <summary>
+        /// Finds the first object of the generic type matching the filter.
+        /// </summary>
+        /// <param name="search">The search string to filter by.</param>
+        /// <returns>An optional response representing the relevant object (null if no object was found matching the filter), or any error thrown.</returns>
+        ApiOptionalResponse<T> FindOneOptional(string search);
 
         /// <value>Gets an object by Id.</value>
         /// <seealso cref="Get(int)" />

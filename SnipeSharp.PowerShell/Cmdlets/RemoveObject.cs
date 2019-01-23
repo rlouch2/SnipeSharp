@@ -9,9 +9,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <summary>
     /// Base class for most Remove* Cmdlets, as they are fairly identical.
     /// </summary>
-    /// <typeparam name="T">The type of object this cmdlet gets.</typeparam>
-    /// <typeparam name="IdType">The type of the Identity property.</typeparam>
-    public abstract class RemoveObject<T, IdType>: PSCmdlet where T: CommonEndPointModel where IdType: ObjectBinding<T>
+    /// <typeparam name="TObject">The type of object this cmdlet gets.</typeparam>
+    /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
+    public abstract class RemoveObject<TObject, TBinding>: BaseCmdlet
+        where TObject: CommonEndPointModel
+        where TBinding: ObjectBinding<TObject>
     {
         /// <summary>
         /// Parameter sets supported by Remove* cmdlets.
@@ -40,7 +42,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true
         )]
-        public IdType[] Identity { get; set; }
+        public TBinding[] Identity { get; set; }
 
         /// <summary>If present, write the response from the Api to the pipeline.</summary>
         [Parameter]
@@ -53,58 +55,58 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var name in Name)
                 {
-                    var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(name);
-                    if(item is null)
+                    var getResponse = ApiHelper.Instance.GetEndPoint<TObject>().GetOptional(name);
+                    if(null != getResponse.Exception)
                     {
-                        WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
+                        WriteError(new ErrorRecord(getResponse.Exception, $"{typeof(TObject).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
                     } else if(ShouldProcess(name))
                     {
-                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Id);
+                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(getResponse.Value.Id);
                         if(ShowResponse.IsPresent)
-                            WriteObject(response);
+                            WriteObject(deleteResponse);
                     }
                 }
             } else if(ParameterSetName == nameof(ParameterSets.ByInternalId))
             {
                 foreach(var id in InternalId)
                 {
-                    var (item, error) = ApiHelper.Instance.GetEndPoint<T>().GetOrNull(id);
-                    if(item is null)
+                    var getResponse = ApiHelper.Instance.GetEndPoint<TObject>().GetOptional(id);
+                    if(null != getResponse.Exception)
                     {
-                        WriteError(new ErrorRecord(error, $"{typeof(T).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
+                        WriteError(new ErrorRecord(getResponse.Exception, $"{typeof(TObject).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
                     } else if(ShouldProcess(id.ToString()))
                     {
-                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Id);
+                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(getResponse.Value.Id);
                         if(ShowResponse.IsPresent)
-                            WriteObject(response);
+                            WriteObject(deleteResponse);
                     }
                 }
             } else if(ParameterSetName == nameof(ParameterSets.ByIdentity))
             {
                 foreach(var item in Identity)
                 {
-                    if(item.IsNull)
+                    if(!ValidateHasExactlyOneValue(item, queryType: "identity"))
                     {
-                        WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
-                    } else if(ShouldProcess(item.Object.Name))
+                        return;
+                    } else if(ShouldProcess(item.Value[0].Name))
                     {
-                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Object.Id);
+                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(item.Value[0].Id);
                         if(ShowResponse.IsPresent)
-                            WriteObject(response);
+                            WriteObject(deleteResponse);
                     }
                 }
             } else
             {
                 foreach(var item in GetBoundObjects())
                 {
-                    if(item.IsNull)
+                    if(!ValidateHasExactlyOneValue(item, queryType: "identity"))
                     {
-                        WriteError(new ErrorRecord(item.Error, $"{typeof(T).Name} not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
-                    } else if(ShouldProcess(item.Object.Name))
+                        return;
+                    } else if(ShouldProcess(item.Value[0].Name))
                     {
-                        var response = ApiHelper.Instance.GetEndPoint<T>().Delete(item.Object.Id);
+                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(item.Value[0].Id);
                         if(ShowResponse.IsPresent)
-                            WriteObject(response);
+                            WriteObject(deleteResponse);
                     }
                 }
             }
@@ -113,7 +115,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>
         /// Get the list of object bindings to process if no default parameter set matches.
         /// </summary>
-        protected virtual IEnumerable<IdType> GetBoundObjects()
-            => Enumerable.Empty<IdType>();
+        protected virtual IEnumerable<TBinding> GetBoundObjects()
+            => Enumerable.Empty<TBinding>();
     }
 }

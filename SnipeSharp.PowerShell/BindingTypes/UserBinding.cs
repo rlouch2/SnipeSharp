@@ -47,15 +47,15 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <summary>
         /// For use with the internal From* functions.
         /// </summary>
-        internal UserBinding(string query, (User, Exception) item): base(query, item)
+        internal UserBinding(string query, ApiOptionalResponse<User> apiOptionalResponse): base(query, apiOptionalResponse)
         {
         }
 
-                /// <inheritdoc />
-        protected override (User, Exception) ResolveBinding(ISearchFilter filter = null)
+        /// <inheritdoc />
+        internal override void Resolve(ISearchFilter filter = null)
         {
             var endPoint = ApiHelper.Instance.GetEndPoint<User>();
-            (User Object, Exception Error) result;
+            ApiOptionalResponse<User> result;
             var userFilter = filter as UserSearchFilter;
 
             switch(QueryUnion.BindingType)
@@ -66,19 +66,19 @@ namespace SnipeSharp.PowerShell.BindingTypes
                     if(type is null)
                     {
                         // username -> email -> name -> id
-                        result = endPoint.GetByUserNameOrNull(value, userFilter);
-                        if(null != result.Object)
-                            return result;
-                        result = endPoint.GetByEmailAddressOrNull(value, userFilter);
-                        if(null != result.Object)
-                            return result;
-                        result = endPoint.GetOrNull(value, QueryUnion.CaseSensitive);
-                        if(null != result.Object)
-                            return result;
+                        result = endPoint.GetByUserNameOptional(value, userFilter);
+                        if(result.HasValue)
+                            break;
+                        result = endPoint.GetByEmailAddressOptional(value, userFilter);
+                        if(result.HasValue)
+                            break;
+                        result = endPoint.GetOptional(value, QueryUnion.CaseSensitive);
+                        if(result.HasValue)
+                            break;
                         else if(int.TryParse(value, out var id))
-                            return endPoint.GetOrNull(id);
+                            result = endPoint.GetOptional(id);
                         else
-                            return (null, new ArgumentException($"Cannot find an object for query: {value}", "query"));
+                            result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
                     } else
                     {
                         switch(type)
@@ -88,71 +88,67 @@ namespace SnipeSharp.PowerShell.BindingTypes
                                 goto case "iname";
                             case "name":
                             case "iname":
-                                result = endPoint.GetOrNull(value, QueryUnion.CaseSensitive, filter);
+                                result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
                                 break;
                             case "id":
                                 if(int.TryParse(value, out var id))
-                                    result = endPoint.GetOrNull(id);
+                                    result = endPoint.GetOptional(id);
                                 else
-                                    return (null, new ArgumentException($"Id is not an integer: {value}", "query"));
+                                    result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
                                 break;
                             case "username":
                             case "uname":
-                                result = endPoint.GetByUserNameOrNull(value, userFilter);
+                                result = endPoint.GetByUserNameOptional(value, userFilter);
                                 break;
                             case "email":
-                                result = endPoint.GetByEmailAddressOrNull(value, userFilter);
+                                result = endPoint.GetByEmailAddressOptional(value, userFilter);
                                 break;
                             case "search":
                                 try
                                 {
-                                    result = (endPoint.FindOne(value), null);
+                                    result = endPoint.FindOneOptional(value);
                                 } catch(Exception e)
                                 {
-                                    return (null, e);
+                                    result = new ApiOptionalResponse<User> { Exception = e };
                                 }
                                 break;
                             default:
-                                return (null, new ArgumentException($"Query does not have a proper type: {type}", "query"));
+                                result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Query does not have a proper type: {type}", "query") };
+                                break;
                         }
-                        if(result.Object is null)
+                        if(result.Value is null)
+                        {
                             try
                             {
-                                return (endPoint.FindOne(value), null);
+                                result = endPoint.FindOneOptional(value);
                             } catch(Exception e)
                             {
-                                return (null, e);
+                                result = new ApiOptionalResponse<User> { Exception = e };
                             }
-                        else
-                            return result;
+                        }
                     }
+                    break;
                 case BindingQueryUnion.Type.Integer:
-                    return endPoint.GetOrNull(QueryUnion.IntegerValue);
+                    result = endPoint.GetOptional(QueryUnion.IntegerValue);
+                    break;
                 default:
-                    return (null, new InvalidOperationException("Cannot resolve an invalid binding."));
+                    result = new ApiOptionalResponse<User> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
+                    break;
             }
+            
+            Value = new User[] { result.Value };
+            Error = result.Exception;
         }
 
         internal static UserBinding FromUserName(string username, UserSearchFilter filter = null)
-            => new UserBinding(username, ApiHelper.Instance.Users.GetByUserNameOrNull(username, filter));
-        internal new static UserBinding FromId(int id)
-            => new UserBinding(id);
-        internal new static UserBinding FromName(string name)
-            => new UserBinding(name, ApiHelper.Instance.Users.GetOrNull(name));
+            => new UserBinding(username, ApiHelper.Instance.Users.GetByUserNameOptional(username, filter));
         internal static UserBinding FromEmailAddress(string email, UserSearchFilter filter = null)
-            => new UserBinding(email, ApiHelper.Instance.Users.GetByEmailAddressOrNull(email, filter));
+            => new UserBinding(email, ApiHelper.Instance.Users.GetByEmailAddressOptional(email, filter));
         
         internal static UserBinding Me()
         {
-            User me;
-            try
-            {
-                me = ApiHelper.Instance.Users.Me();
-                return new UserBinding(me.UserName, (me, null));
-            } catch (Exception e)
-            {
-                return new UserBinding(string.Empty, (null, e));
-            }
+            var me = ApiHelper.Instance.Users.MeOptional();
+            return new UserBinding(me.HasValue ? me.Value.UserName : string.Empty, me);
         }
     }
 }
