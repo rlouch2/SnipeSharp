@@ -17,7 +17,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Asset))]
     [OutputType(typeof(Asset))]
-    public class NewAsset: PSCmdlet
+    public class NewAsset: BaseCmdlet
     {
         /// <summary>
         /// The asset tag of the Asset.
@@ -134,14 +134,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
             var item = new Asset {
                 AssetTag = this.AssetTag,
                 Name = this.Name,
-                Company = this.Company?.Object,
-                Location = this.Location?.Object,
-                Model = this.Model?.Object,
                 Notes = this.Notes,
                 OrderNumber = this.OrderNumber,
-                DefaultLocation = this.DefaultLocation?.Object,
-                Serial = this.Serial,
-                Status = this.Status?.Object?.ToAssetStatus()
+                Serial = this.Serial
             };
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
                 item.PurchaseDate = PurchaseDate;
@@ -149,6 +144,36 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseCost = PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(WarrantyMonths)))
                 item.WarrantyMonths = WarrantyMonths;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+            {
+                if(!GetSingleValue(Company, out var company))
+                    return;
+                item.Company = company;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
+            {
+                if(!GetSingleValue(Location, out var location))
+                    return;
+                item.Location = location;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
+            {
+                if(!GetSingleValue(Model, out var model, required: true))
+                    return;
+                item.Model = model;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(DefaultLocation)))
+            {
+                if(!GetSingleValue(DefaultLocation, out var defaultLocation))
+                    return;
+                item.DefaultLocation = defaultLocation;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Status)))
+            {
+                if(!GetSingleValue(Status, out var status, required: true))
+                    return;
+                item.Status = status.ToAssetStatus();
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && !(CustomFields is null))
                 foreach(var pair in CustomFields)
                     item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };

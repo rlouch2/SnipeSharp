@@ -21,9 +21,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
     public class FindAsset: FindObject<Asset, AssetSearchColumn, AssetSearchFilter>
     {
         /// <inheritdoc />
-        protected override void PopulateFilter(AssetSearchFilter filter)
+        protected override bool PopulateFilter(AssetSearchFilter filter)
         {
-            //nop
+            return true;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(License))]
     [OutputType(typeof(License))]
-    public class NewLicense: PSCmdlet
+    public class NewLicense: BaseCmdlet
     {
         /// <summary>
         /// The name of the license.
@@ -128,17 +128,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             var item = new License {
                 Name = this.Name,
-                Company = this.Company?.Object,
-                Depreciation = this.Depreciation?.Object,
-                Manufacturer = this.Manufacturer?.Object,
                 ProductKey = this.ProductKey,
                 OrderNumber = this.OrderNumber,
                 PurchaseOrder = this.PurchaseOrder,
                 Notes = this.Notes,
                 TotalSeats = this.Seats,
                 LicensedToEmailAddress = this.LicensedToEmailAddress,
-                LicensedToName = this.LicensedToName,
-                Supplier = this.Supplier?.Object
+                LicensedToName = this.LicensedToName
             };
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
                 item.PurchaseDate = this.PurchaseDate;
@@ -148,6 +144,36 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.IsMaintained = this.IsMaintained;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(IsReassignable)))
                 item.IsReassignable = this.IsReassignable;
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+            {
+                if (!GetSingleValue(Category, out var category, required: true))
+                    return;
+                item.Category = category;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return;
+                item.Company = company;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
+            {
+                if (!GetSingleValue(Depreciation, out var depreciation))
+                    return;
+                item.Depreciation = depreciation;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
+            {
+                if (!GetSingleValue(Manufacturer, out var manufacturer))
+                    return;
+                item.Manufacturer = manufacturer;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
+            {
+                if (!GetSingleValue(Supplier, out var supplier))
+                    return;
+                item.Supplier = supplier;
+            }
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Licenses.Create(item));
         }

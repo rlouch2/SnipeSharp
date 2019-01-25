@@ -98,20 +98,36 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public bool IsRequestable { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Consumable item)
+        protected override bool PopulateItem(Consumable item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Value[0];
+            {
+                if(!GetSingleValue(Category, out var category))
+                    return false;
+                item.Category = category;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Value[0];
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return false;
+                item.Company = company;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ItemNumber)))
                 item.ItemNumber = this.ItemNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Value[0];
+            {
+                if (!GetSingleValue(Location, out var location))
+                    return false;
+                item.Location = location;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Value[0];
+            {
+                if (!GetSingleValue(Manufacturer, out var manufacturer))
+                    return false;
+                item.Manufacturer = manufacturer;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Quantity)))
                 item.Quantity = this.Quantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))
@@ -126,6 +142,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseDate = this.PurchaseDate;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(IsRequestable)))
                 item.IsRequestable = this.IsRequestable;
+            return true;
         }
     }
 }

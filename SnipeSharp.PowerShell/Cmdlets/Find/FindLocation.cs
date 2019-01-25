@@ -20,9 +20,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
     public class FindLocation: FindObject<Location, string, SearchFilter>
     {
         /// <inheritdoc />
-        protected override void PopulateFilter(SearchFilter filter)
+        protected override bool PopulateFilter(SearchFilter filter)
         {
-            // nop
+            return true;
         }
     }
 }

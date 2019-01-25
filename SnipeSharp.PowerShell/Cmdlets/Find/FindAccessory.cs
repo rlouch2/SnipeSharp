@@ -44,16 +44,33 @@ namespace SnipeSharp.PowerShell.Cmdlets
 
 
         /// <inheritdoc />
-        protected override void PopulateFilter(AccessorySearchFilter filter)
+        protected override bool PopulateFilter(AccessorySearchFilter filter)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                filter.Company = Company?.Value[0];
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return false;
+                filter.Company = company;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                filter.Category = Category?.Value[0];
+            {
+                if (!GetSingleValue(Category, out var category))
+                    return false;
+                filter.Category = category;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                filter.Manufacturer = Manufacturer?.Value[0];
+            {
+                if (!GetSingleValue(Manufacturer, out var manufacturer))
+                    return false;
+                filter.Manufacturer = manufacturer;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                filter.Supplier = Supplier?.Value[0];
+            {
+                if (!GetSingleValue(Supplier, out var supplier))
+                    return false;
+                filter.Supplier = supplier;
+            }
+            return true;
         }
     }
 }

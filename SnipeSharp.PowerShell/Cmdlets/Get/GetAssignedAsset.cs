@@ -17,7 +17,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     ///   <para>Retrieve the assets assigned to the user User1234 or the user User5678.</para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "AssignedAsset", DefaultParameterSetName = nameof(ParameterSets.ByUser))]
-    public sealed class GetAssignedAsset: PSCmdlet
+    public sealed class GetAssignedAsset: BaseCmdlet
     {
         /// <summary>
         /// Parameter sets this cmdlet supports
@@ -62,13 +62,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var item in User)
                 {
-                    if(item.IsNull)
-                    {
-                        WriteError(new ErrorRecord(item.Error, $"User not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
-                    } else
-                    {
-                        WriteObject(ApiHelper.Instance.Users.GetAssignedAssets(item.Object), !NoEnumerate.IsPresent);
-                    }
+                    if (GetSingleValue(item, out var itemValue))
+                        WriteObject(ApiHelper.Instance.Users.GetAssignedAssets(itemValue), !NoEnumerate.IsPresent);
                 }
             }
             /*

@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Department))]
     [OutputType(typeof(Department))]
-    public class NewDepartment: PSCmdlet
+    public class NewDepartment: BaseCmdlet
     {
         /// <summary>
         /// The name of the department.
@@ -52,11 +52,26 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             var item = new Department {
                 Name = this.Name,
-                ImageUri = this.ImageUri,
-                Company = this.Company?.Object,
-                Manager = this.Manager?.Object,
-                Location = this.Location?.Object
+                ImageUri = this.ImageUri
             };
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return;
+                item.Company = company;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
+            {
+                if (!GetSingleValue(Manager, out var manager))
+                    return;
+                item.Manager = manager;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
+            {
+                if (!GetSingleValue(Location, out var location))
+                    return;
+                item.Location = location;
+            }
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Departments.Create(item));
         }

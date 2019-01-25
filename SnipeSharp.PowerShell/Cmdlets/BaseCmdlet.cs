@@ -89,6 +89,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
             where R : CommonEndPointModel
         {
             value = null;
+            if (null == binding)
+            {
+                if(!required) // let us return null if a value wasn't required and we don't have a binding.
+                    return true;
+                WriteApiError(new ArgumentNullException(paramName: nameof(binding)));
+                return false;
+            }
             if(null != binding.Error)
             {
                 WriteApiError(binding.Error, target: binding.Query.ToString());

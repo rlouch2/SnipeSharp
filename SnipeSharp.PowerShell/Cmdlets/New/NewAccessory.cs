@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Accessory))]
     [OutputType(typeof(Accessory))]
-    public class NewAccessory: PSCmdlet
+    public class NewAccessory: BaseCmdlet
     {
         /// <summary>
         /// The name of the accessory.
@@ -99,15 +99,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
+            
             var item = new Accessory {
                 Name = this.Name,
                 Quantity = this.Quantity,
-                Manufacturer = this.Manufacturer?.Object,
-                Category = this.Category?.Object,
-                Company = this.Company?.Object,
-                Supplier = this.Supplier?.Object,
                 ModelNumber = this.ModelNumber,
-                Location = this.Location?.Object,
                 PurchaseCost = this.PurchaseCost,
                 OrderNumber = this.OrderNumber,
                 ImageUri = this.ImageUri
@@ -118,6 +114,36 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseCost = PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(MinimumQuantity)))
                 item.MinimumQuantity = MinimumQuantity;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
+            {
+                if (!GetSingleValue(Manufacturer, out var manufacturer, required: true))
+                    return;
+                item.Manufacturer = manufacturer;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+            {
+                if (!GetSingleValue(Category, out var category, required: true))
+                    return;
+                item.Category = category;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return;
+                item.Company = company;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
+            {
+                if (!GetSingleValue(Supplier, out var supplier))
+                    return;
+                item.Supplier = supplier;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
+            {
+                if (!GetSingleValue(Location, out var location))
+                    return;
+                item.Location = location;
+            }
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Accessories.Create(item));
         }

@@ -36,7 +36,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Notes { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(StatusLabel item)
+        protected override bool PopulateItem(StatusLabel item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
@@ -44,8 +44,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Type = this.Type;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = this.Notes;
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.StatusLabels.Update(item));
+            return true;
         }
     }
 }

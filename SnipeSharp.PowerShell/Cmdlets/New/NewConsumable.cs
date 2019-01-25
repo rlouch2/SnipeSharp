@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Consumable))]
     [OutputType(typeof(Consumable))]
-    public class NewConsumable: PSCmdlet
+    public class NewConsumable: BaseCmdlet
     {
         /// <summary>
         /// The name of the consumable.
@@ -102,12 +102,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             var item = new Consumable {
                 Name = this.Name,
-                Category = this.Category?.Object,
                 Quantity = this.Quantity,
-                Company = this.Company?.Object,
                 ItemNumber = this.ItemNumber,
-                Location = this.Location?.Object,
-                Manufacturer = this.Manufacturer?.Object,
                 ModelNumber = this.ModelNumber,
                 OrderNumber = this.OrderNumber
             };
@@ -119,6 +115,30 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseDate = this.PurchaseDate;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(IsRequestable)))
                 item.IsRequestable = this.IsRequestable;
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+            {
+                if (!GetSingleValue(Category, out var category))
+                    return;
+                item.Category = category;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return;
+                item.Company = company;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
+            {
+                if (!GetSingleValue(Location, out var location))
+                    return;
+                item.Location = location;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
+            {
+                if (!GetSingleValue(Manufacturer, out var manufacturer))
+                    return;
+                item.Manufacturer = manufacturer;
+            }
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Consumables.Create(item));
         }

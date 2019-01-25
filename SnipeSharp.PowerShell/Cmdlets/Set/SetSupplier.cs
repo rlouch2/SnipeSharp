@@ -96,7 +96,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Notes { get; set; }
         
         /// <inheritdoc />
-        protected override void PopulateItem(Supplier item)
+        protected override bool PopulateItem(Supplier item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
@@ -124,6 +124,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Contact = this.Contact;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = this.Notes;
+            return true;
         }
     }
 }

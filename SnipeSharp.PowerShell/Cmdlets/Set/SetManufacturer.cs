@@ -54,7 +54,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string SupportEmailAddress { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Manufacturer item)
+        protected override bool PopulateItem(Manufacturer item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
@@ -68,6 +68,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.SupportPhoneNumber = this.SupportPhoneNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(SupportEmailAddress)))
                 item.SupportEmailAddress = this.SupportEmailAddress;
+            return true;
         }
     }
 }

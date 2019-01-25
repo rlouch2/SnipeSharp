@@ -38,40 +38,24 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 case nameof(ParameterSets.ByIdentity):
                     break;
             }
-            if(!Identity.HasValue)
-            {
-                WriteError(new ErrorRecord(Identity.Error, $"{nameof(FieldSet)} not found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
+            if(!GetSingleValue(Identity, out var identity))
                 return;
-            }
-            if(Identity.Value.Count > 1)
-            {
-                WriteError(new ErrorRecord(Identity.Error, $"More than one {nameof(FieldSet)} was found: {Identity.Query}", ErrorCategory.InvalidArgument, null));
-                return;
-            }
 
             var orderedFields = new List<CustomField>();
             foreach(var field in Order)
             {
-                if(!field.HasValue)
-                {
-                    WriteError(new ErrorRecord(field.Error, $"{nameof(CustomField)} was not found: {field.Query}", ErrorCategory.InvalidArgument, null));
+                if (!GetSingleValue(field, out var fieldItem, required: true))
                     return;
-                }
-                if(field.Value.Count > 1)
-                {
-                    WriteError(new ErrorRecord(field.Error, $"More than one {nameof(CustomField)} was found: {field.Query}", ErrorCategory.InvalidArgument, null));
-                    return;
-                }
-                orderedFields.Add(field.Value[0]);
+                orderedFields.Add(fieldItem);
             }
 
-            WriteObject(ApiHelper.Instance.GetEndPoint<CustomField>().Reorder(Identity.Object, orderedFields));
+            WriteObject(ApiHelper.Instance.GetEndPoint<CustomField>().Reorder(identity, orderedFields));
         }
         
         /// <inheritdoc />
-        protected override void PopulateItem(FieldSet item)
+        protected override bool PopulateItem(FieldSet item)
         {
-            // nop, not called
+            return false;
         }
     }
 }

@@ -72,26 +72,43 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string Notes { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Model item)
+        protected override bool PopulateItem(Model item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Object;
+            {
+                if(!GetSingleValue(Manufacturer, out var manufacturer))
+                    return false;
+                item.Manufacturer = manufacturer;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
                 item.ImageUri = this.ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ModelNumber)))
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
-                item.Depreciation = this.Depreciation?.Object;
+            {
+                if(!GetSingleValue(Depreciation, out var depreciation))
+                    return false;
+                item.Depreciation = depreciation;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
-                item.Category = this.Category?.Object;
+            {
+                if(!GetSingleValue(Category, out var category))
+                    return false;
+                item.Category = category;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(FieldSet)))
-                item.FieldSet = this.FieldSet?.Object;
+            {
+                if(!GetSingleValue(FieldSet, out var fieldset))
+                    return false;
+                item.FieldSet = fieldset;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(EndOfLife)))
                 item.EndOfLife = this.EndOfLife;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Notes)))
                 item.Notes = this.Notes;
+            return true;
         }
     }
 }

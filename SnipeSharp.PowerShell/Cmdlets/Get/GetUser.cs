@@ -91,10 +91,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         }
 
         /// <inheritdoc />
-        protected override void PopulateFilter(UserSearchFilter filter)
+        protected override bool PopulateFilter(UserSearchFilter filter)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Deleted)))
                 filter.Deleted = Deleted;
+            return true;
         }
     }
 }

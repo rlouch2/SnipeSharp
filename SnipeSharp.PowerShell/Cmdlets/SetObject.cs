@@ -74,10 +74,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     }
                     break;
             }
-            if(!ValidateHasExactlyOneValue(Object))
+            if(!GetSingleValue(Object, out var value))
                 return;
-            
-            var value = Object.Value[0];
             
             if(!PopulateItem(value))
                 return;

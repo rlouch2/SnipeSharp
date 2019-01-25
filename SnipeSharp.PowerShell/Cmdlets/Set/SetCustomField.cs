@@ -121,7 +121,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string HelpText { get; set; } = string.Empty;
 
         /// <inheritdoc />
-        protected override void PopulateItem(CustomField item)
+        protected override bool PopulateItem(CustomField item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
@@ -137,6 +137,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.HelpText = this.HelpText ?? string.Empty;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ShowInCheckOutEmail)))
                 item.ShowInCheckOutEmail = this.ShowInCheckOutEmail;
+            return true;
         }
     }
 }

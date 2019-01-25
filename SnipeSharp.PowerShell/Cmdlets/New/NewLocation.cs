@@ -13,7 +13,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Location))]
     [OutputType(typeof(Location))]
-    public class NewLocation: PSCmdlet
+    public class NewLocation: BaseCmdlet
     {
         /// <summary>
         /// The name of the location.
@@ -87,10 +87,20 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 State = this.State,
                 Country = this.Country,
                 ZipCode = this.ZipCode,
-                Currency = this.Currency,
-                ParentLocation = this.ParentLocation?.Object,
-                Manager = this.Manager?.Object
+                Currency = this.Currency
             };
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(ParentLocation)))
+            {
+                if (!GetSingleValue(ParentLocation, out var parentLocation))
+                    return;
+                item.ParentLocation = parentLocation;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
+            {
+                if (!GetSingleValue(Manager, out var manager))
+                    return;
+                item.Manager = manager;
+            }
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Locations.Create(item));
         }

@@ -45,18 +45,35 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<Department> Department { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateFilter(UserSearchFilter filter)
+        protected override bool PopulateFilter(UserSearchFilter filter)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                filter.Company = Company?.Object;
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return false;
+                filter.Company = company;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                filter.Location = Location?.Object;
+            {
+                if (!GetSingleValue(Location, out var location))
+                    return false;
+                filter.Location = location;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Group)))
-                filter.Group = Group?.Object;
+            {
+                if (!GetSingleValue(Group, out var group))
+                    return false;
+                filter.Group = group;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Department)))
-                filter.Department = Department?.Object;
+            {
+                if (!GetSingleValue(Department, out var department))
+                    return false;
+                filter.Department = department;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Deleted)))
                 filter.Deleted = Deleted;
+            return true;
         }
     }
 }

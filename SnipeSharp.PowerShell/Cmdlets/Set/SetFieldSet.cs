@@ -158,10 +158,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         }
         
         /// <inheritdoc />
-        protected override void PopulateItem(FieldSet item)
+        protected override bool PopulateItem(FieldSet item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = NewName;
+            return true;
         }
     }
 }

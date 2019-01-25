@@ -24,10 +24,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public bool Deleted { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateFilter(ManufacturerSearchFilter filter)
+        protected override bool PopulateFilter(ManufacturerSearchFilter filter)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Deleted)))
                 filter.Deleted = Deleted;
+            return true;
         }
     }
 }

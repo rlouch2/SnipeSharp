@@ -15,7 +15,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Component))]
     [OutputType(typeof(Component))]
-    public class NewComponent: PSCmdlet
+    public class NewComponent: BaseCmdlet
     {
         /// <summary>
         /// The name of the component.
@@ -85,10 +85,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             var item = new Component {
                 Name = this.Name,
-                Category = this.Category?.Object,
                 Quantity = this.Quantity,
-                Company = this.Company?.Object,
-                Location = this.Location?.Object,
                 OrderNumber = this.OrderNumber,
                 Serial = this.Serial
             };
@@ -98,6 +95,24 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseCost = this.PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
                 item.PurchaseDate = this.PurchaseDate;
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+            {
+                if(!GetSingleValue(Category, out var category, required: true))
+                    return;
+                item.Category = category;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
+            {
+                if(!GetSingleValue(Company, out var company, required: true))
+                    return;
+                item.Company = company;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+            {
+                if(!GetSingleValue(Location, out var location))
+                    return;
+                item.Location = location;
+            }
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Components.Create(item));
         }

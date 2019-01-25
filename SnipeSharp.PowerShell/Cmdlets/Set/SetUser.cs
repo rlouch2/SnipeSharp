@@ -143,7 +143,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<Company> Company { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(User item)
+        protected override bool PopulateItem(User item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(AvatarUrl)))
                 item.AvatarUrl = this.AvatarUrl;
@@ -158,7 +158,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(EmployeeNumber)))
                 item.EmployeeNumber = this.EmployeeNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager?.Object;
+            {
+                if (!GetSingleValue(Manager, out var manager))
+                    return false;
+                item.Manager = manager;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(JobTitle)))
                 item.JobTitle = this.JobTitle;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PhoneNumber)))
@@ -176,11 +180,24 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(EmailAddress)))
                 item.EmailAddress = this.EmailAddress;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Department)))
-                item.Department = this.Department?.Object;
+            {
+                if (!GetSingleValue(Department, out var department))
+                    return false;
+                item.Department = department;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Object;
+            {
+                if (!GetSingleValue(Location, out var location))
+                    return false;
+                item.Location = location;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Object;
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return false;
+                item.Company = company;
+            }
+            return false;
         }
 
         /// <inheritdoc />

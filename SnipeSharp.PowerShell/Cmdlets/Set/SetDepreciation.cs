@@ -29,12 +29,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public int Months { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Depreciation item)
+        protected override bool PopulateItem(Depreciation item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Months)))
                 item.Months = this.Months;
+            return true;
         }
     }
 }

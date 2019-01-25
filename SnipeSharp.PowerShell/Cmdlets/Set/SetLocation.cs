@@ -83,7 +83,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public UserBinding Manager { get; set; }
         
         /// <inheritdoc />
-        protected override void PopulateItem(Location item)
+        protected override bool PopulateItem(Location item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
@@ -102,11 +102,18 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Currency)))
                 item.Currency = this.Currency;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ParentLocation)))
-                item.ParentLocation = this.ParentLocation?.Object;
+            {
+                if (!GetSingleValue(ParentLocation, out var parentLocation))
+                    return false;
+                item.ParentLocation = parentLocation;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager?.Object;
-            //TODO: error handling
-            WriteObject(ApiHelper.Instance.Locations.Update(item));
+            {
+                if (!GetSingleValue(Manager, out var manager))
+                    return false;
+                item.Manager = manager;
+            }
+            return true;
         }
     }
 }

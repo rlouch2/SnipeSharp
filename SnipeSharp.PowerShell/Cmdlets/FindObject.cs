@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TObject">Type of object to find.</typeparam>
     /// <typeparam name="TColumn">Sort column type.</typeparam>
     /// <typeparam name="TFilter">Search filter type.</typeparam>
-    public abstract class FindObject<TObject, TColumn, TFilter>: PSCmdlet
+    public abstract class FindObject<TObject, TColumn, TFilter>: BaseCmdlet
         where TObject: CommonEndPointModel
         where TFilter: class, ISortableSearchFilter<TColumn>, new()
     {

@@ -47,18 +47,31 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<Location> Location { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(Department item)
+        protected override bool PopulateItem(Department item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
                 item.ImageUri = this.ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Value[0];
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return false;
+                item.Company = company;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
-                item.Manager = this.Manager?.Value[0];
+            {
+                if (!GetSingleValue(Manager, out var manager))
+                    return false;
+                item.Manager = manager;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
-                item.Location = this.Location?.Value[0];
+            {
+                if (!GetSingleValue(Location, out var location))
+                    return false;
+                item.Location = location;
+            }
+            return true;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, "Model")]
     [OutputType(typeof(Model))]
-    public class NewModel: PSCmdlet
+    public class NewModel: BaseCmdlet
     {
         /// <summary>
         /// The name of the model.
@@ -77,16 +77,36 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             var item = new Model {
                 Name = this.Name,
-                Manufacturer = this.Manufacturer?.Object,
                 ImageUri = this.ImageUri,
                 ModelNumber = this.ModelNumber,
-                Depreciation = this.Depreciation?.Object,
-                Category = this.Category?.Object,
-                FieldSet = this.FieldSet?.Object,
                 Notes = this.Notes
             };
             if(MyInvocation.BoundParameters.ContainsKey(nameof(EndOfLife)))
                 item.EndOfLife = this.EndOfLife;
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
+            {
+                if (!GetSingleValue(Manufacturer, out var manufacturer, required: true))
+                    return;
+                item.Manufacturer = manufacturer;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
+            {
+                if (!GetSingleValue(Depreciation, out var depreciation))
+                    return;
+                item.Depreciation = depreciation;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
+            {
+                if (!GetSingleValue(Category, out var category, required: true))
+                    return;
+                item.Category = category;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(FieldSet)))
+            {
+                if (!GetSingleValue(FieldSet, out var fieldSet))
+                    return;
+                item.FieldSet = fieldSet;
+            }
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Models.Create(item));
         }

@@ -123,16 +123,28 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<Supplier> Supplier { get; set; }
 
         /// <inheritdoc />
-        protected override void PopulateItem(License item)
+        protected override bool PopulateItem(License item)
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewName)))
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
-                item.Company = this.Company?.Object;
+            {
+                if (!GetSingleValue(Company, out var company))
+                    return false;
+                item.Company = company;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
-                item.Depreciation = this.Depreciation?.Object;
+            {
+                if (!GetSingleValue(Depreciation, out var depreciation))
+                    return false;
+                item.Depreciation = depreciation;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
-                item.Manufacturer = this.Manufacturer?.Object;
+            {
+                if (!GetSingleValue(Manufacturer, out var manufacturer))
+                    return false;
+                item.Manufacturer = manufacturer;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ProductKey)))
                 item.ProductKey = this.ProductKey;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
@@ -156,9 +168,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(IsMaintained)))
                 item.IsMaintained = this.IsMaintained;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
-                item.Supplier = this.Supplier?.Object;
+            {
+                if (!GetSingleValue(Supplier, out var supplier))
+                    return false;
+                item.Supplier = supplier;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(IsReassignable)))
                 item.IsReassignable = this.IsReassignable;
+            return true;
         }
     }
 }
