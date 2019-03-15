@@ -19,7 +19,7 @@ Get-SnipeFieldSet [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeFieldSet [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeFieldSet -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
@@ -86,7 +86,7 @@ Parameter Sets: ByInternalId
 Aliases:
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False

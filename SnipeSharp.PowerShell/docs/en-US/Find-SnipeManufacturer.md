@@ -39,6 +39,21 @@ Finds manufacturers that match the search string "Potato Peelers United".
 
 ## PARAMETERS
 
+### -Deleted
+Find deleted manufacturers, or non-deleted manufacturers?
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -First
 Gets only the first 'n' objects.
 
@@ -122,6 +137,7 @@ On which column to sort the data.
 Type: ManufacturerSearchColumn
 Parameter Sets: (All)
 Aliases:
+Accepted values: CreatedAt, DeletedAt, UpdatedAt, AssetsCount, LicensesCount, ComponentsCount, ConsumablesCount, SupportEmailAddress, SupportPhoneNumber, SupportUrl, Url, Name, Image, Id
 
 Required: False
 Position: Named
@@ -138,21 +154,6 @@ Type: SearchOrder
 Parameter Sets: (All)
 Aliases:
 Accepted values: Ascending, Descending
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Deleted
-Find deleted manufacturers, or non-deleted manufacturers?
-
-```yaml
-Type: Boolean
-Parameter Sets: (All)
-Aliases:
 
 Required: False
 Position: Named

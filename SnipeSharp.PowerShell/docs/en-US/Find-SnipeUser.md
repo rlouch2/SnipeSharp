@@ -65,6 +65,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Deleted
+Find deleted users, or non-deleted users?
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Department
 Filter by department.
 
@@ -210,21 +225,6 @@ Type: SearchOrder
 Parameter Sets: (All)
 Aliases:
 Accepted values: Ascending, Descending
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Deleted
-Find deleted users, or non-deleted users?
-
-```yaml
-Type: Boolean
-Parameter Sets: (All)
-Aliases:
 
 Required: False
 Position: Named

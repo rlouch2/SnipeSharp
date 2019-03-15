@@ -51,6 +51,7 @@
         'Get-Depreciation'
         'Get-FieldSet'
         'Get-License'
+        'Get-LicenseSeat'
         'Get-Location'
         'Get-Manufacturer'
         'Get-Model'

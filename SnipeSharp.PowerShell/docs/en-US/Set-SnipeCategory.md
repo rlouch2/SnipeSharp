@@ -136,14 +136,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Type
-The updated type the category is for.
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
 
 ```yaml
-Type: CategoryType
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
-Accepted values: Accessory, Asset, Consumable, Component, License
 
 Required: False
 Position: Named
@@ -152,13 +151,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
+### -Type
+The updated type the category is for.
 
 ```yaml
-Type: SwitchParameter
+Type: CategoryType
 Parameter Sets: (All)
 Aliases:
+Accepted values: Accessory, Asset, Consumable, Component, License
 
 Required: False
 Position: Named

@@ -78,6 +78,29 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "licenses_count")]
         public int? LicensesCount { get; private set; }
 
+        /// <value>The number of items in this category</value>
+        public int? ItemCount
+        {
+            get
+            {
+                switch(CategoryType)
+                {
+                    case Enumerations.CategoryType.Accessory:
+                        return AccessoriesCount;
+                    case Enumerations.CategoryType.Asset:
+                        return AssetsCount;
+                    case Enumerations.CategoryType.Component:
+                        return ComponentsCount;
+                    case Enumerations.CategoryType.Consumable:
+                        return ConsumablesCount;
+                    case Enumerations.CategoryType.License:
+                        return LicensesCount;
+                    default:
+                        return null;
+                }
+            }
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
         public override DateTime? CreatedAt { get; protected set; }

@@ -120,14 +120,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Type
-The updated type of status the label represents.
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
 
 ```yaml
-Type: StatusType
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
-Accepted values: Pending, Archived, Undeployable, Deployable, Deployed
 
 Required: False
 Position: Named
@@ -136,13 +135,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
+### -Type
+The updated type of status the label represents.
 
 ```yaml
-Type: SwitchParameter
+Type: StatusType
 Parameter Sets: (All)
 Aliases:
+Accepted values: Pending, Archived, Undeployable, Deployable, Deployed
 
 Required: False
 Position: Named

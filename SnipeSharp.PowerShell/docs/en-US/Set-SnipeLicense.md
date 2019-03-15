@@ -357,11 +357,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Supplier
-The updated supplier that sold the license.
+### -ShowResponse
+If present, write the response from the Api to the pipeline.
 
 ```yaml
-Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -372,11 +372,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
+### -Supplier
+The updated supplier that sold the license.
 
 ```yaml
-Type: SwitchParameter
+Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
 Parameter Sets: (All)
 Aliases:
 

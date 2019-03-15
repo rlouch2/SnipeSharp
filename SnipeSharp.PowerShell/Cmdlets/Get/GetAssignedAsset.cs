@@ -7,7 +7,7 @@ using SnipeSharp.PowerShell.BindingTypes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     /// <summary>Gets the Snipe IT assets assigned to a user.</summary>
-    /// <remarks>The Get-AssignedAsset cmdlet get, for each user provided, the asset objects associated with that user.</remarks>
+    /// <remarks>The Get-AssignedAsset cmdlet gets, for each user provided, the asset objects associated with that user.</remarks>
     /// <example>
     ///   <code>Get-AssignedAsset User1234</code>
     ///   <para>Retrieves the assets assigned to the user User1234.</para>
@@ -17,6 +17,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     ///   <para>Retrieve the assets assigned to the user User1234 or the user User5678.</para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "AssignedAsset", DefaultParameterSetName = nameof(ParameterSets.ByUser))]
+    [OutputType(typeof(Asset))]
     public sealed class GetAssignedAsset: BaseCmdlet
     {
         /// <summary>

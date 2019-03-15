@@ -44,7 +44,7 @@ Get-SnipeUser [-Me] [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeUser [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -78,6 +78,21 @@ Retrieve the first 100 users by their Snipe IT internal Id numbers.
 ### Example 3
 
 ## PARAMETERS
+
+### -Deleted
+Find deleted users, or non-deleted users?
+
+```yaml
+Type: Boolean
+Parameter Sets: All, ByUserName, ByEmailAddress, ByIdentity, ByName
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -EmailAddress
 The email address for the User.
@@ -118,9 +133,24 @@ Parameter Sets: ByInternalId
 Aliases:
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -Me
+Get the current user for the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Me
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -160,36 +190,6 @@ The username for the User.
 ```yaml
 Type: String[]
 Parameter Sets: ByUserName
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Deleted
-Find deleted users, or non-deleted users?
-
-```yaml
-Type: Boolean
-Parameter Sets: All, ByUserName, ByEmailAddress, ByIdentity, ByName
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Me
-Get the current user for the API.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: Me
 Aliases:
 
 Required: True

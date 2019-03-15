@@ -29,7 +29,7 @@ Get-SnipeAsset -Serial <String[]> [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeAsset [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAsset -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
@@ -111,7 +111,7 @@ Parameter Sets: ByInternalId
 Aliases:
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False

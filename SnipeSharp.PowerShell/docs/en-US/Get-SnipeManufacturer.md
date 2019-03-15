@@ -19,7 +19,7 @@ Get-SnipeManufacturer [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
 
 ### ByInternalId
 ```
-Get-SnipeManufacturer [-Deleted <Boolean>] [-InternalId] <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeManufacturer [-Deleted <Boolean>] -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
 ```
 
 ### ByName
@@ -62,6 +62,21 @@ Retrieve the first 100 manufacturers by their Snipe IT internal Id numbers.
 
 ## PARAMETERS
 
+### -Deleted
+Find deleted manufacturers, or non-deleted manufacturers?
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Identity
 An identity for an object.
 
@@ -86,7 +101,7 @@ Parameter Sets: ByInternalId
 Aliases:
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
@@ -112,21 +127,6 @@ If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Deleted
-Find deleted manufacturers, or non-deleted manufacturers?
-
-```yaml
-Type: Boolean
 Parameter Sets: (All)
 Aliases:
 
