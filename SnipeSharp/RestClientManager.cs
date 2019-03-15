@@ -20,10 +20,10 @@ namespace SnipeSharp
 
         private readonly NewtonsoftJsonSerializer serializerDeserializer = new NewtonsoftJsonSerializer();
 
-        internal RestClientManager(SnipeItApi api)
+        internal RestClientManager(SnipeItApi api, IRestClient client)
         {
             this.Api = api;
-            this.Client = Utility.Instance.NewRestClient();
+            this.Client = client;
 
             Client.AddDefaultHeader("Accept", "application/json");
             Client.AddDefaultHeader("Cache-Control", "no-cache");

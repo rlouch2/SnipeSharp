@@ -191,9 +191,18 @@ namespace SnipeSharp
         /// <para>Constructs a wrapper for the Snipe-IT web API.</para>
         /// <para>The Token and Uri must be set either in an initializer or manually after construction.</para>
         /// </summary>
-        public SnipeItApi()
+        public SnipeItApi() : this(new RestClient())
         {
-            RequestManager = new RestClientManager(this);
+        }
+
+        /// <summary>
+        /// <para>Constructs a wrapper for the Snipe-IT web API.</para>
+        /// <para>The Token and Uri must be set either in an initializer or manually after construction.</para>
+        /// </summary>
+        /// <remarks>This constructor is for internal and testing use.</remarks>
+        internal SnipeItApi(IRestClient restClient)
+        {
+            RequestManager = new RestClientManager(this, restClient);
         }
     }
 }

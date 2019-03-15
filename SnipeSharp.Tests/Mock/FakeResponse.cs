@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using RestSharp;
 
@@ -7,6 +8,9 @@ namespace SnipeSharp.Tests.Mock
 {
     internal class FakeResponse : IRestResponse
     {
+        internal static FakeResponse FromFile(string path, bool isSuccessful = true, HttpStatusCode? statusCode = null)
+            => new FakeResponse(path is null ? "" : File.ReadAllText(path), isSuccessful, statusCode);
+
         public FakeResponse(string content, bool isSuccessful = true, HttpStatusCode? statusCode = null)
         {
             Content = content;
