@@ -13,7 +13,7 @@ If you see something we've done that should be done differently, we encourage yo
 ### Prerequisites
 
 ```
-A Working Install of Snipe IT V4.6.5+
+A Working Install of Snipe IT V4.6.15+
 ```
 
 ## Installation

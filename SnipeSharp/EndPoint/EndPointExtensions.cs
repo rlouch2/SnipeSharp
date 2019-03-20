@@ -334,6 +334,15 @@ namespace SnipeSharp
                     return new ApiOptionalResponse<User> { Value = user };
             return new ApiOptionalResponse<User> { Exception = new ApiErrorException($"No user was found by the email address \"{email}\".") };
         }
+
+        /// <summary>
+        /// Get the accessories checked out by a user.
+        /// </summary>
+        /// <param name="endPoint">An endpoint for users.</param>
+        /// <param name="user">The user to get the checked-out accessroies of.</param>
+        /// <returns>A ResponseCollection list of Accessories.</returns>
+        public static ResponseCollection<Accessory> GetAssignedAccessories(this EndPoint<User> endPoint, User user)
+            => endPoint.Api.RequestManager.GetAll<Accessory>($"{endPoint.EndPointInfo.BaseUri}/{user.Id}/accessories").RethrowExceptionIfAny().Value;
         #endregion
     }
 }
