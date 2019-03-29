@@ -47,7 +47,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
 
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByLocation))]
         public ObjectBinding<Location>[] Location { get; set; }
-        
+
         [Parameter(ParameterSetName = nameof(ParameterSets.ByLocation))]
         public SwitchParameter Locations { get; set; }
         */

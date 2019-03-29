@@ -31,7 +31,7 @@ namespace SnipeSharp.Filters
 
         /// <inheritdoc />
         public Dictionary<string, object> CustomFields { get; set; } = new Dictionary<string, object>();
-        
+
         /// <summary>
         /// Instantiates a new SearchFilter.
         /// </summary>

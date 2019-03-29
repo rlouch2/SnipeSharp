@@ -115,7 +115,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public bool IsReassignable { get; set; }
-        
+
         /// <summary>
         /// The updated supplier that sold the license.
         /// </summary>

@@ -156,7 +156,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             //TODO: error handling
             WriteObject(ApiHelper.Instance.GetEndPoint<FieldSet>().Update(value));
         }
-        
+
         /// <inheritdoc />
         protected override bool PopulateItem(FieldSet item)
         {

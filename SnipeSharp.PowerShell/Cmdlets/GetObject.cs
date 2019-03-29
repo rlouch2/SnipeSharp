@@ -82,7 +82,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 TFilter filter = new TFilter();
                 if(!PopulateFilter(filter))
                     return;
-                
+
                 IEnumerable<TObject> objects;
                 switch(ParameterSetName)
                 {

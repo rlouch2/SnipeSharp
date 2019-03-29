@@ -29,7 +29,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateIdentityNotNull]
         public ObjectBinding<Category> Category { get; set; }
-        
+
         /// <summary>
         /// How many of the consumable there are.
         /// </summary>

@@ -76,7 +76,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             if(!GetSingleValue(Object, out var value))
                 return;
-            
+
             if(!PopulateItem(value))
                 return;
 

@@ -19,7 +19,7 @@ namespace SnipeSharp.Serialization
             } else
             {
                 return serializer.Deserialize<Dictionary<string, T>>(reader);
-            }    
+            }
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

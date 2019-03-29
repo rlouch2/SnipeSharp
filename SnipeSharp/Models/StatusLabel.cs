@@ -24,7 +24,7 @@ namespace SnipeSharp.Models
         public override string Name { get; set; }
 
         private StatusType _type = StatusType.Undeployable;
-        
+
         /// <value>Indicates the type of label; valid values are <see cref="StatusType.Pending"/>, <see cref="StatusType.Deployable"/>, <see cref="StatusType.Undeployable"/> and <see cref="StatusType.Archived"/></value>
         [Field("type", IsRequired = true)]
         public StatusType? Type

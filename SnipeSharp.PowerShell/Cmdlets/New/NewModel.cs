@@ -59,7 +59,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<FieldSet> FieldSet { get; set; }
-        
+
         /// <summary>
         /// The lifetime of the model in months.
         /// </summary>
@@ -71,7 +71,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Notes { get; set; }
-        
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {

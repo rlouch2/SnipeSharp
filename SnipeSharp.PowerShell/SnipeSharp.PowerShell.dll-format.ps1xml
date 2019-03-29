@@ -92,17 +92,19 @@
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
-          <ListItems>
-            <ListItem>
-              <PropertyName>Field</PropertyName>
-            </ListItem>
-            <ListItem>
-              <PropertyName>Value</PropertyName>
-            </ListItem>
-            <ListItem>
-              <PropertyName>Format</PropertyName>
-            </ListItem>
-          </ListItems>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Field</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Value</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Format</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
         </ListEntries>
       </ListControl>
     </View>
@@ -752,6 +754,11 @@
           <TableColumnHeader /> <!-- EmailAddress -->
           <TableColumnHeader /> <!-- PhoneNumber -->
           <TableColumnHeader /> <!-- FaxNumber -->
+          <TableColumnHeader /> <!-- Address -->
+          <TableColumnHeader /> <!-- Address2 -->
+          <TableColumnHeader /> <!-- City -->
+          <TableColumnHeader /> <!-- State -->
+          <TableColumnHeader /> <!-- ZipCode -->
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>

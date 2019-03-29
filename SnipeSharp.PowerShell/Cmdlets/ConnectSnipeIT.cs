@@ -40,7 +40,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Token = this.Token,
                 Uri = this.Uri
             };
-            
+
             if(instance.TestConnection())
                 ApiHelper.Instance = instance;
             else

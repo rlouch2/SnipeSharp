@@ -19,7 +19,7 @@ namespace SnipeSharp.Models
         /// </summary>
         [Field("required")]
         private string isRequired;
-        
+
         /// <summary>
         /// Whether or not the field is required in the fieldset.
         /// </summary>

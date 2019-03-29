@@ -14,7 +14,7 @@ namespace SnipeSharp.Models
         /// <value>The internal Id of the object.</value>
         [Field("id")]
         public abstract int Id { get; protected set; }
-        
+
         /// <value>The name of the object.</value>
         [Field(DeserializeAs = "name")]
         public abstract string Name { get; set; }

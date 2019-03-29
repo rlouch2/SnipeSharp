@@ -12,7 +12,7 @@ namespace SnipeSharp.EndPoint
         /// The path segment identifying the endpoint in the API.
         /// </value>
         public string BaseUri { get; private set; }
-        
+
         /// <summary>
         /// Initializes a new instance of the PathSegmentAttribute class with the specified baseUri.
         /// </summary>

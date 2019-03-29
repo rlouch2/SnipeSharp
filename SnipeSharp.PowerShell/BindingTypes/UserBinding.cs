@@ -26,7 +26,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         public UserBinding(string query) : base(query)
         {
         }
-        
+
         /// <summary>
         /// Fetches a User by name, optionally case-sensitive.
         /// </summary>
@@ -62,7 +62,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
             {
                 case BindingQueryUnion.Type.String:
                     var (type, value) = ParseQuery(QueryUnion.StringValue);
-                    
+
                     if(type is null)
                     {
                         // username -> email -> name -> id
@@ -135,7 +135,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                     result = new ApiOptionalResponse<User> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
                     break;
             }
-            
+
             Value = new User[] { result.Value };
             Error = result.Exception;
         }
@@ -144,7 +144,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
             => new UserBinding(username, ApiHelper.Instance.Users.GetByUserNameOptional(username, filter));
         internal static UserBinding FromEmailAddress(string email, UserSearchFilter filter = null)
             => new UserBinding(email, ApiHelper.Instance.Users.GetByEmailAddressOptional(email, filter));
-        
+
         internal static UserBinding Me()
         {
             var me = ApiHelper.Instance.Users.MeOptional();

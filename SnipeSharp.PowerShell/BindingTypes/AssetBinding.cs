@@ -55,12 +55,12 @@ namespace SnipeSharp.PowerShell.BindingTypes
         {
             var endPoint = ApiHelper.Instance.GetEndPoint<Asset>();
             ApiOptionalResponse<Asset> result;
-            
+
             switch(QueryUnion.BindingType)
             {
                 case BindingQueryUnion.Type.String:
                     var (type, value) = ParseQuery(QueryUnion.StringValue);
-                    
+
                     if(type is null)
                     {
                         // tag -> serial -> name -> id

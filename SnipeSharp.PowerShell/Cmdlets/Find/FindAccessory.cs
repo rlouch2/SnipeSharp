@@ -29,7 +29,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>Filter by owning company.</summary>
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
-        
+
         /// <summary>Filter by accessory category.</summary>
         [Parameter]
         public ObjectBinding<Category> Category { get; set; }

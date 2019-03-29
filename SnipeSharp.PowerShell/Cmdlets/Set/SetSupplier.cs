@@ -94,7 +94,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public string Notes { get; set; }
-        
+
         /// <inheritdoc />
         protected override bool PopulateItem(Supplier item)
         {

@@ -16,7 +16,7 @@ namespace SnipeSharp.Models
         /// </summary>
         [Field("id")]
         public int StatusId { get; set; }
-        
+
         /// <summary>
         /// The friendly name of the status.
         /// </summary>

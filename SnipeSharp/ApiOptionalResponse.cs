@@ -15,7 +15,7 @@ namespace SnipeSharp
         /// </summary>
         public bool HasValue
             => null == Exception && null != Value;
-        
+
         /// <summary>
         /// The response value.
         /// </summary>
@@ -30,7 +30,7 @@ namespace SnipeSharp
         {
             if (apiOptionalResponse.HasValue)
                 return apiOptionalResponse.Value;
-            
+
             // if we don't have a value, rethrow our inner exception.
             ExceptionDispatchInfo.Capture(apiOptionalResponse.Exception).Throw();
             return default;

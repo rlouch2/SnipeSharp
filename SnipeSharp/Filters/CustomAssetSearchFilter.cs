@@ -28,7 +28,7 @@ namespace SnipeSharp.Filters
         /// <inheritdoc />
         [Field("order")]
         public SearchOrder? Order { get; set; }
-        
+
         /// <summary>
         /// Initialize a new instance of the CustomAssetSearchFilter class.
         /// </summary>

@@ -63,7 +63,7 @@ namespace SnipeSharp.EndPoint
         /// <inheritdoc />
         public ApiOptionalResponse<T> FindOneOptional(string search)
             => FindOneOptional(new SearchFilter(search));
-        
+
         /// <inheritdoc />
         public T FindOne(string search)
             => FindOne(new SearchFilter(search));
@@ -75,7 +75,7 @@ namespace SnipeSharp.EndPoint
         /// <inheritdoc />
         public ApiOptionalResponse<T> GetOptional(int id)
             => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
-        
+
         /// <inheritdoc />
         public T Get(string name, bool caseSensitive = false, ISearchFilter filter = null)
             => GetOptional(name, caseSensitive, filter).RethrowExceptionIfAny().Value;
@@ -91,7 +91,7 @@ namespace SnipeSharp.EndPoint
                 return new ApiOptionalResponse<T> { Exception = result.Exception };
             return new ApiOptionalResponse<T> { Value = result.Value.Where(i => comparer.Equals(i.Name, name)).FirstOrDefault() };
         }
-        
+
         /// <inheritdoc />
         public ResponseCollection<T> GetAll()
             => FindAll();

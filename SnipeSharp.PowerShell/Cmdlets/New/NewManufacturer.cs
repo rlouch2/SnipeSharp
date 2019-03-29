@@ -50,7 +50,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string SupportEmailAddress { get; set; }
-        
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {

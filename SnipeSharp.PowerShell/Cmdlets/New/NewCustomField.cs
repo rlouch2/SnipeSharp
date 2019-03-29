@@ -118,7 +118,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string HelpText { get; set; } = string.Empty;
-        
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {

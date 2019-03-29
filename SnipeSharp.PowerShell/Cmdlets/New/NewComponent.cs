@@ -30,7 +30,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
         [ValidateRange(1, int.MaxValue)]
         public int Quantity { get; set; }
-        
+
         /// <summary>
         /// The category of the component.
         /// </summary>

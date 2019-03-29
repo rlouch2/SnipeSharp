@@ -116,13 +116,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public bool IsReassignable { get; set; }
-        
+
         /// <summary>
         /// The supplier who sold the license.
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public ObjectBinding<Supplier> Supplier { get; set; }
-        
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {

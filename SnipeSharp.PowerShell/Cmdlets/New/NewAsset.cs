@@ -37,13 +37,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter(Mandatory = true, Position = 2)]
         public ObjectBinding<StatusLabel> Status { get; set; }
-        
+
         /// <summary>
         /// The name of the asset.
         /// </summary>
         [Parameter]
         public string Name { get; set; }
-        
+
         /// <summary>
         /// The serial number of the asset.
         /// </summary>
@@ -91,7 +91,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
-        
+
         /// <summary>
         /// What the asset is assigned to.
         /// </summary>

@@ -108,7 +108,7 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
-        
+
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }

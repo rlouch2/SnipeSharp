@@ -84,7 +84,7 @@ namespace SnipeSharp
 
         internal ApiOptionalResponse<RequestResponse<R>> Post<R>(string path, R @object) where R: ApiObject
             => Post<R, R>(path, @object);
-        
+
         internal ApiOptionalResponse<RequestResponse<R>> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
             => ExecuteRequest2<R>(CreateRequest(path, Method.POST).Add(@object));
 
@@ -109,7 +109,7 @@ namespace SnipeSharp
             Api.DebugResponseList.Add(response);
 #endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
-            
+
             if(!string.IsNullOrWhiteSpace(asRequestResponse.Status) && asRequestResponse.Status == "error")
             {
                 return new ApiOptionalResponse<R>
@@ -138,7 +138,7 @@ namespace SnipeSharp
             Api.DebugResponseList.Add(response);
 #endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
-            
+
             if(!string.IsNullOrWhiteSpace(asRequestResponse.Status) && asRequestResponse.Status == "error")
             {
                 return new ApiOptionalResponse<RequestResponse<R>>

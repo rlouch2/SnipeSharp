@@ -37,7 +37,7 @@ namespace SnipeSharp.Filters
         /// <summary>The user's employee number.</summary>
         [EnumMember(Value = "employee_num")]
         EmployeeNumber,
-        
+
         /* These columns, while technically present in the allowed column list,
          * will cause many errors if you try to actually use them.
          * I'm disabling them for now, maybe these'll be fixed in the future.

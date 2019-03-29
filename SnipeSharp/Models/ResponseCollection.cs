@@ -35,47 +35,47 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         public bool IsReadOnly => ((IList<T>) Rows).IsReadOnly;
-        
+
         /// <inheritdoc />
         public void Add(T item)
             => Rows.Add(item);
-        
+
         /// <inheritdoc />
         public void AddRange(IEnumerable<T> collection)
             => Rows.AddRange(collection);
-        
+
         /// <inheritdoc />
         public void Clear()
             => Rows.Clear();
-        
+
         /// <inheritdoc />
         public bool Contains(T item)
             => Rows.Contains(item);
-        
+
         /// <inheritdoc />
         public void CopyTo(T[] array, int arrayIndex)
             => Rows.CopyTo(array, arrayIndex);
-        
+
         /// <inheritdoc />
         public IEnumerator<T> GetEnumerator()
             => Rows.GetEnumerator();
-        
+
         /// <inheritdoc />
         public int IndexOf(T item)
             => Rows.IndexOf(item);
-        
+
         /// <inheritdoc />
         public void Insert(int index, T item)
             => Rows.Insert(index, item);
-        
+
         /// <inheritdoc />
         public bool Remove(T item)
             => Rows.Remove(item);
-        
+
         /// <inheritdoc />
         public void RemoveAt(int index)
             => Rows.RemoveAt(index);
-        
+
         /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator()
             => Rows.GetEnumerator();

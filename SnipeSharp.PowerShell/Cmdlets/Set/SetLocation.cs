@@ -81,7 +81,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public UserBinding Manager { get; set; }
-        
+
         /// <inheritdoc />
         protected override bool PopulateItem(Location item)
         {

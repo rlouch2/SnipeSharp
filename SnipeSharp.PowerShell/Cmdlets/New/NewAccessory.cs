@@ -41,7 +41,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter(Mandatory = true, Position = 3)]
         public ObjectBinding<Category> Category { get; set; }
-        
+
         /// <summary>
         /// The company that owns the accessory.
         /// </summary>
@@ -99,7 +99,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            
+
             var item = new Accessory {
                 Name = this.Name,
                 Quantity = this.Quantity,

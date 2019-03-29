@@ -142,7 +142,7 @@ namespace  SnipeSharp.PowerShell.BindingTypes
                 case BindingQueryUnion.Type.String:
                     var (type, value) = ParseQuery(QueryUnion.StringValue);
                     var endPoint = ApiHelper.Instance.GetEndPoint<T>();
-                    
+
                     if(type is null)
                     {
                         if(int.TryParse(value, out var id))

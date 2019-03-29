@@ -55,7 +55,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public string NewSerial { get; set; }
-        
+
         /// <summary>
         /// The updated model of the asset.
         /// </summary>
@@ -109,7 +109,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public Uri ImageUri { get; set; }
-        
+
         /// <summary>
         /// The updated assignee object.
         /// </summary>

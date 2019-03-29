@@ -23,7 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(Mandatory = true)]
         [Alias("Fields")]
         public ObjectBinding<CustomField>[] Order { get; set; }
-        
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
@@ -51,7 +51,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
 
             WriteObject(ApiHelper.Instance.GetEndPoint<CustomField>().Reorder(identity, orderedFields));
         }
-        
+
         /// <inheritdoc />
         protected override bool PopulateItem(FieldSet item)
         {

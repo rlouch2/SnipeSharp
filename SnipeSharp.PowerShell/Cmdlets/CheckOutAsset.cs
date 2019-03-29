@@ -81,7 +81,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             if(!ValidateHasExactlyOneValue(Asset, queryType: "Identity"))
                 return;
-            
+
             var request = default(AssetCheckOutRequest);
             switch(ParameterSetName)
             {

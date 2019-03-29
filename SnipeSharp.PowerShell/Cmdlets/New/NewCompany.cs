@@ -23,7 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
-        
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {

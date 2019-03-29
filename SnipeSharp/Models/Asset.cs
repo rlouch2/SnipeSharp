@@ -19,11 +19,11 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
-        
+
         /// <inheritdoc />
         [Field("name")]
         public override string Name { get; set; }
-        
+
         /// <summary>
         /// The asset tag of the Asset.
         /// </summary>

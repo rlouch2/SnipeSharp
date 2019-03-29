@@ -60,7 +60,7 @@ namespace SnipeSharp.Models
         /// <value>The number of users in this company.</value>
         [Field(DeserializeAs = "users_count")]
         public int UsersCount { get; set; }
-        
+
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }

@@ -37,28 +37,28 @@ namespace SnipeSharp.Serialization
 
         /// <seealso cref="CustomBoolStringConverter" />
         BoolStringConverter,
-        
+
         /// <seealso cref="CustomAssetStatusConverter" />
         AssetStatusConverter,
-        
+
         /// <seealso cref="CustomMonthsConverter" />
         MonthsConverter,
-        
+
         /// <seealso cref="CustomDateTimeConverter" />
         DateTimeConverter,
-        
+
         /// <seealso cref="CustomTimeSpanConverter" />
         TimeSpanConverter,
-        
+
         /// <seealso cref="CustomIntBoolDictionaryConverter" />
         PermissionsConverter,
-        
+
         /// <seealso cref="CustomMessageConverter" />
         MessagesConverter,
-        
+
         /// <seealso cref="CustomAvailableActionsConverter" />
         AvailableActionsConverter,
-        
+
         /// <seealso cref="CustomFieldDictionaryConverter" />
         CustomFieldDictionaryConverter
     }

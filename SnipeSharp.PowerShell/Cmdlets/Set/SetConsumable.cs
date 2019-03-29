@@ -29,7 +29,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         [ValidateIdentityNotNull]
         public ObjectBinding<Category> Category { get; set; }
-        
+
         /// <summary>
         /// The updated company that owns the consumable.
         /// </summary>

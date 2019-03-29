@@ -58,7 +58,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public ObjectBinding<FieldSet> FieldSet { get; set; }
-        
+
         /// <summary>
         /// The updated lifetime of the model in months.
         /// </summary>

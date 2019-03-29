@@ -44,7 +44,7 @@ namespace SnipeSharp
                 AssetName = asset.Name,
                 Note = note
             });
-        
+
         /// <summary>
         /// Check in an asset.
         /// </summary>
@@ -84,7 +84,7 @@ namespace SnipeSharp
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If no asset with that tag could be found, or there was another error with the API.</exception>
         public static Asset GetByTag(this EndPoint<Asset> endPoint, string tag)
             => GetByTagOptional(endPoint, tag).RethrowExceptionIfAny().Value;
-        
+
         /// <summary>
         /// Retrieve an asset by its tag, but do not throw any errors.
         /// </summary>
@@ -93,7 +93,7 @@ namespace SnipeSharp
         /// <returns>A tuple containing the asset (if it was found), and any error (if there was one).</returns>
         public static ApiOptionalResponse<Asset> GetByTagOptional(this EndPoint<Asset> endPoint, string tag)
             => endPoint.Api.RequestManager.Get<Asset>($"{endPoint.EndPointInfo.BaseUri}/bytag/{tag}");
-        
+
         /// <summary>
         /// Retrieve assets by serial number.
         /// </summary>
@@ -103,7 +103,7 @@ namespace SnipeSharp
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If no asset with that serial could be found, or there was another error with the API.</exception>
         public static ResponseCollection<Asset> FindBySerial(this EndPoint<Asset> endPoint, string serial)
             => FindBySerialOptional(endPoint, serial).RethrowExceptionIfAny().Value;
-        
+
         /// <summary>
         /// Retrieve an asset by its serial, alongside any error
         /// </summary>
@@ -166,7 +166,7 @@ namespace SnipeSharp
             customFields.CopyTo(arr, 0);
             return Reorder(endPoint, fieldSet, arr);
         }
-        
+
         /// <summary>
         /// Reorders the fields in a field set.
         /// </summary>
@@ -176,7 +176,7 @@ namespace SnipeSharp
         /// <returns>The request status.</returns>
         public static RequestResponse<ApiObject> Reorder(this EndPoint<CustomField> endPoint, FieldSet fieldSet, params CustomField[] customFields)
             => endPoint.Api.RequestManager.Post<CustomFieldReordering, ApiObject>($"{endPoint.EndPointInfo.BaseUri}/fieldsets/{fieldSet.Id}/order", new CustomFieldReordering { Fields = customFields }).RethrowExceptionIfAny().Value;
-        
+
 
         #endregion
         #region FieldSet
@@ -255,7 +255,7 @@ namespace SnipeSharp
         /// <returns>A ResponseCollection list of Assets.</returns>
         public static ResponseCollection<Asset> GetAssignedAssets(this EndPoint<User> endPoint, User user)
             => endPoint.Api.RequestManager.GetAll<Asset>($"{endPoint.EndPointInfo.BaseUri}/{user.Id}/assets").RethrowExceptionIfAny().Value;
-        
+
         /// <summary>
         /// Get the current user of the API.
         /// </summary>
@@ -263,7 +263,7 @@ namespace SnipeSharp
         /// <returns>An optional response representing the user information for the current user of the API, or any error thrown.</returns>
         public static ApiOptionalResponse<User> MeOptional(this EndPoint<User> endPoint)
             => endPoint.Api.RequestManager.Get<User>($"{endPoint.EndPointInfo.BaseUri}/me");
-        
+
         /// <summary>
         /// Get the current user of the API.
         /// </summary>
@@ -294,7 +294,7 @@ namespace SnipeSharp
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API or the user was not found.</exception>
         public static User GetByEmailAddress(this EndPoint<User> endPoint, string email, UserSearchFilter filter = null)
             => GetByEmailAddressOptional(endPoint, email, filter).RethrowExceptionIfAny().Value;
-        
+
         /// <summary>
         /// Gets a user by their username, but do not throw any errors.
         /// </summary>
@@ -314,7 +314,7 @@ namespace SnipeSharp
                     return new ApiOptionalResponse<User> { Value = user };
             return new ApiOptionalResponse<User> { Exception = new ApiErrorException($"No user was found by the username \"{username}\".") };
         }
-        
+
         /// <summary>
         /// Gets a user by their email address, but do not throw any errors.
         /// </summary>

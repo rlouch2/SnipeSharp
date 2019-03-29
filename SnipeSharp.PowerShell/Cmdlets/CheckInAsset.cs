@@ -52,7 +52,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             if(!ValidateHasExactlyOneValue(Identity, queryType: nameof(Identity)))
                 return;
-            
+
             var request = new AssetCheckInRequest(Identity.Value[0]);
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Note)))
                 request.Note = Note;

@@ -23,7 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         [ValidateNotNullOrEmpty]
         public string NewName { get; set; }
-        
+
         /// <inheritdoc />
         protected override bool PopulateItem(Company item)
         {

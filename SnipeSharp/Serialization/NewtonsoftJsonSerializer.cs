@@ -20,7 +20,7 @@ namespace SnipeSharp.Serialization
 
         public string Serialize(object @object)
             => JsonConvert.SerializeObject(@object, SerializerSettings);
-        
+
         public T Deserialize<T>(IRestResponse response)
             => JsonConvert.DeserializeObject<T>(response.Content, new JsonSerializerSettings {
                 ContractResolver = DeserializationContractResolver.Instance
