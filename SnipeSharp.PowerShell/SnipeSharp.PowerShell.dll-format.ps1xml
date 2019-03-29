@@ -2,6 +2,46 @@
 <Configuration>
   <ViewDefinitions>
     <View>
+      <Name>SnipeSharpAccessory</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Accessory</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- RemainingQuantity -->
+          <TableColumnHeader /> <!-- Quantity -->
+          <TableColumnHeader /> <!-- Manufacturer -->
+          <TableColumnHeader /> <!-- ModelNumber -->
+          <TableColumnHeader /> <!-- Location -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>RemainingQuantity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Quantity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Manufacturer</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ModelNumber</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>SnipeSharpAsset</Name>
       <ViewSelectedBy>
         <TypeName>SnipeSharp.Endpoints.Models.Asset</TypeName>
@@ -39,6 +79,756 @@
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>AssignedTo</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpAssetCustomField</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.AssetCustomField</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListItems>
+            <ListItem>
+              <PropertyName>Field</PropertyName>
+            </ListItem>
+            <ListItem>
+              <PropertyName>Value</PropertyName>
+            </ListItem>
+            <ListItem>
+              <PropertyName>Format</PropertyName>
+            </ListItem>
+          </ListItems>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <Name>SnipeSharpAssetStatus</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.AssetStatus</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- StatusType -->
+          <TableColumnHeader /> <!-- StatusMeta -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>StatusType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>StatusMeta</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpCategory</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Category</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- CategoryType -->
+          <TableColumnHeader /> <!-- ItemCount -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CategoryType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ItemCount</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpCommonEndpointModel</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.CommonEndpointModel</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpCompany</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Company</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- UsersCount -->
+          <TableColumnHeader /> <!-- AssetsCount -->
+          <TableColumnHeader /> <!-- ComponentsCount -->
+          <TableColumnHeader /> <!-- ConsumablesCount -->
+          <TableColumnHeader /> <!-- AccessoriesCount -->
+          <TableColumnHeader /> <!-- LicensesCount -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>UsersCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AssetsCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ComponentsCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ConsumablesCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AccessoriesCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LicensesCount</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpComponent</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Component</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Serial -->
+          <TableColumnHeader /> <!-- RemainingQuantity -->
+          <TableColumnHeader /> <!-- Quantity -->
+          <TableColumnHeader /> <!-- Category -->
+          <TableColumnHeader /> <!-- Location -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Serial</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>RemainingQuantity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Quantity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Category</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpConsumable</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Consumable</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- RemainingQuantity -->
+          <TableColumnHeader /> <!-- Quantity -->
+          <TableColumnHeader /> <!-- Manufacturer -->
+          <TableColumnHeader /> <!-- ModelNumber -->
+          <TableColumnHeader /> <!-- ItemNumber -->
+          <TableColumnHeader /> <!-- Category -->
+          <TableColumnHeader /> <!-- Status -->
+          <TableColumnHeader /> <!-- Location -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>RemainingQuantity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Quantity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Manufacturer</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ModelNumber</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ItemNumber</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Category</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Status</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpCustomField</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.CustomField</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- ColumnName -->
+          <TableColumnHeader /> <!-- Type -->
+          <TableColumnHeader /> <!-- FieldValues -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ColumnName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>FieldValues</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpDepartment</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Department</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Company -->
+          <TableColumnHeader /> <!-- Manager -->
+          <TableColumnHeader /> <!-- Location -->
+          <TableColumnHeader /> <!-- UsersCount -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Company</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Manager</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>UsersCount</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpDepreciation</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Depreciation</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Months -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Months</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpFieldset</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Fieldset</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Fields -->
+          <TableColumnHeader /> <!-- Models -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Fields</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Models</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpGroup</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Group</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- UsersCount -->
+          <TableColumnHeader /> <!-- Permissions -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>UsersCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Permissions</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpLicense</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.License</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- ProductKey -->
+          <TableColumnHeader /> <!-- Manufacturer -->
+          <TableColumnHeader /> <!-- FreeSeats -->
+          <TableColumnHeader /> <!-- TotalSeats -->
+          <TableColumnHeader /> <!-- ExpirationDate -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ProductKey</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Manufacturer</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>FreeSeats</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>TotalSeats</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ExpirationDate</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpLicenseSeat</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.LicenseSeat</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Id -->
+          <TableColumnHeader /> <!-- LicenseId -->
+          <TableColumnHeader>
+            <Label>Assignee</Label>
+          </TableColumnHeader>
+          <TableColumnHeader /> <!-- Location -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LicenseId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>"$AssignedUser$AssignedAsset"</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpLocation</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Location</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Manager -->
+          <TableColumnHeader /> <!-- Address -->
+          <TableColumnHeader /> <!-- Address2 -->
+          <TableColumnHeader /> <!-- City -->
+          <TableColumnHeader /> <!-- State -->
+          <TableColumnHeader /> <!-- ZipCode -->
+          <TableColumnHeader /> <!-- UsersCount -->
+          <TableColumnHeader /> <!-- AssetsCount -->
+          <TableColumnHeader /> <!-- AssignedAssetsCount -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Manager</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Address</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Address2</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>City</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>State</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ZipCode</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>UsersCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AssetsCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AssignedAssetsCount</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpMaintenance</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Maintenance</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Asset -->
+          <TableColumnHeader /> <!-- User -->
+          <TableColumnHeader /> <!-- MaintenanceType -->
+          <TableColumnHeader /> <!-- Supplier -->
+          <TableColumnHeader /> <!-- StartDate -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Asset</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>User</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>MaintenanceType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Supplier</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>StartDate</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpManufacturer</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Manufacturer</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Url -->
+          <TableColumnHeader /> <!-- SupportUrl -->
+          <TableColumnHeader /> <!-- SupportPhoneNumber -->
+          <TableColumnHeader /> <!-- SupportEmailAddress -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Url</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>SupportUrl</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>SupportPhoneNumber</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>SupportEmailAddress</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpModel</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Model</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Manufacturer -->
+          <TableColumnHeader /> <!-- ModelNumber -->
+          <TableColumnHeader /> <!-- Category -->
+          <TableColumnHeader /> <!-- FieldSet -->
+          <TableColumnHeader /> <!-- AssetsCount -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Manufacturer</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ModelNumber</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Category</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>FieldSet</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AssetsCount</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpStatusLabel</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.StatusLabel</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Type -->
+          <TableColumnHeader /> <!-- AssetsCount -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AssetsCount</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpSupplier</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.Supplier</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- Contact -->
+          <TableColumnHeader /> <!-- EmailAddress -->
+          <TableColumnHeader /> <!-- PhoneNumber -->
+          <TableColumnHeader /> <!-- FaxNumber -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Contact</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>EmailAddress</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PhoneNumber</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>FaxNumber</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Address</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Address2</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>City</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>State</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ZipCode</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>SnipeSharpUser</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Endpoints.Models.User</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Name -->
+          <TableColumnHeader /> <!-- UserName -->
+          <TableColumnHeader /> <!-- JobTitle -->
+          <TableColumnHeader /> <!-- Manager -->
+          <TableColumnHeader /> <!-- Department -->
+          <TableColumnHeader /> <!-- Location -->
+          <TableColumnHeader /> <!-- PhoneNumber -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>UserName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobTitle</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Manager</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Department</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PhoneNumber</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
