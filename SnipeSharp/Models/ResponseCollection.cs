@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using SnipeSharp.Models;
 using SnipeSharp.Serialization;
 using System.Collections;
 using Newtonsoft.Json;

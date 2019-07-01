@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using RestSharp;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
-using Newtonsoft.Json;
-using SnipeSharp.Serialization;
 
 namespace SnipeSharp
 {

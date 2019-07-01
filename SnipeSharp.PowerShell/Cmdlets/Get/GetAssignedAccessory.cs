@@ -1,6 +1,4 @@
-using System;
 using System.Management.Automation;
-using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 

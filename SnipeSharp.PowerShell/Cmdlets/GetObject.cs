@@ -5,7 +5,6 @@ using SnipeSharp.PowerShell.BindingTypes;
 using System.Linq;
 using SnipeSharp.Filters;
 using System;
-using SnipeSharp.Exceptions;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {

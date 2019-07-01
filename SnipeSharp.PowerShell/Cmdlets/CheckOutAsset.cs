@@ -1,9 +1,7 @@
 using System;
 using System.Management.Automation;
-using SnipeSharp;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
-using SnipeSharp.PowerShell;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {

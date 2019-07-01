@@ -35,7 +35,7 @@ namespace SnipeSharp.Models
         [Field("support_url")]
         public Uri SupportUrl { get; set; }
 
-        
+
         /// <value>Gets/sets the manufacturer's support phone number.</value>
         [Field("support_phone")]
         public string SupportPhoneNumber { get; set; }

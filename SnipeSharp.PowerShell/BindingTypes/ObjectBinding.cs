@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using SnipeSharp.Filters;
 using SnipeSharp.Models;
-using SnipeSharp.PowerShell;
-using SnipeSharp.Exceptions;
 
-namespace  SnipeSharp.PowerShell.BindingTypes
+namespace SnipeSharp.PowerShell.BindingTypes
 {
     /// <summary>
     /// Binds Id's, Names, and Queries to Snipe-IT API Objects in the pipeline.

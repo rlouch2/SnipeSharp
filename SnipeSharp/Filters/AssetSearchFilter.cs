@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
-using SnipeSharp.Models;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Filters
 {

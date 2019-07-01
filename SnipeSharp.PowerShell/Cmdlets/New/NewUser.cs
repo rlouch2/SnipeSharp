@@ -1,6 +1,5 @@
 using System;
 using System.Management.Automation;
-using System.Collections.Generic;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 

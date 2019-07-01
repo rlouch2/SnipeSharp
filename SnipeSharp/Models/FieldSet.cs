@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using static SnipeSharp.Serialization.FieldConverter;

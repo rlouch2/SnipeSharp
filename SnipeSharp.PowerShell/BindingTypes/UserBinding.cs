@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using SnipeSharp;
 using SnipeSharp.Filters;
 using SnipeSharp.Models;
 

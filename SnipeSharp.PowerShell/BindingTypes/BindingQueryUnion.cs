@@ -1,4 +1,3 @@
-
 namespace SnipeSharp.PowerShell.BindingTypes
 {
     /// <summary>
