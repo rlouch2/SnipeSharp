@@ -234,7 +234,7 @@ namespace SnipeSharp
         /// <returns>True if the label is a deployable type, otherwise false.</returns>
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the status label does not exist.</exception>
         public static bool IsDeployable(this EndPoint<StatusLabel> endPoint, StatusLabel label)
-            => endPoint.Api.RequestManager.GetRaw($"{endPoint.EndPointInfo.BaseUri}/{label.Id}/deployable") == "1";
+            => endPoint.Api.RequestManager.GetRaw($"{endPoint.EndPointInfo.BaseUri}/{label.Id}/deployable").Trim() == "1";
 
         /// <summary>
         /// Convert an AssetStatus to a StatusLabel by its Id.
