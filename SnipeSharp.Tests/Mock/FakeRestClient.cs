@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Deserializers;
+using RestSharp.Serialization;
 
 namespace SnipeSharp.Tests.Mock
 {
@@ -41,30 +42,34 @@ namespace SnipeSharp.Tests.Mock
         public string ConnectionGroupName { get; set; }
         public bool UnsafeAuthenticatedConnectionSharing { get; set; }
         public bool AllowMultipleDefaultParametersWithSameName { get; set; }
+        public bool FailOnDeserializationError { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void AddHandler(string contentType, IDeserializer deserializer)
-        {
-        }
+            => throw new NotImplementedException();
+
+        public void AddHandler(string contentType, Func<IDeserializer> deserializerFactory)
+            => throw new NotImplementedException();
 
         public Uri BuildUri(IRestRequest request)
-            => null;
+            => throw new NotImplementedException();
+
+        public string BuildUriWithoutQueryParameters(IRestRequest request)
+            => throw new NotImplementedException();
 
         public void ClearHandlers()
-        {
-        }
+            => throw new NotImplementedException();
 
         public void ConfigureWebRequest(Action<HttpWebRequest> configurator)
-        {
-        }
+            => throw new NotImplementedException();
 
         public IRestResponse<T> Deserialize<T>(IRestResponse response)
-            => null;
+            => throw new NotImplementedException();
 
         public byte[] DownloadData(IRestRequest request)
-            => null;
+            => throw new NotImplementedException();
 
         public byte[] DownloadData(IRestRequest request, bool throwOnError)
-            => null;
+            => throw new NotImplementedException();
 
         public IRestResponse Execute(IRestRequest request)
             => Response;
@@ -157,6 +162,21 @@ namespace SnipeSharp.Tests.Mock
 
         public void RemoveHandler(string contentType)
         {
+        }
+
+        public IRestClient UseQueryEncoder(Func<string, Encoding, string> queryEncoder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRestClient UseSerializer(IRestSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRestClient UseUrlEncoder(Func<string, string> encoder)
+        {
+            throw new NotImplementedException();
         }
     }
 }
