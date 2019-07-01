@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net471</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
     <OutputType>library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
@@ -11,13 +11,18 @@
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-    <PackageReference Include="coverlet.msbuild" Version="2.3.1" />
+    <PackageReference Include="coverlet.msbuild" Version="2.6.3" />
     <ProjectReference Include="../SnipeSharp/SnipeSharp.csproj" />
+  </ItemGroup>
+  <!--
+  PowerShell tests are disabled for now.
+  <ItemGroup>
     <ProjectReference Include="../SnipeSharp.PowerShell/SnipeSharp.PowerShell.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
-    <PackageReference Include="System.Management.Automation" Version="6.0.4" />
+    <PackageReference Include="System.Management.Automation" Version="6.2.1" />
   </ItemGroup>
+  -->
   <ItemGroup>
     <None Update="Resources/**/*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
