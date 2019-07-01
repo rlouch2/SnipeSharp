@@ -1,9 +1,6 @@
 using System.Management.Automation;
-using System.Collections.Generic;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
-using System.Linq;
-using SnipeSharp.Filters;
 using System;
 using SnipeSharp.Exceptions;
 

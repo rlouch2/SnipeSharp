@@ -113,6 +113,7 @@
         'Find-StatusLabel'
         'Find-Supplier'
         'Find-User'
+        'Invoke-AssetAudit'
         'Remove-Accessory'
         'Remove-Asset'
         'Remove-AssignedAsset'
