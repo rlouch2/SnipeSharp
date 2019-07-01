@@ -200,7 +200,7 @@ namespace SnipeSharp
                     }
                 } else
                 {
-                    request.AddBody(@object);
+                    request.AddJsonBody(@object);
                 }
             }
             return request;

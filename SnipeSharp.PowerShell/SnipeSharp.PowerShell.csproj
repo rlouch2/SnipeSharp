@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-RC1" />
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0" />
 
     <ProjectReference Include="../SnipeSharp/SnipeSharp.csproj" />
     <None Update="$(AssemblyName).psd1;$(AssemblyName)*.ps1xml" CopyToOutputDirectory="PreserveNewest" />
