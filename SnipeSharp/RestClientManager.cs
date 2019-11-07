@@ -32,13 +32,13 @@ namespace SnipeSharp
 
         internal void SetTokenAndUri()
         {
-            if(Api.Uri is null)
+            if(null == Api.Uri)
                 throw new NullApiUriException();
-            if(Api.Token is null)
+            if(null == Api.Token)
                 throw new NullApiTokenException();
-            if(Client.BaseUrl is null)
+            if(null == Client.BaseUrl)
                 Client.BaseUrl = Api.Uri;
-            if(Client.Authenticator is null)
+            if(null == Client.Authenticator)
                 Client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(Api.Token, "Bearer");
         }
 
@@ -63,10 +63,10 @@ namespace SnipeSharp
             var result = Get<ResponseCollection<R>>(path, filter);
             if(result.HasValue)
                 return result;
-            var offset = filter?.Offset is null ? 0 : filter.Offset;
-            if(filter?.Limit is null && offset + result.Value.Count < result.Value.Total)
+            var offset = null == filter?.Offset ? 0 : filter.Offset;
+            if(null == filter?.Limit && offset + result.Value.Count < result.Value.Total)
             {
-                if(filter is null)
+                if(null == filter)
                     filter = new SearchFilter();
                 filter.Limit = 1000;
                 filter.Offset = offset + result.Value.Count;
@@ -163,7 +163,7 @@ namespace SnipeSharp
     {
         internal static RestRequest Add(this RestRequest request, object @object)
         {
-            if(!(@object is null))
+            if(null != @object)
             {
                 if(request.Method == Method.GET)
                 {
@@ -173,7 +173,7 @@ namespace SnipeSharp
                         if(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute && !string.IsNullOrEmpty(attribute.SerializeAs))
                         {
                             var value = property.GetValue(@object);
-                            if(attribute.IsRequired && value is null)
+                            if(attribute.IsRequired && null != value)
                             {
                                 throw new MissingRequiredFieldException<object>(type.Name, property.Name);
                             } else

@@ -11,13 +11,6 @@ namespace SnipeSharp.Tests.Main.EndPoint
     public sealed class EndPointTests
     {
         [Fact]
-        public void GetsPathSegmentAttribute()
-        {
-            var endPoint = new EndPoint<TestModel>(Utility.OneUseApi());
-            Assert.NotNull(endPoint.EndPointInfo);
-        }
-
-        [Fact]
         public void ThrowsIfNoPathSegmentAttribute()
         {
             Assert.Throws<MissingRequiredAttributeException>(() => {

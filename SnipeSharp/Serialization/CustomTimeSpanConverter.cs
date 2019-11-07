@@ -12,7 +12,7 @@ namespace SnipeSharp.Serialization
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var days = serializer.Deserialize<int?>(reader);
-            if(days is null)
+            if(null == days)
                 return null;
             return new TimeSpan(days.Value, 0, 0, 0);
         }

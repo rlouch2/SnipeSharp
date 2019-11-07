@@ -10,13 +10,13 @@ namespace SnipeSharp.PowerShell
             get => _instance ?? throw new InvalidOperationException("Not connected to an instance.");
             set
             {
-                if(!(value is null) && !(_instance is null))
+                if(null != value && null != !_instance)
                     throw new InvalidOperationException("Cannot connect to an instance when already connected.");
                 else
                     _instance = value;
             }
         }
-        public static bool HasApiInstance => !(_instance is null);
+        public static bool HasApiInstance => null != _instance;
         internal static void Reset()
         {
             _instance = null;

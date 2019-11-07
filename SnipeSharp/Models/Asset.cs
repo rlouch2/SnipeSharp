@@ -281,7 +281,7 @@ namespace SnipeSharp.Models
             get
             {
                 var newDictionary = new Dictionary<string, JToken>();
-                if(!(CustomFields is null))
+                if(null != CustomFields)
                     foreach(var pair in CustomFields)
                         newDictionary[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
                 return newDictionary;

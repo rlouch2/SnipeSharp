@@ -48,6 +48,6 @@ namespace SnipeSharp.Models
         public HashSet<AvailableAction> AvailableActions { get; set; }
 
         /// <value>Gets if this seat is checked out to an asset or user or not.</value>
-        public bool IsCheckedOut => !(AssignedUser is null) || !(AssignedAsset is null);
+        public bool IsCheckedOut => null != AssignedUser || null != AssignedAsset;
     }
 }

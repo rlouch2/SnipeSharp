@@ -14,7 +14,7 @@ namespace SnipeSharp.Serialization
         {
             int readInt;
             var asString = serializer.Deserialize<string>(reader)?.Replace(" months", "");
-            if(!(asString is null) && int.TryParse(asString, out readInt))
+            if(null != asString && int.TryParse(asString, out readInt))
                 return readInt;
             return null;
         }

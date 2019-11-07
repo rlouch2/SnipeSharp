@@ -1,0 +1,37 @@
+using SnipeSharp.Models;
+
+namespace SnipeSharp.EndPoint
+{
+    public sealed class StatusLabelEndPoint : EndPoint<StatusLabel>
+    {
+        // TODO: docs
+        internal StatusLabelEndPoint(SnipeItApi api) : base(api) {}
+
+        /// <summary>
+        /// Get the list of assets with a certain status label.
+        /// </summary>
+        /// <param name="label">A status label to look up.</param>
+        /// <returns>A ResponseCollection of Assets.</returns>
+        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the status label does not exist.</exception>
+        public ResponseCollection<Asset> GetAssets(StatusLabel label)
+            => Api.RequestManager.GetAll<Asset>($"{EndPointInfo.BaseUri}/{label.Id}/assetlist").RethrowExceptionIfAny().Value;
+
+        /// <summary>
+        /// Checks if a specific status label is a deployable type.
+        /// </summary>
+        /// <param name="label">A status label to check.</param>
+        /// <returns>True if the label is a deployable type, otherwise false.</returns>
+        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the status label does not exist.</exception>
+        public bool IsDeployable(StatusLabel label)
+            => Api.RequestManager.GetRaw($"{EndPointInfo.BaseUri}/{label.Id}/deployable").Trim() == "1";
+
+        /// <summary>
+        /// Convert an AssetStatus to a StatusLabel by its Id.
+        /// </summary>
+        /// <param name="status">The AssetStatus to convert.</param>
+        /// <returns>The StatusLabel corresponding to the provided AssetStatus.</returns>
+        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the status label does not exist.</exception>
+        public StatusLabel FromAssetStatus(AssetStatus status)
+            => Get(status.StatusId);
+    }
+}

@@ -23,14 +23,14 @@ namespace SnipeSharp.Serialization
             } else if(token.Type == JTokenType.Object)
             {
                 var @object = token.ToObject<DateTimeResponse>();
-                if(!(@object is null) && !string.IsNullOrWhiteSpace(@object.DateTime) && DateTime.TryParse(@object.DateTime, out dateTime))
+                if(null != @object && !string.IsNullOrWhiteSpace(@object.DateTime) && DateTime.TryParse(@object.DateTime, out dateTime))
                     return dateTime;
             }
             return null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            => serializer.Serialize(writer, value is null ? null : new DateTimeResponse((value as DateTime?).Value));
+            => serializer.Serialize(writer, null == value ? null : new DateTimeResponse((value as DateTime?).Value));
     }
 
     internal sealed class DateTimeResponse

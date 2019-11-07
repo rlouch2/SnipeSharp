@@ -141,7 +141,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                     var (type, value) = ParseQuery(QueryUnion.StringValue);
                     var endPoint = ApiHelper.Instance.GetEndPoint<T>();
 
-                    if(type is null)
+                    if(null == type)
                     {
                         if(int.TryParse(value, out var id))
                             result = endPoint.GetOptional(id);

@@ -51,7 +51,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <inheritdoc />
         internal override void Resolve(ISearchFilter filter = null)
         {
-            var endPoint = ApiHelper.Instance.GetEndPoint<Asset>();
+            var endPoint = ApiHelper.Instance.Assets;
             ApiOptionalResponse<Asset> result;
 
             switch(QueryUnion.BindingType)
@@ -59,7 +59,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                 case BindingQueryUnion.Type.String:
                     var (type, value) = ParseQuery(QueryUnion.StringValue);
 
-                    if(type is null)
+                    if(null == type)
                     {
                         // tag -> serial -> name -> id
                         result = endPoint.GetByTagOptional(value);

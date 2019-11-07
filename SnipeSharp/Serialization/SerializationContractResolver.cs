@@ -39,7 +39,7 @@ namespace SnipeSharp.Serialization
         {
             var property = base.CreateProperty(member, memberSerialization);
             var attribute = member.GetCustomAttribute<FieldAttribute>(true);
-            if(!(attribute is null) && !string.IsNullOrEmpty(attribute.SerializeAs))
+            if(null != attribute && !string.IsNullOrEmpty(attribute.SerializeAs))
             {
                 property.PropertyName = attribute.SerializeAs;
                 property.Readable = true;

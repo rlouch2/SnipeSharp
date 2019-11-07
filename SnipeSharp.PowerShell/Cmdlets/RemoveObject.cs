@@ -51,17 +51,18 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
+            var endPoint = ApiHelper.Instance.GetEndPoint<TObject>();
             if(ParameterSetName == nameof(ParameterSets.ByName))
             {
                 foreach(var name in Name)
                 {
-                    var getResponse = ApiHelper.Instance.GetEndPoint<TObject>().GetOptional(name);
+                    var getResponse = endPoint.GetOptional(name);
                     if(null != getResponse.Exception)
                     {
                         WriteError(new ErrorRecord(getResponse.Exception, $"{typeof(TObject).Name} not found by name \"{name}\"", ErrorCategory.InvalidArgument, name));
                     } else if(ShouldProcess(name))
                     {
-                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(getResponse.Value.Id);
+                        var deleteResponse = endPoint.Delete(getResponse.Value.Id);
                         if(ShowResponse.IsPresent)
                             WriteObject(deleteResponse);
                     }
@@ -70,13 +71,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var id in InternalId)
                 {
-                    var getResponse = ApiHelper.Instance.GetEndPoint<TObject>().GetOptional(id);
+                    var getResponse = endPoint.GetOptional(id);
                     if(null != getResponse.Exception)
                     {
                         WriteError(new ErrorRecord(getResponse.Exception, $"{typeof(TObject).Name} not found by internal id {id}", ErrorCategory.InvalidArgument, id));
                     } else if(ShouldProcess(id.ToString()))
                     {
-                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(getResponse.Value.Id);
+                        var deleteResponse = endPoint.Delete(getResponse.Value.Id);
                         if(ShowResponse.IsPresent)
                             WriteObject(deleteResponse);
                     }
@@ -90,7 +91,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         return;
                     } else if(ShouldProcess(item.Value[0].Name))
                     {
-                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(item.Value[0].Id);
+                        var deleteResponse = endPoint.Delete(item.Value[0].Id);
                         if(ShowResponse.IsPresent)
                             WriteObject(deleteResponse);
                     }
@@ -104,7 +105,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         return;
                     } else if(ShouldProcess(item.Value[0].Name))
                     {
-                        var deleteResponse = ApiHelper.Instance.GetEndPoint<TObject>().Delete(item.Value[0].Id);
+                        var deleteResponse = endPoint.Delete(item.Value[0].Id);
                         if(ShowResponse.IsPresent)
                             WriteObject(deleteResponse);
                     }

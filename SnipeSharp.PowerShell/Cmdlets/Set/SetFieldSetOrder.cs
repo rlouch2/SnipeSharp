@@ -47,7 +47,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 orderedFields.Add(fieldItem);
             }
 
-            WriteObject(ApiHelper.Instance.GetEndPoint<CustomField>().Reorder(identity, orderedFields));
+            WriteObject(ApiHelper.Instance.CustomFields.Reorder(identity, orderedFields));
         }
 
         /// <inheritdoc />

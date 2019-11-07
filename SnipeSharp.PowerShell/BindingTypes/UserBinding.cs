@@ -52,7 +52,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <inheritdoc />
         internal override void Resolve(ISearchFilter filter = null)
         {
-            var endPoint = ApiHelper.Instance.GetEndPoint<User>();
+            var endPoint = ApiHelper.Instance.Users;
             ApiOptionalResponse<User> result;
             var userFilter = filter as UserSearchFilter;
 
@@ -61,7 +61,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                 case BindingQueryUnion.Type.String:
                     var (type, value) = ParseQuery(QueryUnion.StringValue);
 
-                    if(type is null)
+                    if(null == type)
                     {
                         // username -> email -> name -> id
                         result = endPoint.GetByUserNameOptional(value, userFilter);
@@ -114,7 +114,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                                 result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Query does not have a proper type: {type}", "query") };
                                 break;
                         }
-                        if(result.Value is null)
+                        if(null == result.Value)
                         {
                             try
                             {

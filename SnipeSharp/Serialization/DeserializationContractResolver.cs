@@ -13,7 +13,7 @@ namespace SnipeSharp.Serialization
         {
             var property = base.CreateProperty(member, memberSerialization);
             var attribute = member.GetCustomAttribute<FieldAttribute>(true);
-            if(!(attribute is null) && !(attribute.DeserializeAs is null))
+            if(null != attribute && null != attribute.DeserializeAs)
             {
                 property.PropertyName = attribute.DeserializeAs;
                 property.Writable = true;

@@ -54,9 +54,7 @@ namespace SnipeSharp
             }
         }
 
-        internal readonly RestClientManager RequestManager;
-
-        private Dictionary<Type, object> endpoints = new Dictionary<Type, object>();
+        internal /* readonly */ RestClientManager RequestManager;
 
         /// <summary>
         /// <para>Tests if the Token and Uri are set and connect to the API.</para>
@@ -84,105 +82,142 @@ namespace SnipeSharp
         public EndPoint<T> GetEndPoint<T>() where T: CommonEndPointModel
         {
             var type = typeof(T);
-            if(!endpoints.ContainsKey(type))
-                endpoints[type] = new EndPoint<T>(this);
-            return endpoints[type] as EndPoint<T>;
+            if(type == typeof(Asset))
+                return Assets as EndPoint<T>;
+            else if(type == typeof(Accessory))
+                return Accessories as EndPoint<T>;
+            else if(type == typeof(Category))
+                return Categories as EndPoint<T>;
+            else if(type == typeof(Company))
+                return Companies as EndPoint<T>;
+            else if(type == typeof(Component))
+                return Components as EndPoint<T>;
+            else if(type == typeof(Consumable))
+                return Consumables as EndPoint<T>;
+            else if(type == typeof(CustomField))
+                return CustomFields as EndPoint<T>;
+            else if(type == typeof(Department))
+                return Departments as EndPoint<T>;
+            else if(type == typeof(Depreciation))
+                return Depreciations as EndPoint<T>;
+            else if(type == typeof(FieldSet))
+                return FieldSets as EndPoint<T>;
+            else if(type == typeof(Group))
+                return Groups as EndPoint<T>;
+            else if(type == typeof(License))
+                return Licenses as EndPoint<T>;
+            else if(type == typeof(Location))
+                return Locations as EndPoint<T>;
+            else if(type == typeof(Maintenance))
+                return Maintenances as EndPoint<T>;
+            else if(type == typeof(Manufacturer))
+                return Manufacturers as EndPoint<T>;
+            else if(type == typeof(Model))
+                return Models as EndPoint<T>;
+            else if(type == typeof(StatusLabel))
+                return StatusLabels as EndPoint<T>;
+            else if(type == typeof(Supplier))
+                return Suppliers as EndPoint<T>;
+            else if(type == typeof(User))
+                return Users as EndPoint<T>;
+            else
+                throw new ArgumentException("Unrecognized end point type", nameof(T), null);
         }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Asset">Assets</see>.
         /// </value>
-        public EndPoint<Asset> Assets => GetEndPoint<Asset>();
+        public /* readonly */ AssetEndPoint Assets { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Accessory">Accessories</see>.
         /// </value>
-        public EndPoint<Accessory> Accessories => GetEndPoint<Accessory>();
+        public /* readonly */ AccessoryEndPoint Accessories { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Category">Categories</see>.
         /// </value>
-        public EndPoint<Category> Categories => GetEndPoint<Category>();
+        public /* readonly */ EndPoint<Category> Categories { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Company">Companies</see>.
         /// </value>
-        public EndPoint<Company> Companies => GetEndPoint<Company>();
+        public /* readonly */ EndPoint<Company> Companies { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Component">Components</see>.
         /// </value>
-        public EndPoint<Component> Components => GetEndPoint<Component>();
+        public /* readonly */ ComponentEndPoint Components { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Consumable">Consumables</see>.
         /// </value>
-        public EndPoint<Consumable> Consumables => GetEndPoint<Consumable>();
+        public /* readonly */ EndPoint<Consumable> Consumables { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.CustomField">Custom fields</see>.
         /// </value>
-        public EndPoint<CustomField> CustomFields => GetEndPoint<CustomField>();
+        public /* readonly */ CustomFieldEndPoint CustomFields { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Department">Departments</see>.
         /// </value>
-        public EndPoint<Department> Departments => GetEndPoint<Department>();
+        public /* readonly */ EndPoint<Department> Departments { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Depreciation">Depreciations</see>.
         /// </value>
-        public EndPoint<Depreciation> Depreciations => GetEndPoint<Depreciation>();
+        public /* readonly */ EndPoint<Depreciation> Depreciations { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.FieldSet">Field sets</see>.
         /// </value>
-        public EndPoint<FieldSet> FieldSets => GetEndPoint<FieldSet>();
+        public /* readonly */ FieldSetEndPoint FieldSets { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Group">Groups</see>.
         /// </value>
-        public EndPoint<Group> Groups => GetEndPoint<Group>();
+        public /* readonly */ EndPoint<Group> Groups { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.License">Licenses</see>.
         /// </value>
-        public EndPoint<License> Licenses => GetEndPoint<License>();
+        public /* readonly */ LicenseEndPoint Licenses { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Location">Locations</see>.
         /// </value>
-        public EndPoint<Location> Locations => GetEndPoint<Location>();
+        public /* readonly */ EndPoint<Location> Locations { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Maintenance">Maintenances</see>.
         /// </value>
-        public EndPoint<Maintenance> Maintenances => GetEndPoint<Maintenance>();
+        public /* readonly */ EndPoint<Maintenance> Maintenances { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Manufacturer">Manufacturers</see>.
         /// </value>
-        public EndPoint<Manufacturer> Manufacturers => GetEndPoint<Manufacturer>();
+        public /* readonly */ EndPoint<Manufacturer> Manufacturers { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Model">Models</see>.
         /// </value>
-        public EndPoint<Model> Models => GetEndPoint<Model>();
+        public /* readonly */ EndPoint<Model> Models { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.StatusLabel">StatusLabels</see>.
         /// </value>
-        public EndPoint<StatusLabel> StatusLabels => GetEndPoint<StatusLabel>();
+        public /* readonly */ StatusLabelEndPoint StatusLabels { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Supplier">Suppliers</see>.
         /// </value>
-        public EndPoint<Supplier> Suppliers => GetEndPoint<Supplier>();
+        public /* readonly */ EndPoint<Supplier> Suppliers { get; }
 
         /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.User">Users</see>.
         /// </value>
-        public EndPoint<User> Users => GetEndPoint<User>();
+        public /* readonly */ UserEndPoint Users { get; }
 
         /// <summary>
         /// <para>Constructs a wrapper for the Snipe-IT web API.</para>
@@ -200,6 +235,27 @@ namespace SnipeSharp
         internal SnipeItApi(IRestClient restClient)
         {
             RequestManager = new RestClientManager(this, restClient);
+
+            // endpoints
+            Assets = new AssetEndPoint(this);
+            Accessories = new AccessoryEndPoint(this);
+            Categories = new EndPoint<Category>(this);
+            Companies = new EndPoint<Company>(this);
+            Components = new ComponentEndPoint(this);
+            Consumables = new EndPoint<Consumable>(this);
+            CustomFields = new CustomFieldEndPoint(this);
+            Departments = new EndPoint<Department>(this);
+            Depreciations = new EndPoint<Depreciation>(this);
+            FieldSets = new FieldSetEndPoint(this);
+            Groups = new EndPoint<Group>(this);
+            Licenses = new LicenseEndPoint(this);
+            Locations = new EndPoint<Location>(this);
+            Maintenances = new EndPoint<Maintenance>(this);
+            Manufacturers = new EndPoint<Manufacturer>(this);
+            Models = new EndPoint<Model>(this);
+            StatusLabels = new StatusLabelEndPoint(this);
+            Suppliers = new EndPoint<Supplier>(this);
+            Users = new UserEndPoint(this);
         }
     }
 }

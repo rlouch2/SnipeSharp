@@ -128,7 +128,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var field in Add)
                 {
                     //TODO: error handling
-                    ApiHelper.Instance.GetEndPoint<CustomField>().Associate(field.Value[0], value, required: false);
+                    ApiHelper.Instance.CustomFields.Associate(field.Value[0], value, required: false);
                 }
             }
 
@@ -137,7 +137,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var field in AddRequired)
                 {
                     //TODO: error handling
-                    ApiHelper.Instance.GetEndPoint<CustomField>().Associate(field.Value[0], value, required: true);
+                    ApiHelper.Instance.CustomFields.Associate(field.Value[0], value, required: true);
                 }
             }
 
@@ -146,12 +146,12 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 foreach(var field in Remove)
                 {
                     //TODO: error handling
-                    ApiHelper.Instance.GetEndPoint<CustomField>().Disassociate(field.Value[0], value);
+                    ApiHelper.Instance.CustomFields.Disassociate(field.Value[0], value);
                 }
             }
 
             //TODO: error handling
-            WriteObject(ApiHelper.Instance.GetEndPoint<FieldSet>().Update(value));
+            WriteObject(ApiHelper.Instance.FieldSets.Update(value));
         }
 
         /// <inheritdoc />

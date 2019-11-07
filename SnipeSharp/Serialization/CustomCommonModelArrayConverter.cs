@@ -16,7 +16,7 @@ namespace SnipeSharp.Serialization
         {
             var items = value as CommonEndPointModel[];
             writer.WriteStartArray();
-            if(!(items is null))
+            if(null != items)
                 foreach(var item in items)
                     writer.WriteValue(item.Id);
             writer.WriteEndArray();

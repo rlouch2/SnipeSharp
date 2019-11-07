@@ -9,7 +9,7 @@ namespace SnipeSharp.Tests.Mock
     internal class FakeResponse : IRestResponse
     {
         internal static FakeResponse FromFile(string path, bool isSuccessful = true, HttpStatusCode? statusCode = null)
-            => new FakeResponse(path is null ? "" : File.ReadAllText(path), isSuccessful, statusCode);
+            => new FakeResponse(null == path ? string.Empty : File.ReadAllText(path), isSuccessful, statusCode);
 
         public FakeResponse(string content, bool isSuccessful = true, HttpStatusCode? statusCode = null)
         {

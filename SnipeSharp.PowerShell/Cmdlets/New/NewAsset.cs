@@ -172,7 +172,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     return;
                 item.Status = status.ToAssetStatus();
             }
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)) && !(CustomFields is null))
+            if(null != CustomFields && MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)))
                 foreach(var pair in CustomFields)
                     item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };
 

@@ -16,8 +16,8 @@ namespace SnipeSharp.EndPoint
     public class EndPoint<T> : IEndPoint<T>
         where T: CommonEndPointModel
     {
-        internal readonly SnipeItApi Api;
-        internal readonly PathSegmentAttribute EndPointInfo;
+        protected readonly SnipeItApi Api;
+        protected readonly PathSegmentAttribute EndPointInfo;
 
         /// <param name="api">The Api to grab the RequestManager from.</param>
         /// <exception cref="SnipeSharp.Exceptions.MissingRequiredAttributeException">When the type parameter does not have the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</exception>
@@ -25,7 +25,7 @@ namespace SnipeSharp.EndPoint
         {
             Api = api;
             EndPointInfo = typeof(T).GetCustomAttribute<PathSegmentAttribute>();
-            if(EndPointInfo is null)
+            if(null == EndPointInfo)
                 throw new MissingRequiredAttributeException(nameof(PathSegmentAttribute), typeof(T).Name);
         }
 
@@ -122,7 +122,7 @@ namespace SnipeSharp.EndPoint
         private T CheckRequiredFields(T @object, bool creating = false)
         {
             foreach(var property in typeof(T).GetProperties())
-                if((property.GetCustomAttribute<FieldAttribute>(true)?.IsRequired ?? false) && (property.GetValue(@object) is null)) // if required and null
+                if((property.GetCustomAttribute<FieldAttribute>(true)?.IsRequired ?? false) && null == property.GetValue(@object)) // if required and null
                     throw new MissingRequiredFieldException<T>(property.Name);
             return @object;
         }
