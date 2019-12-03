@@ -76,7 +76,7 @@ namespace SnipeSharp
                     if(!batch.HasValue)
                         return batch;
                     result.Value.AddRange(batch.Value.Rows);
-                    filter.Offset += 1000;
+                    filter.Offset += batch.Value.Count;
                 }
             }
             return result;

@@ -8,7 +8,7 @@ namespace SnipeSharp.Models
     /// <summary>
     /// ApiObject for submitting Asset audits.
     /// </summary>
-    /// <seealso cref="EndPointExtensions.Audit(EndPoint{Asset}, Asset, Location, DateTime?, string)"/>
+    /// <seealso cref="AssetEndPoint.Audit(Asset, Location, DateTime?, string)" />
     public sealed class AssetAudit : ApiObject
     {
         /// <summary>

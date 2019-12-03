@@ -2,9 +2,13 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.EndPoint
 {
+    /// <summary>
+    /// Provides additional methods for the License endpoint.
+    /// </summary>
     public sealed class LicenseEndPoint : EndPoint<License>
     {
-        // TODO: docs
+        /// <param name="api">The Api to grab the RequestManager from.</param>
+        /// <exception cref="SnipeSharp.Exceptions.MissingRequiredAttributeException">When the type parameter does not have the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</exception>
         internal LicenseEndPoint(SnipeItApi api) : base(api) {}
 
         /// <summary>

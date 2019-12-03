@@ -10,7 +10,7 @@ namespace SnipeSharp.PowerShell
             get => _instance ?? throw new InvalidOperationException("Not connected to an instance.");
             set
             {
-                if(null != value && null != !_instance)
+                if(null != value && null != _instance)
                     throw new InvalidOperationException("Cannot connect to an instance when already connected.");
                 else
                     _instance = value;

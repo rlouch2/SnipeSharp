@@ -4,9 +4,13 @@ using SnipeSharp.Exceptions;
 
 namespace SnipeSharp.EndPoint
 {
+    /// <summary>
+    /// Provides additional methods for the User endpoint.
+    /// </summary>
     public sealed class UserEndPoint : EndPoint<User>
     {
-        // TODO: docs
+        /// <param name="api">The Api to grab the RequestManager from.</param>
+        /// <exception cref="SnipeSharp.Exceptions.MissingRequiredAttributeException">When the type parameter does not have the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</exception>
         internal UserEndPoint(SnipeItApi api) : base(api) {}
 
         /// <summary>

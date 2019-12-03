@@ -34,6 +34,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public Uri Uri { get; set; }
 
+        /// <summary>When provided, output the raw SnipeItApi object to the pipeline.</summary>
+        /// <remarks>This is useful for debugging, but be careful not to break things.</remarks>
+        [Parameter(
+            HelpMessage = "Return the API object to the pipeline."
+        )]
+        public SwitchParameter PassThru { get; set; }
+
         /// <inheritdoc />
         protected override void EndProcessing(){
             var instance = new SnipeItApi {
@@ -46,9 +53,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
             else
                 throw new ApiErrorException($"Could not validate a connection to Snipe-IT at Uri \"{Uri}\".");
 
-#if DEBUG
-            WriteObject(ApiHelper.Instance);
-#endif
+            if(PassThru)
+                WriteObject(ApiHelper.Instance);
         }
     }
 }

@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using SnipeSharp.EndPoint;
-using SnipeSharp.Exceptions;
-using SnipeSharp.Filters;
-using SnipeSharp.Models;
 
 namespace SnipeSharp
 {
