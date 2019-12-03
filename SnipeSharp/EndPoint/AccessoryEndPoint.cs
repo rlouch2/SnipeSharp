@@ -37,6 +37,22 @@ namespace SnipeSharp.EndPoint
         public RequestResponse<ApiObject> CheckOut(AccessoryCheckOutRequest request)
             => Api.RequestManager.Post<AccessoryCheckOutRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Accessory.Id}/checkout", request).RethrowExceptionIfAny().Value;
 
+        /// <summary>
+        /// Check in an accessory.
+        /// </summary>
+        /// <param name="accessory">An accessory checked out to a user. Checked-out accessories have unique ID numbers.</param>
+        /// <param name="note">An optional note for the checkin log.</param>
+        /// <returns></returns>
+        public RequestResponse<ApiObject> CheckIn(Accessory accessory, string note = null)
+            => CheckIn(new AccessoryCheckInRequest(accessory){ Note = note });
+
+        /// <summary>
+        /// Check in an accessory.
+        /// </summary>
+        /// <param name="request">An accessory check-in request.</param>
+        /// <returns></returns>
+        public RequestResponse<ApiObject> CheckIn(AccessoryCheckInRequest request)
+            => Api.RequestManager.Post<AccessoryCheckInRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Accessory.Id}/checkin", request).RethrowExceptionIfAny().Value;
         // TODO: checkin
     }
 }

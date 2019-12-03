@@ -159,7 +159,10 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(NewUserName)))
                 item.UserName = this.NewUserName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Password)))
+            {
                 item.Password = this.Password;
+                item.PasswordConfirmation = this.Password;
+            }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(EmployeeNumber)))
                 item.EmployeeNumber = this.EmployeeNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))

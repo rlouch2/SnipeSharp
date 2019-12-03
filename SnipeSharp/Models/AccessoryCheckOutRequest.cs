@@ -8,7 +8,7 @@ namespace SnipeSharp.Models
     /// </summary>
     public sealed class AccessoryCheckOutRequest : ApiObject
     {
-        /// <value>The Accessory that will be checkout out.</value>
+        /// <value>The Accessory that will be checked out.</value>
         /// <remarks>This property is not serialized, but instead used for its Id value.</remarks>
         public Accessory Accessory { get; private set; }
 

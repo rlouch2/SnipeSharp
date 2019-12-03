@@ -133,6 +133,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 LastName = this.LastName,
                 UserName = this.UserName,
                 Password = this.Password,
+                PasswordConfirmation = this.Password,
                 EmployeeNumber = this.EmployeeNumber,
                 JobTitle = this.JobTitle,
                 PhoneNumber = this.PhoneNumber,
