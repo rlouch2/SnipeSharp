@@ -45,6 +45,11 @@ namespace SnipeSharp.Models
         [Field("password", IsRequired = true)]
         public string Password { private get; set; }
 
+        /// <summary>Confirms the user's password.</summary>
+        /// <remarks>Must match <see cref="Password"/>.</remarks>
+        [Field(SerializeAs = "password_confirmation", IsRequired = true)]
+        public string PasswordConfirmation { private get; set; }
+
         /// <value>Gets/sets the user's employee number.</value>
         [Field("employee_num")]
         public string EmployeeNumber { get; set; }
