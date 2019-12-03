@@ -164,6 +164,6 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the groups this user is a member of.</value>
         [Field("groups", Converter = CommonModelArrayConverter)]
-        public ResponseCollection<Group> Groups { get; private set; }
+        public ResponseCollection<Group> Groups { get; set; }
     }
 }

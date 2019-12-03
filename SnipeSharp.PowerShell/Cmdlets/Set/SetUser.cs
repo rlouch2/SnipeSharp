@@ -141,6 +141,12 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public ObjectBinding<Company> Company { get; set; }
 
+        /// <summary>
+        /// The updated list of groups the user is a member of.
+        /// </summary>
+        [Parameter]
+        public ObjectBinding<Group>[] Groups { get; set; }
+
         /// <inheritdoc />
         protected override bool PopulateItem(User item)
         {
@@ -195,6 +201,12 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 if (!GetSingleValue(Company, out var company))
                     return false;
                 item.Company = company;
+            }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(Groups)))
+            {
+                if (!GetManyValues(Groups, out var groups))
+                    return false;
+                item.Groups = groups;
             }
             return false;
         }

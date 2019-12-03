@@ -107,5 +107,28 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             return false;
         }
+
+        /// <summary>
+        /// Retrieve many values from an array of bindings.
+        /// </summary>
+        /// <param name="bindings">The bindings to use.</param>
+        /// <param name="values">The value to output.</param>
+        /// <param name="queryType">The type of query.</param>
+        /// <param name="queryValue">The value of the query.</param>
+        /// <param name="required">Are null returns disallowed? (Does the binding have to have a value?)</param>
+        /// <typeparam name="R">The type of object to retrieve</typeparam>
+        /// <returns>True if all valid values were retrieved; false if any binding was not resolved.</returns>
+        protected bool GetManyValues<R>(ObjectBinding<R>[] bindings, out ResponseCollection<R> values, string queryType = "identity", string queryValue = null, bool required = false)
+            where R: CommonEndPointModel
+        {
+            var result = true;
+            values = new ResponseCollection<R>();
+            foreach(var binding in bindings)
+                if(result = GetSingleValue(binding, out var value, queryType, queryValue, required) && result)
+                    values.Add(value);
+            if(!result)
+                values = null;
+            return result;
+        }
     }
 }
