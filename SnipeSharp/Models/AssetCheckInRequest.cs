@@ -13,7 +13,7 @@ namespace SnipeSharp.Models
         public Asset Asset { get; private set; }
 
         /// <value>The new name of the Asset once it is checked out.</value>
-        [Field("name", IsRequired = true)]
+        [Field("name")]
         public string AssetName { get; set; }
 
         /// <value>The note to put in the log for this check-out event.</value>

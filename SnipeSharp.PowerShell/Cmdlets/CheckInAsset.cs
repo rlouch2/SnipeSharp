@@ -60,8 +60,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 request.StatusLabel = Status?.Value[0];
             if(MyInvocation.BoundParameters.ContainsKey(nameof(AssetName)))
                 request.AssetName = AssetName;
-            else
-                request.AssetName = request.Asset.Name;
             WriteObject(ApiHelper.Instance.Assets.CheckIn(request));
         }
     }

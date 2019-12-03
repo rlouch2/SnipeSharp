@@ -28,7 +28,6 @@ namespace SnipeSharp.EndPoint
         /// <returns></returns>
         public RequestResponse<ApiObject> CheckIn(Asset asset, string note = null)
             => CheckIn(new AssetCheckInRequest(asset){
-                AssetName = asset.Name,
                 Note = note
             });
 
