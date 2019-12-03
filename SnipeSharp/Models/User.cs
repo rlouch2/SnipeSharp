@@ -163,7 +163,7 @@ namespace SnipeSharp.Models
         public HashSet<AvailableAction> AvailableActions { get; set; }
 
         /// <value>Gets the groups this user is a member of.</value>
-        [Field(DeserializeAs = "groups")]
+        [Field("groups", Converter = CommonModelArrayConverter)]
         public ResponseCollection<Group> Groups { get; private set; }
     }
 }
