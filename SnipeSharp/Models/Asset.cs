@@ -271,28 +271,33 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "custom_fields", Converter = FieldConverter.CustomFieldDictionaryConverter)]
         public CustomFieldDictionary CustomFields { get; set; } = new CustomFieldDictionary();
 
-        [JsonExtensionData(ReadData = false, WriteData = true)]
-        private Dictionary<string, JToken> InnerCustomFields
+        [JsonExtensionData]
+        private Dictionary<string, JToken> _customFields { get; set; }
+
+        [OnSerializing]
+        private void OnSerializing(StreamingContext context)
         {
-            get
+            if(null != CustomFields)
             {
-                var newDictionary = new Dictionary<string, JToken>();
-                if(null != CustomFields && CustomFields.Count > 0)
-                    foreach(var pair in CustomFields)
-                        newDictionary[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
-                return newDictionary;
+                _customFields = new Dictionary<string, JToken>();
+                foreach(var pair in CustomFields)
+                    _customFields[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
             }
         }
 
-        [JsonExtensionData(ReadData = true, WriteData = false)]
-        private Dictionary<string, JToken> CustomFieldsReader { get; set; }
+        [OnSerialized]
+        private void OnSerialized(StreamingContext context)
+        {
+            // remove unnecessary object now.
+            _customFields = null;
+        }
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            if(null != CustomFieldsReader)
+            if(null != _customFields)
             {
-                foreach(var pair in CustomFieldsReader)
+                foreach(var pair in _customFields)
                 {
                     if(!pair.Key.StartsWith("_snipeit_")) // custom fields start with _snipeit_
                         continue;
@@ -304,7 +309,7 @@ namespace SnipeSharp.Models
                     };
                     CustomFields.Add(pair.Key, model);
                 }
-                CustomFieldsReader = null;
+                _customFields = null;
             }
             return;
         }
