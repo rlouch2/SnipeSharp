@@ -220,8 +220,6 @@ namespace SnipeSharp
         /// </value>
         public /* readonly */ UserEndPoint Users { get; }
 
-        public static object Test { get; internal set; }
-
         /// <summary>
         /// <para>Constructs a wrapper for the Snipe-IT web API.</para>
         /// <para>The Token and Uri must be set either in an initializer or manually after construction.</para>

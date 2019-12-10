@@ -290,7 +290,7 @@ namespace SnipeSharp.Models
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            if(CustomFieldsReader.Count > 0)
+            if(null != CustomFieldsReader)
             {
                 foreach(var pair in CustomFieldsReader)
                 {
@@ -306,7 +306,6 @@ namespace SnipeSharp.Models
                 }
                 CustomFieldsReader = null;
             }
-            SnipeItApi.Test = CustomFieldsReader;
             return;
         }
 
