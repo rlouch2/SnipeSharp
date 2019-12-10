@@ -139,6 +139,17 @@ snipe.Assets.Update(asset);
 > PS C:\> Set-Asset -Name "Loaner1" -NewSerial "1i37dpc3k"
 > ```
 
+Update an asset with a Custom Field
+```csharp
+var asset = snipe.Assets.Get("BurnerPhone-1234");
+asset.CustomFields["_snipeit_imei_number_37"] = "01-234567-890123-4"
+snipe.Assets.Update(asset);
+```
+
+> ```powershell
+> PS C:\> Set-Asset -Name "BurnerPhone-1234" -CustomField @{ "_snipeit_imei_number_37" = "01-234567-890123-4" }
+> ```
+
 Get all assets from made by a certain manufacturer
 ```csharp
 var filter = new AssetSearchFilter {
