@@ -174,7 +174,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             if(null != CustomFields && MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)))
                 foreach(var pair in CustomFields)
-                    item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };
+                    item.CustomFields[pair.Key] = pair.Value;
 
             //TODO: error handling
             WriteObject(ApiHelper.Instance.Assets.Create(item));

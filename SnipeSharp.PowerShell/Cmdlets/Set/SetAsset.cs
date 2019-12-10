@@ -109,18 +109,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public Uri ImageUri { get; set; }
 
         /// <summary>
-        /// The updated assignee object.
-        /// </summary>
-        [Parameter(DontShow = true)]
-        public CommonEndPointModel AssignedTo { get; set; }
-
-        /// <summary>
-        /// The updated assignee object type.
-        /// </summary>
-        [Parameter(DontShow = true)]
-        public AssignedToType AssignedType { get; set; }
-
-        /// <summary>
         /// The updated purchase date for the asset.
         /// </summary>
         [Parameter]
@@ -195,10 +183,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ImageUri)))
                 item.ImageUri = ImageUri;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssignedTo)))
-                item.AssignedTo = AssignedTo;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssignedType)))
-                item.AssignedType = AssignedType;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseCost)))
                 item.PurchaseCost = PurchaseCost;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(PurchaseDate)))
@@ -207,7 +191,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.WarrantyMonths = WarrantyMonths;
             if(null != CustomFields && MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)))
                 foreach(var pair in CustomFields)
-                    item.CustomFields[pair.Key] = new AssetCustomField { Field = pair.Key, Value = pair.Value };
+                    item.CustomFields[pair.Key] = pair.Value;
             return true;
         }
 

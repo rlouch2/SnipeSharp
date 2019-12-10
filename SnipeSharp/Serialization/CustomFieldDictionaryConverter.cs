@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using SnipeSharp.Collections;
+using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomFieldDictionaryConverter<T> : JsonConverter where T: class
+    internal sealed class CustomFieldDictionaryConverter : JsonConverter
     {
-        internal static readonly CustomFieldDictionaryConverter<T> Instance = new CustomFieldDictionaryConverter<T>();
+        internal static readonly CustomFieldDictionaryConverter Instance = new CustomFieldDictionaryConverter();
         public override bool CanConvert(Type objectType)
             => true;
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -17,7 +19,14 @@ namespace SnipeSharp.Serialization
                 return existingValue;
             } else
             {
-                return serializer.Deserialize<Dictionary<string, T>>(reader);
+                var values = serializer.Deserialize<Dictionary<string, AssetCustomField>>(reader);
+                var dictionary = new CustomFieldDictionary();
+                foreach(var pair in values)
+                {
+                    pair.Value.FriendlyName = pair.Key;
+                    dictionary.Add(pair.Value.Field, pair.Value);
+                }
+                return dictionary;
             }
         }
 

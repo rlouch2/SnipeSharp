@@ -11,6 +11,11 @@ namespace SnipeSharp.Models
     public sealed class AssetCustomField : ApiObject
     {
         /// <summary>
+        /// The Friendly Name of the field.
+        /// </summary>
+        public string FriendlyName { get; set; }
+
+        /// <summary>
         /// The Database column name in SnipeIT.
         /// </summary>
         [Field("field")]

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using RestSharp;
+using SnipeSharp.Collections;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
 
@@ -218,6 +219,8 @@ namespace SnipeSharp
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.User">Users</see>.
         /// </value>
         public /* readonly */ UserEndPoint Users { get; }
+
+        public static object Test { get; internal set; }
 
         /// <summary>
         /// <para>Constructs a wrapper for the Snipe-IT web API.</para>

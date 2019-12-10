@@ -6,6 +6,9 @@ using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Runtime.Serialization;
+using System.Linq;
+using SnipeSharp.Collections;
 
 namespace SnipeSharp.Models
 {
@@ -14,7 +17,7 @@ namespace SnipeSharp.Models
     /// Accessories may be checked out to Users, Locations, or other Assets.
     /// </summary>
     [PathSegment("hardware")]
-    public sealed class Asset : CommonEndPointModel, ICustomFields<AssetCustomField>, IAvailableActions
+    public sealed class Asset : CommonEndPointModel, IAvailableActions
     {
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
@@ -161,21 +164,14 @@ namespace SnipeSharp.Models
 
         /// <summary>
         /// <para>The object this asset is assigned to; it may be either a <see cref="User">User</see>, a <see cref="Location">Location</see>, or another <see cref="Asset">Asset</see>.</para>
-        /// <para>You can use the value of the <see cref="AssignedType">AssignedType</see> property to determine what kind of object this is.</para>
         /// </summary>
         /// <remarks>
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field("assigned_to", Converter = CommonModelConverter, OverrideAffinity = true)]
+        // TODO: replace this with a dedicated AssignedTo type
         public CommonEndPointModel AssignedTo { get; set; }
-
-        /// <summary>
-        /// <para>The type of the assignee.</para>
-        /// <seealso cref="AssetEndPoint.CheckOut(AssetCheckOutRequest)" />
-        /// </summary>
-        [Field("assigned_type")]
-        public AssignedToType? AssignedType { get; set; }
 
         /// <summary>
         /// The number of months the warranty covers for this asset.
@@ -272,20 +268,46 @@ namespace SnipeSharp.Models
         /// <para>Custom fields for this Asset, selected by the Model's FieldSet.</para>
         /// <para>Values in this collection will be serialized with the key <c><see cref="AssetCustomField.Field">value.Field</see> ?? key</c> and the value <see cref="AssetCustomField.Value">value.Value</see>.</para>
         /// </summary>
-        [Field(DeserializeAs = "custom_fields", Converter = CustomFieldDictionaryConverter)]
-        public Dictionary<string, AssetCustomField> CustomFields { get; set; }
+        [Field(DeserializeAs = "custom_fields", Converter = FieldConverter.CustomFieldDictionaryConverter)]
+        public CustomFieldDictionary CustomFields { get; set; } = new CustomFieldDictionary();
 
         [JsonExtensionData(ReadData = false, WriteData = true)]
-        private Dictionary<string, JToken> CustomFieldsWriter
+        private Dictionary<string, JToken> InnerCustomFields
         {
             get
             {
                 var newDictionary = new Dictionary<string, JToken>();
-                if(null != CustomFields)
+                if(null != CustomFields && CustomFields.Count > 0)
                     foreach(var pair in CustomFields)
                         newDictionary[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
                 return newDictionary;
             }
+        }
+
+        [JsonExtensionData(ReadData = true, WriteData = false)]
+        private Dictionary<string, JToken> CustomFieldsReader { get; set; }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            if(CustomFieldsReader.Count > 0)
+            {
+                foreach(var pair in CustomFieldsReader)
+                {
+                    if(!pair.Key.StartsWith("_snipeit_")) // custom fields start with _snipeit_
+                        continue;
+                    var model = new AssetCustomField
+                    {
+                        FriendlyName = pair.Key,
+                        Field = pair.Key,
+                        Value = pair.Value.ToObject<string>()
+                    };
+                    CustomFields.Add(pair.Key, model);
+                }
+                CustomFieldsReader = null;
+            }
+            SnipeItApi.Test = CustomFieldsReader;
+            return;
         }
 
         /// <inheritdoc />

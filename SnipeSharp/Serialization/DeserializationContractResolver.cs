@@ -42,7 +42,7 @@ namespace SnipeSharp.Serialization
                             property.Converter = CustomCommonModelConverter.Instance;
                         break;
                     case FieldConverter.CustomFieldDictionaryConverter:
-                        property.Converter = CustomFieldDictionaryConverter<AssetCustomField>.Instance;
+                        property.Converter = CustomFieldDictionaryConverter.Instance;
                         break;
                     case FieldConverter.AssetStatusConverter:
                     case FieldConverter.None:

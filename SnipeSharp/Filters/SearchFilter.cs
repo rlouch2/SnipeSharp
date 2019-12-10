@@ -7,7 +7,7 @@ namespace SnipeSharp.Filters
     /// <summary>
     /// Implements ISortableSearchFilter. No fancy type-checking on the sorting column or anything here, just a plain old filter with custom field support if you want it.
     /// </summary>
-    public sealed class SearchFilter : ISortableSearchFilter<string>, ICustomFields<object>
+    public sealed class SearchFilter : ISortableSearchFilter<string>
     {
         /// <inheritdoc />
         [Field("limit")]
