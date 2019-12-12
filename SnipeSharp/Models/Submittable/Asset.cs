@@ -7,7 +7,6 @@ using static SnipeSharp.Serialization.FieldConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization;
-using System.Linq;
 using SnipeSharp.Collections;
 
 namespace SnipeSharp.Models
@@ -17,8 +16,17 @@ namespace SnipeSharp.Models
     /// Accessories may be checked out to Users, Locations, or other Assets.
     /// </summary>
     [PathSegment("hardware")]
-    public sealed class Asset : CommonEndPointModel, IAvailableActions
+    public sealed class Asset : CommonEndPointModel, IAvailableActions, IUpdatable<Asset>
     {
+        /// <summary>Create a new Asset object.</summary>
+        public Asset() { }
+
+        /// <summary>Create a new Asset object with the supplied ID, for use with updating.</summary>
+        internal Asset(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -264,6 +272,10 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "user_can_checkout")]
         public bool? UserCanCheckOut { get; private set; }
 
+        /// <inheritdoc />
+        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        public HashSet<AvailableAction> AvailableActions { get; set; }
+
         /// <summary>
         /// <para>Custom fields for this Asset, selected by the Model's FieldSet.</para>
         /// <para>Values in this collection will be serialized with the key <c><see cref="AssetCustomField.Field">value.Field</see> ?? key</c> and the value <see cref="AssetCustomField.Value">value.Value</see>.</para>
@@ -315,7 +327,28 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
-        public HashSet<AvailableAction> AvailableActions { get; set; }
+        public Asset CloneForUpdate() => new Asset(this.Id);
+
+        /// <inheritdoc />
+        public Asset WithValuesFrom(Asset other)
+            => new Asset(this.Id)
+            {
+                AssetTag = other.AssetTag,
+                Name = other.Name,
+                Serial = other.Serial,
+                Model = other.Model,
+                Status = other.Status,
+                Supplier = other.Supplier,
+                Notes = other.Notes,
+                OrderNumber = other.OrderNumber,
+                Company = other.Company,
+                Location = other.Location,
+                DefaultLocation = other.DefaultLocation,
+                ImageUri = other.ImageUri,
+                WarrantyMonths = other.WarrantyMonths,
+                PurchaseDate = other.PurchaseDate,
+                PurchaseCost = other.PurchaseCost,
+                CustomFields = other.CustomFields
+            };
     }
 }

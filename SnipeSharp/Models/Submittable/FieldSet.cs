@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// <seealso cref="Model" />
     /// <seealso cref="Asset.CustomFields" />
     [PathSegment("fieldsets")]
-    public sealed class FieldSet : CommonEndPointModel
+    public sealed class FieldSet : CommonEndPointModel, IUpdatable<FieldSet>
     {
+        /// <summary>Create a new FieldSet object.</summary>
+        public FieldSet() { }
+
+        /// <summary>Create a new FieldSet object with the supplied ID, for use with updating.</summary>
+        internal FieldSet(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -39,5 +48,15 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
+
+        /// <inheritdoc />
+        public FieldSet CloneForUpdate() => new FieldSet(this.Id);
+
+        /// <inheritdoc />
+        public FieldSet WithValuesFrom(FieldSet other)
+            => new FieldSet(this.Id)
+            {
+                Name = other.Name
+            };
     }
 }

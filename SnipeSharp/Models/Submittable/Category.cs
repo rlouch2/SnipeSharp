@@ -12,10 +12,18 @@ namespace SnipeSharp.Models
     /// Categories may be checked out to Assets, Accessories, Consumables and Components.
     /// </summary>
     [PathSegment("categories")]
-    public sealed class Category : CommonEndPointModel, IAvailableActions
+    public sealed class Category : CommonEndPointModel, IAvailableActions, IUpdatable<Category>
     {
-        /// <inheritdoc />
+        /// <summary>Create a new Category object.</summary>
+        public Category() { }
 
+        /// <summary>Create a new Category object with the supplied ID, for use with updating.</summary>
+        internal Category(int id)
+        {
+            Id = id;
+        }
+
+        /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
@@ -112,5 +120,21 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Category CloneForUpdate() => new Category(this.Id);
+
+        /// <inheritdoc />
+        public Category WithValuesFrom(Category other)
+            => new Category(this.Id)
+            {
+                Name = other.Name,
+                CategoryType = other.CategoryType,
+                HasEula = other.HasEula,
+                EulaText = other.EulaText,
+                UsesDefaultEula = other.UsesDefaultEula,
+                EmailUserOnCheckInOrOut = other.EmailUserOnCheckInOrOut,
+                IsAcceptanceRequired = other.IsAcceptanceRequired
+            };
     }
 }

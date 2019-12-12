@@ -11,8 +11,17 @@ namespace SnipeSharp.Models
     /// Custom fields are in a many-to-many relationship with <see cref="FieldSet">Fieldsets</see>.
     /// </summary>
     [PathSegment("fields")]
-    public sealed class CustomField : CommonEndPointModel
+    public sealed class CustomField : CommonEndPointModel, IUpdatable<CustomField>
     {
+        /// <summary>Create a new CustomField object.</summary>
+        public CustomField() { }
+
+        /// <summary>Create a new CustomField object with the supplied ID, for use with updating.</summary>
+        internal CustomField(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -123,5 +132,22 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "deleted_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
+
+        /// <inheritdoc />
+        public CustomField CloneForUpdate() => new CustomField(this.Id);
+
+        /// <inheritdoc />
+        public CustomField WithValuesFrom(CustomField other)
+            => new CustomField(this.Id)
+            {
+                Name = other.Name,
+                Format = other.Format,
+                FieldValuesRaw = other.FieldValuesRaw,
+                IsFieldEncrypted = other.IsFieldEncrypted,
+                ShowInCheckOutEmail = other.ShowInCheckOutEmail,
+                HelpText = other.HelpText,
+                Type = other.Type,
+                IsRequired = other.IsRequired
+            };
     }
 }

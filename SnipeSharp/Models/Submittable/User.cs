@@ -11,8 +11,17 @@ namespace SnipeSharp.Models
     /// A user.
     /// </summary>
     [PathSegment("users")]
-    public sealed class User : CommonEndPointModel, IAvailableActions
+    public sealed class User : CommonEndPointModel, IAvailableActions, IUpdatable<User>
     {
+        /// <summary>Create a new User object.</summary>
+        public User() { }
+
+        /// <summary>Create a new User object with the supplied ID, for use with updating.</summary>
+        internal User(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -170,5 +179,35 @@ namespace SnipeSharp.Models
         /// <value>Gets the groups this user is a member of.</value>
         [Field("groups", Converter = CommonModelArrayConverter)]
         public ResponseCollection<Group> Groups { get; set; }
+
+        /// <inheritdoc />
+        public User CloneForUpdate() => new User(this.Id);
+
+        /// <inheritdoc />
+        public User WithValuesFrom(User other)
+            => new User(this.Id)
+            {
+                AvatarUrl = other.AvatarUrl,
+                Name = other.Name,
+                FirstName = other.FirstName,
+                UserName = other.UserName,
+                Password = other.Password,
+                PasswordConfirmation = other.PasswordConfirmation,
+                EmployeeNumber = other.EmployeeNumber,
+                Manager = other.Manager,
+                JobTitle = other.JobTitle,
+                PhoneNumber = other.PhoneNumber,
+                Address = other.Address,
+                City = other.City,
+                State = other.State,
+                Country = other.Country,
+                ZipCode = other.ZipCode,
+                EmailAddress = other.EmailAddress,
+                Department = other.Department,
+                Location = other.Location,
+                IsActivated = other.IsActivated,
+                Company = other.Company,
+                Groups = other.Groups
+            };
     }
 }

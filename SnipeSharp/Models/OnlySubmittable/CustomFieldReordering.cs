@@ -6,6 +6,7 @@ namespace SnipeSharp.Models
     /// <summary>
     /// ApiObject for reordering custom fields in fieldsets.
     /// </summary>
+    /// <remarks>This class is for internal use only.</remarks>
     internal sealed class CustomFieldReordering : ApiObject
     {
         /// <summary>

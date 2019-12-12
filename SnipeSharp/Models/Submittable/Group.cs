@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Groups are used to grant permissions to users in Snipe-IT.
     /// </summary>
     [PathSegment("groups")]
-    public sealed class Group : CommonEndPointModel, IAvailableActions
+    public sealed class Group : CommonEndPointModel, IAvailableActions, IUpdatable<Group>
     {
+        /// <summary>Create a new Group object.</summary>
+        public Group() { }
+
+        /// <summary>Create a new Group object with the supplied ID, for use with updating.</summary>
+        internal Group(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -43,5 +52,15 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Group CloneForUpdate() => new Group(this.Id);
+
+        /// <inheritdoc />
+        public Group WithValuesFrom(Group other)
+            => new Group(this.Id)
+            {
+                Name = other.Name
+            };
     }
 }

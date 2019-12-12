@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Departments structure Users within a Company.
     /// </summary>
     [PathSegment("departments")]
-    public sealed class Department : CommonEndPointModel, IAvailableActions
+    public sealed class Department : CommonEndPointModel, IAvailableActions, IUpdatable<Department>
     {
+        /// <summary>Create a new Department object.</summary>
+        public Department() { }
+
+        /// <summary>Create a new Department object with the supplied ID, for use with updating.</summary>
+        internal Department(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -60,5 +69,19 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Department CloneForUpdate() => new Department(this.Id);
+
+        /// <inheritdoc />
+        public Department WithValuesFrom(Department other)
+            => new Department(this.Id)
+            {
+                Name = other.Name,
+                ImageUri = other.ImageUri,
+                Company = other.Company,
+                Manager = other.Manager,
+                Location = other.Location
+            };
     }
 }

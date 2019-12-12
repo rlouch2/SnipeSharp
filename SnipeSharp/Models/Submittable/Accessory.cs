@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Accessories may be checked out to Users, but unlike Consumables can be checked back in.
     /// </summary>
     [PathSegment("accessories")]
-    public sealed class Accessory : CommonEndPointModel, IAvailableActions
+    public sealed class Accessory : CommonEndPointModel, IAvailableActions, IUpdatable<Accessory>
     {
+        /// <summary>Create a new Accessory object.</summary>
+        public Accessory() { }
+
+        /// <summary>Create a new Accessory object with the supplied ID, for use with updating.</summary>
+        internal Accessory(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc/>
         [Field("id")]
         public override int Id { get; protected set; }
@@ -91,7 +100,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field("qty", IsRequired = true)]
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
 
         /// <summary>
         /// The date this Accessory was purchased.
@@ -153,5 +162,28 @@ namespace SnipeSharp.Models
          * [Field(null, "requestable")]
          * public bool? IsRequestable { get; set; }
          */
+
+        /// <inheritdoc />
+        public Accessory CloneForUpdate() => new Accessory(this.Id);
+
+        /// <inheritdoc />
+        public Accessory WithValuesFrom(Accessory other)
+            => new Accessory(this.Id)
+            {
+                Name = other.Name,
+                Company = other.Company,
+                Manufacturer = other.Manufacturer,
+                Supplier = other.Supplier,
+                ModelNumber = other.ModelNumber,
+                Category = other.Category,
+                Location = other.Location,
+                Quantity = other.Quantity,
+                PurchaseDate = other.PurchaseDate,
+                PurchaseCost = other.PurchaseCost,
+                OrderNumber = other.OrderNumber,
+                MinimumQuantity = other.MinimumQuantity,
+                RemainingQuantity = other.RemainingQuantity,
+                ImageUri = other.ImageUri
+            };
     }
 }

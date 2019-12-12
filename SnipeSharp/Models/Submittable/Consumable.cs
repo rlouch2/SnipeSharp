@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Consumables may be checked out to Users, but unlike Accessories cannot be checked back in.
     /// </summary>
     [PathSegment("consumables")]
-    public sealed class Consumable : CommonEndPointModel, IAvailableActions
+    public sealed class Consumable : CommonEndPointModel, IAvailableActions, IUpdatable<Consumable>
     {
+        /// <summary>Create a new Consumable object.</summary>
+        public Consumable() { }
+
+        /// <summary>Create a new Consumable object with the supplied ID, for use with updating.</summary>
+        internal Consumable(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -114,5 +123,28 @@ namespace SnipeSharp.Models
         /// <value>Gets/sets if this consumable is requestable or not.</value>
         [Field("requestable")]
         public bool? IsRequestable { get; set; }
+
+        /// <inheritdoc />
+        public Consumable CloneForUpdate() => new Consumable(this.Id);
+
+        /// <inheritdoc />
+        public Consumable WithValuesFrom(Consumable other)
+            => new Consumable(this.Id)
+            {
+                Name = other.Name,
+                ImageUri = other.ImageUri,
+                Category = other.Category,
+                Company = other.Company,
+                ItemNumber = other.ItemNumber,
+                Location = other.Location,
+                Manufacturer = other.Manufacturer,
+                Quantity = other.Quantity,
+                MinimumQuantity = other.MinimumQuantity,
+                ModelNumber = other.ModelNumber,
+                OrderNumber = other.OrderNumber,
+                PurchaseCost = other.PurchaseCost,
+                PurchaseDate = other.PurchaseDate,
+                IsRequestable = other.IsRequestable
+            };
     }
 }

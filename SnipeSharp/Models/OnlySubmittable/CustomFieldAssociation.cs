@@ -7,6 +7,7 @@ namespace SnipeSharp.Models
     /// <summary>
     /// ApiObject for (dis)associating custom fields to/from fieldsets.
     /// </summary>
+    /// <remarks>This class is for internal use only.</remarks>
     internal sealed class CustomFieldAssociation : ApiObject
     {
         /// <summary>

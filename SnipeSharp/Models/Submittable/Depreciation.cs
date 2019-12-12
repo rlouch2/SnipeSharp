@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Depreciations are associated with objects and determine when End-Of-Life is relative to the PurchaseDate.
     /// </summary>
     [PathSegment("depreciations")]
-    public sealed class Depreciation : CommonEndPointModel, IAvailableActions
+    public sealed class Depreciation : CommonEndPointModel, IAvailableActions, IUpdatable<Depreciation>
     {
+        /// <summary>Create a new Depreciation object.</summary>
+        public Depreciation() { }
+
+        /// <summary>Create a new Depreciation object with the supplied ID, for use with updating.</summary>
+        internal Depreciation(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -39,5 +48,16 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Depreciation CloneForUpdate() => new Depreciation(this.Id);
+
+        /// <inheritdoc />
+        public Depreciation WithValuesFrom(Depreciation other)
+            => new Depreciation(this.Id)
+            {
+                Name = other.Name,
+                Months = other.Months
+            };
     }
 }

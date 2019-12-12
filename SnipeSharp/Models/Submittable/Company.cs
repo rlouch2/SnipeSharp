@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Companies own assets, licenses, components, etc., and has users that work for it.
     /// </summary>
     [PathSegment("companies")]
-    public sealed class Company : CommonEndPointModel, IAvailableActions
+    public sealed class Company : CommonEndPointModel, IAvailableActions, IUpdatable<Company>
     {
+        /// <summary>Create a new Company object.</summary>
+        public Company() { }
+
+        /// <summary>Create a new Company object with the supplied ID, for use with updating.</summary>
+        internal Company(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -64,5 +73,16 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Company CloneForUpdate() => new Company(this.Id);
+
+        /// <inheritdoc />
+        public Company WithValuesFrom(Company other)
+            => new Company(this.Id)
+            {
+                Name = other.Name,
+                ImageUri = other.ImageUri
+            };
     }
 }

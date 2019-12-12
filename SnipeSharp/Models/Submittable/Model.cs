@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// All Assets have a model that assigns further properties and defines which FieldSet applies.
     /// </summary>
     [PathSegment("models")]
-    public sealed class Model : CommonEndPointModel, IAvailableActions
+    public sealed class Model : CommonEndPointModel, IAvailableActions, IUpdatable<Model>
     {
+        /// <summary>Create a new Model object.</summary>
+        public Model() { }
+
+        /// <summary>Create a new Model object with the supplied ID, for use with updating.</summary>
+        internal Model(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -90,5 +99,24 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Model CloneForUpdate() => new Model(this.Id);
+
+        /// <inheritdoc />
+        public Model WithValuesFrom(Model other)
+            => new Model(this.Id)
+            {
+                Name = other.Name,
+                Manufacturer = other.Manufacturer,
+                ImageUri = other.ImageUri,
+                ModelNumber = other.ModelNumber,
+                Depreciation = other.Depreciation,
+                AssetsCount = other.AssetsCount,
+                Category = other.Category,
+                FieldSet = other.FieldSet,
+                EndOfLife = other.EndOfLife,
+                Notes = other.Notes
+            };
     }
 }

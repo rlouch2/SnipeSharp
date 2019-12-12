@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Maintenances are operations performed on Assets, such as repair or reimaging.
     /// </summary>
     [PathSegment("maintenances")]
-    public sealed class Maintenance : CommonEndPointModel, IAvailableActions
+    public sealed class Maintenance : CommonEndPointModel, IAvailableActions, IUpdatable<Maintenance>
     {
+        /// <summary>Create a new Maintenance object.</summary>
+        public Maintenance() { }
+
+        /// <summary>Create a new Maintenance object with the supplied ID, for use with updating.</summary>
+        internal Maintenance(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -83,5 +92,26 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Maintenance CloneForUpdate()
+            => new Maintenance(this.Id);
+
+        /// <inheritdoc />
+        public Maintenance WithValuesFrom(Maintenance other)
+            => new Maintenance(this.Id)
+            {
+                Asset = other.Asset,
+                Name = other.Name,
+                Location = other.Location,
+                Notes = other.Notes,
+                Supplier = other.Supplier,
+                MaintenanceCost = other.MaintenanceCost,
+                MaintenanceType = other.MaintenanceType,
+                IsWarranty = other.IsWarranty,
+                StartDate = other.StartDate,
+                MaintenanceDuration = other.MaintenanceDuration,
+                CompletionDate = other.CompletionDate
+            };
     }
 }

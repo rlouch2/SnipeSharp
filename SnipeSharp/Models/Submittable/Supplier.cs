@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Suppliers sell assets, licenses, and accessories.
     /// </summary>
     [PathSegment("suppliers")]
-    public sealed class Supplier : CommonEndPointModel, IAvailableActions
+    public sealed class Supplier : CommonEndPointModel, IAvailableActions, IUpdatable<Supplier>
     {
+        /// <summary>Create a new Supplier object.</summary>
+        public Supplier() { }
+
+        /// <summary>Create a new Supplier object with the supplied ID, for use with updating.</summary>
+        internal Supplier(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -94,5 +103,27 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Supplier CloneForUpdate() => new Supplier(this.Id);
+
+        /// <inheritdoc />
+        public Supplier WithValuesFrom(Supplier other)
+            => new Supplier(this.Id)
+            {
+                Name = other.Name,
+                ImageUri = other.ImageUri,
+                Address = other.Address,
+                Address2 = other.Address2,
+                City = other.City,
+                State = other.State,
+                Country = other.Country,
+                ZipCode = other.ZipCode,
+                FaxNumber = other.FaxNumber,
+                PhoneNumber = other.PhoneNumber,
+                EmailAddress = other.EmailAddress,
+                Contact = other.Contact,
+                Notes = other.Notes
+            };
     }
 }

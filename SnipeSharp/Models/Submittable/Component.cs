@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Components may be checked out to Assets.
     /// </summary>
     [PathSegment("components")]
-    public sealed class Component : CommonEndPointModel, IAvailableActions
+    public sealed class Component : CommonEndPointModel, IAvailableActions, IUpdatable<Component>
     {
+        /// <summary>Create a new Component object.</summary>
+        public Component() { }
+
+        /// <summary>Create a new Component object with the supplied ID, for use with updating.</summary>
+        internal Component(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -45,7 +54,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field("qty", IsRequired = true)]
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
 
         /// <value>Gets/sets the minimum quantity before an alert should pop up</value>
         [Field("min_amt")]
@@ -100,5 +109,24 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Component CloneForUpdate() => new Component(this.Id);
+
+        /// <inheritdoc />
+        public Component WithValuesFrom(Component other)
+            => new Component(this.Id)
+            {
+                Name = other.Name,
+                Serial = other.Serial,
+                Location = other.Location,
+                Quantity = other.Quantity,
+                MinimumQuantity = other.MinimumQuantity,
+                Category = other.Category,
+                OrderNumber = other.OrderNumber,
+                PurchaseDate = other.PurchaseDate,
+                PurchaseCost = other.PurchaseCost,
+                Company = other.Company
+            };
     }
 }

@@ -6,7 +6,8 @@ using static SnipeSharp.Serialization.FieldConverter;
 namespace SnipeSharp.Models
 {
     /// <summary>
-    /// ApiObject for submitting Asset audits.
+    /// ApiObject for submitting Asset audits. Asset audits are only retrieved
+    /// when submitting the audit.
     /// </summary>
     /// <seealso cref="AssetEndPoint.Audit(Asset, Location, DateTime?, string)" />
     public sealed class AssetAudit : ApiObject

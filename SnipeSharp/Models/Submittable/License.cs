@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Licenses may be checked out to Assets or Users.
     /// </summary>
     [PathSegment("licenses")]
-    public sealed class License : CommonEndPointModel, IAvailableActions
+    public sealed class License : CommonEndPointModel, IAvailableActions, IUpdatable<License>
     {
+        /// <summary>Create a new License object.</summary>
+        public License() { }
+
+        /// <summary>Create a new License object with the supplied ID, for use with updating.</summary>
+        internal License(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -127,5 +136,31 @@ namespace SnipeSharp.Models
         /// <value>Gets/sets the supplier who sold this license.</value>
         [Field(DeserializeAs = "supplier", SerializeAs = "supplier_id", Converter = CommonModelConverter)]
         public Supplier Supplier { get; set; }
+
+        /// <inheritdoc />
+        public License CloneForUpdate() => new License(this.Id);
+
+        /// <inheritdoc />
+        public License WithValuesFrom(License other)
+            => new License(this.Id)
+            {
+                Name = other.Name,
+                Company = other.Company,
+                Depreciation = other.Depreciation,
+                Manufacturer = other.Manufacturer,
+                ProductKey = other.ProductKey,
+                OrderNumber = other.OrderNumber,
+                PurchaseOrder = other.PurchaseOrder,
+                PurchaseDate = other.PurchaseDate,
+                PurchaseCost = other.PurchaseCost,
+                Notes = other.Notes,
+                TotalSeats = other.TotalSeats,
+                LicensedToName = other.LicensedToName,
+                LicensedToEmailAddress = other.LicensedToEmailAddress,
+                IsMaintained = other.IsMaintained,
+                Category = other.Category,
+                IsReassignable = other.IsReassignable,
+                Supplier = other.Supplier
+            };
     }
 }

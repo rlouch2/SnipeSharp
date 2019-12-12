@@ -11,8 +11,17 @@ namespace SnipeSharp.Models
     /// A Location.
     /// </summary>
     [PathSegment("locations")]
-    public sealed class Location : CommonEndPointModel, IAvailableActions
+    public sealed class Location : CommonEndPointModel, IAvailableActions, IUpdatable<Location>
     {
+        /// <summary>Create a new Location object.</summary>
+        public Location() { }
+
+        /// <summary>Create a new Location object with the supplied ID, for use with updating.</summary>
+        internal Location(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -98,5 +107,25 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Location CloneForUpdate() => new Location(this.Id);
+
+        /// <inheritdoc />
+        public Location WithValuesFrom(Location other)
+            => new Location(this.Id)
+            {
+                Name = other.Name,
+                ImageUri = other.ImageUri,
+                Address = other.Address,
+                Address2 = other.Address2,
+                City = other.City,
+                State = other.State,
+                Country = other.Country,
+                ZipCode = other.ZipCode,
+                Currency = other.Currency,
+                ParentLocation = other.ParentLocation,
+                Manager = other.Manager
+            };
     }
 }

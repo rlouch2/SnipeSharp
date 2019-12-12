@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Manufacturers create accessories, consumables, licenses, and models (models are associated with assets).
     /// </summary>
     [PathSegment("manufacturers")]
-    public sealed class Manufacturer : CommonEndPointModel, IAvailableActions
+    public sealed class Manufacturer : CommonEndPointModel, IAvailableActions, IUpdatable<Manufacturer>
     {
+        /// <summary>Create a new Manufacturer object.</summary>
+        public Manufacturer() { }
+
+        /// <summary>Create a new Manufacturer object with the supplied ID, for use with updating.</summary>
+        internal Manufacturer(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -75,5 +84,19 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public HashSet<AvailableAction> AvailableActions { get; set; }
+
+        /// <inheritdoc />
+        public Manufacturer CloneForUpdate() => new Manufacturer(this.Id);
+
+        /// <inheritdoc />
+        public Manufacturer WithValuesFrom(Manufacturer other)
+            => new Manufacturer(this.Id)
+            {
+                Name = other.Name,
+                Url = other.Url,
+                SupportUrl = other.SupportUrl,
+                SupportPhoneNumber = other.SupportPhoneNumber,
+                SupportEmailAddress = other.SupportEmailAddress
+            };
     }
 }

@@ -12,8 +12,17 @@ namespace SnipeSharp.Models
     /// Status labels are used out to organize Assets and manage their state.
     /// </summary>
     [PathSegment("statuslabels")]
-    public sealed class StatusLabel : CommonEndPointModel, IAvailableActions
+    public sealed class StatusLabel : CommonEndPointModel, IAvailableActions, IUpdatable<StatusLabel>
     {
+        /// <summary>Create a new StatusLabel object.</summary>
+        public StatusLabel() { }
+
+        /// <summary>Create a new StatusLabel object with the supplied ID, for use with updating.</summary>
+        internal StatusLabel(int id)
+        {
+            Id = id;
+        }
+
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
@@ -82,5 +91,17 @@ namespace SnipeSharp.Models
         /// <summary>Converts this label into an AssetStatus, for use with Assets.</summary>
         public AssetStatus ToAssetStatus()
             => new AssetStatus { StatusId = Id, Name = Name, StatusType = Type };
+
+        /// <inheritdoc />
+        public StatusLabel CloneForUpdate() => new StatusLabel(this.Id);
+
+        /// <inheritdoc />
+        public StatusLabel WithValuesFrom(StatusLabel other)
+            => new StatusLabel(this.Id)
+            {
+                Name = other.Name,
+                Type = other.Type,
+                Notes = other.Notes
+            };
     }
 }
