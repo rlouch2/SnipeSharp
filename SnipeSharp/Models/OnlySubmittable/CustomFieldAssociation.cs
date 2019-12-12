@@ -1,4 +1,5 @@
 using SnipeSharp.Serialization;
+using IsRequiredType = SnipeSharp.Models.Enumerations.IsRequired;
 using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
@@ -18,14 +19,14 @@ namespace SnipeSharp.Models
         /// Backing field for <see cref="IsRequired"/>
         /// </summary>
         [Field("required")]
-        private string isRequired;
+        private IsRequiredType _isRequired;
 
         /// <summary>
         /// Whether or not the field is required in the fieldset.
         /// </summary>
         public bool IsRequired {
-            get => isRequired == "on";
-            set => isRequired = value ? "on" : "off";
+            get => _isRequired == IsRequiredType.On;
+            set => _isRequired = value ? IsRequiredType.On : IsRequiredType.Off;
         }
 
         /// <summary>

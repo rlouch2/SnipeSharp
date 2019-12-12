@@ -5,6 +5,7 @@ namespace SnipeSharp.Models
 {
     /// <summary>
     /// GenericEndPointModel is a plain implementation of CommonEndPointModel.
+    /// It is used for deserialization only.
     /// </summary>
     public sealed class GenericEndPointModel: CommonEndPointModel
     {
