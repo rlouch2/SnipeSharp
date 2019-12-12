@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(License))]
     [OutputType(typeof(License))]
-    public class NewLicense: BaseCmdlet
+    public class NewLicense: PSCmdlet
     {
         /// <summary>
         /// The name of the license.
@@ -146,31 +146,31 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.IsReassignable = this.IsReassignable;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!GetSingleValue(Category, out var category, required: true))
+                if (!this.GetSingleValue(Category, out var category, required: true))
                     return;
                 item.Category = category;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if (!GetSingleValue(Company, out var company))
+                if (!this.GetSingleValue(Company, out var company))
                     return;
                 item.Company = company;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
             {
-                if (!GetSingleValue(Depreciation, out var depreciation))
+                if (!this.GetSingleValue(Depreciation, out var depreciation))
                     return;
                 item.Depreciation = depreciation;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if (!GetSingleValue(Manufacturer, out var manufacturer))
+                if (!this.GetSingleValue(Manufacturer, out var manufacturer))
                     return;
                 item.Manufacturer = manufacturer;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
             {
-                if (!GetSingleValue(Supplier, out var supplier))
+                if (!this.GetSingleValue(Supplier, out var supplier))
                     return;
                 item.Supplier = supplier;
             }

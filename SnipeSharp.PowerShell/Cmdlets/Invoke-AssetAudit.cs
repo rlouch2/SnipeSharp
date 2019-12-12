@@ -15,7 +15,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsLifecycle.Invoke, "AssetAudit")]
     [OutputType(typeof(RequestResponse<AssetAudit>))]
-    public sealed class InvokeAssetAudit: BaseCmdlet
+    public sealed class InvokeAssetAudit: Cmdlet
     {
         /// <summary>An Asset identity.</summary>
         [Parameter(
@@ -46,11 +46,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!GetSingleValue(Location, out var location, queryType: nameof(Location), required: true))
+            if(!this.GetSingleValue(Location, out var location, queryType: nameof(Location), required: true))
                 return;
             foreach(var assetIdentity in Identity)
             {
-                if(GetSingleValue(assetIdentity, out var asset, queryType: assetIdentity.Query, required: true))
+                if(this.GetSingleValue(assetIdentity, out var asset, queryType: assetIdentity.Query, required: true))
                     WriteObject(ApiHelper.Instance.Assets.Audit(asset, location, nextAuditDate: NextAuditDate.Value, notes: Notes));
             }
         }

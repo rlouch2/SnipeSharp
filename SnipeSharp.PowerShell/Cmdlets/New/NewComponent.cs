@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Component))]
     [OutputType(typeof(Component))]
-    public class NewComponent: BaseCmdlet
+    public class NewComponent: PSCmdlet
     {
         /// <summary>
         /// The name of the component.
@@ -96,19 +96,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseDate = this.PurchaseDate;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if(!GetSingleValue(Category, out var category, required: true))
+                if(!this.GetSingleValue(Category, out var category, required: true))
                     return;
                 item.Category = category;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if(!GetSingleValue(Company, out var company, required: true))
+                if(!this.GetSingleValue(Company, out var company, required: true))
                     return;
                 item.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if(!GetSingleValue(Location, out var location))
+                if(!this.GetSingleValue(Location, out var location))
                     return;
                 item.Location = location;
             }

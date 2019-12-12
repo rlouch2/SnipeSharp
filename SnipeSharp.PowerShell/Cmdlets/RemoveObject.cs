@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </summary>
     /// <typeparam name="TObject">The type of object this cmdlet gets.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
-    public abstract class RemoveObject<TObject, TBinding>: BaseCmdlet
+    public abstract class RemoveObject<TObject, TBinding>: PSCmdlet
         where TObject: CommonEndPointModel
         where TBinding: ObjectBinding<TObject>
     {
@@ -86,7 +86,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var item in Identity)
                 {
-                    if(!ValidateHasExactlyOneValue(item, queryType: "identity"))
+                    if(!this.ValidateHasExactlyOneValue(item, queryType: "identity"))
                     {
                         return;
                     } else if(ShouldProcess(item.Value[0].Name))
@@ -100,7 +100,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var item in GetBoundObjects())
                 {
-                    if(!ValidateHasExactlyOneValue(item, queryType: "identity"))
+                    if(!this.ValidateHasExactlyOneValue(item, queryType: "identity"))
                     {
                         return;
                     } else if(ShouldProcess(item.Value[0].Name))

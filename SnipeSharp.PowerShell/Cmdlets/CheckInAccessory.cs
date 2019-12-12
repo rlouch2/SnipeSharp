@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <seealso cref="GetAssignedAccessory" />
     [Cmdlet("CheckIn", nameof(Accessory))]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public sealed class CheckInAccessory: BaseCmdlet
+    public sealed class CheckInAccessory: Cmdlet
     {
         /// <summary>An Asset object.</summary>
         [Parameter(
@@ -32,11 +32,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!ValidateHasExactlyOneValue(Identity, queryType: nameof(Identity)))
+            if(!this.ValidateHasExactlyOneValue(Identity, queryType: nameof(Identity)))
                 return;
 
             var request = new AccessoryCheckInRequest(Identity.Value[0]);
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Note)))
+            if(!string.IsNullOrEmpty(Note))
                 request.Note = Note;
             WriteObject(ApiHelper.Instance.Accessories.CheckIn(request));
         }

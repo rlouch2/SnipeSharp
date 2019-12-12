@@ -54,19 +54,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.ImageUri = this.ImageUri;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if (!GetSingleValue(Company, out var company))
+                if (!this.GetSingleValue(Company, out var company))
                     return false;
                 item.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
             {
-                if (!GetSingleValue(Manager, out var manager))
+                if (!this.GetSingleValue(Manager, out var manager))
                     return false;
                 item.Manager = manager;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if (!GetSingleValue(Location, out var location))
+                if (!this.GetSingleValue(Location, out var location))
                     return false;
                 item.Location = location;
             }

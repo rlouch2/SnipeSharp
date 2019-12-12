@@ -36,13 +36,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 case nameof(ParameterSets.ByIdentity):
                     break;
             }
-            if(!GetSingleValue(Identity, out var identity))
+            if(!this.GetSingleValue(Identity, out var identity))
                 return;
 
             var orderedFields = new List<CustomField>();
             foreach(var field in Order)
             {
-                if (!GetSingleValue(field, out var fieldItem, required: true))
+                if (!this.GetSingleValue(field, out var fieldItem, required: true))
                     return;
                 orderedFields.Add(fieldItem);
             }

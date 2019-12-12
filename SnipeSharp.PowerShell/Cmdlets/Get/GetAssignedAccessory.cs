@@ -16,7 +16,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.Get, "AssignedAccessory")]
     [OutputType(typeof(Asset))]
-    public sealed class GetAssignedAccessory: BaseCmdlet
+    public sealed class GetAssignedAccessory: Cmdlet
     {
         /// <summary>The user to find the accessories of.</summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
@@ -31,7 +31,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             foreach(var item in User)
             {
-                if (GetSingleValue(item, out var itemValue))
+                if (this.GetSingleValue(item, out var itemValue))
                     WriteObject(ApiHelper.Instance.Users.GetAssignedAccessories(itemValue), !NoEnumerate.IsPresent);
             }
         }

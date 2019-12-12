@@ -18,7 +18,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <seealso cref="GetAsset" />
     [Cmdlet("CheckIn", nameof(Asset))]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public sealed class CheckInAsset: BaseCmdlet
+    public sealed class CheckInAsset: Cmdlet
     {
         /// <summary>An Asset object.</summary>
         [Parameter(
@@ -48,17 +48,17 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!ValidateHasExactlyOneValue(Identity, queryType: nameof(Identity)))
+            if(!this.ValidateHasExactlyOneValue(Identity, queryType: nameof(Identity)))
                 return;
 
             var request = new AssetCheckInRequest(Identity.Value[0]);
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Note)))
+            if(!string.IsNullOrEmpty(Note))
                 request.Note = Note;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
+            if(null != Location)
                 request.Location = Location?.Value[0];
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(StatusLabel)))
+            if(null != Status)
                 request.StatusLabel = Status?.Value[0];
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssetName)))
+            if(!string.IsNullOrEmpty(AssetName))
                 request.AssetName = AssetName;
             WriteObject(ApiHelper.Instance.Assets.CheckIn(request));
         }

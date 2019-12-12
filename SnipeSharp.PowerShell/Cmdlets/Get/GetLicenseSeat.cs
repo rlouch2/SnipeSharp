@@ -20,7 +20,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.Get, "LicenseSeat", SupportsPaging = true)]
     [OutputType(typeof(LicenseSeat))]
-    public sealed class GetLicenseSeat: BaseCmdlet
+    public sealed class GetLicenseSeat: PSCmdlet
     {
         /// <summary>The license to retrieve the seats of.</summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
@@ -52,7 +52,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 filter.Offset = (int) PagingParameters.Skip;
             foreach(var item in License)
             {
-                if (GetSingleValue(item, out var itemValue))
+                if (this.GetSingleValue(item, out var itemValue))
                     WriteObject(ApiHelper.Instance.Licenses.GetSeats(itemValue, filter), !NoEnumerate.IsPresent);
             }
         }

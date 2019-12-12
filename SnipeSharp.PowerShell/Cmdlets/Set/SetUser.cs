@@ -167,7 +167,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.EmployeeNumber = this.EmployeeNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
             {
-                if (!GetSingleValue(Manager, out var manager))
+                if (!this.GetSingleValue(Manager, out var manager))
                     return false;
                 item.Manager = manager;
             }
@@ -189,25 +189,25 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.EmailAddress = this.EmailAddress;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Department)))
             {
-                if (!GetSingleValue(Department, out var department))
+                if (!this.GetSingleValue(Department, out var department))
                     return false;
                 item.Department = department;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if (!GetSingleValue(Location, out var location))
+                if (!this.GetSingleValue(Location, out var location))
                     return false;
                 item.Location = location;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if (!GetSingleValue(Company, out var company))
+                if (!this.GetSingleValue(Company, out var company))
                     return false;
                 item.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Groups)))
             {
-                if (!GetManyValues(Groups, out var groups))
+                if (!this.GetManyValues(Groups, out var groups))
                     return false;
                 item.Groups = groups;
             }

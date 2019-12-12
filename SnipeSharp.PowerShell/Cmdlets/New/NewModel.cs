@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, "Model")]
     [OutputType(typeof(Model))]
-    public class NewModel: BaseCmdlet
+    public class NewModel: PSCmdlet
     {
         /// <summary>
         /// The name of the model.
@@ -85,25 +85,25 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.EndOfLife = this.EndOfLife;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if (!GetSingleValue(Manufacturer, out var manufacturer, required: true))
+                if (!this.GetSingleValue(Manufacturer, out var manufacturer, required: true))
                     return;
                 item.Manufacturer = manufacturer;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
             {
-                if (!GetSingleValue(Depreciation, out var depreciation))
+                if (!this.GetSingleValue(Depreciation, out var depreciation))
                     return;
                 item.Depreciation = depreciation;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!GetSingleValue(Category, out var category, required: true))
+                if (!this.GetSingleValue(Category, out var category, required: true))
                     return;
                 item.Category = category;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(FieldSet)))
             {
-                if (!GetSingleValue(FieldSet, out var fieldSet))
+                if (!this.GetSingleValue(FieldSet, out var fieldSet))
                     return;
                 item.FieldSet = fieldSet;
             }

@@ -100,19 +100,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Name = this.NewName;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if(!GetSingleValue(Company, out var company))
+                if(!this.GetSingleValue(Company, out var company))
                     return false;
                 item.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if(!GetSingleValue(Manufacturer, out var manufacturer))
+                if(!this.GetSingleValue(Manufacturer, out var manufacturer))
                     return false;
                 item.Manufacturer = manufacturer;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
             {
-                if(!GetSingleValue(Supplier, out var supplier))
+                if(!this.GetSingleValue(Supplier, out var supplier))
                     return false;
                 item.Supplier = supplier;
             }
@@ -120,13 +120,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.ModelNumber = this.ModelNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if(!GetSingleValue(Category, out var category))
+                if(!this.GetSingleValue(Category, out var category))
                     return false;
                 item.Category = category;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if(!GetSingleValue(Location, out var location))
+                if(!this.GetSingleValue(Location, out var location))
                     return false;
                 item.Location = location;
             }

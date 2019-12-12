@@ -86,7 +86,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Serial = this.Serial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if(!GetSingleValue(Location, out var location))
+                if(!this.GetSingleValue(Location, out var location))
                     return false;
                 item.Location = location;
             }
@@ -96,7 +96,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.MinimumQuantity = this.MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if(!GetSingleValue(Category, out var category))
+                if(!this.GetSingleValue(Category, out var category))
                     return false;
                 item.Category = category;
             }
@@ -108,7 +108,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseDate = this.PurchaseDate;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if(!GetSingleValue(Company, out var company))
+                if(!this.GetSingleValue(Company, out var company))
                     return false;
                 item.Company = company;
             }

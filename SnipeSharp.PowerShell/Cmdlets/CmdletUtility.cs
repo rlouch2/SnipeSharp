@@ -1,72 +1,73 @@
+using System;
 using System.Management.Automation;
+using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
-using System;
-using SnipeSharp.Exceptions;
 
-namespace SnipeSharp.PowerShell.Cmdlets
+namespace SnipeSharp.PowerShell
 {
-    /// <summary>
-    /// Base class for most cmdlets, providing common functionality.
-    /// </summary>
-    public abstract class BaseCmdlet: PSCmdlet
+    internal static class CmdletUtility
     {
         /// <summary>
         /// Write a "Not found" error.
         /// </summary>
+        /// <param name="cmdlet">The cmdlet to operate on.</param>
         /// <param name="queryType">What type of query was it?</param>
         /// <param name="value">What was the query value?</param>
         /// <param name="exception">Any exception to include?</param>
         /// <typeparam name="T">The type of object being retrieved.</typeparam>
-        protected void WriteNotFoundError<T>(string queryType, string value, Exception exception = null)
+        internal static void WriteNotFoundError<T>(this Cmdlet cmdlet, string queryType, string value, Exception exception = null)
         {
             var message = $"{typeof(T).Name} not found by {queryType} \"{value}\"";
-            WriteError(new ErrorRecord(exception ?? new ApiErrorException(message), message, ErrorCategory.InvalidArgument, value));
+            cmdlet.WriteError(new ErrorRecord(exception ?? new ApiErrorException(message), message, ErrorCategory.InvalidArgument, value));
         }
 
         /// <summary>
         /// Write a "Too many found" error.
         /// </summary>
+        /// <param name="cmdlet">The cmdlet to operate on.</param>
         /// <param name="queryType">What type of query was it?</param>
         /// <param name="value">What was the query value?</param>
         /// <typeparam name="T">The type of object being retrieved.</typeparam>
-        protected void WriteTooManyFoundError<T>(string queryType, string value)
+        internal static void WriteTooManyFoundError<T>(this Cmdlet cmdlet, string queryType, string value)
         {
             var message = $"Too many {typeof(T).Name} found by {queryType} \"{value}\"";
-            WriteError(new ErrorRecord(new ApiErrorException(message), message, ErrorCategory.InvalidArgument, value));
+            cmdlet.WriteError(new ErrorRecord(new ApiErrorException(message), message, ErrorCategory.InvalidArgument, value));
         }
 
         /// <summary>
         /// Write an exception out.
         /// </summary>
+        /// <param name="cmdlet">The cmdlet to operate on.</param>
         /// <param name="exception">The exception.</param>
         /// <param name="category">The error category.</param>
         /// <param name="target">The object being operated on.</param>
-        protected void WriteApiError(Exception exception, ErrorCategory category = ErrorCategory.NotSpecified, object target = null)
+        internal static void WriteApiError(this Cmdlet cmdlet, Exception exception, ErrorCategory category = ErrorCategory.NotSpecified, object target = null)
         {
-            WriteError(new ErrorRecord(exception, exception.Message, category, target));
+            cmdlet.WriteError(new ErrorRecord(exception, exception.Message, category, target));
         }
 
         /// <summary>
         /// Validate that a binding has one and exactly one value.
         /// </summary>
+        /// <param name="cmdlet">The cmdlet to operate on.</param>
         /// <param name="binding">The binding to validate.</param>
         /// <param name="queryType">What type of query was it?</param>
         /// <param name="value">What was the query value?</param>
         /// <typeparam name="T">The type of object the binding is for.</typeparam>
         /// <returns>True if the binding is valid, else false.</returns>
-        protected bool ValidateHasExactlyOneValue<T>(ObjectBinding<T> binding, string queryType = "query", string value = null)
+        internal static bool ValidateHasExactlyOneValue<T>(this Cmdlet cmdlet, ObjectBinding<T> binding, string queryType = "query", string value = null)
             where T : CommonEndPointModel
         {
             value = value ?? binding.Query;
             if(!binding.HasValue)
             {
-                WriteNotFoundError<T>(queryType, value, binding.Error);
+                cmdlet.WriteNotFoundError<T>(queryType, value, binding.Error);
                 return false;
             }
             if(binding.Value.Count > 1)
             {
-                WriteTooManyFoundError<T>(queryType, value);
+                cmdlet.WriteTooManyFoundError<T>(queryType, value);
                 return false;
             }
             return true;
@@ -75,6 +76,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>
         /// Retrieve a single value from a binding.
         /// </summary>
+        /// <param name="cmdlet">The cmdlet to operate on.</param>
         /// <param name="binding">The binding to use.</param>
         /// <param name="value">The value to output.</param>
         /// <param name="queryType">The type of query.</param>
@@ -82,7 +84,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <param name="required">Are null returns disallowed? (Does the binding have to have a value?)</param>
         /// <typeparam name="R">The type of object to retrieve</typeparam>
         /// <returns>True if a valid value was retrieved.</returns>
-        protected bool GetSingleValue<R>(ObjectBinding<R> binding, out R value, string queryType = "identity", string queryValue = null, bool required = false)
+        internal static bool GetSingleValue<R>(this Cmdlet cmdlet, ObjectBinding<R> binding, out R value, string queryType = "identity",
+                                                string queryValue = null, bool required = false)
             where R : CommonEndPointModel
         {
             value = null;
@@ -90,17 +93,17 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 if(!required) // let us return null if a value wasn't required and we don't have a binding.
                     return true;
-                WriteApiError(new ArgumentNullException(paramName: nameof(binding)));
+                cmdlet.WriteApiError(new ArgumentNullException(paramName: nameof(binding)));
                 return false;
             }
             if(null != binding.Error)
             {
-                WriteApiError(binding.Error, target: binding.Query.ToString());
+                cmdlet.WriteApiError(binding.Error, target: binding.Query.ToString());
                 return false;
             }
             if(!binding.HasValue && !required) // let us return nulls if we don't need a value
                 return true;
-            if (ValidateHasExactlyOneValue(binding, queryType, queryValue))
+            if (cmdlet.ValidateHasExactlyOneValue(binding, queryType, queryValue))
             {
                 value = binding.Value[0];
                 return true;
@@ -111,6 +114,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>
         /// Retrieve many values from an array of bindings.
         /// </summary>
+        /// <param name="cmdlet">The cmdlet to operate on.</param>
         /// <param name="bindings">The bindings to use.</param>
         /// <param name="values">The value to output.</param>
         /// <param name="queryType">The type of query.</param>
@@ -118,13 +122,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <param name="required">Are null returns disallowed? (Does the binding have to have a value?)</param>
         /// <typeparam name="R">The type of object to retrieve</typeparam>
         /// <returns>True if all valid values were retrieved; false if any binding was not resolved.</returns>
-        protected bool GetManyValues<R>(ObjectBinding<R>[] bindings, out ResponseCollection<R> values, string queryType = "identity", string queryValue = null, bool required = false)
+        internal static bool GetManyValues<R>(this Cmdlet cmdlet, ObjectBinding<R>[] bindings, out ResponseCollection<R> values,
+                                                string queryType = "identity", string queryValue = null, bool required = false)
             where R: CommonEndPointModel
         {
             var result = true;
             values = new ResponseCollection<R>();
             foreach(var binding in bindings)
-                if(result = GetSingleValue(binding, out var value, queryType, queryValue, required) && result)
+                if(result = cmdlet.GetSingleValue(binding, out var value, queryType, queryValue, required) && result)
                     values.Add(value);
             if(!result)
                 values = null;

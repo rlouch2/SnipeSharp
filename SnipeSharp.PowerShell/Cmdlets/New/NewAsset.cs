@@ -15,7 +15,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Asset))]
     [OutputType(typeof(Asset))]
-    public class NewAsset: BaseCmdlet
+    public class NewAsset: PSCmdlet
     {
         /// <summary>
         /// The asset tag of the Asset.
@@ -144,31 +144,31 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.WarrantyMonths = WarrantyMonths;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if(!GetSingleValue(Company, out var company))
+                if(!this.GetSingleValue(Company, out var company))
                     return;
                 item.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if(!GetSingleValue(Location, out var location))
+                if(!this.GetSingleValue(Location, out var location))
                     return;
                 item.Location = location;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
             {
-                if(!GetSingleValue(Model, out var model, required: true))
+                if(!this.GetSingleValue(Model, out var model, required: true))
                     return;
                 item.Model = model;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(DefaultLocation)))
             {
-                if(!GetSingleValue(DefaultLocation, out var defaultLocation))
+                if(!this.GetSingleValue(DefaultLocation, out var defaultLocation))
                     return;
                 item.DefaultLocation = defaultLocation;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Status)))
             {
-                if(!GetSingleValue(Status, out var status, required: true))
+                if(!this.GetSingleValue(Status, out var status, required: true))
                     return;
                 item.Status = status.ToAssetStatus();
             }

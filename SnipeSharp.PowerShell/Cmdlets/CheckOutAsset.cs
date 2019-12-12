@@ -23,7 +23,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <seealso cref="GetAsset" />
     [Cmdlet("CheckOut", "Asset", DefaultParameterSetName = "ToUser")]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public sealed class CheckOutAsset: BaseCmdlet
+    public sealed class CheckOutAsset: Cmdlet
     {
         /// <summary>An Asset identity.</summary>
         [Parameter(
@@ -77,35 +77,34 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!ValidateHasExactlyOneValue(Asset, queryType: "Identity"))
+            if(!this.ValidateHasExactlyOneValue(Asset, queryType: "Identity"))
                 return;
 
             var request = default(AssetCheckOutRequest);
-            switch(ParameterSetName)
+            if(null != AssignedUser)
             {
-                case "ToUser":
-                    if(!ValidateHasExactlyOneValue(AssignedUser, queryType: "Identity"))
-                        return;
-                    request = new AssetCheckOutRequest(Asset.Value[0], AssignedUser.Value[0]);
-                    break;
-                case "ToLocation":
-                    if(!ValidateHasExactlyOneValue(AssignedLocation, queryType: "Identity"))
-                        return;
-                    request = new AssetCheckOutRequest(Asset.Value[0], AssignedLocation.Value[0]);
-                    break;
-                case "ToAsset":
-                    if(!ValidateHasExactlyOneValue(AssignedAsset, queryType: "Identity"))
-                        return;
-                    request = new AssetCheckOutRequest(Asset.Value[0], AssignedAsset.Value[0]);
-                    break;
+                // ToUser ParameterSet
+                if(!this.ValidateHasExactlyOneValue(AssignedUser, queryType: "Identity"))
+                    return;
+                request = new AssetCheckOutRequest(Asset.Value[0], AssignedUser.Value[0]);
+            } else if(null != AssignedLocation)
+            {
+                if(!this.ValidateHasExactlyOneValue(AssignedLocation, queryType: "Identity"))
+                    return;
+                request = new AssetCheckOutRequest(Asset.Value[0], AssignedLocation.Value[0]);
+            } else
+            {
+                if(!this.ValidateHasExactlyOneValue(AssignedAsset, queryType: "Identity"))
+                    return;
+                request = new AssetCheckOutRequest(Asset.Value[0], AssignedAsset.Value[0]);
             }
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(CheckOutAt)))
+            if(null != CheckOutAt)
                 request.CheckOutAt = CheckOutAt;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(ExpectedCheckIn)))
+            if(null != ExpectedCheckIn)
                 request.ExpectedCheckIn = ExpectedCheckIn;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(Note)))
+            if(!string.IsNullOrEmpty(Note))
                 request.Note = Note;
-            if(MyInvocation.BoundParameters.ContainsKey(nameof(AssetName)))
+            if(!string.IsNullOrEmpty(AssetName))
                 request.AssetName = AssetName;
             else
                 request.AssetName = request.Asset.Name;

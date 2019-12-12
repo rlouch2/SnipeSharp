@@ -15,7 +15,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <seealso cref="GetAssignedAccessory" />
     [Cmdlet("CheckOut", nameof(Accessory))]
     [OutputType(typeof(RequestResponse<Asset>))]
-    public sealed class CheckOutAccessory: BaseCmdlet
+    public sealed class CheckOutAccessory: Cmdlet
     {
         /// <summary>An Asset identity.</summary>
         [Parameter(
@@ -40,9 +40,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!GetSingleValue(Accessory, out var accessory))
+            if(!this.GetSingleValue(Accessory, out var accessory))
                 return;
-            if(!GetSingleValue(AssignedUser, out var user))
+            if(!this.GetSingleValue(AssignedUser, out var user))
                 return;
             WriteObject(ApiHelper.Instance.Accessories.CheckOut(new AccessoryCheckOutRequest(accessory, user)));
         }

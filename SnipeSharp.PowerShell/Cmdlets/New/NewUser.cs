@@ -13,7 +13,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(User))]
     [OutputType(typeof(User))]
-    public class NewUser: BaseCmdlet
+    public class NewUser: PSCmdlet
     {
         /// <summary>
         /// The uri of the image for the user's avatar.
@@ -146,25 +146,25 @@ namespace SnipeSharp.PowerShell.Cmdlets
             };
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
             {
-                if (!GetSingleValue(Manager, out var manager))
+                if (!this.GetSingleValue(Manager, out var manager))
                     return;
                 item.Manager = manager;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Department)))
             {
-                if (!GetSingleValue(Department, out var department))
+                if (!this.GetSingleValue(Department, out var department))
                     return;
                 item.Department = department;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if (!GetSingleValue(Location, out var location))
+                if (!this.GetSingleValue(Location, out var location))
                     return;
                 item.Location = location;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if (!GetSingleValue(Company, out var company))
+                if (!this.GetSingleValue(Company, out var company))
                     return;
                 item.Company = company;
             }

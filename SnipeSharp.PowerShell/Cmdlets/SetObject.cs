@@ -10,7 +10,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </summary>
     /// <typeparam name="TObject">Type of object to set.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
-    public abstract class SetObject<TObject, TBinding>: BaseCmdlet
+    public abstract class SetObject<TObject, TBinding>: PSCmdlet
         where TObject: CommonEndPointModel, IUpdatable<TObject>
         where TBinding: ObjectBinding<TObject>
     {
@@ -69,12 +69,12 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     Object = GetBoundObject();
                     if(null == Object)
                     {
-                        WriteNotFoundError<TObject>("query", null);
+                        this.WriteNotFoundError<TObject>("query", null);
                         return;
                     }
                     break;
             }
-            if(!GetSingleValue(Object, out var value))
+            if(!this.GetSingleValue(Object, out var value))
                 return;
 
             value = value.CloneForUpdate();

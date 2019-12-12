@@ -48,25 +48,25 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if (!GetSingleValue(Company, out var company))
+                if (!this.GetSingleValue(Company, out var company))
                     return false;
                 filter.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if (!GetSingleValue(Location, out var location))
+                if (!this.GetSingleValue(Location, out var location))
                     return false;
                 filter.Location = location;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Group)))
             {
-                if (!GetSingleValue(Group, out var group))
+                if (!this.GetSingleValue(Group, out var group))
                     return false;
                 filter.Group = group;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Department)))
             {
-                if (!GetSingleValue(Department, out var department))
+                if (!this.GetSingleValue(Department, out var department))
                     return false;
                 filter.Department = department;
             }

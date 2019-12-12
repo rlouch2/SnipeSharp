@@ -143,19 +143,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Serial = NewSerial;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
             {
-                if(!GetSingleValue(Model, out var model))
+                if(!this.GetSingleValue(Model, out var model))
                     return false;
                 item.Model = model;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Status)))
             {
-                if(!GetSingleValue(Status, out var status))
+                if(!this.GetSingleValue(Status, out var status))
                     return false;
                 item.Status = status.ToAssetStatus();
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
             {
-                if(!GetSingleValue(Supplier, out var supplier))
+                if(!this.GetSingleValue(Supplier, out var supplier))
                     return false;
                 item.Supplier = supplier;
             }
@@ -165,19 +165,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.OrderNumber = OrderNumber;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if(!GetSingleValue(Company, out var company))
+                if(!this.GetSingleValue(Company, out var company))
                     return false;
                 item.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if(!GetSingleValue(Location, out var location))
+                if(!this.GetSingleValue(Location, out var location))
                     return false;
                 item.Location = location;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(DefaultLocation)))
             {
-                if(!GetSingleValue(DefaultLocation, out var defaultLocation))
+                if(!this.GetSingleValue(DefaultLocation, out var defaultLocation))
                     return false;
                 item.DefaultLocation = defaultLocation;
             }

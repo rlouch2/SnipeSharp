@@ -12,7 +12,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Location))]
     [OutputType(typeof(Location))]
-    public class NewLocation: BaseCmdlet
+    public class NewLocation: PSCmdlet
     {
         /// <summary>
         /// The name of the location.
@@ -90,13 +90,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
             };
             if (MyInvocation.BoundParameters.ContainsKey(nameof(ParentLocation)))
             {
-                if (!GetSingleValue(ParentLocation, out var parentLocation))
+                if (!this.GetSingleValue(ParentLocation, out var parentLocation))
                     return;
                 item.ParentLocation = parentLocation;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
             {
-                if (!GetSingleValue(Manager, out var manager))
+                if (!this.GetSingleValue(Manager, out var manager))
                     return;
                 item.Manager = manager;
             }

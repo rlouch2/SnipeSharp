@@ -177,9 +177,45 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("assigned_to", Converter = CommonModelConverter, OverrideAffinity = true)]
-        // TODO: replace this with a dedicated AssignedTo type
-        public CommonEndPointModel AssignedTo { get; set; }
+        [Field(DeserializeAs = "assigned_to", Converter = CommonModelConverter, OverrideAffinity = true)]
+        public AssetAssignedTo AssignedTo { get; private set; }
+
+        /// <value>If the assigned object has been modified.</value>
+        /// <remarks>Tracking this lets us skip it when writing back.</remarks>
+        private bool _updateAssignedTo = false;
+
+        /// <summary>
+        /// Assigne this asset to a user.
+        /// </summary>
+        /// <param ref="user">The user to assign to.</param>
+        /// <returns>The stub object representing the user to the API.</returns>
+        public AssetAssignedTo AssignTo(User user)
+        {
+            _updateAssignedTo = true;
+            return AssignedTo = new AssetAssignedTo(user);
+        }
+
+        /// <summary>
+        /// Assigne this asset to a location.
+        /// </summary>
+        /// <param ref="location">The location to assign to.</param>
+        /// <returns>The stub object representing the location to the API.</returns>
+        public AssetAssignedTo AssignTo(Location location)
+        {
+            _updateAssignedTo = true;
+            return AssignedTo = new AssetAssignedTo(location);
+        }
+
+        /// <summary>
+        /// Assigne this asset to a asset.
+        /// </summary>
+        /// <param ref="asset">The asset to assign to.</param>
+        /// <returns>The stub object representing the asset to the API.</returns>
+        public AssetAssignedTo AssignTo(Asset asset)
+        {
+            _updateAssignedTo = true;
+            return AssignedTo = new AssetAssignedTo(asset);
+        }
 
         /// <summary>
         /// The number of months the warranty covers for this asset.
@@ -289,11 +325,24 @@ namespace SnipeSharp.Models
         [OnSerializing]
         private void OnSerializing(StreamingContext context)
         {
+            _customFields = new Dictionary<string, JToken>();
             if(null != CustomFields)
-            {
-                _customFields = new Dictionary<string, JToken>();
                 foreach(var pair in CustomFields)
                     _customFields[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
+            if(null != AssignedTo)
+            {
+                switch(AssignedTo.Type)
+                {
+                    case AssignedToType.Asset:
+                        _customFields["assigned_asset"] = AssignedTo.Id;
+                        break;
+                    case AssignedToType.Location:
+                        _customFields["assigned_location"] = AssignedTo.Id;
+                        break;
+                    case AssignedToType.User:
+                        _customFields["assigned_user"] = AssignedTo.Id;
+                        break;
+                }
             }
         }
 

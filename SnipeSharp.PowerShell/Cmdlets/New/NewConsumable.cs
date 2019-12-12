@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Consumable))]
     [OutputType(typeof(Consumable))]
-    public class NewConsumable: BaseCmdlet
+    public class NewConsumable: PSCmdlet
     {
         /// <summary>
         /// The name of the consumable.
@@ -117,25 +117,25 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.IsRequestable = this.IsRequestable;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!GetSingleValue(Category, out var category))
+                if (!this.GetSingleValue(Category, out var category))
                     return;
                 item.Category = category;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if (!GetSingleValue(Company, out var company))
+                if (!this.GetSingleValue(Company, out var company))
                     return;
                 item.Company = company;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if (!GetSingleValue(Location, out var location))
+                if (!this.GetSingleValue(Location, out var location))
                     return;
                 item.Location = location;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if (!GetSingleValue(Manufacturer, out var manufacturer))
+                if (!this.GetSingleValue(Manufacturer, out var manufacturer))
                     return;
                 item.Manufacturer = manufacturer;
             }

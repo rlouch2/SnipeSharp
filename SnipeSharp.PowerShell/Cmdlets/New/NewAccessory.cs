@@ -13,7 +13,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.New, nameof(Accessory))]
     [OutputType(typeof(Accessory))]
-    public class NewAccessory: BaseCmdlet
+    public class NewAccessory: PSCmdlet
     {
         /// <summary>
         /// The name of the accessory.
@@ -115,31 +115,31 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.MinimumQuantity = MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if (!GetSingleValue(Manufacturer, out var manufacturer, required: true))
+                if (!this.GetSingleValue(Manufacturer, out var manufacturer, required: true))
                     return;
                 item.Manufacturer = manufacturer;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!GetSingleValue(Category, out var category, required: true))
+                if (!this.GetSingleValue(Category, out var category, required: true))
                     return;
                 item.Category = category;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if (!GetSingleValue(Company, out var company))
+                if (!this.GetSingleValue(Company, out var company))
                     return;
                 item.Company = company;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
             {
-                if (!GetSingleValue(Supplier, out var supplier))
+                if (!this.GetSingleValue(Supplier, out var supplier))
                     return;
                 item.Supplier = supplier;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if (!GetSingleValue(Location, out var location))
+                if (!this.GetSingleValue(Location, out var location))
                     return;
                 item.Location = location;
             }

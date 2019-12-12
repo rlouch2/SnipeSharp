@@ -16,7 +16,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.Get, "AssignedAsset", DefaultParameterSetName = nameof(ParameterSets.ByUser))]
     [OutputType(typeof(Asset))]
-    public sealed class GetAssignedAsset: BaseCmdlet
+    public sealed class GetAssignedAsset: PSCmdlet
     {
         /// <summary>
         /// Parameter sets this cmdlet supports
@@ -61,7 +61,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var item in User)
                 {
-                    if (GetSingleValue(item, out var itemValue))
+                    if (this.GetSingleValue(item, out var itemValue))
                         WriteObject(ApiHelper.Instance.Users.GetAssignedAssets(itemValue), !NoEnumerate.IsPresent);
                 }
             }

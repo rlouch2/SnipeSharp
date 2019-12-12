@@ -102,13 +102,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Currency = this.Currency;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(ParentLocation)))
             {
-                if (!GetSingleValue(ParentLocation, out var parentLocation))
+                if (!this.GetSingleValue(ParentLocation, out var parentLocation))
                     return false;
                 item.ParentLocation = parentLocation;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manager)))
             {
-                if (!GetSingleValue(Manager, out var manager))
+                if (!this.GetSingleValue(Manager, out var manager))
                     return false;
                 item.Manager = manager;
             }

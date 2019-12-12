@@ -14,7 +14,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TObject">The type of object this cmdlet gets.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
     /// <typeparam name="TFilter">The type of the filter to use for lookup.</typeparam>
-    public abstract class GetObject<TObject, TBinding, TFilter>: BaseCmdlet
+    public abstract class GetObject<TObject, TBinding, TFilter>: PSCmdlet
         where TObject: CommonEndPointModel
         where TBinding: ObjectBinding<TObject>
         where TFilter: class, ISearchFilter, new()
@@ -115,7 +115,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 var item = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter).Where(i => StringComparer.OrdinalIgnoreCase.Compare(i, name) == 0).First();
                 if(null == item)
                 {
-                    WriteNotFoundError<TObject>("name", name);
+                    this.WriteNotFoundError<TObject>("name", name);
                     continue;
                 }
                 yield return item;
@@ -134,7 +134,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.Resolve(filter);
                 if(!item.HasValue)
                 {
-                    WriteNotFoundError<TObject>("identity", item.Query, item.Error);
+                    this.WriteNotFoundError<TObject>("identity", item.Query, item.Error);
                     continue;
                 }
                 foreach(var value in item.Value)
@@ -154,7 +154,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 var response = ApiHelper.Instance.GetEndPoint<TObject>().GetOptional(id);
                 if(!response.HasValue)
                 {
-                    WriteNotFoundError<TObject>("internal id", id.ToString(), response.Exception);
+                    this.WriteNotFoundError<TObject>("internal id", id.ToString(), response.Exception);
                     continue;
                 }
                 yield return response.Value;
