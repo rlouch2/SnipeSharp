@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TObject">Type of object to set.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
     public abstract class SetObject<TObject, TBinding>: BaseCmdlet
-        where TObject: CommonEndPointModel
+        where TObject: CommonEndPointModel, IUpdatable<TObject>
         where TBinding: ObjectBinding<TObject>
     {
         /// <summary>
@@ -39,6 +39,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public int Id { get; set; }
 
         /// <summary>If present, write the response from the Api to the pipeline.</summary>
+        // This isn't PassThru because the object is not equivalent -- we would need to Get it again for that.
         [Parameter]
         public SwitchParameter ShowResponse { get; set; }
 
@@ -76,6 +77,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(!GetSingleValue(Object, out var value))
                 return;
 
+            value = value.CloneForUpdate();
             if(!PopulateItem(value))
                 return;
 
