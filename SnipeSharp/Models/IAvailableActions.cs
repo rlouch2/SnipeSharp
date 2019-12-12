@@ -14,6 +14,6 @@ namespace SnipeSharp.Models
         /// <remarks>
         /// This is returned from the Api as a Dictionary&lt;string,bool&gt;, so only the true values are put in here.
         /// </remarks>
-        HashSet<AvailableAction> AvailableActions { get; set; }
+        HashSet<AvailableAction> AvailableActions { get; }
     }
 }

@@ -68,7 +68,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
-        public HashSet<AvailableAction> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; private set; }
 
         /// <inheritdoc />
         public Department CloneForUpdate() => new Department(this.Id);

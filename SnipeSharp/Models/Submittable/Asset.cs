@@ -274,7 +274,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
-        public HashSet<AvailableAction> AvailableActions { get; set; }
+        public HashSet<AvailableAction> AvailableActions { get; private set; }
 
         /// <summary>
         /// <para>Custom fields for this Asset, selected by the Model's FieldSet.</para>
