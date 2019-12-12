@@ -329,7 +329,7 @@ namespace SnipeSharp.Models
             if(null != CustomFields)
                 foreach(var pair in CustomFields)
                     _customFields[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
-            if(null != AssignedTo)
+            if(null != AssignedTo && _updateAssignedTo)
             {
                 switch(AssignedTo.Type)
                 {
