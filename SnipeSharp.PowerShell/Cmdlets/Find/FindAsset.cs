@@ -17,7 +17,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     ///   <code>Find-Asset "PotatoPeeler"</code>
     ///   <para>Finds assets that match the search string "PotatoPeeler".</para>
     /// </example>
-    [Cmdlet(VerbsCommon.Find, nameof(Asset), SupportsPaging = true)]
+    [Cmdlet(VerbsCommon.Find, nameof(Asset), SupportsPaging = true, DefaultParameterSetName = nameof(FindAsset.ParameterSets.Default))]
     [OutputType(typeof(Asset))]
     public class FindAsset: FindObject<Asset, AssetSearchColumn, AssetSearchFilter>
     {
@@ -25,7 +25,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             AssignedToUser,
             AssignedToLocation,
-            AssignedToAsset
+            AssignedToAsset,
+            Default
         }
 
         /// <summary>

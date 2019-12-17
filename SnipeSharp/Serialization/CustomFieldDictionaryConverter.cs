@@ -26,6 +26,7 @@ namespace SnipeSharp.Serialization
                     pair.Value.FriendlyName = pair.Key;
                     dictionary.Add(pair.Value.Field, pair.Value);
                 }
+                dictionary.RecalculateFriendlyNames();
                 return dictionary;
             }
         }

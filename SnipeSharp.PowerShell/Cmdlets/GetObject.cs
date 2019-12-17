@@ -112,7 +112,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             foreach(var name in Name)
             {
                 filter.Search = name;
-                var item = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter).Where(i => StringComparer.OrdinalIgnoreCase.Compare(i, name) == 0).First();
+                var item = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter).Where(i => StringComparer.OrdinalIgnoreCase.Compare(i.Name, name) == 0).First();
                 if(null == item)
                 {
                     this.WriteNotFoundError<TObject>("name", name);
