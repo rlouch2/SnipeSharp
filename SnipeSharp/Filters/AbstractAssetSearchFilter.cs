@@ -17,12 +17,6 @@ namespace SnipeSharp.Filters
         public StatusLabel StatusLabel { get; set; }
 
         /// <summary>
-        /// Only search for assets with this status.
-        /// </summary>
-        [Field("status")]
-        public string Status { get; set; }
-
-        /// <summary>
         /// Only search for assets with that are requestable (or not).
         /// </summary>
         [Field("requestable")]
@@ -61,7 +55,7 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// Only search for assets assigned to this type (user, asset, or location).
         /// </summary>
-        [Field(DeserializeAs = "assigned_type")]
+        [Field("assigned_type")]
         public AssignedToType AssignedToType { get; set; }
 
         /// <summary>

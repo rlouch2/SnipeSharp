@@ -129,7 +129,7 @@ namespace SnipeSharp.PowerShell
             var result = true;
             values = new ResponseCollection<R>();
             foreach(var binding in bindings)
-                if(result = cmdlet.GetSingleValue(binding, out var value, queryType, queryValue, required) && result)
+                if(result = (cmdlet.GetSingleValue(binding, out var value, queryType, queryValue, required) && result))
                     values.Add(value);
             if(!result)
                 values = null;
