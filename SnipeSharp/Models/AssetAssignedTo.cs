@@ -101,6 +101,7 @@ namespace SnipeSharp.Models
         {
             if(Type != AssignedToType.Location)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a Location.");
+            // location assignments have no extension data to copy
             return new Location(Id) { Name = this.Name };
         }
 
@@ -112,6 +113,7 @@ namespace SnipeSharp.Models
         {
             if(Type != AssignedToType.Asset)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a Asset.");
+            // asset assignments have no extension data to copy
             return new Asset(Id) { Name = this.Name };
         }
     }

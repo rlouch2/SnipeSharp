@@ -41,7 +41,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
             protected set
                 => QueryUnion = new BindingQueryUnion
                 {
-                    BindingType = BindingQueryUnion.Type.String,
+                    Type = BindingType.String,
                     StringValue = value
                 };
         }
@@ -57,7 +57,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         {
             QueryUnion = new BindingQueryUnion
             {
-                BindingType = BindingQueryUnion.Type.Integer,
+                Type = BindingType.Integer,
                 StringValue = $"id:{id}",
                 IntegerValue = id
             };
@@ -71,7 +71,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         {
             QueryUnion = new BindingQueryUnion
             {
-                BindingType = BindingQueryUnion.Type.String,
+                Type = BindingType.String,
                 StringValue = query
             };
         }
@@ -122,11 +122,44 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Parses a query into its type and value.
         /// </summary>
         /// <param name="query">The query to parse</param>
-        /// <returns>A tupel of the type and value.</returns>
-        protected static (string type, string value) ParseQuery(string query)
+        /// <param name="tag">The tag, if it is present, else null</param>
+        /// <param name="value">The query, if the tag is missing, or the portion after the tag.</param>
+        /// <returns>The tag type.</returns>
+        protected static BindingQueryType ParseQuery(string query, out string tag, out string value)
         {
             var index = query.IndexOf(':');
-            return (index == -1) ? (null, query) : (query.Substring(0, index), query.Substring(index + 1));
+            if(index == -1)
+            {
+                value = query;
+                tag = null;
+                return BindingQueryType.Absent;
+            }
+            value = query.Substring(index + 1);
+            tag = query.Substring(0, index).ToLower();
+            switch(tag)
+            {
+                case "cname":
+                    return BindingQueryType.CaseSensitiveName;
+                case "name":
+                case "iname":
+                    return BindingQueryType.CaseInsensitiveName;
+                case "id":
+                    return BindingQueryType.Id;
+                case "serial":
+                    return BindingQueryType.Serial;
+                case "tag":
+                    return BindingQueryType.AssetTag;
+                case "search":
+                    return BindingQueryType.Search;
+                case "username":
+                case "uname":
+                    return BindingQueryType.UserName;
+                case "email":
+                    return BindingQueryType.Email;
+                default:
+                    value = tag;
+                    return BindingQueryType.Invalid;
+            }
         }
 
         /// <summary>
@@ -135,51 +168,38 @@ namespace SnipeSharp.PowerShell.BindingTypes
         internal virtual void Resolve(ISearchFilter filter = null)
         {
             ApiOptionalResponse<T> result;
-            switch(QueryUnion.BindingType)
+            switch(QueryUnion.Type)
             {
-                case BindingQueryUnion.Type.String:
-                    var (type, value) = ParseQuery(QueryUnion.StringValue);
+                case BindingType.Integer:
+                    result = ApiHelper.Instance.GetEndPoint<T>().GetOptional(QueryUnion.IntegerValue);
+                    break;
+                default:
+                    result = new ApiOptionalResponse<T> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
+                    break;
+                case BindingType.String:
                     var endPoint = ApiHelper.Instance.GetEndPoint<T>();
-
-                    if(null == type)
+                    int id; // used later for parsing integers
+                    switch(ParseQuery(QueryUnion.StringValue, out var tag, out var value))
                     {
-                        if(int.TryParse(value, out var id))
-                            result = endPoint.GetOptional(id);
-                        else
-                            result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
-                    } else
-                    {
-                        switch(type)
-                        {
-                            case "cname":
-                                QueryUnion.CaseSensitive = true;
-                                goto case "iname";
-                            case "name":
-                            case "iname":
+                        case BindingQueryType.Absent:
+                            if(int.TryParse(value, out id))
+                                result = endPoint.GetOptional(id);
+                            else
                                 result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
-                                break;
-                            case "id":
-                                if(int.TryParse(value, out var id))
-                                    result = endPoint.GetOptional(id);
-                                else
-                                    result = new ApiOptionalResponse<T> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
-                                break;
-                            case "search":
-                                try
-                                {
-                                    filter.Search = value;
-                                    result = endPoint.FindOneOptional(filter);
-                                } catch(Exception e)
-                                {
-                                    result = new ApiOptionalResponse<T> { Exception = e };
-                                }
-                                break;
-                            default:
-                                result = new ApiOptionalResponse<T> { Exception = new ArgumentException($"Query does not have a proper type: {type}", "query") };
-                                break;
-                        }
-                        if(null != result.Exception)
-                        {
+                            break;
+                        case BindingQueryType.CaseSensitiveName:
+                            QueryUnion.CaseSensitive = true;
+                            goto case BindingQueryType.CaseInsensitiveName;
+                        case BindingQueryType.CaseInsensitiveName:
+                            result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
+                            break;
+                        case BindingQueryType.Id:
+                            if(int.TryParse(value, out id))
+                                result = endPoint.GetOptional(id);
+                            else
+                                result = new ApiOptionalResponse<T> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
+                            break;
+                        case BindingQueryType.Search:
                             try
                             {
                                 filter.Search = value;
@@ -188,14 +208,22 @@ namespace SnipeSharp.PowerShell.BindingTypes
                             {
                                 result = new ApiOptionalResponse<T> { Exception = e };
                             }
+                            break;
+                        default:
+                            result = new ApiOptionalResponse<T> { Exception = new ArgumentException($"Query does not have a proper type: {tag}", "query") };
+                            break;
+                    }
+                    if(null != result.Exception)
+                    {
+                        try
+                        {
+                            filter.Search = value;
+                            result = endPoint.FindOneOptional(filter);
+                        } catch(Exception e)
+                        {
+                            result = new ApiOptionalResponse<T> { Exception = e };
                         }
                     }
-                    break;
-                case BindingQueryUnion.Type.Integer:
-                    result = ApiHelper.Instance.GetEndPoint<T>().GetOptional(QueryUnion.IntegerValue);
-                    break;
-                default:
-                    result = new ApiOptionalResponse<T> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
                     break;
             }
 

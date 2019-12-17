@@ -10,7 +10,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     public sealed class AssetBinding: ObjectBinding<Asset>
     {
         /// <summary>
-        /// Fetches a single Asset using a simplified query. The query is of the form "[type:]value". Valid types are: id, name, iname, cname, serial, tag, and search.
+        /// Fetches a single Asset using a simplified query. The query is of the form "[type:]value". Valid types are: name, iname, cname, serial, tag, id, and search.
         /// </summary>
         /// <param name="query">An Asset Tag, Serial, Name, Id, or Search for an asset.</param>
         public AssetBinding(string query) : base(query)
@@ -54,82 +54,71 @@ namespace SnipeSharp.PowerShell.BindingTypes
             var endPoint = ApiHelper.Instance.Assets;
             ApiOptionalResponse<Asset> result;
 
-            switch(QueryUnion.BindingType)
+            switch(QueryUnion.Type)
             {
-                case BindingQueryUnion.Type.String:
-                    var (type, value) = ParseQuery(QueryUnion.StringValue);
-
-                    if(null == type)
+                case BindingType.Integer:
+                    result = endPoint.GetOptional(QueryUnion.IntegerValue);
+                    break;
+                default:
+                    result = new ApiOptionalResponse<Asset> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
+                    break;
+                case BindingType.String:
+                    int id; // used later for parsing integers
+                    ApiOptionalResponse<ResponseCollection<Asset>> multiResponse; // used later for retrieving by serial
+                    switch(ParseQuery(QueryUnion.StringValue, out var tag, out var value))
                     {
-                        // tag -> serial -> name -> id
-                        result = endPoint.GetByTagOptional(value);
-                        if(result.HasValue)
+                        case BindingQueryType.Absent:
+                            // tag -> serial -> name -> id
+                            result = endPoint.GetByTagOptional(value);
+                            if(result.HasValue)
+                                break;
+                            multiResponse = endPoint.FindBySerialOptional(value);
+                            if(multiResponse.HasValue)
+                            {
+                                Value = multiResponse.Value;
+                                Error = multiResponse.Exception;
+                                return;
+                            }
+                            result = endPoint.GetOptional(value, QueryUnion.CaseSensitive);
+                            if(result.HasValue)
+                                break;
+                            else if(int.TryParse(value, out id))
+                                result = endPoint.GetOptional(id);
+                            else
+                                result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
                             break;
-                        var multiResponse = endPoint.FindBySerialOptional(value);
-                        if(multiResponse.HasValue)
-                        {
-                            Value = multiResponse.Value;
-                            Error = multiResponse.Exception;
-                            return;
-                        }
-                        result = endPoint.GetOptional(value, QueryUnion.CaseSensitive);
-                        if(result.HasValue)
+                        case BindingQueryType.CaseSensitiveName:
+                            QueryUnion.CaseSensitive = true;
+                            goto case BindingQueryType.CaseInsensitiveName;
+                        case BindingQueryType.CaseInsensitiveName:
+                            result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
                             break;
-                        else if(int.TryParse(value, out var id))
-                            result = endPoint.GetOptional(id);
-                        else
-                            result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
-                    } else
-                    {
-                        switch(type)
-                        {
-                            case "cname":
-                                QueryUnion.CaseSensitive = true;
-                                goto case "iname";
-                            case "name":
-                            case "iname":
-                                result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
-                                break;
-                            case "id":
-                                if(int.TryParse(value, out var id))
-                                    result = endPoint.GetOptional(id);
-                                else
-                                    result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
-                                break;
-                            case "serial":
-                                var multiResponse = endPoint.FindBySerialOptional(value);
-                                if(multiResponse.HasValue)
+                        case BindingQueryType.Id:
+                            if(int.TryParse(value, out id))
+                                result = endPoint.GetOptional(id);
+                            else
+                                result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
+                            break;
+                        case BindingQueryType.Serial:
+                            multiResponse = endPoint.FindBySerialOptional(value);
+                            if(multiResponse.HasValue)
+                            {
+                                Value = multiResponse.Value;
+                                Error = multiResponse.Exception;
+                                return;
+                            } else
+                            {
+                                result = new ApiOptionalResponse<Asset>
                                 {
-                                    Value = multiResponse.Value;
-                                    Error = multiResponse.Exception;
-                                    return;
-                                } else
-                                {
-                                    result = new ApiOptionalResponse<Asset>
-                                    {
-                                        Value = null,
-                                        Exception = multiResponse.Exception ?? new ArgumentException($"Cannot find an object with serial number: {value}", "query")
-                                    };
-                                }
-                                break;
-                            case "tag":
-                                result = endPoint.GetByTagOptional(value);
-                                break;
-                            case "search":
-                                try
-                                {
-                                    result = endPoint.FindOneOptional(value);
-                                } catch(Exception e)
-                                {
-                                    result = new ApiOptionalResponse<Asset> { Exception = e };
-                                }
-                                break;
-                            default:
-                                result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Query does not have a proper type: {type}", "query") };
-                                break;
-                        }
-                        if(null != result.Exception)
-                        {
+                                    Value = null,
+                                    Exception = multiResponse.Exception ?? new ArgumentException($"Cannot find an object with serial number: {value}", "query")
+                                };
+                            }
+                            break;
+                        case BindingQueryType.AssetTag:
+                            result = endPoint.GetByTagOptional(value);
+                            break;
+                        case BindingQueryType.Search:
                             try
                             {
                                 filter.Search = value;
@@ -138,16 +127,27 @@ namespace SnipeSharp.PowerShell.BindingTypes
                             {
                                 result = new ApiOptionalResponse<Asset> { Exception = e };
                             }
+                            break;
+                        default:
+                            result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Query does not have a proper type: {tag}", "query") };
+                            break;
+                    }
+                    if(null != result.Exception)
+                    {
+                        try
+                        {
+                            filter.Search = value;
+                            result = endPoint.FindOneOptional(filter);
+                        } catch(Exception e)
+                        {
+                            result = new ApiOptionalResponse<Asset> { Exception = e };
                         }
                     }
                     break;
-                case BindingQueryUnion.Type.Integer:
-                    result = endPoint.GetOptional(QueryUnion.IntegerValue);
-                    break;
-                default:
-                    result = new ApiOptionalResponse<Asset> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
-                    break;
             }
+
+            Value = new Asset[] { result.Value };
+            Error = result.Exception;
         }
 
         internal static AssetBinding FromTag(string tag)

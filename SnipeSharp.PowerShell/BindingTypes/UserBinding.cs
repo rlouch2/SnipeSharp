@@ -56,81 +56,77 @@ namespace SnipeSharp.PowerShell.BindingTypes
             ApiOptionalResponse<User> result;
             var userFilter = filter as UserSearchFilter;
 
-            switch(QueryUnion.BindingType)
+            switch(QueryUnion.Type)
             {
-                case BindingQueryUnion.Type.String:
-                    var (type, value) = ParseQuery(QueryUnion.StringValue);
-
-                    if(null == type)
-                    {
-                        // username -> email -> name -> id
-                        result = endPoint.GetByUserNameOptional(value, userFilter);
-                        if(result.HasValue)
-                            break;
-                        result = endPoint.GetByEmailAddressOptional(value, userFilter);
-                        if(result.HasValue)
-                            break;
-                        result = endPoint.GetOptional(value, QueryUnion.CaseSensitive);
-                        if(result.HasValue)
-                            break;
-                        else if(int.TryParse(value, out var id))
-                            result = endPoint.GetOptional(id);
-                        else
-                            result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
-                    } else
-                    {
-                        switch(type)
-                        {
-                            case "cname":
-                                QueryUnion.CaseSensitive = true;
-                                goto case "iname";
-                            case "name":
-                            case "iname":
-                                result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
-                                break;
-                            case "id":
-                                if(int.TryParse(value, out var id))
-                                    result = endPoint.GetOptional(id);
-                                else
-                                    result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
-                                break;
-                            case "username":
-                            case "uname":
-                                result = endPoint.GetByUserNameOptional(value, userFilter);
-                                break;
-                            case "email":
-                                result = endPoint.GetByEmailAddressOptional(value, userFilter);
-                                break;
-                            case "search":
-                                try
-                                {
-                                    result = endPoint.FindOneOptional(value);
-                                } catch(Exception e)
-                                {
-                                    result = new ApiOptionalResponse<User> { Exception = e };
-                                }
-                                break;
-                            default:
-                                result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Query does not have a proper type: {type}", "query") };
-                                break;
-                        }
-                        if(null == result.Value)
-                        {
-                            try
-                            {
-                                result = endPoint.FindOneOptional(value);
-                            } catch(Exception e)
-                            {
-                                result = new ApiOptionalResponse<User> { Exception = e };
-                            }
-                        }
-                    }
-                    break;
-                case BindingQueryUnion.Type.Integer:
+                case BindingType.Integer:
                     result = endPoint.GetOptional(QueryUnion.IntegerValue);
                     break;
                 default:
                     result = new ApiOptionalResponse<User> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
+                    break;
+                case BindingType.String:
+                    int id; // used later for parsing integers
+                    switch(ParseQuery(QueryUnion.StringValue, out var tag, out var value))
+                    {
+                        case BindingQueryType.Absent:
+                            // username -> email -> name -> id
+                            result = endPoint.GetByUserNameOptional(value, userFilter);
+                            if(result.HasValue)
+                                break;
+                            result = endPoint.GetByEmailAddressOptional(value, userFilter);
+                            if(result.HasValue)
+                                break;
+                            result = endPoint.GetOptional(value, QueryUnion.CaseSensitive);
+                            if(result.HasValue)
+                                break;
+                            else if(int.TryParse(value, out id))
+                                result = endPoint.GetOptional(id);
+                            else
+                                result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
+                            break;
+                        case BindingQueryType.CaseSensitiveName:
+                            QueryUnion.CaseSensitive = true;
+                            goto case BindingQueryType.CaseInsensitiveName;
+                        case BindingQueryType.CaseInsensitiveName:
+                            result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
+                            break;
+                        case BindingQueryType.Id:
+                            if(int.TryParse(value, out id))
+                                result = endPoint.GetOptional(id);
+                            else
+                                result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
+                            break;
+                        case BindingQueryType.UserName:
+                            result = endPoint.GetByUserNameOptional(value, userFilter);
+                            break;
+                        case BindingQueryType.Email:
+                            result = endPoint.GetByEmailAddressOptional(value, userFilter);
+                            break;
+                        case BindingQueryType.Search:
+                            try
+                            {
+                                filter.Search = value;
+                                result = endPoint.FindOneOptional(filter);
+                            } catch(Exception e)
+                            {
+                                result = new ApiOptionalResponse<User> { Exception = e };
+                            }
+                            break;
+                        default:
+                            result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Query does not have a proper type: {tag}", "query") };
+                            break;
+                    }
+                    if(null != result.Exception)
+                    {
+                        try
+                        {
+                            filter.Search = value;
+                            result = endPoint.FindOneOptional(filter);
+                        } catch(Exception e)
+                        {
+                            result = new ApiOptionalResponse<User> { Exception = e };
+                        }
+                    }
                     break;
             }
 
