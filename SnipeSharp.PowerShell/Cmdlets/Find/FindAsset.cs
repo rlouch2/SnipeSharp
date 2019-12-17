@@ -123,49 +123,49 @@ namespace SnipeSharp.PowerShell.Cmdlets
         {
             if(MyInvocation.BoundParameters.ContainsKey(nameof(StatusLabel)))
             {
-                if(!this.GetSingleValue(StatusLabel, out var statusLabel, required: true))
+                if(!this.GetSingleValue(StatusLabel, out var statusLabel))
                     return false;
                 filter.StatusLabel = statusLabel;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
             {
-                if(!this.GetSingleValue(Model, out var model, required: true))
+                if(!this.GetSingleValue(Model, out var model))
                     return false;
                 filter.Model = model;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!this.GetSingleValue(Category, out var category, required: true))
+                if (!this.GetSingleValue(Category, out var category))
                     return false;
                 filter.Category = category;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Location)))
             {
-                if(!this.GetSingleValue(Location, out var location, required: true))
+                if(!this.GetSingleValue(Location, out var location))
                     return false;
                 filter.Location = location;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Supplier)))
             {
-                if(!this.GetSingleValue(Supplier, out var supplier, required: true))
+                if(!this.GetSingleValue(Supplier, out var supplier))
                     return false;
                 filter.Supplier = supplier;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if(!this.GetSingleValue(Company, out var company, required: true))
+                if(!this.GetSingleValue(Company, out var company))
                     return false;
                 filter.Company = company;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if(!this.GetSingleValue(Manufacturer, out var manufacturer, required: true))
+                if(!this.GetSingleValue(Manufacturer, out var manufacturer))
                     return false;
                 filter.Manufacturer = manufacturer;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
             {
-                if(!this.GetSingleValue(Depreciation, out var depreciation, required: true))
+                if(!this.GetSingleValue(Depreciation, out var depreciation))
                     return false;
                 filter.Depreciation = depreciation;
             }
@@ -176,19 +176,19 @@ namespace SnipeSharp.PowerShell.Cmdlets
             switch(ParameterSetName)
             {
                 case nameof(ParameterSets.AssignedToAsset):
-                    if (!this.GetSingleValue(AssignedAsset, out var assignedAsset, required: true))
+                    if (!this.GetSingleValue(AssignedAsset, out var assignedAsset))
                         return false;
                     filter.AssignedTo = assignedAsset;
                     filter.AssignedToType = AssignedToType.Asset;
                     break;
                 case nameof(ParameterSets.AssignedToLocation):
-                    if (!this.GetSingleValue(AssignedLocation, out var assignedLocation, required: true))
+                    if (!this.GetSingleValue(AssignedLocation, out var assignedLocation))
                         return false;
                     filter.AssignedTo = assignedLocation;
                     filter.AssignedToType = AssignedToType.Location;
                     break;
                 case nameof(ParameterSets.AssignedToUser):
-                    if (!this.GetSingleValue(AssignedLocation, out var assignedUser, required: true))
+                    if (!this.GetSingleValue(AssignedLocation, out var assignedUser))
                         return false;
                     filter.AssignedTo = assignedUser;
                     filter.AssignedToType = AssignedToType.User;

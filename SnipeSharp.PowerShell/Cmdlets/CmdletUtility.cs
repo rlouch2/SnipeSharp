@@ -81,18 +81,14 @@ namespace SnipeSharp.PowerShell
         /// <param name="value">The value to output.</param>
         /// <param name="queryType">The type of query.</param>
         /// <param name="queryValue">The value of the query.</param>
-        /// <param name="required">Are null returns disallowed? (Does the binding have to have a value?)</param>
         /// <typeparam name="R">The type of object to retrieve</typeparam>
         /// <returns>True if a valid value was retrieved.</returns>
-        internal static bool GetSingleValue<R>(this Cmdlet cmdlet, ObjectBinding<R> binding, out R value, string queryType = "identity",
-                                                string queryValue = null, bool required = false)
+        internal static bool GetSingleValue<R>(this Cmdlet cmdlet, ObjectBinding<R> binding, out R value, string queryType = "identity", string queryValue = null)
             where R : CommonEndPointModel
         {
             value = null;
             if (null == binding)
             {
-                if(!required) // let us return null if a value wasn't required and we don't have a binding.
-                    return true;
                 cmdlet.WriteApiError(new ArgumentNullException(paramName: nameof(binding)));
                 return false;
             }
@@ -101,8 +97,6 @@ namespace SnipeSharp.PowerShell
                 cmdlet.WriteApiError(binding.Error, target: binding.Query.ToString());
                 return false;
             }
-            if(!binding.HasValue && !required) // let us return nulls if we don't need a value
-                return true;
             if (cmdlet.ValidateHasExactlyOneValue(binding, queryType, queryValue))
             {
                 value = binding.Value[0];
@@ -119,18 +113,20 @@ namespace SnipeSharp.PowerShell
         /// <param name="values">The value to output.</param>
         /// <param name="queryType">The type of query.</param>
         /// <param name="queryValue">The value of the query.</param>
-        /// <param name="required">Are null returns disallowed? (Does the binding have to have a value?)</param>
         /// <typeparam name="R">The type of object to retrieve</typeparam>
         /// <returns>True if all valid values were retrieved; false if any binding was not resolved.</returns>
         internal static bool GetManyValues<R>(this Cmdlet cmdlet, ObjectBinding<R>[] bindings, out ResponseCollection<R> values,
-                                                string queryType = "identity", string queryValue = null, bool required = false)
+                                                string queryType = "identity", string queryValue = null)
             where R: CommonEndPointModel
         {
             var result = true;
             values = new ResponseCollection<R>();
             foreach(var binding in bindings)
-                if(result = (cmdlet.GetSingleValue(binding, out var value, queryType, queryValue, required) && result))
+            {
+                result = cmdlet.GetSingleValue(binding, out var value, queryType, queryValue) && result;
+                if(result)
                     values.Add(value);
+            }
             if(!result)
                 values = null;
             return result;

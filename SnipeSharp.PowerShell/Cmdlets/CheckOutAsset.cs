@@ -77,7 +77,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!this.GetSingleValue(Asset, out var asset, queryType: "Identity", required: true))
+            if(!this.GetSingleValue(Asset, out var asset, queryType: "Identity"))
                 return;
             if(asset.IsDeleted)
                 throw new InvalidOperationException($"Cannot checkout asset {asset.Name} because it has been deleted.");
@@ -85,17 +85,17 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(null != AssignedUser)
             {
                 // ToUser ParameterSet
-                if(!this.GetSingleValue(AssignedUser, out var user, queryType: "Identity", required: true))
+                if(!this.GetSingleValue(AssignedUser, out var user, queryType: "Identity"))
                     return;
                 request = new AssetCheckOutRequest(asset, user);
             } else if(null != AssignedLocation)
             {
-                if(!this.GetSingleValue(AssignedLocation, out var location, queryType: "Identity", required: true))
+                if(!this.GetSingleValue(AssignedLocation, out var location, queryType: "Identity"))
                     return;
                 request = new AssetCheckOutRequest(asset, location);
             } else
             {
-                if(!this.GetSingleValue(AssignedAsset, out var assignedAsset, queryType: "Identity", required: true))
+                if(!this.GetSingleValue(AssignedAsset, out var assignedAsset, queryType: "Identity"))
                     return;
                 if(assignedAsset.IsDeleted)
                     throw new InvalidOperationException($"Cannot checkout to asset {assignedAsset.Name} because it has been deleted.");

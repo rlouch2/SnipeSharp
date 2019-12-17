@@ -146,7 +146,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.IsReassignable = this.IsReassignable;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!this.GetSingleValue(Category, out var category, required: true))
+                if (!this.GetSingleValue(Category, out var category))
                     return;
                 item.Category = category;
             }

@@ -96,13 +96,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.PurchaseDate = this.PurchaseDate;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if(!this.GetSingleValue(Category, out var category, required: true))
+                if(!this.GetSingleValue(Category, out var category))
                     return;
                 item.Category = category;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Company)))
             {
-                if(!this.GetSingleValue(Company, out var company, required: true))
+                if(!this.GetSingleValue(Company, out var company))
                     return;
                 item.Company = company;
             }

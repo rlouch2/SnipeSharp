@@ -46,11 +46,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!this.GetSingleValue(Location, out var location, queryType: nameof(Location), required: true))
+            if(!this.GetSingleValue(Location, out var location, queryType: nameof(Location)))
                 return;
             foreach(var assetIdentity in Identity)
             {
-                if(this.GetSingleValue(assetIdentity, out var asset, queryType: assetIdentity.Query, required: true))
+                if(this.GetSingleValue(assetIdentity, out var asset, queryType: assetIdentity.Query))
                     WriteObject(ApiHelper.Instance.Assets.Audit(asset, location, nextAuditDate: NextAuditDate.Value, notes: Notes));
             }
         }

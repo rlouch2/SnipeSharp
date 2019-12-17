@@ -115,13 +115,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.MinimumQuantity = MinimumQuantity;
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if (!this.GetSingleValue(Manufacturer, out var manufacturer, required: true))
+                if (!this.GetSingleValue(Manufacturer, out var manufacturer))
                     return;
                 item.Manufacturer = manufacturer;
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!this.GetSingleValue(Category, out var category, required: true))
+                if (!this.GetSingleValue(Category, out var category))
                     return;
                 item.Category = category;
             }

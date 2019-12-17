@@ -42,7 +42,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             var orderedFields = new List<CustomField>();
             foreach(var field in Order)
             {
-                if (!this.GetSingleValue(field, out var fieldItem, required: true))
+                if (!this.GetSingleValue(field, out var fieldItem))
                     return;
                 orderedFields.Add(fieldItem);
             }

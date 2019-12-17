@@ -156,7 +156,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Model)))
             {
-                if(!this.GetSingleValue(Model, out var model, required: true))
+                if(!this.GetSingleValue(Model, out var model))
                     return;
                 item.Model = model;
             }
@@ -168,7 +168,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             if(MyInvocation.BoundParameters.ContainsKey(nameof(Status)))
             {
-                if(!this.GetSingleValue(Status, out var status, required: true))
+                if(!this.GetSingleValue(Status, out var status))
                     return;
                 item.Status = status.ToAssetStatus();
             }

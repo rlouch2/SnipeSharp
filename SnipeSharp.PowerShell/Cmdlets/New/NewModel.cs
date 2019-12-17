@@ -85,7 +85,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 item.EndOfLife = this.EndOfLife;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {
-                if (!this.GetSingleValue(Manufacturer, out var manufacturer, required: true))
+                if (!this.GetSingleValue(Manufacturer, out var manufacturer))
                     return;
                 item.Manufacturer = manufacturer;
             }
@@ -97,7 +97,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Category)))
             {
-                if (!this.GetSingleValue(Category, out var category, required: true))
+                if (!this.GetSingleValue(Category, out var category))
                     return;
                 item.Category = category;
             }
