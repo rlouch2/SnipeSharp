@@ -77,26 +77,29 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
-            if(!this.ValidateHasExactlyOneValue(Asset, queryType: "Identity"))
+            if(!this.GetSingleValue(Asset, out var asset, queryType: "Identity", required: true))
                 return;
-
-            var request = default(AssetCheckOutRequest);
+            if(asset.IsDeleted)
+                throw new InvalidOperationException($"Cannot checkout asset {asset.Name} because it has been deleted.");
+            AssetCheckOutRequest request;
             if(null != AssignedUser)
             {
                 // ToUser ParameterSet
-                if(!this.ValidateHasExactlyOneValue(AssignedUser, queryType: "Identity"))
+                if(!this.GetSingleValue(AssignedUser, out var user, queryType: "Identity", required: true))
                     return;
-                request = new AssetCheckOutRequest(Asset.Value[0], AssignedUser.Value[0]);
+                request = new AssetCheckOutRequest(asset, user);
             } else if(null != AssignedLocation)
             {
-                if(!this.ValidateHasExactlyOneValue(AssignedLocation, queryType: "Identity"))
+                if(!this.GetSingleValue(AssignedLocation, out var location, queryType: "Identity", required: true))
                     return;
-                request = new AssetCheckOutRequest(Asset.Value[0], AssignedLocation.Value[0]);
+                request = new AssetCheckOutRequest(asset, location);
             } else
             {
-                if(!this.ValidateHasExactlyOneValue(AssignedAsset, queryType: "Identity"))
+                if(!this.GetSingleValue(AssignedAsset, out var assignedAsset, queryType: "Identity", required: true))
                     return;
-                request = new AssetCheckOutRequest(Asset.Value[0], AssignedAsset.Value[0]);
+                if(assignedAsset.IsDeleted)
+                    throw new InvalidOperationException($"Cannot checkout to asset {assignedAsset.Name} because it has been deleted.");
+                request = new AssetCheckOutRequest(asset, assignedAsset);
             }
             if(null != CheckOutAt)
                 request.CheckOutAt = CheckOutAt;

@@ -31,6 +31,9 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "id")]
         public override int Id { get; protected set; }
 
+        /// <summary>If this asset has been deleted.</summary>
+        public bool IsDeleted => DeletedAt.HasValue;
+
         /// <inheritdoc />
         [Field("name")]
         public override string Name { get; set; }
