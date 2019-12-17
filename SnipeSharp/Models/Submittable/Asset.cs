@@ -177,7 +177,7 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "assigned_to", Converter = CommonModelConverter, OverrideAffinity = true)]
+        [Field(DeserializeAs = "assigned_to", Converter = CommonModelConverter)]
         public AssetAssignedTo AssignedTo { get; private set; }
 
         /// <value>If the assigned object has been modified.</value>

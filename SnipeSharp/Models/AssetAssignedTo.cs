@@ -14,6 +14,9 @@ namespace SnipeSharp.Models
     /// </summary>
     public sealed class AssetAssignedTo : ApiObject
     {
+        [JsonConstructor]
+        private AssetAssignedTo() { }
+
         internal AssetAssignedTo(User user)
         {
             Id = user.Id;
@@ -75,7 +78,19 @@ namespace SnipeSharp.Models
         {
             if(Type != AssignedToType.User)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a User.");
-            return new User(Id);
+            var user = new User(Id)
+            {
+                Name = this.Name
+            };
+            if(ExtensionData.TryGetValue("username", out var username))
+                user.UserName = username;
+            if(ExtensionData.TryGetValue("first_name", out var firstName))
+                user.FirstName = firstName;
+            if(ExtensionData.TryGetValue("last_name", out var lastName))
+                user.LastName = lastName;
+            if(ExtensionData.TryGetValue("employee_number", out var employeeNumber))
+                user.EmployeeNumber = employeeNumber;
+            return user;
         }
 
         /// <summary>
@@ -86,7 +101,7 @@ namespace SnipeSharp.Models
         {
             if(Type != AssignedToType.Location)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a Location.");
-            return new Location(Id);
+            return new Location(Id) { Name = this.Name };
         }
 
         /// <summary>
@@ -97,7 +112,7 @@ namespace SnipeSharp.Models
         {
             if(Type != AssignedToType.Asset)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a Asset.");
-            return new Asset(Id);
+            return new Asset(Id) { Name = this.Name };
         }
     }
 }
