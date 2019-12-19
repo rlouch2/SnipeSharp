@@ -4,18 +4,14 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomAssetStatusConverter : JsonConverter
+    internal sealed class CustomAssetStatusConverter : JsonConverter<AssetStatus>
     {
         internal static readonly CustomAssetStatusConverter Instance = new CustomAssetStatusConverter();
-        public override bool CanConvert(Type objectType)
-            => true;
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+
+        public override AssetStatus ReadJson(JsonReader reader, Type objectType, AssetStatus existingValue, bool hasExistingValue, JsonSerializer serializer)
             => throw new NotImplementedException();
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            var item = value as AssetStatus;
-            writer.WriteValue(item.StatusId);
-        }
+        public override void WriteJson(JsonWriter writer, AssetStatus value, JsonSerializer serializer)
+            => writer.WriteValue(value.StatusId);
     }
 }

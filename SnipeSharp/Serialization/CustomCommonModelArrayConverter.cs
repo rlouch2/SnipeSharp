@@ -4,20 +4,17 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomCommonModelArrayConverter : JsonConverter
+    internal sealed class CustomCommonModelArrayConverter : JsonConverter<CommonEndPointModel[]>
     {
         internal static readonly CustomCommonModelArrayConverter Instance = new CustomCommonModelArrayConverter();
-        public override bool CanConvert(Type objectType)
-            => true;
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override CommonEndPointModel[] ReadJson(JsonReader reader, Type objectType, CommonEndPointModel[] existingValue, bool hasExistingValue, JsonSerializer serializer)
             => (CommonEndPointModel[]) serializer.Deserialize<GenericEndPointModel[]>(reader);
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, CommonEndPointModel[] value, JsonSerializer serializer)
         {
-            var items = value as CommonEndPointModel[];
             writer.WriteStartArray();
-            if(null != items)
-                foreach(var item in items)
+            if(null != value)
+                foreach(var item in value)
                     writer.WriteValue(item.Id);
             writer.WriteEndArray();
         }

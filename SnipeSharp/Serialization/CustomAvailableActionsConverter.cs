@@ -5,13 +5,10 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomAvailableActionsConverter : JsonConverter
+    internal sealed class CustomAvailableActionsConverter : JsonConverter<HashSet<AvailableAction>>
     {
         public static readonly CustomAvailableActionsConverter Instance = new CustomAvailableActionsConverter();
-        public override bool CanConvert(Type objectType)
-            => true;
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override HashSet<AvailableAction> ReadJson(JsonReader reader, Type objectType, HashSet<AvailableAction> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var dictionary = serializer.Deserialize<Dictionary<AvailableAction, bool>>(reader);
             var set = new HashSet<AvailableAction>();
@@ -21,7 +18,7 @@ namespace SnipeSharp.Serialization
             return set;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, HashSet<AvailableAction> value, JsonSerializer serializer)
             => throw new NotImplementedException();
     }
 }

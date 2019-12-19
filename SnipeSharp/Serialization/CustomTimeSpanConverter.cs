@@ -3,13 +3,11 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomTimeSpanConverter : JsonConverter
+    internal sealed class CustomTimeSpanConverter : JsonConverter<TimeSpan?>
     {
         public static readonly CustomTimeSpanConverter Instance = new CustomTimeSpanConverter();
-        public override bool CanConvert(Type objectType)
-            => true;
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override TimeSpan? ReadJson(JsonReader reader, Type objectType, TimeSpan? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var days = serializer.Deserialize<int?>(reader);
             if(null == days)
@@ -17,7 +15,7 @@ namespace SnipeSharp.Serialization
             return new TimeSpan(days.Value, 0, 0, 0);
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            => serializer.Serialize(writer, (value as TimeSpan?)?.Days);
+        public override void WriteJson(JsonWriter writer, TimeSpan? value, JsonSerializer serializer)
+            => serializer.Serialize(writer, value?.Days);
     }
 }

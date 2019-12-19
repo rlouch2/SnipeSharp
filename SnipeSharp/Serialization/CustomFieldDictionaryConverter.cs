@@ -6,12 +6,11 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomFieldDictionaryConverter : JsonConverter
+    internal sealed class CustomFieldDictionaryConverter : JsonConverter<CustomFieldDictionary>
     {
         internal static readonly CustomFieldDictionaryConverter Instance = new CustomFieldDictionaryConverter();
-        public override bool CanConvert(Type objectType)
-            => true;
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+
+        public override CustomFieldDictionary ReadJson(JsonReader reader, Type objectType, CustomFieldDictionary existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             if(reader.TokenType == JsonToken.StartArray)
             {
@@ -31,7 +30,7 @@ namespace SnipeSharp.Serialization
             }
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, CustomFieldDictionary value, JsonSerializer serializer)
             => throw new NotImplementedException();
     }
 }

@@ -4,13 +4,11 @@ using Newtonsoft.Json.Linq;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomDateTimeConverter : JsonConverter
+    internal sealed class CustomDateTimeConverter : JsonConverter<DateTime?>
     {
         public static readonly CustomDateTimeConverter Instance = new CustomDateTimeConverter();
-        public override bool CanConvert(Type objectType)
-            => true;
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             DateTime dateTime;
             var token = JToken.Load(reader);
@@ -29,8 +27,8 @@ namespace SnipeSharp.Serialization
             return null;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            => serializer.Serialize(writer, null == value ? null : new DateTimeResponse((value as DateTime?).Value));
+        public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)
+            => serializer.Serialize(writer, null == value ? null : new DateTimeResponse(value.Value));
     }
 
     internal sealed class DateTimeResponse
