@@ -8,22 +8,28 @@ namespace SnipeSharp.Serialization
     {
         public static readonly SerializationContractResolver Instance = new SerializationContractResolver();
 
-        public static JsonConverter GetConverter(FieldAttribute attribute)
+        public static bool TryGetConverter(FieldAttribute attribute, out JsonConverter converter)
         {
             switch(attribute.Converter)
             {
                 case FieldConverter.CommonModelConverter:
-                    return CustomCommonModelConverter.Instance;
+                    converter = CustomCommonModelConverter.Instance;
+                    return true;
                 case FieldConverter.CommonModelArrayConverter:
-                    return CustomCommonModelArrayConverter.Instance;
+                    converter = CustomCommonModelArrayConverter.Instance;
+                    return true;
                 case FieldConverter.TimeSpanConverter:
-                    return CustomTimeSpanConverter.Instance;
+                    converter = CustomTimeSpanConverter.Instance;
+                    return true;
                 case FieldConverter.DateTimeConverter:
-                    return CustomDateTimeConverter.Instance;
+                    converter = CustomDateTimeConverter.Instance;
+                    return true;
                 case FieldConverter.AssetStatusConverter:
-                    return CustomAssetStatusConverter.Instance;
+                    converter = CustomAssetStatusConverter.Instance;
+                    return true;
                 case FieldConverter.BoolStringConverter:
-                    return CustomBoolStringConverter.Instance;
+                    converter = CustomBoolStringConverter.Instance;
+                    return true;
                 case FieldConverter.CustomFieldDictionaryConverter:
                 case FieldConverter.AvailableActionsConverter:
                 case FieldConverter.PermissionsConverter:
@@ -31,7 +37,8 @@ namespace SnipeSharp.Serialization
                 case FieldConverter.MonthsConverter:
                 case FieldConverter.None:
                 default:
-                    return null;
+                    converter = null;
+                    return false;
             }
         }
 
@@ -43,8 +50,7 @@ namespace SnipeSharp.Serialization
             {
                 property.PropertyName = attribute.SerializeAs;
                 property.Readable = true;
-                var converter = GetConverter(attribute);
-                if(converter != null)
+                if(TryGetConverter(attribute, out var converter))
                     property.Converter = converter;
             } else
             {

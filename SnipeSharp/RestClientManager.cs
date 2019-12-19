@@ -66,7 +66,8 @@ namespace SnipeSharp
                 return result;
             var offset = filter?.Offset ?? 0;
 
-            if((null == filter?.Limit) && offset + result.Value.Count < result.Value.Total){
+            if((null == filter?.Limit) && offset + result.Value.Count < result.Value.Total)
+            {
                 if(null == filter)
                     filter = new SearchFilter();
                 filter.Limit = 1000;
@@ -173,33 +174,26 @@ namespace SnipeSharp
                     var type = @object.GetType();
                     foreach(var property in type.GetProperties())
                     {
-                        if(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute && !string.IsNullOrEmpty(attribute.SerializeAs))
+                        if(!(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute))
+                            continue;
+                        if(string.IsNullOrEmpty(attribute.SerializeAs))
+                            continue;
+                        var value = property.GetValue(@object);
+                        if(attribute.IsRequired && null == value)
+                            throw new MissingRequiredFieldException<object>(type.Name, property.Name);
+                        if(null == value)
+                            continue;
+                        if(SerializationContractResolver.TryGetConverter(attribute, out var converter))
                         {
-                            var value = property.GetValue(@object);
-                            if(attribute.IsRequired && null != value)
-                            {
-                                throw new MissingRequiredFieldException<object>(type.Name, property.Name);
-                            } else
-                            {
-                                var converter = SerializationContractResolver.GetConverter(attribute);
-                                if(converter != null && value != null)
-                                {
-                                    var stringBuilder = new StringBuilder();
-                                    using(var stringWriter = new StringWriter(stringBuilder))
-                                    using(var jsonWriter = new JsonTextWriter(stringWriter))
-                                    {
-                                        converter.WriteJson(jsonWriter, value, JsonSerializer.CreateDefault(NewtonsoftJsonSerializer.SerializerSettings));
-                                    }
-                                    value = stringBuilder.ToString();
-                                    if(string.IsNullOrEmpty((string) value) && attribute.IsRequired)
-                                    {
-                                        throw new MissingRequiredFieldException<object>(nameof(String), property.Name);
-                                    }
-                                }
-                                if(value != null)
-                                    request.AddParameter(attribute.SerializeAs, value);
-                            }
+                            var stringBuilder = new StringBuilder();
+                            using(var stringWriter = new StringWriter(stringBuilder))
+                            using(var jsonWriter = new JsonTextWriter(stringWriter))
+                                converter.WriteJson(jsonWriter, value, JsonSerializer.CreateDefault(NewtonsoftJsonSerializer.SerializerSettings));
+                            value = stringBuilder.ToString();
+                            if(string.IsNullOrEmpty((string) value) && attribute.IsRequired)
+                                throw new MissingRequiredFieldException<object>(nameof(String), property.Name);
                         }
+                        request.AddParameter(attribute.SerializeAs, value);
                     }
                 } else
                 {

@@ -73,6 +73,7 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
+        // TODO: update function has "custom_fieldset_id" as request name. Is this compatible w/ store? What changes need to be made for that?
         [Field(DeserializeAs = "fieldset", SerializeAs = "fieldset_id", Converter = CommonModelConverter)]
         public FieldSet FieldSet { get; set; }
 

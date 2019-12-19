@@ -275,6 +275,14 @@ namespace SnipeSharp.Tests
             Assert.Equal(TestModel.Test1, response);
         }
 
+        [Fact]
+        public void Get_ById_WithOperator()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(TEST1_STRING));
+            var response = endPoint[1];
+            Assert.Equal(TestModel.Test1, response);
+        }
+
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
@@ -283,6 +291,17 @@ namespace SnipeSharp.Tests
             // using FIND_ALL_TWO_ROWS because ByName does a search, not a lookup
             var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
             var response = endPoint.Get("Test1", caseSensitive: isCaseSensitive);
+            Assert.Equal(TestModel.Test1, response);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Get_ByName_Operator(bool isCaseSensitive)
+        {
+            // using FIND_ALL_TWO_ROWS because ByName does a search, not a lookup
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var response = endPoint["Test1", caseSensitive: isCaseSensitive];
             Assert.Equal(TestModel.Test1, response);
         }
 
@@ -297,6 +316,23 @@ namespace SnipeSharp.Tests
         #endregion
 
         #region Create, Delete, Update
+        [Fact]
+        public void Create()
+        {
+            // TODO
+        }
+
+        [Fact]
+        public void Delete()
+        {
+            // TODO
+        }
+
+        [Fact]
+        public void Update()
+        {
+             // TODO
+        }
         #endregion
 
         [Fact]

@@ -190,6 +190,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             if(MyInvocation.BoundParameters.ContainsKey(nameof(WarrantyMonths)))
                 item.WarrantyMonths = WarrantyMonths;
             if(null != CustomFields && MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)))
+                // TODO: validate key names
                 foreach(var pair in CustomFields)
                     item.CustomFields[pair.Key] = pair.Value;
             return true;
