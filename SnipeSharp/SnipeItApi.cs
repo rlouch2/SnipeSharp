@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using RestSharp;
-using SnipeSharp.Collections;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
 

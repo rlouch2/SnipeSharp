@@ -18,6 +18,7 @@
         },
         {
             "label": "test",
+            "type": "shell",
             "command": "dotnet",
             "args": [
                 "test",
@@ -26,13 +27,13 @@
                 "/p:CoverletOutputFormat=lcov",
                 "/p:CoverletOutput=${workspaceFolder}/lcov.info",
             ],
-            "type": "shell",
             "group": {
                 "kind": "test",
                 "isDefault": true
             },
             "presentation": {
-                "reveal": "always"
+                "reveal": "always",
+                "clear": true
             },
             "problemMatcher": "$msCompile"
         }

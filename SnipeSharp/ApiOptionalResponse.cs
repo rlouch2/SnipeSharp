@@ -14,7 +14,7 @@ namespace SnipeSharp
         /// Does this response have a value?
         /// </summary>
         public bool HasValue
-            => null == Exception && null != Value;
+            => null != Value;
 
         /// <summary>
         /// The response value.

@@ -63,9 +63,9 @@ namespace SnipeSharp
             var result = Get<ResponseCollection<R>>(path, filter);
             if(result.HasValue)
                 return result;
-            var offset = null == filter?.Offset ? 0 : filter.Offset;
-            if(null == filter?.Limit && offset + result.Value.Count < result.Value.Total)
-            {
+            var offset = filter?.Offset ?? 0;
+
+            if((null == filter?.Limit) && offset + result.Value.Count < result.Value.Total){
                 if(null == filter)
                     filter = new SearchFilter();
                 filter.Limit = 1000;
@@ -110,7 +110,7 @@ namespace SnipeSharp
 #endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
 
-            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status) && asRequestResponse.Status == "error")
+            if("error" == asRequestResponse.Status)
             {
                 return new ApiOptionalResponse<R>
                 {
