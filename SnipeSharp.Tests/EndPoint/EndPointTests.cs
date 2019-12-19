@@ -99,7 +99,9 @@ namespace SnipeSharp.Tests
         private const string FIND_ERROR = @"
         {
             ""status"": ""error"",
-            ""messages"": ""It doesn't work""
+            ""messages"": {
+                ""general"": ""It doesn't work.""
+            }
         }
         ";
 

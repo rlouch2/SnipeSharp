@@ -17,15 +17,9 @@ namespace SnipeSharp.Serialization
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var results = new Dictionary<string, string>();
-            var token = JToken.Load(reader);
-
-            if(token.Type == JTokenType.String)
-                results["general"] = token.ToObject<string>();
-            else if(token.Type == JTokenType.Object)
-                foreach (JProperty subToken in token)
-                    results[subToken.Name] = subToken.Value[0].ToString();
-            return results;
+            if(reader.TokenType == JsonToken.String)
+                return new Dictionary<string, string> { ["general"] = serializer.Deserialize<string>(reader) };
+            return serializer.Deserialize<Dictionary<string, string>>(reader);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

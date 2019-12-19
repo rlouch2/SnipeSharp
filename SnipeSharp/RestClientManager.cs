@@ -61,6 +61,7 @@ namespace SnipeSharp
         internal ApiOptionalResponse<ResponseCollection<R>> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
             var result = Get<ResponseCollection<R>>(path, filter);
+            // if we couldn't find a result, don't try to get more.
             if(!result.HasValue)
                 return result;
             var offset = filter?.Offset ?? 0;
