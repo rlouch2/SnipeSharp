@@ -105,28 +105,32 @@ namespace SnipeSharp.Tests
         }
         ";
 
-        private const string FIND_ALL_TWO_ROWS = @"
+        private const string TEST1_STRING = @"
         {
-            ""total"": 2,
-            ""rows"": [
-                {
-                    ""id"": 1,
-                    ""name"": ""Test1"",
-                    ""created_at"": {
-                        ""datetime"": ""2019-12-19 12:05:00"",
-                        ""formatted"": ""2019-12-19 12:05 PM""
-                    }
-                },
-                {
-                    ""id"": 2,
-                    ""name"": ""Test2"",
-                    ""created_at"": {
-                        ""datetime"": ""2019-12-19 12:06:07"",
-                        ""formatted"": ""2019-12-19 12:06 PM""
-                    }
-                }
-            ]
+            ""id"": 1,
+            ""name"": ""Test1"",
+            ""created_at"": {
+                ""datetime"": ""2019-12-19 12:05:00"",
+                ""formatted"": ""2019-12-19 12:05 PM""
+            }
+        }";
+
+        private const string TEST2_STRING = @"
+        {
+            ""id"": 2,
+            ""name"": ""Test2"",
+            ""created_at"": {
+                ""datetime"": ""2019-12-19 12:06:07"",
+                ""formatted"": ""2019-12-19 12:06 PM""
+            }
         }
+        ";
+
+        private static readonly string FIND_ALL_TWO_ROWS = $@"
+        {{
+            ""total"": 2,
+            ""rows"": [ {TEST1_STRING}, {TEST2_STRING} ]
+        }}
         ";
 
         [Fact]
@@ -209,17 +213,6 @@ namespace SnipeSharp.Tests
         #endregion
 
         #region Get
-        private const string GET_EXAMPLE = @"
-        {
-            ""id"": 1,
-            ""name"": ""Test1"",
-            ""created_at"": {
-                ""datetime"": ""2019-12-19 12:05:00"",
-                ""formatted"": ""2019-12-19 12:05 PM""
-            }
-        }
-        ";
-
         [Fact]
         public void GetAll()
         {
@@ -227,6 +220,41 @@ namespace SnipeSharp.Tests
             var response = endPoint.GetAll();
             Assert.Empty(response);
             Assert.Equal<long>(0L, response.Total);
+        }
+
+        [Fact]
+        public void GetAll_MultipleBatches()
+        {
+            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
+            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
+            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}"));
+            var response = endPoint.GetAll();
+            Assert.Equal<long>(2L, response.Total);
+            Assert.Collection(response,
+                a => a.Equals(TestModel.Test1),
+                a => a.Equals(TestModel.Test2));
+        }
+
+        [Fact]
+        public void GetAll_MultipleBatches_DoesNotInfiniteLoop()
+        {
+            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
+            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
+            queue.Enqueue(new FakeResponse(@"{ ""total"": 2, ""rows"": [ ] }"));
+            Assert.Throws<ApiReturnedInsufficientValuesForRequestException>(() => {
+                endPoint.GetAll();
+            });
+        }
+
+        [Fact]
+        public void GetAll_MultipleBatches_ReturnsFailedBatch()
+        {
+            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
+            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
+            queue.Enqueue(new FakeResponse(FIND_ERROR));
+            Assert.Throws<ApiErrorException>(() => {
+                endPoint.GetAll();
+            });
         }
 
         [Fact]
@@ -242,7 +270,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Get_ById()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(GET_EXAMPLE));
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(TEST1_STRING));
             var response = endPoint.Get(1);
             Assert.Equal(TestModel.Test1, response);
         }

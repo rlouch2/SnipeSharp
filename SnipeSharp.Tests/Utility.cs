@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
+using RestSharp;
 
 namespace SnipeSharp.Tests
 {
@@ -28,17 +30,15 @@ namespace SnipeSharp.Tests
             return new SnipeItApi(restClient: client) { Token = TEST_TOKEN, Uri = TEST_URI };
         }
 
-        internal static SnipeItApi OneUseApi(string responsePath = null, bool isSuccessful = true, HttpStatusCode? statusCode = null)
+        internal static SnipeItApi MultipleUseApi(out Queue<IRestResponse> responseQueue)
         {
             var client = new FakeRestClient();
-            client.Responses.Enqueue(FakeResponse.FromFile(responsePath, isSuccessful, statusCode));
-            return new SnipeItApi(restClient: client) { Token = "xxxx", Uri = new Uri("http://localhost/api/v1") };
-        }
-
-        internal static (FakeRestClient, SnipeItApi) MultiUseApi()
-        {
-            var client = new FakeRestClient();
-            return (client, new SnipeItApi(client) { Token = "xxxx", Uri = new Uri("http://localhost/api/v1") });
+            responseQueue = client.Responses;
+            return new SnipeItApi(client)
+            {
+                Token = TEST_TOKEN,
+                Uri = TEST_URI
+            };
         }
     }
 }

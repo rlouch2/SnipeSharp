@@ -76,6 +76,8 @@ namespace SnipeSharp
                     var batch = Get<ResponseCollection<R>>(path, filter);
                     if(!batch.HasValue)
                         return batch;
+                    if(0 == batch.Value.Count)
+                        throw new ApiReturnedInsufficientValuesForRequestException();
                     result.Value.AddRange(batch.Value.Rows);
                     filter.Offset += batch.Value.Count;
                 }

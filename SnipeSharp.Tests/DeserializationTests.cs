@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using Newtonsoft.Json;
 using RestSharp;
 using SnipeSharp.Models;
-using SnipeSharp.Serialization;
 using Xunit;
 
 namespace SnipeSharp.Tests
@@ -16,7 +10,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeAsset()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/asset.json").Assets.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/asset.json").Assets.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Asset>(result);
         }
@@ -24,7 +18,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeModel()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/model.json").Models.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/model.json").Models.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Model>(result);
         }
@@ -32,7 +26,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeCompany()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/company.json").Companies.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/company.json").Companies.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Company>(result);
         }
@@ -40,7 +34,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeLocation()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/location.json").Locations.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/location.json").Locations.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Location>(result);
         }
@@ -48,7 +42,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeAccessory()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/accessory.json").Accessories.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/accessory.json").Accessories.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Accessory>(result);
         }
@@ -56,7 +50,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeConsumable()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/consumable.json").Consumables.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/consumable.json").Consumables.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Consumable>(result);
         }
@@ -64,7 +58,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeComponent()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/component.json").Components.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/component.json").Components.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Component>(result);
         }
@@ -72,7 +66,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeUser()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/user.json").Users.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/user.json").Users.Get(0);
             Assert.NotNull(result);
             Assert.IsType<User>(result);
         }
@@ -80,7 +74,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusLabel()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/statuslabel.json").StatusLabels.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/statuslabel.json").StatusLabels.Get(0);
             Assert.NotNull(result);
             Assert.IsType<StatusLabel>(result);
         }
@@ -88,7 +82,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusLicense()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/license.json").Licenses.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/license.json").Licenses.Get(0);
             Assert.NotNull(result);
             Assert.IsType<License>(result);
         }
@@ -96,7 +90,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusCategory()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/category.json").Categories.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/category.json").Categories.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Category>(result);
         }
@@ -104,7 +98,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeStatusManufacturer()
         {
-            var result = Utility.OneUseApi("./Resources/IndividualModels/manufacturer.json").Manufacturers.Get(0);
+            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/manufacturer.json").Manufacturers.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Manufacturer>(result);
         }
