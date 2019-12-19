@@ -258,6 +258,21 @@ namespace SnipeSharp.Tests
         }
 
         [Fact]
+        public void GetAll_MultipleBatches_DoesNotOverfetch()
+        {
+            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
+            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
+            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}"));
+            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}"));
+            var response = endPoint.GetAll();
+            Assert.Equal<long>(2L, response.Total);
+            Assert.Collection(response,
+                a => a.Equals(TestModel.Test1),
+                a => a.Equals(TestModel.Test2));
+            Assert.Single(queue);
+        }
+
+        [Fact]
         public void GetAllOptional()
         {
             var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_NONE));
