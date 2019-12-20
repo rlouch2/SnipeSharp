@@ -48,8 +48,10 @@ namespace SnipeSharp.EndPoint
             => FindAll(new SearchFilter(search));
 
         /// <inheritdoc />
-        public ApiOptionalResponse<T> FindOneOptional(ISearchFilter filter)
+        public ApiOptionalResponse<T> FindOneOptional(ISearchFilter filter = null)
         {
+            if(null == filter)
+                filter = new SearchFilter();
             filter.Limit = 1;
             var response = Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter);
             if(!response.HasValue)

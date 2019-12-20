@@ -15,7 +15,7 @@ using RestSharp.Serialization;
 
 namespace SnipeSharp.Tests
 {
-    internal class FakeResponse : IRestResponse
+    internal sealed class FakeResponse : IRestResponse
     {
         internal static FakeResponse FromFile(string path, bool isSuccessful = true, HttpStatusCode? statusCode = null)
             => new FakeResponse(null == path ? string.Empty : File.ReadAllText(path), isSuccessful, statusCode);
@@ -46,14 +46,41 @@ namespace SnipeSharp.Tests
         public Version ProtocolVersion { get; set; }
     }
 
-    internal class FakeRestClient : IRestClient
+    internal sealed class FakeRequest
+    {
+        internal IRestRequest Request;
+        internal string Body;
+        internal Method Method;
+        internal Dictionary<string, string> Headers = new Dictionary<string, string>();
+    }
+
+    internal sealed class FakeRestClient : IRestClient
     {
         internal readonly Queue<IRestResponse> Responses = new Queue<IRestResponse>();
+        internal readonly LinkedList<FakeRequest> Requests = new LinkedList<FakeRequest>();
         public IRestResponse Response { get => Responses.Dequeue(); set {} }
         public string UserAgent { get; set; } = "StubRestClient";
-        public IRestResponse Execute(IRestRequest request) => Response;
-        public IRestResponse Execute(IRestRequest request, Method httpMethod) => Response;
-        public Uri BuildUri(IRestRequest request) => new Uri("https://example.org");
+        public IRestResponse Execute(IRestRequest request) =>  Execute(request, request.Method);
+        public IRestResponse Execute(IRestRequest request, Method httpMethod)
+        {
+            var fakeRequest = new FakeRequest {
+                Request = request,
+                Method = httpMethod
+            };
+            foreach(var parameter in request.Parameters)
+            {
+                if(parameter.Type == ParameterType.RequestBody)
+                {
+                    fakeRequest.Body = parameter.Value.ToString();
+                } else if(parameter.Type == ParameterType.HttpHeader)
+                {
+                    fakeRequest.Headers[parameter.Name] = parameter.Value.ToString();
+                }
+            }
+            Requests.AddFirst(fakeRequest);
+            return Response;
+        }
+        public Uri BuildUri(IRestRequest request) => Utility.TEST_URI;
 
         public CookieContainer CookieContainer { get; set; } = new CookieContainer();
         public bool AutomaticDecompression { get; set; } = false;

@@ -9,6 +9,7 @@ using SnipeSharp.Serialization;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using SnipeSharp.Filters;
 
 namespace SnipeSharp.Tests
 {
@@ -166,10 +167,47 @@ namespace SnipeSharp.Tests
         }
 
         [Fact]
+        public void FindAll_DoesNotAcceptNullString()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            Assert.Throws<ArgumentNullException>(() => endPoint.FindAll(null as string));
+        }
+
+        [Fact]
+        public void FindAll_DoesAcceptNullFilter()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var response = endPoint.FindAll(null as ISearchFilter);
+            Assert.Equal<long>(2L, response.Total);
+            Assert.Collection(response,
+                a => Assert.Equal(TestModel.Test1, a),
+                a => Assert.Equal(TestModel.Test2, a));
+        }
+
+        [Fact]
         public void FindAllOptional_Two_StringFilter()
         {
             var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
             var response = endPoint.FindAllOptional("blah");
+            Assert.True(response.HasValue);
+            Assert.Equal<long>(2L, response.Value.Total);
+            Assert.Collection(response.Value,
+                a => Assert.Equal(TestModel.Test1, a),
+                a => Assert.Equal(TestModel.Test2, a));
+        }
+
+        [Fact]
+        public void FindAllOptional_DoesNotAcceptNullString()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            Assert.Throws<ArgumentNullException>(() => endPoint.FindAllOptional(null as string));
+        }
+
+        [Fact]
+        public void FindAllOptional_DoesAcceptNullFilter()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var response = endPoint.FindAllOptional(null as ISearchFilter);
             Assert.True(response.HasValue);
             Assert.Equal<long>(2L, response.Value.Total);
             Assert.Collection(response.Value,
@@ -195,6 +233,21 @@ namespace SnipeSharp.Tests
         }
 
         [Fact]
+        public void FindOne_DoesNotAcceptNullString()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            Assert.Throws<ArgumentNullException>(() => endPoint.FindOne(null as string));
+        }
+
+        [Fact]
+        public void FindOne_DoesAcceptNullFilter()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var response = endPoint.FindOne(null as ISearchFilter);
+            Assert.Equal(TestModel.Test1, response);
+        }
+
+        [Fact]
         public void FindOneOptional_StringFilter()
         {
             var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
@@ -210,6 +263,22 @@ namespace SnipeSharp.Tests
             var response = endPoint.FindOneOptional("blah");
             Assert.False(response.HasValue);
             Assert.IsType<ApiErrorException>(response.Exception);
+        }
+
+        [Fact]
+        public void FindOneOptional_DoesNotAcceptNullString()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            Assert.Throws<ArgumentNullException>(() => endPoint.FindOneOptional(null as string));
+        }
+
+        [Fact]
+        public void FindOneOptional_DoesAcceptNullFilter()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var response = endPoint.FindOneOptional(null as ISearchFilter);
+            Assert.True(response.HasValue);
+            Assert.Equal(response.Value, TestModel.Test1);
         }
         #endregion
 
@@ -319,6 +388,13 @@ namespace SnipeSharp.Tests
             var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
             var response = endPoint["Test1", caseSensitive: isCaseSensitive];
             Assert.Equal(TestModel.Test1, response);
+        }
+
+        [Fact]
+        public void Get_ByName_DoesNotAcceptNull()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            Assert.Throws<ArgumentNullException>(() => endPoint.Get(null));
         }
 
         [Fact]

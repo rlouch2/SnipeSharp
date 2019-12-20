@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SnipeSharp.Models;
 using SnipeSharp.Serialization;
@@ -17,9 +18,20 @@ namespace SnipeSharp.Filters
         [Field("offset")]
         public int? Offset { get; set; }
 
+        /// <summary>Backing field for <see cref="Search"/>.</summary>
+        private string _SearchString;
         /// <inheritdoc />
+        /// <exception cref="System.ArgumentNullException">If attempting to set a null value.</exception>
         [Field("search")]
-        public string Search { get; set; }
+        public string Search {
+            get => _SearchString;
+            set
+            {
+                if(null == value)
+                    throw new ArgumentNullException(paramName: nameof(value));
+                _SearchString = value;
+            }
+        }
 
         /// <inheritdoc />
         [Field("sort")]
@@ -43,8 +55,11 @@ namespace SnipeSharp.Filters
         /// Instantiates a new SearchFilter with the supplied search string.
         /// </summary>
         /// <param name="searchString">A string to search for.</param>
+        /// <exception cref="System.ArgumentNullException">If <paramref name="searchString"/> is null.</exception>
         public SearchFilter(string searchString)
         {
+            if(null == searchString)
+                throw new ArgumentNullException(paramName: nameof(searchString));
             Search = searchString;
         }
 

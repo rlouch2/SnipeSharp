@@ -1,3 +1,4 @@
+using System;
 using SnipeSharp.Models;
 
 namespace SnipeSharp.EndPoint
@@ -26,8 +27,13 @@ namespace SnipeSharp.EndPoint
         /// <param name="label">A status label to check.</param>
         /// <returns>True if the label is a deployable type, otherwise false.</returns>
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the status label does not exist.</exception>
+        /// <exception cref="System.ArgumentNullException">If <paramref name="label"/> is null.</exception>
         public bool IsDeployable(StatusLabel label)
-            => Api.RequestManager.GetRaw($"{EndPointInfo.BaseUri}/{label.Id}/deployable").Trim() == "1";
+        {
+            if(null == label)
+                throw new ArgumentNullException(paramName: nameof(label));
+            return Api.RequestManager.GetRaw($"{EndPointInfo.BaseUri}/{label.Id}/deployable").Trim() == "1";
+        }
 
         /// <summary>
         /// Convert an AssetStatus to a StatusLabel by its Id.

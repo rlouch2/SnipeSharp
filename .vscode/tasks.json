@@ -39,6 +39,26 @@
                 "/p:CoverletOutput=${workspaceFolder}/OpenCover.xml"
             ],
             "problemMatcher": "$msCompile",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        },
+        {
+            "label": "lcov test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/SnipeSharp.Tests/SnipeSharp.Tests.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "/p:CollectCoverage=true",
+                "/p:CoverletOutputFormat=lcov",
+                "/p:CoverletOutput=${workspaceFolder}/lcov.info"
+            ],
+            "problemMatcher": "$msCompile",
             "group": {
                 "kind": "test",
                 "isDefault": true
