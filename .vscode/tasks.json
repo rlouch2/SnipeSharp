@@ -35,11 +35,11 @@
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
                 "/p:CollectCoverage=true",
-                "/p:CoverletOutputFormat=lcov",
-                "/p:CoverletOutput=${workspaceFolder}/lcov.info"
+                "/p:CoverletOutputFormat=opencover",
+                "/p:CoverletOutput=${workspaceFolder}/OpenCover.xml"
             ],
             "problemMatcher": "$msCompile",
-            "group":{
+            "group": {
                 "kind": "test",
                 "isDefault": true
             },
@@ -47,6 +47,34 @@
                 "reveal": "always",
                 "clear": true
             }
+        },
+        {
+            "label": "clean coveragereport",
+            "type": "shell",
+            "windows": {
+                "command": "Remove-Item -Recurse \"${workspaceFolder}/coveragereport/*\""
+            },
+            "linux": {
+                "command": "rm -rf \"${workspaceFolder}/coveragereport/*\""
+            }
+        },
+        {
+            "label": "coveragereport",
+            "command": "dotnet",
+            "type": "process",
+            "dependsOn": [
+                "clean coveragereport",
+                "test"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/SnipeSharp.Tests"
+            },
+            "args": [
+                "reportgenerator",
+                "-reports:${workspaceFolder}/OpenCover.xml",
+                "-targetdir:${workspaceFolder}/coveragereport"
+            ],
+            "problemMatcher": []
         }
     ]
 }
