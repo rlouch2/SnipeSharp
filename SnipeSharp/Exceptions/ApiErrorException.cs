@@ -71,7 +71,7 @@ namespace SnipeSharp.Exceptions
 
         private static string MessagesToString(Dictionary<string, string> messages)
         {
-            var builder = new StringBuilder('{');
+            var builder = new StringBuilder("{");
             var first = true;
             foreach(var key in messages.Keys)
             {

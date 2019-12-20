@@ -8,6 +8,7 @@ using static SnipeSharp.Tests.Utility;
 using SnipeSharp.Serialization;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SnipeSharp.Tests
 {
@@ -149,8 +150,8 @@ namespace SnipeSharp.Tests
             var response = endPoint.FindAll();
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
-                a => a.Equals(TestModel.Test1),
-                a => a.Equals(TestModel.Test2));
+                a => Assert.Equal(TestModel.Test1, a),
+                a => Assert.Equal(TestModel.Test2, a));
         }
 
         [Fact]
@@ -160,8 +161,8 @@ namespace SnipeSharp.Tests
             var response = endPoint.FindAll("blah");
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
-                a => a.Equals(TestModel.Test1),
-                a => a.Equals(TestModel.Test2));
+                a => Assert.Equal(TestModel.Test1, a),
+                a => Assert.Equal(TestModel.Test2, a));
         }
 
         [Fact]
@@ -172,8 +173,8 @@ namespace SnipeSharp.Tests
             Assert.True(response.HasValue);
             Assert.Equal<long>(2L, response.Value.Total);
             Assert.Collection(response.Value,
-                a => a.Equals(TestModel.Test1),
-                a => a.Equals(TestModel.Test2));
+                a => Assert.Equal(TestModel.Test1, a),
+                a => Assert.Equal(TestModel.Test2, a));
         }
 
         [Fact]
@@ -231,8 +232,8 @@ namespace SnipeSharp.Tests
             var response = endPoint.GetAll();
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
-                a => a.Equals(TestModel.Test1),
-                a => a.Equals(TestModel.Test2));
+                a => Assert.Equal(TestModel.Test1, a),
+                a => Assert.Equal(TestModel.Test2, a));
         }
 
         [Fact]
@@ -267,8 +268,8 @@ namespace SnipeSharp.Tests
             var response = endPoint.GetAll();
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
-                a => a.Equals(TestModel.Test1),
-                a => a.Equals(TestModel.Test2));
+                a => Assert.Equal(TestModel.Test1, a),
+                a => Assert.Equal(TestModel.Test2, a));
             Assert.Single(queue);
         }
 
@@ -332,21 +333,90 @@ namespace SnipeSharp.Tests
 
         #region Create, Delete, Update
         [Fact]
-        public void Create()
+        public void Create_Successful()
         {
-            // TODO
+            var endPoint = new EndPoint<TestModel>(SingleUseApi($@"
+            {{
+                ""status"":""success"",
+                ""messages"":""TestModel created successfully."",
+                ""payload"": {TEST1_STRING}
+            }}
+            "));
+            var response = endPoint.Create(new TestModel {
+                Name = "Test1"
+            });
+            Assert.Equal(TestModel.Test1, response);
+        }
+
+        [Fact]
+        public void Create_Failure()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            var ex = Assert.Throws<MissingRequiredFieldException<TestModel>>(() => endPoint.Create(new TestModel()));
+            Assert.Equal("Missing required field \"Name\" in object of type \"SnipeSharp.Tests.TestModel\"", ex.Message);
         }
 
         [Fact]
         public void Delete()
         {
-            // TODO
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            {
+                ""status"": ""success"",
+                ""messages"": ""The TestModel was deleted successfully."",
+                ""payload"": null
+            }
+            "));
+            var response = endPoint.Delete(1);
+            Assert.Equal("success", response.Status);
+            Assert.Null(response.Payload);
+            Assert.Collection(response.Messages.Keys, a => Assert.Equal("general", a));
+            Assert.Collection(response.Messages.Values, a => Assert.Equal("The TestModel was deleted successfully.", a));
+        }
+
+        [Fact]
+        public void Delete_ApiFailure()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            {
+                ""status"": ""error"",
+                ""messages"": ""It didn't work."",
+                ""payload"": null
+            }
+            "));
+            Assert.Throws<ApiErrorException>(() => endPoint.Delete(1));
+        }
+
+        [Fact]
+        public void Delete_ApiFailure_MessageDictionary()
+        {
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            {
+                ""status"": ""error"",
+                ""messages"": { ""why"": ""It didn't work."" },
+                ""payload"": null
+            }
+            "));
+            var ex = Assert.Throws<ApiErrorException>(() => endPoint.Delete(1));
+            Assert.Collection(ex.Messages.Keys, a => Assert.Equal("why", a));
+            Assert.Collection(ex.Messages.Values, a => Assert.Equal("It didn't work.", a));
         }
 
         [Fact]
         public void Update()
         {
-             // TODO
+            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            {
+                ""status"": ""success"",
+                ""messages"": ""TestModel updated successfully."",
+                ""payload"":
+                {
+                    ""id"": 1,
+                    ""name"": ""Test3""
+                }
+            }
+            "));
+            var response = endPoint.Update(TestModel.Test1);
+            Assert.Equal(new TestModel(1, "Test3", null, null), response);
         }
         #endregion
 
