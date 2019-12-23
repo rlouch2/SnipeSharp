@@ -24,6 +24,13 @@ namespace SnipeSharp.Tests
         }
 
         [Fact]
+        public void NotReadOnly()
+        {
+            var dict = new CustomFieldDictionary();
+            Assert.False(dict.IsReadOnly);
+        }
+
+        [Fact]
         public void Add_WithString()
         {
             var dict = new CustomFieldDictionary();
