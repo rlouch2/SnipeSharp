@@ -365,13 +365,12 @@ namespace SnipeSharp.Models
                 {
                     if(!pair.Key.StartsWith("_snipeit_")) // custom fields start with _snipeit_
                         continue;
-                    var model = new AssetCustomField
+                    CustomFields.Add(new AssetCustomField
                     {
                         FriendlyName = pair.Key,
                         Field = pair.Key,
                         Value = pair.Value.ToObject<string>()
-                    };
-                    CustomFields.Add(pair.Key, model);
+                    });
                 }
                 _customFields = null;
             }
