@@ -11,6 +11,8 @@ namespace SnipeSharp.Serialization
         public override HashSet<AvailableAction> ReadJson(JsonReader reader, Type objectType, HashSet<AvailableAction> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var dictionary = serializer.Deserialize<Dictionary<AvailableAction, bool>>(reader);
+            if(null == dictionary)
+                throw new NullReferenceException("Failed to deserialize AvailableAction dictionary");
             var set = new HashSet<AvailableAction>();
             foreach(var pair in dictionary)
                 if(pair.Value)

@@ -13,15 +13,15 @@ namespace SnipeSharp.Models
     {
         /// <value>Any messages returned by the API; the default key is "general".</value>
         [Field(DeserializeAs = "messages", Converter = MessagesConverter)]
-        public Dictionary<string, string> Messages { get; private set; }
+        public Dictionary<string, string> Messages { get; private set; } = new Dictionary<string, string>();
 
         /// <value>Gets the payload value.</value>
         [Field(DeserializeAs = "payload")]
-        public T Payload { get; private set; }
+        public T Payload { get; private set; } = null;
 
         /// <value>The status of the request; usually "success" or "error".</value>
         [Field(DeserializeAs = "status")]
-        public string Status { get; private set; }
+        public string Status { get; private set; } = string.Empty;
 
         /// <inheritdoc />
         public override string ToString()

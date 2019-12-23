@@ -19,6 +19,8 @@ namespace SnipeSharp.Serialization
             } else
             {
                 var values = serializer.Deserialize<Dictionary<string, AssetCustomField>>(reader);
+                if(null == values)
+                    throw new NullReferenceException("Failed to deserialize AssetCustomField dictionary");
                 var dictionary = new CustomFieldDictionary();
                 foreach(var pair in values)
                 {
