@@ -21,10 +21,8 @@ namespace SnipeSharp.Collections
         /// <value>The underlying model dictionary.</value>
         public IDictionary<string, AssetCustomField> Models => (IDictionary<string, AssetCustomField>)this;
 
-        private Dictionary<string, string> FriendlyNameMap = new Dictionary<string, string>();
-
         /// <summary>Maps the friendly names to the internal database column names.</summary>
-        public IReadOnlyDictionary<string, string> FriendlyNames => FriendlyNameMap;
+        private Dictionary<string, string> FriendlyNames = new Dictionary<string, string>();
 
         /// <summary>This same dictionary, but mapping from friendly names instead of internal column names.</summary>
         public IReadOnlyDictionary<string, string> Friendly { get; }
@@ -82,7 +80,7 @@ namespace SnipeSharp.Collections
                 else
                 {
                     model = new AssetCustomField { FriendlyName = key, Field = key, Value = value };
-                    FriendlyNameMap[key] = key;
+                    FriendlyNames[key] = key;
                 }
                 BackingDictionary[key] = model;
             }
@@ -113,15 +111,15 @@ namespace SnipeSharp.Collections
         public void Add(string key, string value)
         {
             Add(key, new AssetCustomField { FriendlyName = key, Field = key, Value = value });
-            FriendlyNameMap[key] = key;
+            FriendlyNames[key] = key;
         }
 
         /// <summary>Clear the friendly name map and repopulate it.</summary>
         public void RecalculateFriendlyNames()
         {
-            FriendlyNameMap.Clear();
+            FriendlyNames.Clear();
             foreach(var pair in this)
-                FriendlyNameMap[pair.Value.FriendlyName] = pair.Key;
+                FriendlyNames[pair.Value.FriendlyName] = pair.Key;
         }
 
         /// <inheritdoc />
@@ -140,7 +138,7 @@ namespace SnipeSharp.Collections
                 };
             }
             BackingDictionary.Add(key, value);
-            FriendlyNameMap.Add(value.FriendlyName, value.Field);
+            FriendlyNames.Add(value.FriendlyName, value.Field);
         }
 
         /// <inheritdoc />
@@ -164,7 +162,7 @@ namespace SnipeSharp.Collections
         public void Clear()
         {
             BackingDictionary.Clear();
-            FriendlyNameMap.Clear();
+            FriendlyNames.Clear();
         }
 
         /// <inheritdoc />
@@ -195,36 +193,36 @@ namespace SnipeSharp.Collections
 
         IEnumerator<KeyValuePair<string, AssetCustomField>> IEnumerable<KeyValuePair<string, AssetCustomField>>.GetEnumerator()
             => ((IDictionary<string,AssetCustomField>)BackingDictionary).GetEnumerator();
-    }
 
-    internal sealed class FriendlyNameDictionary : IReadOnlyDictionary<string, string>
-    {
-        private readonly CustomFieldDictionary CustomFields;
-        internal FriendlyNameDictionary(CustomFieldDictionary dictionary)
+        private sealed class FriendlyNameDictionary : IReadOnlyDictionary<string, string>
         {
-            CustomFields = dictionary;
+            private readonly CustomFieldDictionary CustomFields;
+            internal FriendlyNameDictionary(CustomFieldDictionary dictionary)
+            {
+                CustomFields = dictionary;
+            }
+
+            public string this[string key] => CustomFields[CustomFields.FriendlyNames[key]];
+
+            public IEnumerable<string> Keys => CustomFields.FriendlyNames.Keys;
+
+            public IEnumerable<string> Values => CustomFields.StringValues;
+
+            public int Count => CustomFields.Count;
+
+            public bool ContainsKey(string key)
+                => CustomFields.FriendlyNames.ContainsKey(key);
+
+            public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
+            {
+                foreach(var key in Keys)
+                    yield return new KeyValuePair<string, string>(key, CustomFields[CustomFields.FriendlyNames[key]]);
+            }
+
+            public bool TryGetValue(string key, out string value)
+                => CustomFields.TryGetValue(CustomFields.FriendlyNames[key], out value);
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
-
-        public string this[string key] => CustomFields[CustomFields.FriendlyNames[key]];
-
-        public IEnumerable<string> Keys => CustomFields.FriendlyNames.Keys;
-
-        public IEnumerable<string> Values => CustomFields.StringValues;
-
-        public int Count => CustomFields.Count;
-
-        public bool ContainsKey(string key)
-            => CustomFields.FriendlyNames.ContainsKey(key);
-
-        public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
-        {
-            foreach(var key in Keys)
-                yield return new KeyValuePair<string, string>(key, CustomFields[CustomFields.FriendlyNames[key]]);
-        }
-
-        public bool TryGetValue(string key, out string value)
-            => CustomFields.TryGetValue(CustomFields.FriendlyNames[key], out value);
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

@@ -18,7 +18,6 @@ namespace SnipeSharp.Tests
             Assert.Empty(dict);
             Assert.Empty(dict.Models);
             Assert.Same(dict, dict.Models);
-            Assert.Empty(dict.FriendlyNames);
             Assert.Empty(dict.StringValues);
             Assert.Empty(dict.Friendly);
         }
@@ -34,6 +33,7 @@ namespace SnipeSharp.Tests
         public void Add_WithString()
         {
             var dict = new CustomFieldDictionary();
+            Assert.False(dict.ContainsKey(TEST_KEY));
             dict.Add(TEST_KEY, TEST_VALUE);
             Assert.Collection(dict.Keys, a => Assert.Equal(TEST_KEY, a));
             Assert.Collection(dict.Values, (AssetCustomField a) => {
@@ -42,10 +42,11 @@ namespace SnipeSharp.Tests
                 Assert.Null(a.Format);
                 Assert.Equal(TEST_VALUE, a.Value);
             });
-            Assert.Collection(dict.FriendlyNames.Keys, a => Assert.Equal(TEST_KEY, a));
-            Assert.Collection(dict.FriendlyNames.Values, a => Assert.Equal(TEST_KEY, a));
+            Assert.True(dict.ContainsKey(TEST_KEY));
+            Assert.False(dict.ContainsKey(TEST_FRIENDLY_KEY));
             Assert.Equal(dict.Count, dict.Friendly.Count);
             Assert.True(dict.Friendly.ContainsKey(TEST_KEY));
+            Assert.False(dict.Friendly.ContainsKey(TEST_FRIENDLY_KEY));
             Assert.Collection(dict.Friendly.Keys, a => Assert.Equal(TEST_KEY, a));
             Assert.Collection(dict.Friendly.Values, a => Assert.Equal(TEST_VALUE, a));
 
@@ -72,8 +73,6 @@ namespace SnipeSharp.Tests
                 Assert.Null(a.Format);
                 Assert.Equal(TEST_VALUE, a.Value);
             });
-            Assert.Collection(dict.FriendlyNames.Keys, a => Assert.Equal(TEST_KEY, a));
-            Assert.Collection(dict.FriendlyNames.Values, a => Assert.Equal(TEST_KEY, a));
             Assert.Equal(dict.Count, dict.Friendly.Count);
             Assert.True(dict.Friendly.ContainsKey(TEST_KEY));
             Assert.Collection(dict.Friendly.Keys, a => Assert.Equal(TEST_KEY, a));
@@ -102,8 +101,6 @@ namespace SnipeSharp.Tests
                 Assert.Null(a.Format);
                 Assert.Equal(TEST_VALUE2, a.Value);
             });
-            Assert.Collection(dict.FriendlyNames.Keys, a => Assert.Equal(TEST_KEY, a));
-            Assert.Collection(dict.FriendlyNames.Values, a => Assert.Equal(TEST_KEY, a));
             Assert.Equal(dict.Count, dict.Friendly.Count);
             Assert.True(dict.Friendly.ContainsKey(TEST_KEY));
             Assert.Collection(dict.Friendly.Keys, a => Assert.Equal(TEST_KEY, a));
@@ -132,8 +129,6 @@ namespace SnipeSharp.Tests
                 Assert.Null(a.Format);
                 Assert.Equal(TEST_VALUE, a.Value);
             });
-            Assert.Collection(dict.FriendlyNames.Keys, a => Assert.Equal(TEST_KEY, a));
-            Assert.Collection(dict.FriendlyNames.Values, a => Assert.Equal(TEST_KEY, a));
             Assert.Equal(dict.Count, dict.Friendly.Count);
             Assert.True(dict.Friendly.ContainsKey(TEST_KEY));
             Assert.Collection(dict.Friendly.Keys, a => Assert.Equal(TEST_KEY, a));
