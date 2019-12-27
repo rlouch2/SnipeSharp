@@ -1,75 +1,93 @@
 {
-  "id": 13,
-  "name": "TESTASSET",
-  "asset_tag": "12345678",
-  "serial": "a1e5bd5a5",
-  "model": {
     "id": 1,
-    "name": "T470s"
-  },
-  "model_number": "T460s",
-  "status_label": {
-    "id": 2,
-    "name": "Ready to Deploy",
-    "status_meta": "deployable"
-  },
-  "category": {
-    "id": 1,
-    "name": "Laptop"
-  },
-  "manufacturer": {
-    "id": 1,
-    "name": "Lenovo"
-  },
-  "supplier": {
-    "id": 2,
-    "name": "Test Corp"
-  },
-  "notes": "This is a note",
-  "order_number": "abc12345",
-  "company": {
-    "id": 3,
-    "name": " test corp"
-  },
-  "location": {
-    "id": 2,
-    "name": "Maine"
-  },
-  "rtd_location": {
-    "id": 2,
-    "name": "Maine"
-  },
-  "image": null,
-  "assigned_to": null,
-  "warranty_months": "36 months",
-  "warranty_expires": {
-    "date": "2020-11-15",
-    "formatted": "2020-11-15"
-  },
-  "created_at": {
-    "datetime": "2017-11-29 06:49:19",
-    "formatted": "2017-11-29 06:49 AM"
-  },
-  "updated_at": {
-    "datetime": "2017-11-29 06:50:20",
-    "formatted": "2017-11-29 06:50 AM"
-  },
-  "deleted_at": null,
-  "purchase_date": {
-    "date": "2017-11-15",
-    "formatted": "2017-11-15"
-  },
-  "last_checkout": null,
-  "expected_checkin": null,
-  "purchase_cost": "1000.00",
-  "user_can_checkout": true,
-  "custom_fields": [],
-  "available_actions": {
-    "checkout": true,
-    "checkin": true,
-    "clone": true,
-    "restore": false,
-    "update": true,
-    "delete": true
-  }
+    "name": "test-asset",
+    "asset_tag": "1234",
+    "serial": "ABCDEFGHIJKLM",
+    "model": {
+        "id": 1,
+        "name": "Test Model"
+    },
+    "model_number": "Test Model",
+    "eol": null,
+    "status_label": {
+        "id": 3,
+        "name": "Archived",
+        "status_type": "archived",
+        "status_meta": "archived"
+    },
+    "category": {
+        "id": 1,
+        "name": "Test Category"
+    },
+    "manufacturer": {
+        "id": 1,
+        "name": "Test Manufacturer"
+    },
+    "supplier": {
+        "id": 1,
+        "name": "Test Supplier"
+    },
+    "notes": "This is a note",
+    "order_number": "abc12345",
+    "company": {
+        "id": 3,
+        "name": " test corp"
+    },
+    "location": {
+        "id": 2,
+        "name": "Maine"
+    },
+    "rtd_location": {
+        "id": 2,
+        "name": "Maine"
+    },
+    "image": null,
+    "assigned_to": null,
+    "warranty_months": "36 months",
+    "warranty_expires": {
+        "date": "2021-06-01",
+        "formatted": "2021-06-01"
+    },
+    "created_at": {
+        "datetime": "2020-01-01 12:00:00",
+        "formatted": "2020-01-01 12:00 AM"
+    },
+    "updated_at": {
+        "datetime": "2020-01-01 12:00:00",
+        "formatted": "2020-01-01 12:00 AM"
+    },
+    "last_audit_date": null,
+    "next_audit_date": null,
+    "deleted_at": null,
+    "purchase_date": {
+        "date": "2019-01-01",
+        "formatted": "2019-01-01"
+    },
+    "last_checkout": null,
+    "expected_checkin": null,
+    "purchase_cost": "970.00",
+    "checkin_counter": 0,
+    "checkout_counter": 0,
+    "requests_counter": 0,
+    "user_can_checkout": false,
+    "custom_fields": {
+        "LAN MAC Address": {
+            "field": "_snipeit_lan_mac_address_1",
+            "value": "00:11:22:33:44:55",
+            "field_format": "MAC"
+        },
+        "IPv4 Address": {
+            "field": "_snipeit_ipv4_address_3",
+            "value": null,
+            "field_format": "ANY"
+        }
+    },
+    "available_actions": {
+        "checkout": true,
+        "checkin": true,
+        "clone": true,
+        "restore": false,
+        "update": true,
+        "delete": true
+    }
 }

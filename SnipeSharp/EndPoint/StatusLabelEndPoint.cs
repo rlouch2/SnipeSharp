@@ -18,8 +18,13 @@ namespace SnipeSharp.EndPoint
         /// <param name="label">A status label to look up.</param>
         /// <returns>A ResponseCollection of Assets.</returns>
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the status label does not exist.</exception>
+        /// <exception cref="System.ArgumentNullException">If <paramref name="label"/> is null.</exception>
         public ResponseCollection<Asset> GetAssets(StatusLabel label)
-            => Api.RequestManager.GetAll<Asset>($"{EndPointInfo.BaseUri}/{label.Id}/assetlist").RethrowExceptionIfAny().Value;
+        {
+            if(null == label)
+                throw new ArgumentNullException(paramName: nameof(label));
+            return Api.RequestManager.GetAll<Asset>($"{EndPointInfo.BaseUri}/{label.Id}/assetlist").RethrowExceptionIfAny().Value;
+        }
 
         /// <summary>
         /// Checks if a specific status label is a deployable type.
@@ -41,7 +46,12 @@ namespace SnipeSharp.EndPoint
         /// <param name="status">The AssetStatus to convert.</param>
         /// <returns>The StatusLabel corresponding to the provided AssetStatus.</returns>
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the status label does not exist.</exception>
+        /// <exception cref="System.ArgumentNullException">If <paramref name="status"/> is null.</exception>
         public StatusLabel FromAssetStatus(AssetStatus status)
-            => Get(status.StatusId);
+        {
+            if(null == status)
+                throw new ArgumentNullException(paramName: nameof(status));
+            return Get(status.StatusId);
+        }
     }
 }

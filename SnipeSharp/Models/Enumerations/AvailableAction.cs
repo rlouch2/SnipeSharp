@@ -25,7 +25,6 @@ namespace SnipeSharp.Models.Enumerations
         [EnumMember(Value = "delete")]
         Delete,
         /// <summary>The associated object may be restored.</summary>
-        // TODO: what does this mean?
         [EnumMember(Value = "restore")]
         Restore,
         /// <summary>The associated object may have its properties set and updated.</summary>

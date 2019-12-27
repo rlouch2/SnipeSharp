@@ -447,6 +447,7 @@ namespace SnipeSharp.Tests
             Assert.Null(response.Payload);
             Assert.Collection(response.Messages.Keys, a => Assert.Equal("general", a));
             Assert.Collection(response.Messages.Values, a => Assert.Equal("The TestModel was deleted successfully.", a));
+            Assert.Equal("success: The TestModel was deleted successfully.", response.ToString());
         }
 
         [Fact]

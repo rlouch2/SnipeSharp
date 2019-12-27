@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -10,19 +11,22 @@ namespace SnipeSharp.Serialization
 
         public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            DateTime dateTime;
-            var token = JToken.Load(reader);
-
-            if(token.Type == JTokenType.String)
+            if(reader.TokenType == JsonToken.Null)
+                return null;
+            if(reader.TokenType == JsonToken.String)
             {
-                var @object = token.ToObject<string>();
-                if(!string.IsNullOrWhiteSpace(@object) && DateTime.TryParse(@object, out dateTime))
-                    return dateTime;
-            } else if(token.Type == JTokenType.Object)
+                var str = serializer.Deserialize<string>(reader);
+                if(!string.IsNullOrWhiteSpace(str) && DateTime.TryParse(str, out var datetime))
+                    return datetime;
+            } else if(reader.TokenType == JsonToken.StartObject)
             {
-                var @object = token.ToObject<DateTimeResponse>();
-                if(null != @object && !string.IsNullOrWhiteSpace(@object.DateTime) && DateTime.TryParse(@object.DateTime, out dateTime))
-                    return dateTime;
+                var dict = serializer.Deserialize<Dictionary<string, string>>(reader);
+                if(null == dict)
+                    return null;
+                if(dict.TryGetValue("datetime", out var str) && DateTime.TryParse(str, out var datetime))
+                    return datetime;
+                if(dict.TryGetValue("date", out var dateStr) && DateTime.TryParse(dateStr, out var date))
+                    return date;
             }
             return null;
         }

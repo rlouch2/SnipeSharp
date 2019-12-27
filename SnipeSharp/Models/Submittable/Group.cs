@@ -33,7 +33,7 @@ namespace SnipeSharp.Models
         public override string Name { get; set; }
 
         /// <inheritdoc />
-        // TODO: see how to set permissions from the API. Just JSON?
+        // TODO: change this to a more explicit "GroupPermissions" type and make it required (I think it may need to be required)
         [Field(DeserializeAs = "permissions", Converter = PermissionsConverter)]
         public Dictionary<string, bool> Permissions { get; private set; }
 

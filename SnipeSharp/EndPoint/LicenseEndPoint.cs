@@ -1,3 +1,4 @@
+using System;
 using SnipeSharp.Filters;
 using SnipeSharp.Models;
 
@@ -18,8 +19,13 @@ namespace SnipeSharp.EndPoint
         /// <param name="license">A license to get the details of.</param>
         /// <param name="filter">Filter parameters for the query.</param>
         /// <returns>A ResponseCollection of LicenseSeats.</returns>
+        /// <exception cref="System.ArgumentNullException">If <paramref name="license"/> is null.</exception>
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API, or the license does not exist.</exception>
         public ResponseCollection<LicenseSeat> GetSeats(License license, LicenseSeatSearchFilter filter = null)
-            => Api.RequestManager.GetAll<LicenseSeat>($"{EndPointInfo.BaseUri}/{license.Id}/seats", filter).RethrowExceptionIfAny().Value;
+        {
+            if(null == license)
+                throw new ArgumentNullException(paramName: nameof(license));
+            return Api.RequestManager.GetAll<LicenseSeat>($"{EndPointInfo.BaseUri}/{license.Id}/seats", filter).RethrowExceptionIfAny().Value;
+        }
     }
 }

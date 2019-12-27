@@ -8,14 +8,6 @@ namespace SnipeSharp.Tests
     public class DeserializationTests
     {
         [Fact]
-        public void DeserializeAsset()
-        {
-            var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/asset.json").Assets.Get(0);
-            Assert.NotNull(result);
-            Assert.IsType<Asset>(result);
-        }
-
-        [Fact]
         public void DeserializeModel()
         {
             var result = Utility.SingleUseApiFromFile("./Resources/IndividualModels/model.json").Models.Get(0);

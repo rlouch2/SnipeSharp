@@ -14,6 +14,10 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "id")]
         public long Id { get; private set; }
 
+        /// <value>Gets the name of the seat</value>
+        [Field(DeserializeAs = "name")]
+        public string Name { get; private set; }
+
         /// <value>Gets the id of the corresponding license.</value>
         [Field(DeserializeAs = "license_id")]
         public long LicenseId { get; private set; }

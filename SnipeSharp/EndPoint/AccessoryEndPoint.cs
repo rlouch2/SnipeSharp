@@ -53,6 +53,5 @@ namespace SnipeSharp.EndPoint
         /// <returns></returns>
         public RequestResponse<ApiObject> CheckIn(AccessoryCheckInRequest request)
             => Api.RequestManager.Post<AccessoryCheckInRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Accessory.Id}/checkin", request).RethrowExceptionIfAny().Value;
-        // TODO: checkin
     }
 }
