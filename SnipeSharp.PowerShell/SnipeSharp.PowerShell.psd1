@@ -36,6 +36,8 @@
     CmdletsToExport = @(
         'Connect-IT'
         'Disconnect-IT'
+        'CheckIn-Accessory'
+        'CheckOut-Accessory'
         'CheckIn-Asset'
         'CheckOut-Asset'
         'Get-Accessory'
