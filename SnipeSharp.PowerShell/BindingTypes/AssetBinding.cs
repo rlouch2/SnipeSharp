@@ -44,7 +44,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <summary>
         /// For use with the internal From* functions.
         /// </summary>
-        internal AssetBinding(string query, ApiOptionalResponse<ResponseCollection<Asset>> apiOptionalResponse): base(query, apiOptionalResponse)
+        internal AssetBinding(string query, ApiOptionalMultiResponse<Asset> apiOptionalResponse): base(query, apiOptionalResponse)
         {
         }
 
@@ -64,7 +64,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                     break;
                 case BindingType.String:
                     int id; // used later for parsing integers
-                    ApiOptionalResponse<ResponseCollection<Asset>> multiResponse; // used later for retrieving by serial
+                    ApiOptionalMultiResponse<Asset> multiResponse; // used later for retrieving by serial
                     switch(ParseQuery(QueryUnion.StringValue, out var tag, out var value))
                     {
                         case BindingQueryType.Absent:
@@ -85,7 +85,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                             else if(int.TryParse(value, out id))
                                 result = endPoint.GetOptional(id);
                             else
-                                result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
+                                result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Cannot find an asset for query: {value}", "query") };
                             break;
                         case BindingQueryType.CaseSensitiveName:
                             QueryUnion.CaseSensitive = true;
@@ -111,7 +111,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                                 result = new ApiOptionalResponse<Asset>
                                 {
                                     Value = null,
-                                    Exception = multiResponse.Exception ?? new ArgumentException($"Cannot find an object with serial number: {value}", "query")
+                                    Exception = multiResponse.Exception ?? new ArgumentException($"Cannot find an asset with serial number: {value}", "query")
                                 };
                             }
                             break;

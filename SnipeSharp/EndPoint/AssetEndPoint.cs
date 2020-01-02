@@ -90,7 +90,7 @@ namespace SnipeSharp.EndPoint
         /// </summary>
         /// <param name="serial">A serial number.</param>
         /// <returns>An optional response containing the asset (if it was found), and any error (if there was one).</returns>
-        public ApiOptionalResponse<ResponseCollection<Asset>> FindBySerialOptional(string serial)
+        public ApiOptionalMultiResponse<Asset> FindBySerialOptional(string serial)
             => Api.RequestManager.Get<ResponseCollection<Asset>>($"{EndPointInfo.BaseUri}/byserial/{serial}");
     }
 }

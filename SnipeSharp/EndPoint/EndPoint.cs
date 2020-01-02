@@ -32,7 +32,7 @@ namespace SnipeSharp.EndPoint
         }
 
         /// <inheritdoc />
-        public ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(ISearchFilter filter = null)
+        public ApiOptionalMultiResponse<T> FindAllOptional(ISearchFilter filter = null)
             => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
 
         /// <inheritdoc />
@@ -40,7 +40,7 @@ namespace SnipeSharp.EndPoint
             => FindAllOptional(filter).RethrowExceptionIfAny().Value;
 
         /// <inheritdoc />
-        public ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(string search)
+        public ApiOptionalMultiResponse<T> FindAllOptional(string search)
             => FindAllOptional(new SearchFilter(search));
 
         /// <inheritdoc />
@@ -100,7 +100,7 @@ namespace SnipeSharp.EndPoint
             => FindAll();
 
         /// <inheritdoc />
-        public ApiOptionalResponse<ResponseCollection<T>> GetAllOptional()
+        public ApiOptionalMultiResponse<T> GetAllOptional()
             => FindAllOptional();
 
         /// <inheritdoc />

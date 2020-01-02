@@ -101,7 +101,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <summary>
         /// For use with the internal From* functions.
         /// </summary>
-        internal ObjectBinding(string query, ApiOptionalResponse<ResponseCollection<T>> item)
+        internal ObjectBinding(string query, ApiOptionalMultiResponse<T> item)
         {
             Query = query;
             _objects = item.Value;

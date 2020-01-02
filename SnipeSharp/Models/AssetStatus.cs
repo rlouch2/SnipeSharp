@@ -37,5 +37,13 @@ namespace SnipeSharp.Models
         /// <value>For deployed assets, this will be <see cref="StatusType.Deployed" />. Otherwise, the value will be the same as <see cref="AssetStatus.StatusType" />.</value>
         [Field(DeserializeAs = "status_meta")]
         public StatusType? StatusMeta { get; set; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            if(null == StatusMeta)
+                return Name ?? StatusId.ToString();
+            return $"{Name ?? StatusId.ToString()}: {StatusMeta}";
+        }
     }
 }

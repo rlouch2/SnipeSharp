@@ -58,7 +58,7 @@ namespace SnipeSharp
         internal ApiOptionalResponse<R> Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
             => ExecuteRequest<R>(CreateRequest(path, Method.GET).Add(filter));
 
-        internal ApiOptionalResponse<ResponseCollection<R>> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
+        internal ApiOptionalMultiResponse<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
             var result = Get<ResponseCollection<R>>(path, filter);
             // if we couldn't find a result, don't try to get more.

@@ -79,7 +79,7 @@ namespace SnipeSharp.EndPoint
         /// </summary>
         /// <param name="filter">The filter to search by.</param>
         /// <returns>An optional response representing either a collection of relevant objects, which may be empty, or any error thrown.</returns>
-        ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(ISearchFilter filter = null);
+        ApiOptionalMultiResponse<T> FindAllOptional(ISearchFilter filter = null);
 
         /// <summary>
         /// Finds all objects of the generic type matching the search string.
@@ -93,7 +93,7 @@ namespace SnipeSharp.EndPoint
         /// </summary>
         /// <param name="search">The search string to filter by.</param>
         /// <returns>An optional response representing either a collection of relevant objects, which may be empty, or any error thrown.</returns>
-        ApiOptionalResponse<ResponseCollection<T>> FindAllOptional(string search);
+        ApiOptionalMultiResponse<T> FindAllOptional(string search);
 
         /// <summary>
         /// Gets all objects in the EndPoint.
@@ -106,7 +106,7 @@ namespace SnipeSharp.EndPoint
         /// Gets all objects in the EndPoint.
         /// </summary>
         /// <returns>An optional response representing a collection of relevant objects, which may be empty, or any error thrown.</returns>
-        ApiOptionalResponse<ResponseCollection<T>> GetAllOptional();
+        ApiOptionalMultiResponse<T> GetAllOptional();
 
         /// <summary>
         /// Finds the first object of the generic type matching the filter.
