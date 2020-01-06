@@ -27,7 +27,7 @@ namespace SnipeSharp.Tests
                 Assert.Equal(3, result.Status.StatusId);
                 Assert.Equal("Archived", result.Status.Name);
                 Assert.Equal(StatusType.Archived, result.Status.StatusType);
-                Assert.Equal(StatusType.Archived, result.Status.StatusMeta);
+                Assert.Equal(StatusMeta.Archived, result.Status.StatusMeta);
             Assert.NotNull(result.Category);
                 Assert.Equal(1, result.Category.Id);
                 Assert.Equal("Test Category", result.Category.Name);
