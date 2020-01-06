@@ -7,6 +7,7 @@ namespace SnipeSharp.Models.Enumerations
     /// <summary>
     /// The status type of a <see cref="StatusLabel">StatusLabel</see> or <see cref="AssetStatus">AssetStatus</see>.
     /// </summary>
+    /// <seealso cref="StatusMeta" />
     [JsonConverter(typeof(StringEnumConverter))]
     public enum StatusType
     {

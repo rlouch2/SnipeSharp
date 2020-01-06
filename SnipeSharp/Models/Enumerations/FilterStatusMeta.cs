@@ -7,18 +7,10 @@ namespace SnipeSharp.Models.Enumerations
     /// <summary>
     /// The status meta of an <see cref="AssetStatus">AssetStatus</see>.
     /// </summary>
-    /// <remarks>This enum has extra values to support the status metas.</remarks>
-    /// <seealso cref="StatusType" />
-    /// <seealso cref="FilterStatusMeta" />
+    /// <seealso cref="Filters.AbstractAssetSearchFilter" />
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum StatusMeta
+    public enum FilterStatusMeta
     {
-        /// <summary>The status if of type pending. The associated object is in limbo.</summary>
-        [EnumMember(Value = "pending")]
-        Pending,
-        /// <summary>The status if of type deployable; the associated object may be deployed.</summary>
-        [EnumMember(Value = "deployable")]
-        Deployable,
         /// <summary>Todo: what is this?</summary>
         [EnumMember(Value = "RTD")]
         RTD,

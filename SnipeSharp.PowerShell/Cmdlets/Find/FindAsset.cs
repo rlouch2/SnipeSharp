@@ -39,7 +39,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
-        public StatusMeta StatusMeta { get; set; }
+        public FilterStatusMeta StatusMeta { get; set; }
 
         /// <summary>
         /// Only search for assets with that are requestable (or not).

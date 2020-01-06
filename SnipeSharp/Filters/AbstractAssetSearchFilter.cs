@@ -20,7 +20,7 @@ namespace SnipeSharp.Filters
         /// The status meta, e.g. deployed, deleted, archived, etc.
         /// </summary>
         [Field("status")]
-        public StatusMeta? StatusMeta { get; set; }
+        public FilterStatusMeta? StatusMeta { get; set; }
 
         /// <summary>
         /// Only search for assets with that are requestable (or not).
