@@ -37,6 +37,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<StatusLabel> StatusLabel { get; set; }
 
         /// <summary>
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public StatusMeta StatusMeta { get; set; }
+
+        /// <summary>
         /// Only search for assets with that are requestable (or not).
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
@@ -170,6 +175,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     return false;
                 filter.Depreciation = depreciation;
             }
+            if(MyInvocation.BoundParameters.ContainsKey(nameof(StatusMeta)))
+                filter.StatusMeta = StatusMeta;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(IsRequestable)))
                 filter.IsRequestable = IsRequestable;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))

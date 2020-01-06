@@ -25,7 +25,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required and must have a unique value.</remarks>
@@ -39,12 +39,7 @@ namespace SnipeSharp.Models
         public StatusType? Type
         {
             get => _type;
-            set
-            {
-                _type = value ?? StatusType.Undeployable;
-                if(_type == StatusType.Deployed)
-                    _type = StatusType.Deployable;
-            }
+            set => _type = value ?? StatusType.Undeployable;
         }
 
         /// <value>Gets if this label is of the Deployable type or not.</value>

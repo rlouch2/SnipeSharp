@@ -25,7 +25,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc/>
         [Field("id")]
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
 
         /// <summary>
         /// The Name of the Accessory in Snipe-IT.

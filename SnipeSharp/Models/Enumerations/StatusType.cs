@@ -21,10 +21,6 @@ namespace SnipeSharp.Models.Enumerations
         Undeployable,
         /// <summary>The status if of type deployable; the associated object may be deployed.</summary>
         [EnumMember(Value = "deployable")]
-        Deployable,
-        /// <summary>The status is of type deployable, but the associated object has been deployed.</summary>
-        /// <remarks>This status type only occurs in <see cref="AssetStatus.StatusMeta">AssetStatus.StatusMeta</see>.</remarks>
-        [EnumMember(Value = "deployed")]
-        Deployed
+        Deployable
     }
 }

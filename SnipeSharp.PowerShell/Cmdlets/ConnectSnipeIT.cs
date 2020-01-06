@@ -41,17 +41,34 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public SwitchParameter PassThru { get; set; }
 
+        /// <summary>Force a reconnection.</summary>
+        [Parameter]
+        public SwitchParameter Force { get; set; }
+
+        /// <summary>When provided, disable making extra API calls to verify objects passed by ID or by object to arguments.</summary>
+        /// <remarks>
+        ///     Enabling this feature can provide a few performance improvements, but take care when referring to assets by asset tags,
+        ///     or any object by name if the name is numeric and not quoted.
+        /// </remarks>
+        [Parameter(
+            HelpMessage = "Disable extra API calls to verify arguments retrieved by ID or by object"
+        )]
+        public SwitchParameter DisableLookupVerification { get; set; }
+
         /// <inheritdoc />
-        protected override void EndProcessing(){
+        protected override void EndProcessing()
+        {
             var instance = new SnipeItApi {
                 Token = this.Token,
                 Uri = this.Uri
             };
 
-            if(instance.TestConnection())
-                ApiHelper.Instance = instance;
-            else
+            if(!instance.TestConnection())
                 throw new ApiErrorException($"Could not validate a connection to Snipe-IT at Uri \"{Uri}\".");
+            if(Force && ApiHelper.HasApiInstance)
+                ApiHelper.Reset();
+            ApiHelper.Instance = instance;
+            ApiHelper.DisableLookupVerification = DisableLookupVerification;
 
             if(PassThru)
                 WriteObject(ApiHelper.Instance);

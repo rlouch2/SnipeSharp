@@ -24,7 +24,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
 
         /// <value>The URL of the user's gravatar.</value>
         [Field(DeserializeAs = "gravatar")]

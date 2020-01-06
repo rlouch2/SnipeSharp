@@ -15,7 +15,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
     /// <typeparam name="TFilter">The type of the filter to use for lookup.</typeparam>
     public abstract class GetObject<TObject, TBinding, TFilter>: PSCmdlet
-        where TObject: CommonEndPointModel
+        where TObject: CommonEndPointModel, new()
         where TBinding: ObjectBinding<TObject>
         where TFilter: class, ISearchFilter, new()
     {
@@ -182,7 +182,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TObject">The type of object this cmdlet gets.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
     public abstract class GetObject<TObject, TBinding>: GetObject<TObject, TBinding, SearchFilter>
-        where TObject: CommonEndPointModel
+        where TObject: CommonEndPointModel, new()
         where TBinding: ObjectBinding<TObject>
     {
         /// <inheritdoc />

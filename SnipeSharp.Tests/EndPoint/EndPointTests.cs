@@ -30,7 +30,7 @@ namespace SnipeSharp.Tests
         internal TestModel() { }
 
         [Field("id")]
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
 
         [Field("name", IsRequired = true)]
         public override string Name { get; set; }
@@ -57,7 +57,7 @@ namespace SnipeSharp.Tests
 
     internal sealed class FaultyTestModel : CommonEndPointModel
     {
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
         public override string Name { get; set; }
         public override DateTime? CreatedAt { get; protected set; }
         public override DateTime? UpdatedAt { get; protected set; }

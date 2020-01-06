@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     {
         /// <value>The internal Id of the object.</value>
         [Field("id")]
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
 
         /// <value>The name of the object.</value>
         [Field(DeserializeAs = "name")]

@@ -51,6 +51,8 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <inheritdoc />
         internal override void Resolve(ISearchFilter filter = null)
         {
+            if(null != Value)
+                return;
             var endPoint = ApiHelper.Instance.Assets;
             ApiOptionalResponse<Asset> result;
 
@@ -95,9 +97,12 @@ namespace SnipeSharp.PowerShell.BindingTypes
                             break;
                         case BindingQueryType.Id:
                             if(int.TryParse(value, out id))
+                            {
                                 result = endPoint.GetOptional(id);
-                            else
+                            } else
+                            {
                                 result = new ApiOptionalResponse<Asset> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
+                            }
                             break;
                         case BindingQueryType.Serial:
                             multiResponse = endPoint.FindBySerialOptional(value);

@@ -20,6 +20,9 @@ namespace SnipeSharp.PowerShell
         internal static void Reset()
         {
             _instance = null;
+            DisableLookupVerification = false;
         }
+
+        public static bool DisableLookupVerification { get; set; } = false;
     }
 }

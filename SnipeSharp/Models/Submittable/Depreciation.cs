@@ -25,7 +25,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "id")]
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>

@@ -10,7 +10,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// </summary>
     /// <typeparam name="T">The type of object being bound to.</typeparam>
     public class ObjectBinding<T> : IObjectBinding
-        where T: CommonEndPointModel
+        where T: CommonEndPointModel, new()
     {
         /// <inheritdoc />
         public bool HasValue
@@ -61,6 +61,8 @@ namespace SnipeSharp.PowerShell.BindingTypes
                 StringValue = $"id:{id}",
                 IntegerValue = id
             };
+            if(ApiHelper.DisableLookupVerification)
+                Value = new List<T> { new T { Id = id } };
         }
 
         /// <summary>
@@ -90,8 +92,16 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// Re-fetches an object by its internal Id.
         /// </summary>
         /// <param name="object">An object.</param>
-        public ObjectBinding(T @object): this(@object.Id)
+        public ObjectBinding(T @object)
         {
+            QueryUnion = new BindingQueryUnion
+            {
+                Type = BindingType.Integer,
+                StringValue = $"id:{@object.Id}",
+                IntegerValue = @object.Id
+            };
+            if(ApiHelper.DisableLookupVerification)
+                Value = new List<T> { @object };
         }
 
         internal ObjectBinding()
@@ -167,6 +177,8 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         internal virtual void Resolve(ISearchFilter filter = null)
         {
+            if(null != Value)
+                return;
             ApiOptionalResponse<T> result;
             switch(QueryUnion.Type)
             {

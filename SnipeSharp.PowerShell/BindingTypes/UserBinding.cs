@@ -52,6 +52,8 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <inheritdoc />
         internal override void Resolve(ISearchFilter filter = null)
         {
+            if(null != Value)
+                return;
             var endPoint = ApiHelper.Instance.Users;
             ApiOptionalResponse<User> result;
             var userFilter = filter as UserSearchFilter;

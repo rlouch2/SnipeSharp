@@ -17,6 +17,12 @@ namespace SnipeSharp.Filters
         public StatusLabel StatusLabel { get; set; }
 
         /// <summary>
+        /// The status meta, e.g. deployed, deleted, archived, etc.
+        /// </summary>
+        [Field("status")]
+        public StatusMeta? StatusMeta { get; set; }
+
+        /// <summary>
         /// Only search for assets with that are requestable (or not).
         /// </summary>
         [Field("requestable")]
