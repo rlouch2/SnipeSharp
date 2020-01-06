@@ -37,6 +37,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<StatusLabel> StatusLabel { get; set; }
 
         /// <summary>
+        /// Filter by status meta, e.g. Deployed or Archived or Requestable.
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public FilterStatusMeta StatusMeta { get; set; }
