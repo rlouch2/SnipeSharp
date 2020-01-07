@@ -34,5 +34,14 @@ namespace SnipeSharp.Models
         // TODO: Parse this into a special object that will verify the value matches before updating?
         [Field(DeserializeAs = "field_format")]
         public string Format { get; set; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            if(null != FriendlyName)
+                return $"{FriendlyName}: {Value ?? "<empty>"}";
+            else
+                return Value ?? base.ToString();
+        }
     }
 }
