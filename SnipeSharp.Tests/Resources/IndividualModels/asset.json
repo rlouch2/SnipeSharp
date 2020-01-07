@@ -11,9 +11,9 @@
     "eol": null,
     "status_label": {
         "id": 3,
-        "name": "Archived",
-        "status_type": "archived",
-        "status_meta": "archived"
+        "name": "Deployable",
+        "status_type": "deployable",
+        "status_meta": "deployed"
     },
     "category": {
         "id": 1,

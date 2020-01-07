@@ -347,9 +347,7 @@ namespace SnipeSharp.Tests
         {
             var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_NONE));
             var response = endPoint.GetAllOptional();
-            Assert.True(response.HasValue);
-            Assert.Empty(response.Value);
-            Assert.Equal<long>(0L, response.Value.Total);
+            Assert.False(response.HasValue);
         }
 
         [Fact]

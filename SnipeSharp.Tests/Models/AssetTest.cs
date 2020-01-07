@@ -25,9 +25,9 @@ namespace SnipeSharp.Tests
             Assert.Null(result.EndOfLife);
             Assert.NotNull(result.Status);
                 Assert.Equal(3, result.Status.StatusId);
-                Assert.Equal("Archived", result.Status.Name);
-                Assert.Equal(StatusType.Archived, result.Status.StatusType);
-                Assert.Equal(StatusMeta.Archived, result.Status.StatusMeta);
+                Assert.Equal("Deployable", result.Status.Name);
+                Assert.Equal(StatusType.Deployable, result.Status.StatusType);
+                Assert.Equal(StatusMeta.Deployed, result.Status.StatusMeta);
             Assert.NotNull(result.Category);
                 Assert.Equal(1, result.Category.Id);
                 Assert.Equal("Test Category", result.Category.Name);
