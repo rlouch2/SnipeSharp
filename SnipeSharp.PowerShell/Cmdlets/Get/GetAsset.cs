@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Management.Automation;
+using SnipeSharp.Filters;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
 
@@ -51,7 +52,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public string[] Serial { get; set; }
 
         /// <inheritdoc />
-        protected override IEnumerable<AssetBinding> GetBoundObjects()
+        protected override IEnumerable<AssetBinding> GetBoundObjects(SearchFilter filter)
         {
             if(ParameterSetName == nameof(AssetParameterSets.ByAssetTag))
             {

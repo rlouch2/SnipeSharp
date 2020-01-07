@@ -59,10 +59,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public TBinding[] Identity { get; set; }
 
-        /// <summary>If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</summary>
-        [Parameter]
-        public SwitchParameter NoEnumerate { get; set; }
-
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
@@ -74,7 +70,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     WriteError(new ErrorRecord(response.Exception, $"An error occurred retrieving all records from endpoint {typeof(TObject).Name}", ErrorCategory.NotSpecified, null));
                 } else
                 {
-                    WriteObject(response.Value, !NoEnumerate.IsPresent);
+                    WriteObject(response.Value);
                 }
             } else
             {
@@ -82,24 +78,21 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 if(!PopulateFilter(filter))
                     return;
 
-                IEnumerable<TObject> objects;
                 switch(ParameterSetName)
                 {
                     case nameof(ParameterSets.ByName):
-                        objects = GetByName(filter);
-                        break;
+                        WriteObject(GetByName(filter), true);
+                        return;
                     case nameof(ParameterSets.ByInternalId):
-                        objects = GetById();
-                        break;
+                        WriteObject(GetById(), true);
+                        return;
                     case nameof(ParameterSets.ByIdentity):
-                        objects = GetByBinding((IEnumerable<TBinding>) Identity, filter);
-                        break;
+                        WriteObject(GetByBinding((IEnumerable<TBinding>) Identity, filter), true);
+                        return;
                     default:
-                        objects = GetByBinding(GetBoundObjects(filter), filter);
-                        break;
+                        WriteObject(GetByBinding(GetBoundObjects(filter), filter), true);
+                        return;
                 }
-
-                WriteObject(objects, !NoEnumerate.IsPresent);
             }
         }
 
@@ -107,7 +100,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// Retrieve items by name.
         /// </summary>
         /// <param name="filter">The search filter.</param>
-        protected virtual IEnumerable<TObject> GetByName(TFilter filter)
+        protected IEnumerable<TObject> GetByName(TFilter filter)
         {
             foreach(var name in Name)
             {
@@ -127,7 +120,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// </summary>
         /// <param name="bindings">The bindings.</param>
         /// <param name="filter">The filter.</param>
-        protected virtual IEnumerable<TObject> GetByBinding(IEnumerable<TBinding> bindings, TFilter filter)
+        protected IEnumerable<TObject> GetByBinding(IEnumerable<TBinding> bindings, TFilter filter)
         {
             foreach(var item in bindings)
             {
@@ -138,16 +131,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     continue;
                 }
                 foreach(var value in item.Value)
-                {
                     yield return value;
-                }
             }
         }
 
         /// <summary>
         /// Retrieve items by internal ID.
         /// </summary>
-        protected virtual IEnumerable<TObject> GetById()
+        protected IEnumerable<TObject> GetById()
         {
             foreach(var id in InternalId)
             {
@@ -186,19 +177,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
         where TBinding: ObjectBinding<TObject>
     {
         /// <inheritdoc />
-        protected override bool PopulateFilter(SearchFilter filter)
+        protected sealed override bool PopulateFilter(SearchFilter filter)
         {
             return true;
         }
-
-        /// <inheritdoc />
-        protected override IEnumerable<TBinding> GetBoundObjects(SearchFilter filter)
-            => GetBoundObjects();
-
-        /// <summary>
-        /// Get the list of object bindings to process if no default parameter set matches.
-        /// </summary>
-        protected virtual IEnumerable<TBinding> GetBoundObjects()
-            => Enumerable.Empty<TBinding>();
     }
 }
