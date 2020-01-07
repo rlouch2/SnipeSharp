@@ -52,7 +52,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// <inheritdoc />
         internal override void Resolve(ISearchFilter filter = null)
         {
-            if(null != Value)
+            if(null != _objects)
                 return;
             var endPoint = ApiHelper.Instance.Users;
             ApiOptionalResponse<User> result;

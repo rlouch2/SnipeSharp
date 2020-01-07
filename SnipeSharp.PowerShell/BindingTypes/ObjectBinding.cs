@@ -17,7 +17,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
             => null != Value && Value.Count > 0;
 
         /// <summary>Backing field for <see cref="Object"/></summary>
-        private IReadOnlyList<T> _objects;
+        protected IReadOnlyList<T> _objects;
 
         /// <value>Gets the object retrieved by the query, or null.</value>
         public IReadOnlyList<T> Value {
@@ -62,7 +62,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                 IntegerValue = id
             };
             if(ApiHelper.DisableLookupVerification)
-                Value = new List<T> { new T { Id = id } };
+                _objects = new List<T> { new T { Id = id } };
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
                 IntegerValue = @object.Id
             };
             if(ApiHelper.DisableLookupVerification)
-                Value = new List<T> { @object };
+                _objects = new List<T> { @object };
         }
 
         internal ObjectBinding()
@@ -177,7 +177,8 @@ namespace SnipeSharp.PowerShell.BindingTypes
         /// </summary>
         internal virtual void Resolve(ISearchFilter filter = null)
         {
-            if(null != Value)
+            // fix note: use _objects instead of Value because Value calls this function if it is null.
+            if(null != _objects)
                 return;
             ApiOptionalResponse<T> result;
             switch(QueryUnion.Type)
