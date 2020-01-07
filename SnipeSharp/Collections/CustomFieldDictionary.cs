@@ -25,7 +25,7 @@ namespace SnipeSharp.Collections
         private Dictionary<string, string> FriendlyNames = new Dictionary<string, string>();
 
         /// <summary>This same dictionary, but mapping from friendly names instead of internal column names.</summary>
-        public IReadOnlyDictionary<string, string> Friendly { get; }
+        public FriendlyNameDictionary Friendly { get; }
 
         /// <summary>The string values of the fields in this dictionary.</summary>
         public IEnumerable<string> StringValues => GetValues();
@@ -218,7 +218,10 @@ namespace SnipeSharp.Collections
         IEnumerator<KeyValuePair<string, AssetCustomField>> IEnumerable<KeyValuePair<string, AssetCustomField>>.GetEnumerator()
             => ((IDictionary<string,AssetCustomField>)BackingDictionary).GetEnumerator();
 
-        private sealed class FriendlyNameDictionary : IReadOnlyDictionary<string, string>
+        /// <summary>
+        /// A dictionary mapping from friendly names to values, wrapping a <see cref="CustomFieldDictionary"/>.
+        /// </summary>
+        public sealed class FriendlyNameDictionary : IReadOnlyDictionary<string, string>
         {
             private readonly CustomFieldDictionary CustomFields;
             internal FriendlyNameDictionary(CustomFieldDictionary dictionary)
@@ -226,23 +229,34 @@ namespace SnipeSharp.Collections
                 CustomFields = dictionary;
             }
 
-            public string this[string key] => CustomFields[CustomFields.FriendlyNames[key]];
+            /// <inheritdoc />
+            public string this[string key]
+            {
+                get => CustomFields[CustomFields.FriendlyNames[key]];
+                set => CustomFields[CustomFields.FriendlyNames[key]] = value;
+            }
 
+            /// <inheritdoc />
             public IEnumerable<string> Keys => CustomFields.FriendlyNames.Keys;
 
+            /// <inheritdoc />
             public IEnumerable<string> Values => CustomFields.StringValues;
 
+            /// <inheritdoc />
             public int Count => CustomFields.Count;
 
+            /// <inheritdoc />
             public bool ContainsKey(string key)
                 => CustomFields.FriendlyNames.ContainsKey(key);
 
+            /// <inheritdoc />
             public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
             {
                 foreach(var key in Keys)
                     yield return new KeyValuePair<string, string>(key, CustomFields[CustomFields.FriendlyNames[key]]);
             }
 
+            /// <inheritdoc />
             public bool TryGetValue(string key, out string value)
                 => CustomFields.TryGetValue(CustomFields.FriendlyNames[key], out value);
 

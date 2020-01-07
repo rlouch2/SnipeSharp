@@ -27,16 +27,18 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter]
         public TColumn SortColumn { get; set; }
 
-        /// <summary>If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</summary>
-        [Parameter]
-        public SwitchParameter NoEnumerate { get; set; }
-
         /// <summary>
         /// Populate the remaining fields of the filter.
         /// </summary>
         /// <param name="filter">The filter to populate.</param>
         /// <returns>True if the operation should proceed.</returns>
         protected abstract bool PopulateFilter(TFilter filter);
+
+        /// <summary>
+        /// Emit the results of the query to the pipeline.
+        /// </summary>
+        protected virtual void EmitResults(ResponseCollection<TObject> collection)
+            => WriteObject(collection, true);
 
         /// <inheritdoc />
         protected override void ProcessRecord()
@@ -56,7 +58,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 var results = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter);
                 if(PagingParameters.IncludeTotalCount)
                     WriteObject(results.Total);
-                WriteObject(results, !NoEnumerate.IsPresent);
+                EmitResults(results);
             } catch(Exception e)
             {
                 WriteError(new ErrorRecord(e, e.Message, ErrorCategory.NotSpecified, null));

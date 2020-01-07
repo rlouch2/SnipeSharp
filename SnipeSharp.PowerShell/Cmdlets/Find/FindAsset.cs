@@ -207,5 +207,17 @@ namespace SnipeSharp.PowerShell.Cmdlets
             }
             return true;
         }
+
+        /// <inheritdoc />
+        protected sealed override void EmitResults(ResponseCollection<Asset> collection)
+        {
+            foreach(var asset in collection)
+            {
+                var assetObj = PSObject.AsPSObject(asset);
+                foreach(var pair in asset.CustomFields.Friendly)
+                    assetObj.Properties.Add(new PSAssetCustomFieldProperty(pair.Key, pair.Key));
+                WriteObject(assetObj);
+            }
+        }
     }
 }

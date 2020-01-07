@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
 using SnipeSharp.Filters;
 using SnipeSharp.Models;
@@ -50,6 +51,52 @@ namespace SnipeSharp.PowerShell.Cmdlets
             ParameterSetName = nameof(AssetParameterSets.BySerial)
         )]
         public string[] Serial { get; set; }
+
+        /// <inheritdoc />
+        protected override void ProcessRecord()
+        {
+            IEnumerable<Asset> objects;
+            if(ParameterSetName == nameof(ParameterSets.All))
+            {
+                var response = ApiHelper.Instance.Assets.GetAllOptional();
+                if(null != response.Exception)
+                {
+                    WriteError(new ErrorRecord(response.Exception, $"An error occurred retrieving all records from endpoint {nameof(Asset)}", ErrorCategory.NotSpecified, null));
+                    return;
+                } else
+                {
+                    objects = response.Value;
+                }
+            } else
+            {
+                var filter = new SearchFilter();
+                if(!PopulateFilter(filter))
+                    return;
+
+                switch(ParameterSetName)
+                {
+                    case nameof(ParameterSets.ByName):
+                        objects = GetByName(filter);
+                        break;
+                    case nameof(ParameterSets.ByInternalId):
+                        objects = GetById();
+                        break;
+                    case nameof(ParameterSets.ByIdentity):
+                        objects = GetByBinding((IEnumerable<AssetBinding>) Identity, filter);
+                        break;
+                    default:
+                        objects = GetByBinding(GetBoundObjects(filter), filter);
+                        break;
+                }
+            }
+            foreach(var asset in objects)
+            {
+                var assetObj = PSObject.AsPSObject(asset);
+                foreach(var pair in asset.CustomFields.Friendly)
+                    assetObj.Properties.Add(new PSAssetCustomFieldProperty(pair.Key, pair.Key));
+                WriteObject(assetObj);
+            }
+        }
 
         /// <inheritdoc />
         protected override IEnumerable<AssetBinding> GetBoundObjects(SearchFilter filter)
