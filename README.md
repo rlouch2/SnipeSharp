@@ -2,6 +2,12 @@
 
 A .NET wrapper for the Snipe IT API written (poorly) in C# for C# and PowerShell.
 
+> ## Notes for users of this fork
+>
+> Disregard the prereqs and installation below. You need the .NET Core SDK, version 3 or higher.
+> VS Code tasks are provided for build and testing.
+>
+
 ## Before You Dive In
 
 The goal of this project is to give easy access to all endpoints of the Snipe IT API via C# and PowerShell. With that said, this build is currently a rough demo. Most of the endpoints work as expected but plan on things breaking or not working 100%.

@@ -1,0 +1,70 @@
+stages:
+  - test
+  - build
+  - package
+  - deploy
+
+test:
+  stage: test
+  tags: [docker]
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  script:
+    - cd SnipeSharp.Tests
+    - dotnet test SnipeSharp.Tests.csproj /property:GenerateFullPaths=true /consoleloggerparameters:NoSummary /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=OpenCover.xml
+    - dotnet reportgenerator -reports:OpenCover.xml -targetdir:coveragereport
+  artifacts:
+    paths:
+      - SnipeSharp.Tests/coveragereport
+    expire_in: 1 mo
+
+build debug:
+  stage: build
+  only: [master]
+  tags: [docker]
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  script:
+    - dotnet build -c Debug
+  artifacts:
+    paths:
+      - SnipeSharp/bin/Debug/netstandard2.0
+      - SnipeSharp.PowerShell/bin/Debug/netstandard2.0
+
+build release:
+  stage: build
+  only: [tags]
+  tags: [docker]
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  script:
+    - dotnet build -c Release
+  artifacts:
+    paths:
+      - SnipeSharp/bin/Release/netstandard2.0
+      - SnipeSharp.PowerShell/bin/Release/netstandard2.0
+
+package release:
+  stage: package
+  only: [tags]
+  tags: [docker]
+  dependencies: [build release]
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  before_script:
+    - mkdir bin
+    - pwsh -Command "Register-PSRepository -Name PowerShellRepository -SourceLocation (Get-Item bin).FullName -PublishLocation (Get-Item bin).FullName -InstallationPolicy Trusted"
+  script:
+    - mv SnipeSharp.PowerShell/bin/Release/netstandard2.0 SnipeSharp.PowerShell/bin/SnipeSharp.PowerShell
+    - pwsh -Command "Publish-Module -Path 'SnipeSharp.PowerShell/bin/SnipeSharp.PowerShell' -Repository PowerShellRepository -Force"
+  artifacts:
+    paths:
+      - bin/SnipeSharp.PowerShell.*.nupkg
+    expire_in: 1 mo
+
+deploy release:
+  # runs in PowerShell ONLY
+  stage: deploy
+  only:
+    refs: [tags]
+    variables: [$InternalPowerShellRepositoryPath =~ /.+/]
+  tags: [INTERNAL-PS-REPO] # No, you can't have it
+  dependencies: [package release]
+  script:
+    - Copy-Item -Path "bin/*" -Destination "$env:InternalPowerShellRepositoryPath/"
