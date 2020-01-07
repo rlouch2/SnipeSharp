@@ -20,8 +20,8 @@ Set-SnipeUser -UserName <String> [-AvatarUrl <Uri>] [-FirstName <String>] [-Last
  [-State <String>] [-ZipCode <String>] [-NewEmailAddress <String>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] [-ShowResponse]
- [<CommonParameters>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
+ [-Groups <ObjectBinding`1[]>] [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByEmailAddress
@@ -32,8 +32,8 @@ Set-SnipeUser -EmailAddress <String> [-AvatarUrl <Uri>] [-FirstName <String>] [-
  [-State <String>] [-ZipCode <String>] [-NewEmailAddress <String>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] [-ShowResponse]
- [<CommonParameters>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
+ [-Groups <ObjectBinding`1[]>] [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByIdentity
@@ -45,7 +45,7 @@ Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-Ne
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Identity] <UserBinding> [-ShowResponse] [<CommonParameters>]
+ [-Groups <ObjectBinding`1[]>] [-Identity] <UserBinding> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByName
@@ -56,8 +56,8 @@ Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-Ne
  [-ZipCode <String>] [-NewEmailAddress <String>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Name <String>
- [-ShowResponse] [<CommonParameters>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
+ [-Groups <ObjectBinding`1[]>] -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -68,8 +68,8 @@ Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-Ne
  [-ZipCode <String>] [-NewEmailAddress <String>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Id <Int32>
- [-ShowResponse] [<CommonParameters>]
+ [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
+ [-Groups <ObjectBinding`1[]>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -211,6 +211,21 @@ The user's new first name.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Groups
+The updated list of groups the user is a member of.
+
+```yaml
+Type: ObjectBinding`1[]
 Parameter Sets: (All)
 Aliases:
 

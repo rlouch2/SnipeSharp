@@ -13,7 +13,9 @@ Gets the License Seats of a Snipe IT License.
 ## SYNTAX
 
 ```
-Get-SnipeLicenseSeat [-License] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeLicenseSeat [-License] <ObjectBinding`1[]> [-SortOrder <SearchOrder>]
+ [-SortColumn <LicenseSeatSearchColumn>] [-NoEnumerate] [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -37,6 +39,36 @@ Retrieves the license seats for the licenses License12 and License11.
 
 ## PARAMETERS
 
+### -First
+Gets only the specified number of objects. Enter the number of objects to get.
+
+```yaml
+Type: UInt64
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IncludeTotalCount
+Reports the total number of objects in the data set (an integer) followed by the selected objects. If the cmdlet cannot determine the total count, it displays "Unknown total count." The integer has an Accuracy property that indicates the reliability of the total count value. The value of Accuracy ranges from 0.0 to 1.0 where 0.0 means that the cmdlet could not count the objects, 1.0 means that the count is exact, and a value between 0.0 and 1.0 indicates an increasingly reliable estimate.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -License
 The license to retrieve the seats of.
 
@@ -59,6 +91,53 @@ If present, return the result as a ResponseCollection rather than enumerating.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Skip
+Ignores the specified number of objects and then gets the remaining objects. Enter the number of objects to skip.
+
+```yaml
+Type: UInt64
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SortColumn
+On which column to sort the data.
+
+```yaml
+Type: LicenseSeatSearchColumn
+Parameter Sets: (All)
+Aliases:
+Accepted values: Id, Department
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SortOrder
+Which way to sort the data.
+
+```yaml
+Type: SearchOrder
+Parameter Sets: (All)
+Aliases:
+Accepted values: Ascending, Descending
 
 Required: False
 Position: Named

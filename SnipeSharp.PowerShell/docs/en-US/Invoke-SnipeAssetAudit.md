@@ -8,7 +8,7 @@ schema: 2.0.0
 # Invoke-SnipeAssetAudit
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Audits a Snipe IT asset.
 
 ## SYNTAX
 
@@ -19,21 +19,21 @@ Invoke-SnipeAssetAudit [-Identity] <AssetBinding[]>
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The Invoke-AssetAudit cmdlet audits one or more asset objects.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Invoke-AssetAudit 14 -Location 'Site 1'
 ```
 
-{{ Add example description here }}
+Audits the asset with the ID 14 at location "Site 1".
 
 ## PARAMETERS
 
 ### -Identity
-{{ Fill Identity Description }}
+An Asset identity.
 
 ```yaml
 Type: AssetBinding[]
@@ -48,7 +48,7 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{ Fill Location Description }}
+The audit location.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
@@ -63,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -NextAuditDate
-{{ Fill NextAuditDate Description }}
+The date of the next expected audit.
 
 ```yaml
 Type: DateTime
@@ -78,7 +78,7 @@ Accept wildcard characters: False
 ```
 
 ### -Notes
-{{ Fill Notes Description }}
+Any notes for the audit log.
 
 ```yaml
 Type: String

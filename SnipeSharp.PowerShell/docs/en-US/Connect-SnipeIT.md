@@ -13,7 +13,7 @@ Connects to Snipe IT.
 ## SYNTAX
 
 ```
-Connect-SnipeIT [-Token] <String> [-Uri] <Uri> [<CommonParameters>]
+Connect-SnipeIT [-Token] <String> [-Uri] <Uri> [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,6 +31,21 @@ PS C:\> Connect-SnipeIT -Uri 'https://inventory.example.com/api/v1' -ApiToken $A
 Connect to a Snipe IT session at "inventory.example.com" with the token in $ApiToken.
 
 ## PARAMETERS
+
+### -PassThru
+Return the API object to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Token
 API Token to use to connect to Snipe IT.

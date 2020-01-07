@@ -22,8 +22,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
+ [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>]
  [-Identity] <AssetBinding> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -38,8 +37,7 @@ Set-SnipeAsset -AssetTag <String> [-NewAssetTag <String>] [-NewName <String>] [-
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
+ [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -54,8 +52,7 @@ Set-SnipeAsset -Serial <String> [-NewAssetTag <String>] [-NewName <String>] [-Ne
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
+ [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -70,8 +67,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
+ [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Name <String>
  [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -86,8 +82,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
+ [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Id <Int32>
  [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -118,37 +113,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -AssignedTo
-The updated assignee object.
-
-```yaml
-Type: CommonEndPointModel
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -AssignedType
-The updated assignee object type.
-
-```yaml
-Type: AssignedToType
-Parameter Sets: (All)
-Aliases:
-Accepted values: User, Location, Asset
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
