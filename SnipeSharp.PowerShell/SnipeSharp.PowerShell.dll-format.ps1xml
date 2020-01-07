@@ -4,7 +4,7 @@
     <View>
       <Name>SnipeSharpAccessory</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Accessory</TypeName>
+        <TypeName>SnipeSharp.Models.Accessory</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -44,7 +44,7 @@
     <View>
       <Name>SnipeSharpAsset</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Asset</TypeName>
+        <TypeName>SnipeSharp.Models.Asset</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -86,32 +86,73 @@
       </TableControl>
     </View>
     <View>
+      <Name>SnipeSharpAssetAudit</Name>
+      <ViewSelectedBy>
+        <TypeName>SnipeSharp.Models.AssetAudit</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Asset -->
+          <TableColumnHeader /> <!-- Location -->
+          <TableColumnHeader /> <!-- NextAuditDate -->
+          <TableColumnHeader /> <!-- Note -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Asset</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>NextAuditDate</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Note</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>SnipeSharpAssetCustomField</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.AssetCustomField</TypeName>
+        <TypeName>SnipeSharp.Models.AssetCustomField</TypeName>
       </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader /> <!-- Field -->
+          <TableColumnHeader /> <!-- FriendlyName -->
+          <TableColumnHeader /> <!-- Format -->
+          <TableColumnHeader /> <!-- Value -->
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
                 <PropertyName>Field</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Value</PropertyName>
-              </ListItem>
-              <ListItem>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>FriendlyName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
                 <PropertyName>Format</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Value</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
     </View>
     <View>
       <Name>SnipeSharpAssetStatus</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.AssetStatus</TypeName>
+        <TypeName>SnipeSharp.Models.AssetStatus</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -139,7 +180,7 @@
     <View>
       <Name>SnipeSharpCategory</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Category</TypeName>
+        <TypeName>SnipeSharp.Models.Category</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -167,15 +208,19 @@
     <View>
       <Name>SnipeSharpCommonEndpointModel</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.CommonEndpointModel</TypeName>
+        <TypeName>SnipeSharp.Models.CommonEndpointModel</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
+          <TableColumnHeader /> <!-- Id -->
           <TableColumnHeader /> <!-- Name -->
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
@@ -187,7 +232,7 @@
     <View>
       <Name>SnipeSharpCompany</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Company</TypeName>
+        <TypeName>SnipeSharp.Models.Company</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -231,7 +276,7 @@
     <View>
       <Name>SnipeSharpComponent</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Component</TypeName>
+        <TypeName>SnipeSharp.Models.Component</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -271,7 +316,7 @@
     <View>
       <Name>SnipeSharpConsumable</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Consumable</TypeName>
+        <TypeName>SnipeSharp.Models.Consumable</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -323,7 +368,7 @@
     <View>
       <Name>SnipeSharpCustomField</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.CustomField</TypeName>
+        <TypeName>SnipeSharp.Models.CustomField</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -355,7 +400,7 @@
     <View>
       <Name>SnipeSharpDepartment</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Department</TypeName>
+        <TypeName>SnipeSharp.Models.Department</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -391,7 +436,7 @@
     <View>
       <Name>SnipeSharpDepreciation</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Depreciation</TypeName>
+        <TypeName>SnipeSharp.Models.Depreciation</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -415,7 +460,7 @@
     <View>
       <Name>SnipeSharpFieldset</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Fieldset</TypeName>
+        <TypeName>SnipeSharp.Models.Fieldset</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -443,7 +488,7 @@
     <View>
       <Name>SnipeSharpGroup</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Group</TypeName>
+        <TypeName>SnipeSharp.Models.Group</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -471,7 +516,7 @@
     <View>
       <Name>SnipeSharpLicense</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.License</TypeName>
+        <TypeName>SnipeSharp.Models.License</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -511,7 +556,7 @@
     <View>
       <Name>SnipeSharpLicenseSeat</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.LicenseSeat</TypeName>
+        <TypeName>SnipeSharp.Models.LicenseSeat</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -545,7 +590,7 @@
     <View>
       <Name>SnipeSharpLocation</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Location</TypeName>
+        <TypeName>SnipeSharp.Models.Location</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -601,7 +646,7 @@
     <View>
       <Name>SnipeSharpMaintenance</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Maintenance</TypeName>
+        <TypeName>SnipeSharp.Models.Maintenance</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -641,7 +686,7 @@
     <View>
       <Name>SnipeSharpManufacturer</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Manufacturer</TypeName>
+        <TypeName>SnipeSharp.Models.Manufacturer</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -677,7 +722,7 @@
     <View>
       <Name>SnipeSharpModel</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Model</TypeName>
+        <TypeName>SnipeSharp.Models.Model</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -717,7 +762,7 @@
     <View>
       <Name>SnipeSharpStatusLabel</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.StatusLabel</TypeName>
+        <TypeName>SnipeSharp.Models.StatusLabel</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -745,7 +790,7 @@
     <View>
       <Name>SnipeSharpSupplier</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.Supplier</TypeName>
+        <TypeName>SnipeSharp.Models.Supplier</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -801,7 +846,7 @@
     <View>
       <Name>SnipeSharpUser</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Endpoints.Models.User</TypeName>
+        <TypeName>SnipeSharp.Models.User</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>

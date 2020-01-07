@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Types>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Accessory</Name>
+    <Name>SnipeSharp.Models.Accessory</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -30,12 +30,8 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Asset</Name>
+    <Name>SnipeSharp.Models.Asset</Name>
     <Members>
-      <AliasProperty>
-        <Name>Status</Name>
-        <ReferencedMemberName>StatusLabel</ReferencedMemberName>
-      </AliasProperty>
       <MemberSet>
         <Name>PSStandardMembers</Name>
         <Members>
@@ -69,7 +65,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.AssetCustomField</Name>
+    <Name>SnipeSharp.Models.AssetCustomField</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -87,7 +83,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.AssetStatus</Name>
+    <Name>SnipeSharp.Models.AssetStatus</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -105,7 +101,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Category</Name>
+    <Name>SnipeSharp.Models.Category</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -127,16 +123,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.CommonEndpointModel</Name>
-    <Members>
-      <ScriptMethod>
-        <Name>ToString</Name>
-        <Script>$this.Name</Script>
-      </ScriptMethod>
-    </Members>
-  </Type>
-  <Type>
-    <Name>SnipeSharp.Endpoints.Models.Company</Name>
+    <Name>SnipeSharp.Models.Company</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -158,7 +145,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Component</Name>
+    <Name>SnipeSharp.Models.Component</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -184,7 +171,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Consumable</Name>
+    <Name>SnipeSharp.Models.Consumable</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -215,7 +202,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.CustomField</Name>
+    <Name>SnipeSharp.Models.CustomField</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -237,7 +224,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Department</Name>
+    <Name>SnipeSharp.Models.Department</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -257,7 +244,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Depreciation</Name>
+    <Name>SnipeSharp.Models.Depreciation</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -274,7 +261,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Fieldset</Name>
+    <Name>SnipeSharp.Models.Fieldset</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -292,7 +279,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Group</Name>
+    <Name>SnipeSharp.Models.Group</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -310,7 +297,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.License</Name>
+    <Name>SnipeSharp.Models.License</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -344,7 +331,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.LicenseSeat</Name>
+    <Name>SnipeSharp.Models.LicenseSeat</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -367,7 +354,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Location</Name>
+    <Name>SnipeSharp.Models.Location</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -396,7 +383,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Maintenance</Name>
+    <Name>SnipeSharp.Models.Maintenance</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -422,7 +409,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Manufacturer</Name>
+    <Name>SnipeSharp.Models.Manufacturer</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -446,7 +433,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Model</Name>
+    <Name>SnipeSharp.Models.Model</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -470,7 +457,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.StatusLabel</Name>
+    <Name>SnipeSharp.Models.StatusLabel</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -492,7 +479,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.Supplier</Name>
+    <Name>SnipeSharp.Models.Supplier</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
@@ -522,7 +509,7 @@
     </Members>
   </Type>
   <Type>
-    <Name>SnipeSharp.Endpoints.Models.User</Name>
+    <Name>SnipeSharp.Models.User</Name>
     <Members>
       <MemberSet>
         <Name>PSStandardMembers</Name>
