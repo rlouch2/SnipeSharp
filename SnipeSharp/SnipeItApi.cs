@@ -75,53 +75,20 @@ namespace SnipeSharp
         }
 
         /// <summary>
+        /// Stores a map from the known endpoint types to the endpoint objects, so they can be generically queried.
+        /// </summary>
+        private readonly IReadOnlyDictionary<Type, object> _typeEndPointObjectMap;
+
+        /// <summary>
         /// Constructs or retrieves a cached EndPoint corresponding to the type parameter for use with interacting with the API.
         /// </summary>
         /// <typeparam name="T">A <see cref="SnipeSharp.Models.CommonEndPointModel">CommonEndPointModel</see> with the attribute <see cref="SnipeSharp.EndPoint.PathSegmentAttribute">PathSegmentAttribute</see>.</typeparam>
         /// <returns>An <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> for the provided type.</returns>
         public EndPoint<T> GetEndPoint<T>() where T: CommonEndPointModel
         {
-            var type = typeof(T);
-            if(type == typeof(Asset))
-                return Assets as EndPoint<T>;
-            else if(type == typeof(Accessory))
-                return Accessories as EndPoint<T>;
-            else if(type == typeof(Category))
-                return Categories as EndPoint<T>;
-            else if(type == typeof(Company))
-                return Companies as EndPoint<T>;
-            else if(type == typeof(Component))
-                return Components as EndPoint<T>;
-            else if(type == typeof(Consumable))
-                return Consumables as EndPoint<T>;
-            else if(type == typeof(CustomField))
-                return CustomFields as EndPoint<T>;
-            else if(type == typeof(Department))
-                return Departments as EndPoint<T>;
-            else if(type == typeof(Depreciation))
-                return Depreciations as EndPoint<T>;
-            else if(type == typeof(FieldSet))
-                return FieldSets as EndPoint<T>;
-            else if(type == typeof(Group))
-                return Groups as EndPoint<T>;
-            else if(type == typeof(License))
-                return Licenses as EndPoint<T>;
-            else if(type == typeof(Location))
-                return Locations as EndPoint<T>;
-            else if(type == typeof(Maintenance))
-                return Maintenances as EndPoint<T>;
-            else if(type == typeof(Manufacturer))
-                return Manufacturers as EndPoint<T>;
-            else if(type == typeof(Model))
-                return Models as EndPoint<T>;
-            else if(type == typeof(StatusLabel))
-                return StatusLabels as EndPoint<T>;
-            else if(type == typeof(Supplier))
-                return Suppliers as EndPoint<T>;
-            else if(type == typeof(User))
-                return Users as EndPoint<T>;
-            else
-                throw new ArgumentException("Unrecognized end point type", nameof(T), null);
+            if(_typeEndPointObjectMap.TryGetValue(typeof(T), out var endpoint))
+                return (EndPoint<T>)endpoint;
+            throw new ArgumentException("Unrecognized end point type", nameof(T), null);
         }
 
         /// <value>
@@ -256,6 +223,30 @@ namespace SnipeSharp
             StatusLabels = new StatusLabelEndPoint(this);
             Suppliers = new EndPoint<Supplier>(this);
             Users = new UserEndPoint(this);
+
+            // lookup map
+            _typeEndPointObjectMap = new Dictionary<Type, object>
+            {
+                {typeof(Asset), Assets},
+                {typeof(Accessory), Accessories},
+                {typeof(Category), Categories},
+                {typeof(Company), Companies},
+                {typeof(Component), Components},
+                {typeof(Consumable), Consumables},
+                {typeof(CustomField), CustomFields},
+                {typeof(Department), Departments},
+                {typeof(Depreciation), Depreciations},
+                {typeof(FieldSet), FieldSets},
+                {typeof(Group), Groups},
+                {typeof(License), Licenses},
+                {typeof(Location), Locations},
+                {typeof(Maintenance), Maintenances},
+                {typeof(Manufacturer), Manufacturers},
+                {typeof(Model), Models},
+                {typeof(StatusLabel), StatusLabels},
+                {typeof(Supplier), Suppliers},
+                {typeof(User), Users}
+            };
         }
     }
 }
