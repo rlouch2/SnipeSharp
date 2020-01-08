@@ -170,11 +170,168 @@ namespace SnipeSharp.Tests
         }
 
         [Fact]
-        public void Add_WithField_DoesNotAcceptNull()
+        public void Add_WithField_DoesNotAcceptNullValue()
         {
             var dict = new CustomFieldDictionary();
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
             Assert.Throws<ArgumentNullException>(() => dict.Add(null));
             Assert.Throws<ArgumentNullException>(() => dict.Add(new AssetCustomField { Field = null }));
+            Assert.Throws<ArgumentNullException>(() => dictRef.Add(TEST_KEY, null));
+        }
+
+        [Fact]
+        public void Add_WithField_DoesNotAcceptNullKey()
+        {
+            var dict = new CustomFieldDictionary();
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            Assert.Throws<ArgumentNullException>(() => dict.Add(null, TEST_VALUE));
+            Assert.Throws<ArgumentNullException>(() => dictRef.Add(null, TEST_FIELD));
+            Assert.DoesNotContain(null, new List<string>(dict.Friendly.Keys));
+        }
+
+        [Fact]
+        public void Add_WithField_DoesNotAcceptWhereFieldPropertyIsNotNullAndDoesNotMatchKey()
+        {
+            var dict = new CustomFieldDictionary();
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            Assert.Throws<ArgumentException>(() => dictRef.Add(TEST_KEY, new AssetCustomField
+            {
+                Field = TEST_FRIENDLY_KEY,
+                FriendlyName = TEST_FRIENDLY_KEY,
+                Format = null,
+                Value = TEST_VALUE2
+            }));
+        }
+
+        [Fact]
+        public void Add_WithField_DoesAcceptWhereFieldPropertyIsNull()
+        {
+            var dict = new CustomFieldDictionary();
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            dictRef.Add(TEST_KEY, new AssetCustomField
+            {
+                Field = null,
+                FriendlyName = TEST_FRIENDLY_KEY,
+                Format = null,
+                Value = TEST_VALUE2
+            });
+            Assert.Single(dict);
+            Assert.Equal(TEST_VALUE2, dict[TEST_KEY]);
+        }
+
+        [Fact]
+        public void Add_WithField_DoesNotAcceptDuplicateKey()
+        {
+            var dict = new CustomFieldDictionary
+            {
+                [TEST_KEY] = TEST_VALUE
+            };
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            Assert.Throws<ArgumentException>(() => dictRef.Add(TEST_KEY, dictRef[TEST_KEY]));
+        }
+
+        [Fact]
+        public void Add_WithField_DoesNotAcceptDuplicateFriendlyName()
+        {
+            var dict = new CustomFieldDictionary {{
+                new AssetCustomField
+                {
+                    Field = TEST_KEY,
+                    FriendlyName = TEST_FRIENDLY_KEY,
+                    Format = null,
+                    Value = TEST_VALUE
+                }
+            }};
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            Assert.Throws<ArgumentException>(() => dictRef.Add(TEST_FRIENDLY_KEY, new AssetCustomField
+            {
+                Field = TEST_FRIENDLY_KEY,
+                FriendlyName = TEST_FRIENDLY_KEY,
+                Format = null,
+                Value = TEST_VALUE2
+            }));
+        }
+
+        [Fact]
+        public void Set_WithString_DoesNotAcceptNullKey()
+        {
+            var dict = new CustomFieldDictionary
+            {
+                [TEST_KEY] = TEST_VALUE
+            };
+            Assert.Throws<ArgumentNullException>(() => dict[null] = TEST_VALUE);
+            Assert.DoesNotContain(null, new List<string>(dict.Friendly.Keys));
+        }
+
+        [Fact]
+        public void Set_WithString_DoesNotAcceptNullValue()
+        {
+            var dict = new CustomFieldDictionary
+            {
+                [TEST_KEY] = TEST_VALUE
+            };
+            Assert.Throws<ArgumentNullException>(() => dict[TEST_KEY] = null);
+            Assert.DoesNotContain(null, new List<string>(dict.Friendly.Values));
+        }
+
+        [Fact]
+        public void Set_WithField_DoesNotAcceptNullKey()
+        {
+            var dict = new CustomFieldDictionary
+            {
+                [TEST_KEY] = TEST_VALUE
+            };
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            Assert.Throws<ArgumentNullException>(() => dictRef[null] = TEST_FIELD);
+            Assert.DoesNotContain(null, new List<string>(dict.Friendly.Keys));
+        }
+
+        [Fact]
+        public void Set_WithField_DoesNotAcceptNullValue()
+        {
+            var dict = new CustomFieldDictionary
+            {
+                [TEST_KEY] = TEST_VALUE
+            };
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            Assert.Throws<ArgumentNullException>(() => dictRef[TEST_KEY] = null);
+            Assert.DoesNotContain(null, new List<string>(dict.Friendly.Values));
+        }
+
+        [Fact]
+        public void Set_WithField_DoesNotAcceptWhereFieldPropertyIsNotNullAndDoesNotMatchKey()
+        {
+            var dict = new CustomFieldDictionary
+            {
+                [TEST_KEY] = TEST_VALUE
+            };
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            Assert.Throws<ArgumentException>(() => dictRef[TEST_KEY] = new AssetCustomField
+            {
+                Field = TEST_FRIENDLY_KEY,
+                FriendlyName = TEST_FRIENDLY_KEY,
+                Format = null,
+                Value = TEST_VALUE2
+            });
+        }
+
+        [Fact]
+        public void Set_WithField_DoesAcceptWhereFieldPropertyIsNull()
+        {
+            var dict = new CustomFieldDictionary
+            {
+                [TEST_KEY] = TEST_VALUE
+            };
+            var dictRef = (IDictionary<string, AssetCustomField>)dict;
+            dictRef[TEST_KEY] = new AssetCustomField
+            {
+                Field = null,
+                FriendlyName = TEST_FRIENDLY_KEY,
+                Format = null,
+                Value = TEST_VALUE2
+            };
+            Assert.Single(dict);
+            Assert.Equal(TEST_VALUE2, dict[TEST_KEY]);
         }
 
         [Fact]
@@ -258,6 +415,15 @@ namespace SnipeSharp.Tests
             Assert.True(dict.Friendly.ContainsKey(TEST_KEY));
             Assert.False(dict.Friendly.ContainsKey(TEST_FRIENDLY_KEY));
             Assert.Collection(dict.Friendly.Values, a => Assert.Equal(TEST_VALUE2, a));
+        }
+
+        [Fact]
+        public void Set_FriendlyNameCollision_ThrowsArgumentException()
+        {
+            var dict = new CustomFieldDictionary {{TEST_FIELD}};
+            // this throws because TEST_FIELD has the key TEST_KEY and the friendly name TEST_FRIENDLY_KEY,
+            // and we're adding a field with the same friendly name but the key TEST_FRIENDLY_KEY
+            Assert.Throws<ArgumentException>(() => dict[TEST_FRIENDLY_KEY] = TEST_VALUE2);
         }
     }
 }

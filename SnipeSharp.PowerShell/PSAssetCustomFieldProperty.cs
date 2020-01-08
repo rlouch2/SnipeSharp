@@ -53,7 +53,7 @@ namespace SnipeSharp.PowerShell
             set
             {
                 var asset = (Asset)base.Value;
-                asset.CustomFields.Friendly[PropertyName] = value?.ToString();
+                asset.CustomFields.Friendly[PropertyName] = value?.ToString() ?? string.Empty;
             }
         }
     }

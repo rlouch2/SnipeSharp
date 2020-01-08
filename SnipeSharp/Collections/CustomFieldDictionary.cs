@@ -54,14 +54,17 @@ namespace SnipeSharp.Collections
             get => BackingDictionary[key].Value;
             set
             {
+                if(null == key)
+                    throw new ArgumentNullException(paramName: nameof(key));
+                if(null == value)
+                    throw new ArgumentNullException(paramName: nameof(value));
                 if(BackingDictionary.TryGetValue(key, out var model))
                     model.Value = value;
                 else
                 {
                     model = new AssetCustomField { FriendlyName = key, Field = key, Value = value };
-                    FriendlyNames[key] = key;
                 }
-                BackingDictionary[key] = model;
+                ((IDictionary<string, AssetCustomField>)this)[key] = model;
             }
         }
 
@@ -73,6 +76,8 @@ namespace SnipeSharp.Collections
             get => BackingDictionary[key];
             set
             {
+                if(null == key)
+                    throw new ArgumentNullException(paramName: nameof(key));
                 if(null == value)
                     throw new ArgumentNullException(paramName: nameof(value));
                 if(null != value.Field && key != value.Field)
