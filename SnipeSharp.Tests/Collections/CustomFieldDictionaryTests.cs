@@ -418,6 +418,31 @@ namespace SnipeSharp.Tests
         }
 
         [Fact]
+        public void Set_Existing_WithField_NullFriendlyNameAndField()
+        {
+            var dict = new CustomFieldDictionary {{TEST_FIELD}};
+            IDictionary<string, AssetCustomField> dictRef = dict;
+            dictRef[TEST_KEY] = new AssetCustomField
+            {
+                FriendlyName = null,
+                Format = null,
+                Field = null,
+                Value = TEST_VALUE2
+            };
+            Assert.Collection(dict.Keys, a => Assert.Equal(TEST_KEY, a));
+            Assert.Collection(dict.Values, (AssetCustomField a) => {
+                Assert.Equal(TEST_KEY, a.FriendlyName);
+                Assert.Equal(TEST_KEY, a.Field);
+                Assert.Null(a.Format);
+                Assert.Equal(TEST_VALUE2, a.Value);
+            });
+            Assert.Equal(dict.Count, dict.Friendly.Count);
+            Assert.True(dict.Friendly.ContainsKey(TEST_KEY));
+            Assert.False(dict.Friendly.ContainsKey(TEST_FRIENDLY_KEY));
+            Assert.Collection(dict.Friendly.Values, a => Assert.Equal(TEST_VALUE2, a));
+        }
+
+        [Fact]
         public void Set_FriendlyNameCollision_ThrowsArgumentException()
         {
             var dict = new CustomFieldDictionary {{TEST_FIELD}};

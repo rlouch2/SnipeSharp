@@ -3,14 +3,11 @@ using System;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomMonthsConverter : JsonConverter
+    internal sealed class CustomMonthsConverter : JsonConverter<int?>
     {
         public static readonly CustomMonthsConverter Instance = new CustomMonthsConverter();
 
-        public override bool CanConvert(Type objectType)
-            => true;
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override int? ReadJson(JsonReader reader, Type objectType, int? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             int readInt;
             var asString = serializer.Deserialize<string>(reader)?.Replace(" months", "");
@@ -19,7 +16,7 @@ namespace SnipeSharp.Serialization
             return null;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, int? value, JsonSerializer serializer)
             => throw new NotImplementedException();
     }
 }

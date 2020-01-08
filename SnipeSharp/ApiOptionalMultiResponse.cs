@@ -37,13 +37,6 @@ namespace SnipeSharp
             return this;
         }
 
-        /// <summary>Implicitly cast from a multiresponse to an ApiResponse.</summary>
-        public static implicit operator ApiOptionalResponse<ResponseCollection<T>>(ApiOptionalMultiResponse<T> multiResponse) => new ApiOptionalResponse<ResponseCollection<T>>
-        {
-            Value = multiResponse.Value,
-            Exception = multiResponse.Exception
-        };
-
         /// <summary>Implicitly cast from an ApiResponse to a multiresponse.</summary>
         public static implicit operator ApiOptionalMultiResponse<T>(ApiOptionalResponse<ResponseCollection<T>> response) => new ApiOptionalMultiResponse<T>
         {

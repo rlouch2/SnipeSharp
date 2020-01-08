@@ -143,11 +143,11 @@ namespace SnipeSharp
 #endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
 
-            if(!string.IsNullOrWhiteSpace(asRequestResponse.Status) && asRequestResponse.Status == "error")
+            if("error" == asRequestResponse.Status)
             {
                 return new ApiOptionalResponse<RequestResponse<R>>
                 {
-                    Exception = asRequestResponse.Messages.ContainsKey("general")
+                    Exception = null != asRequestResponse.Messages && asRequestResponse.Messages.ContainsKey("general")
                         ? new ApiErrorException(asRequestResponse.Messages["general"])
                         : new ApiErrorException(asRequestResponse.Messages)
                 };
@@ -182,6 +182,7 @@ namespace SnipeSharp
                         if(attribute.IsRequired && null == value)
                             throw new MissingRequiredFieldException<object>(type.Name, property.Name);
                         if(null == value)
+                            // early-out, don't try to use converter, don't add parameter
                             continue;
                         if(SerializationContractResolver.TryGetConverter(attribute, out var converter))
                         {
@@ -190,8 +191,6 @@ namespace SnipeSharp
                             using(var jsonWriter = new JsonTextWriter(stringWriter))
                                 converter.WriteJson(jsonWriter, value, JsonSerializer.CreateDefault(NewtonsoftJsonSerializer.SerializerSettings));
                             value = stringBuilder.ToString();
-                            if(string.IsNullOrEmpty((string) value) && attribute.IsRequired)
-                                throw new MissingRequiredFieldException<object>(nameof(String), property.Name);
                         }
                         request.AddParameter(attribute.SerializeAs, value);
                     }

@@ -4,13 +4,10 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomIntBoolDictionaryConverter : JsonConverter
+    internal sealed class CustomIntBoolDictionaryConverter : JsonConverter<Dictionary<string, bool>>
     {
         public static readonly CustomIntBoolDictionaryConverter Instance = new CustomIntBoolDictionaryConverter();
-        public override bool CanConvert(Type objectType)
-            => true;
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override Dictionary<string, bool> ReadJson(JsonReader reader, Type objectType, Dictionary<string, bool> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var rawDictionary = serializer.Deserialize<Dictionary<string, int>>(reader);
             var newDictionary = new Dictionary<string, bool>();
@@ -24,7 +21,7 @@ namespace SnipeSharp.Serialization
             return newDictionary;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Dictionary<string, bool> value, JsonSerializer serializer)
             => throw new NotImplementedException();
     }
 }
