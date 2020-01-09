@@ -29,6 +29,12 @@ namespace SnipeSharp.Models.Enumerations
         Restore,
         /// <summary>The associated object may have its properties set and updated.</summary>
         [EnumMember(Value = "update")]
-        Update
+        Update,
+        /// <summary>The associated object may be requested.</summary>
+        [EnumMember(Value = "request")]
+        Request,
+        /// <summary>The associated request may be canceled.</summary>
+        [EnumMember(Value = "cancel")]
+        CancelRequest,
     }
 }

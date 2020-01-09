@@ -42,8 +42,10 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.CustomFieldDictionaryConverter:
                         property.Converter = CustomFieldDictionaryConverter.Instance;
                         break;
-                    case FieldConverter.AssetStatusConverter:
-                    case FieldConverter.None:
+                    case FieldConverter.FalseyUriConverter:
+                        property.Converter = FalseyUriConverter.Instance;
+                        break;
+                    default:
                         break;
                 }
             } else

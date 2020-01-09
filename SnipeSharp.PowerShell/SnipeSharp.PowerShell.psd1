@@ -7,7 +7,7 @@
     DefaultCommandPrefix = 'Snipe'
 
     # Version number of this module.
-    ModuleVersion = '0.0.2'
+    ModuleVersion = '0.0.3'
     CompatiblePSEditions = @('5.1')
 
     # ID used to uniquely identify this module
@@ -57,6 +57,7 @@
         'Get-Location'
         'Get-Manufacturer'
         'Get-Model'
+        'Get-Request'
         'Get-StatusLabel'
         'Get-Supplier'
         'Get-User'
@@ -112,6 +113,7 @@
         'Find-Location'
         'Find-Manufacturer'
         'Find-Model'
+        'Find-RequestableAsset'
         'Find-StatusLabel'
         'Find-Supplier'
         'Find-User'

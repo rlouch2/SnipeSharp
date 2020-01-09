@@ -30,6 +30,7 @@ namespace SnipeSharp.Serialization
                 case FieldConverter.PermissionsConverter:
                 case FieldConverter.MessagesConverter:
                 case FieldConverter.MonthsConverter:
+                case FieldConverter.FalseyUriConverter:
                     converter = null;
                     return false;
                 case FieldConverter.None:

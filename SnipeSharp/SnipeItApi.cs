@@ -92,6 +92,11 @@ namespace SnipeSharp
         }
 
         /// <value>
+        /// Returns an <see cref="EndPoint.AccountEndPoint"/>.
+        /// </value>
+        public /* readonly */ AccountEndPoint Account { get; }
+
+        /// <value>
         /// Returns an <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> suitable for <see cref="SnipeSharp.Models.Asset">Assets</see>.
         /// </value>
         public /* readonly */ AssetEndPoint Assets { get; }
@@ -204,6 +209,7 @@ namespace SnipeSharp
             RequestManager = new RestClientManager(this, restClient);
 
             // endpoints
+            Account = new AccountEndPoint(this);
             Assets = new AssetEndPoint(this);
             Accessories = new AccessoryEndPoint(this);
             Categories = new EndPoint<Category>(this);

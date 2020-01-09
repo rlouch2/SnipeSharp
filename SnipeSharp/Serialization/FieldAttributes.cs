@@ -57,6 +57,9 @@ namespace SnipeSharp.Serialization
         AvailableActionsConverter,
 
         /// <seealso cref="CustomFieldDictionaryConverter" />
-        CustomFieldDictionaryConverter
+        CustomFieldDictionaryConverter,
+
+        /// <seealso cref="FalseyUriConverter"/>
+        FalseyUriConverter,
     }
 }
