@@ -205,7 +205,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     filter.AssignedToType = AssignedToType.Location;
                     break;
                 case nameof(ParameterSets.AssignedToUser):
-                    if (!this.GetSingleValue(AssignedLocation, out var assignedUser))
+                    if (!this.GetSingleValue(AssignedUser, out var assignedUser))
                         return false;
                     filter.AssignedTo = assignedUser;
                     filter.AssignedToType = AssignedToType.User;

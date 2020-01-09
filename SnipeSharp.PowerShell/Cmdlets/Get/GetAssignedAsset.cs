@@ -35,24 +35,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByUser))]
         public UserBinding[] User { get; set; }
 
-        /*
-        /// <summary>Indicates that incoming pipeline objects are users.</summary>
-        [Parameter(ParameterSetName = nameof(ParameterSets.ByUser))]
-        public SwitchParameter Users { get; set; }
-
-        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByAsset))]
-        public AssetBinding[] Asset { get; set; }
-
-        [Parameter(ParameterSetName = nameof(ParameterSets.ByAsset))]
-        public SwitchParameter Assets { get; set; }
-
-        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ParameterSets.ByLocation))]
-        public ObjectBinding<Location>[] Location { get; set; }
-
-        [Parameter(ParameterSetName = nameof(ParameterSets.ByLocation))]
-        public SwitchParameter Locations { get; set; }
-        */
-
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
@@ -64,35 +46,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
                         WriteObject(ApiHelper.Instance.Users.GetAssignedAssets(user), true);
                 }
             }
-            /*
-            else if(ParameterSetName == nameof(ParameterSets.ByLocation))
-            {
-                foreach(var item in Location)
-                {
-                    if(item.IsNull)
-                    {
-                        WriteError(new ErrorRecord(item.Error, $"Location not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
-                    } else
-                    {
-                        //WriteObject(ApiHelper.Instance.Locations.GetAssignedAssets(item.Object), !NoEnumerate.IsPresent);
-                        throw new NotImplementedException();
-                    }
-                }
-            } else
-            {
-                foreach(var item in Asset)
-                {
-                    if(item.IsNull)
-                    {
-                        WriteError(new ErrorRecord(item.Error, $"Asset not found by identity \"{item.Query}\"", ErrorCategory.InvalidArgument, item.Query));
-                    } else
-                    {
-                        //WriteObject(ApiHelper.Instance.Assets.GetAssignedAssets(item.Object), !NoEnumerate.IsPresent);
-                        throw new NotImplementedException();
-                    }
-                }
-            }
-            */
         }
     }
 }

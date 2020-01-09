@@ -7,7 +7,7 @@
     DefaultCommandPrefix = 'Snipe'
 
     # Version number of this module.
-    ModuleVersion = '0.0.3'
+    ModuleVersion = '0.0.4'
     CompatiblePSEditions = @('5.1')
 
     # ID used to uniquely identify this module
