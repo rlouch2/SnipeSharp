@@ -1,52 +1,54 @@
----
+﻿---
 external help file: SnipeSharp.PowerShell.dll-Help.xml
 Module Name: SnipeSharp.PowerShell
 online version:
 schema: 2.0.0
 ---
 
-# New-SnipeStatusLabel
+# CheckIn-SnipeAccessory
 
 ## SYNOPSIS
-Creates a new Snipe-IT status label.
+Checks in a Snipe IT accessory.
 
 ## SYNTAX
 
 ```
-New-SnipeStatusLabel [-Name] <String> [-Type] <StatusType> [-Notes <String>] [<CommonParameters>]
+CheckIn-SnipeAccessory
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]> [-Note <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The New-StatusLabel cmdlet creates a new status label object.
+The CheckIn-Accessory cmdlet checks in one or more accessory objects.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> New-StatusLabel -Name "Assignable" -Type Deployable
+PS C:\> CheckIn-Accessory 6
 ```
 
-Create a new deployable status label named "Assignable".
+Checks in the assigned accessory with ID 6.
 
 ## PARAMETERS
 
-### -Name
-The name of the status label.
+### -Identity
+An Accessory identity.
 
 ```yaml
-Type: String
+Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
-### -Notes
-Any notes for the label.
+### -Note
+The note for the Accessory's log.
 
 ```yaml
 Type: String
@@ -60,34 +62,18 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Type
-The type of status this label represents.
-
-```yaml
-Type: StatusType
-Parameter Sets: (All)
-Aliases:
-Accepted values: Pending, Archived, Undeployable, Deployable
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### System.String
+### SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[[SnipeSharp.Models.Accessory, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 
-### SnipeSharp.Models.Enumerations.StatusType
+### System.String
 
 ## OUTPUTS
 
-### SnipeSharp.Models.StatusLabel
+### SnipeSharp.Models.RequestResponse`1[[SnipeSharp.Models.Asset, SnipeSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

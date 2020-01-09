@@ -14,22 +14,22 @@ Gets a Snipe IT status label.
 
 ### All (Default)
 ```
-Get-SnipeStatusLabel [-NoEnumerate] [<CommonParameters>]
+Get-SnipeStatusLabel [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeStatusLabel -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeStatusLabel -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeStatusLabel -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeStatusLabel -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeStatusLabel [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeStatusLabel [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

@@ -5,7 +5,7 @@ using SnipeSharp.Models;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     /// <summary>Checks in a Snipe IT accessory.</summary>
-    /// <remarks>The CheckIn-Accessory cmdlet checks in one or more asset objects.</remarks>
+    /// <remarks>The CheckIn-Accessory cmdlet checks in one or more accessory objects.</remarks>
     /// <example>
     ///   <code>CheckIn-Accessory 6</code>
     ///   <para>Checks in the assigned accessory with ID 6.</para>
@@ -16,7 +16,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [OutputType(typeof(RequestResponse<Asset>))]
     public sealed class CheckInAccessory: Cmdlet
     {
-        /// <summary>An Asset object.</summary>
+        /// <summary>An Accessory identity.</summary>
         [Parameter(
             Mandatory = true,
             Position = 0,
@@ -25,7 +25,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public ObjectBinding<Accessory> Identity { get; set; }
 
-        /// <summary>The note for the Asset's log.</summary>
+        /// <summary>The note for the Accessory's log.</summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Note { get; set; }
 

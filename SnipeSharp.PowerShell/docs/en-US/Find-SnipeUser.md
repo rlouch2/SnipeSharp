@@ -18,8 +18,8 @@ Find-SnipeUser [-Deleted <Boolean>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Group <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Group]>]
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
- [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <UserSearchColumn>] [-NoEnumerate]
- [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
+ [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <UserSearchColumn>] [-IncludeTotalCount]
+ [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -146,21 +146,6 @@ Filter by location.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

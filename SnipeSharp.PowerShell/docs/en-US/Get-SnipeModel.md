@@ -14,22 +14,22 @@ Gets a Snipe IT model.
 
 ### All (Default)
 ```
-Get-SnipeModel [-NoEnumerate] [<CommonParameters>]
+Get-SnipeModel [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeModel -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeModel -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeModel -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeModel -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeModel [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeModel [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

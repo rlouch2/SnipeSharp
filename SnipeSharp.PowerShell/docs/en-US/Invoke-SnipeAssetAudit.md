@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: SnipeSharp.PowerShell.dll-Help.xml
 Module Name: SnipeSharp.PowerShell
 online version:

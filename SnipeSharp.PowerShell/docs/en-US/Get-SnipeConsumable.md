@@ -14,22 +14,22 @@ Gets a Snipe IT consumable.
 
 ### All (Default)
 ```
-Get-SnipeConsumable [-NoEnumerate] [<CommonParameters>]
+Get-SnipeConsumable [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeConsumable -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeConsumable -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeConsumable -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeConsumable -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeConsumable [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeConsumable [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

@@ -17,7 +17,7 @@ Find-SnipeAccessory [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Manufacturer <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>]
- [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <AccessorySearchColumn>] [-NoEnumerate]
+ [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <AccessorySearchColumn>]
  [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
 ```
 
@@ -108,21 +108,6 @@ Filter by manufactuerer.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

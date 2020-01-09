@@ -14,22 +14,22 @@ Gets a Snipe IT supplier.
 
 ### All (Default)
 ```
-Get-SnipeSupplier [-NoEnumerate] [<CommonParameters>]
+Get-SnipeSupplier [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeSupplier -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeSupplier -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeSupplier -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeSupplier -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeSupplier [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeSupplier [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

@@ -20,7 +20,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [OutputType(typeof(RequestResponse<Asset>))]
     public sealed class CheckInAsset: Cmdlet
     {
-        /// <summary>An Asset object.</summary>
+        /// <summary>An Asset identity.</summary>
         [Parameter(
             Mandatory = true,
             Position = 0,

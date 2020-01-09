@@ -56,7 +56,7 @@ Accept wildcard characters: False
 ```
 
 ### -Identity
-An Asset object.
+An Asset identity.
 
 ```yaml
 Type: AssetBinding

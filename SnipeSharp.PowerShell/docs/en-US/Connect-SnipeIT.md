@@ -13,7 +13,8 @@ Connects to Snipe IT.
 ## SYNTAX
 
 ```
-Connect-SnipeIT [-Token] <String> [-Uri] <Uri> [-PassThru] [<CommonParameters>]
+Connect-SnipeIT [-Token] <String> [-Uri] <Uri> [-PassThru] [-Force] [-DisableLookupVerification]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,6 +32,36 @@ PS C:\> Connect-SnipeIT -Uri 'https://inventory.example.com/api/v1' -ApiToken $A
 Connect to a Snipe IT session at "inventory.example.com" with the token in $ApiToken.
 
 ## PARAMETERS
+
+### -DisableLookupVerification
+When provided, disable making extra API calls to verify objects passed by ID or by object to arguments. Enabling this feature can provide a few performance improvements, but take care when referring to assets by asset tags, or any object by name if the name is numeric and not quoted.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Force
+Force a reconnection.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -PassThru
 Return the API object to the pipeline.

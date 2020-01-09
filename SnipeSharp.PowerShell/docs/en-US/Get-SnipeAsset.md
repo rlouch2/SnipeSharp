@@ -14,32 +14,32 @@ Gets a Snipe IT asset.
 
 ### All (Default)
 ```
-Get-SnipeAsset [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAsset [<CommonParameters>]
 ```
 
 ### ByAssetTag
 ```
-Get-SnipeAsset -AssetTag <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAsset -AssetTag <String[]> [<CommonParameters>]
 ```
 
 ### BySerial
 ```
-Get-SnipeAsset -Serial <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAsset -Serial <String[]> [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeAsset -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAsset -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeAsset -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAsset -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeAsset [-Identity] <AssetBinding[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAsset [-Identity] <AssetBinding[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -129,21 +129,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

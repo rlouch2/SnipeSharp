@@ -14,7 +14,7 @@ Finds a Snipe IT department.
 
 ```
 Find-SnipeDepartment [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <String>]
- [-NoEnumerate] [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
+ [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -56,21 +56,6 @@ Accept wildcard characters: False
 ### -IncludeTotalCount
 Reports the number of objects in the data set (an integer) followed by the objects.
 If the cmdlet cannot determine the total count, it returns 'Unknown total count'.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter

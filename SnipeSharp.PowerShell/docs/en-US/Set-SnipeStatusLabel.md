@@ -142,7 +142,7 @@ The updated type of status the label represents.
 Type: StatusType
 Parameter Sets: (All)
 Aliases:
-Accepted values: Pending, Archived, Undeployable, Deployable, Deployed
+Accepted values: Pending, Archived, Undeployable, Deployable
 
 Required: False
 Position: Named

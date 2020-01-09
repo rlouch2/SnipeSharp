@@ -14,22 +14,22 @@ Gets a Snipe IT depreciation.
 
 ### All (Default)
 ```
-Get-SnipeDepreciation [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepreciation [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeDepreciation -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepreciation -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeDepreciation -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepreciation -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeDepreciation [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepreciation [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

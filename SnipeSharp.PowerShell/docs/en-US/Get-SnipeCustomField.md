@@ -14,22 +14,22 @@ Gets a Snipe IT custom field.
 
 ### All (Default)
 ```
-Get-SnipeCustomField [-NoEnumerate] [<CommonParameters>]
+Get-SnipeCustomField [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeCustomField -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeCustomField -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeCustomField -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeCustomField -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeCustomField [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeCustomField [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

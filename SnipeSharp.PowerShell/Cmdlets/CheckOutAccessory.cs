@@ -1,4 +1,3 @@
-using System;
 using System.Management.Automation;
 using SnipeSharp.Models;
 using SnipeSharp.PowerShell.BindingTypes;
@@ -17,7 +16,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     [OutputType(typeof(RequestResponse<Asset>))]
     public sealed class CheckOutAccessory: Cmdlet
     {
-        /// <summary>An Asset identity.</summary>
+        /// <summary>An Accessory identity.</summary>
         [Parameter(
             Mandatory = true,
             Position = 0,
@@ -26,14 +25,14 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public ObjectBinding<Accessory> Accessory { get; set; }
 
-        /// <summary>The identity of a User to assign the Asset to.</summary>
+        /// <summary>The identity of a User to assign the Accessory to.</summary>
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true
         )]
         public UserBinding AssignedUser { get; set; }
 
-        /// <summary>The note for the Asset's log.</summary>
+        /// <summary>The note for the Accessory's log.</summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
         public string Note { get; set; }
 

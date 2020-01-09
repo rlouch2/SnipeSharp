@@ -14,37 +14,37 @@ Gets a Snipe IT user.
 
 ### All (Default)
 ```
-Get-SnipeUser [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser [-Deleted <Boolean>] [<CommonParameters>]
 ```
 
 ### ByUserName
 ```
-Get-SnipeUser -UserName <String[]> [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser -UserName <String[]> [-Deleted <Boolean>] [<CommonParameters>]
 ```
 
 ### ByEmailAddress
 ```
-Get-SnipeUser -EmailAddress <String[]> [-Deleted <Boolean>] [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser -EmailAddress <String[]> [-Deleted <Boolean>] [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeUser [-Deleted <Boolean>] [-Identity] <UserBinding[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser [-Deleted <Boolean>] [-Identity] <UserBinding[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeUser [-Deleted <Boolean>] -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser [-Deleted <Boolean>] -Name <String[]> [<CommonParameters>]
 ```
 
 ### Me
 ```
-Get-SnipeUser [-Me] [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser [-Me] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeUser -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeUser -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -166,21 +166,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

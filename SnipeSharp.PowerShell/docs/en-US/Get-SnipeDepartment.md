@@ -14,22 +14,22 @@ Gets a Snipe IT department.
 
 ### All (Default)
 ```
-Get-SnipeDepartment [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepartment [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeDepartment -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepartment -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeDepartment -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepartment -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeDepartment [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeDepartment [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

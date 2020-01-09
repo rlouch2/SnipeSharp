@@ -14,22 +14,22 @@ Gets a Snipe IT component.
 
 ### All (Default)
 ```
-Get-SnipeComponent [-NoEnumerate] [<CommonParameters>]
+Get-SnipeComponent [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Get-SnipeComponent -InternalId <Int32[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeComponent -InternalId <Int32[]> [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Get-SnipeComponent -Name <String[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeComponent -Name <String[]> [<CommonParameters>]
 ```
 
 ### ByIdentity
 ```
-Get-SnipeComponent [-Identity] <ObjectBinding`1[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeComponent [-Identity] <ObjectBinding`1[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,21 +104,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

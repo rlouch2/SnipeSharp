@@ -13,7 +13,7 @@ Finds a Snipe IT custom field set.
 ## SYNTAX
 
 ```
-Find-SnipeFieldSet [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <String>] [-NoEnumerate]
+Find-SnipeFieldSet [[-SearchString] <String>] [-SortOrder <SearchOrder>] [-SortColumn <String>]
  [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
 ```
 
@@ -56,21 +56,6 @@ Accept wildcard characters: False
 ### -IncludeTotalCount
 Reports the number of objects in the data set (an integer) followed by the objects.
 If the cmdlet cannot determine the total count, it returns 'Unknown total count'.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
 
 ```yaml
 Type: SwitchParameter
