@@ -499,7 +499,7 @@ namespace SnipeSharp.Tests
         public void ErrorResponseThrowsException()
         {
             Assert.Throws<ApiErrorException>(() => {
-               SingleUseApiFromFile("./Resources/error_no_status_label.json").StatusLabels.Get(0);
+               SingleUseApi("{\"status\":\"error\",\"messages\":\"Statuslabel not found\",\"payload\":null}").StatusLabels.Get(0);
             });
         }
 
@@ -507,7 +507,7 @@ namespace SnipeSharp.Tests
         public void HttpErrorThrowsException()
         {
             Assert.Throws<ApiErrorException>(() => {
-                SingleUseApiFromFile("./Resources/error_404.json", false, HttpStatusCode.NotFound).StatusLabels.Get(0);
+                SingleUseApi("{\"status\":\"error\",\"messages\":\"404 endpoint not found\",\"payload\":null}", false, HttpStatusCode.NotFound).StatusLabels.Get(0);
             });
         }
     }
