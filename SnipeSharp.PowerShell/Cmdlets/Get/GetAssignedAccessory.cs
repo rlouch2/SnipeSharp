@@ -22,17 +22,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
         public UserBinding[] User { get; set; }
 
-        /// <summary>If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</summary>
-        [Parameter]
-        public SwitchParameter NoEnumerate { get; set; }
-
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
             foreach(var item in User)
             {
                 if (this.GetSingleValue(item, out var itemValue))
-                    WriteObject(ApiHelper.Instance.Users.GetAssignedAccessories(itemValue), !NoEnumerate.IsPresent);
+                    WriteObject(ApiHelper.Instance.Users.GetAssignedAccessories(itemValue), true);
             }
         }
     }

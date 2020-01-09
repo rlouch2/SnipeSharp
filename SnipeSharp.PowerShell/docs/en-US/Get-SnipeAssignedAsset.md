@@ -19,6 +19,8 @@ Get-SnipeAssignedAsset [-User] <UserBinding[]> [-NoEnumerate] [<CommonParameters
 ## DESCRIPTION
 The Get-AssignedAsset cmdlet gets, for each user provided, the asset objects associated with that user.
 
+The Asset objects returned by this cmdlet will not have their assignee data.
+
 ## EXAMPLES
 
 ### Example 1

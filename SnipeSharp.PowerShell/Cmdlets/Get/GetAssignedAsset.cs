@@ -5,7 +5,10 @@ using SnipeSharp.PowerShell.BindingTypes;
 namespace SnipeSharp.PowerShell.Cmdlets
 {
     /// <summary>Gets the Snipe IT assets assigned to a user.</summary>
-    /// <remarks>The Get-AssignedAsset cmdlet gets, for each user provided, the asset objects associated with that user.</remarks>
+    /// <remarks>
+    ///   <para>The Get-AssignedAsset cmdlet gets, for each user provided, the asset objects associated with that user.</para>
+    ///   <para>The Asset objects returned by this cmdlet will not have their assignee data.</para>
+    /// </remarks>
     /// <example>
     ///   <code>Get-AssignedAsset User1234</code>
     ///   <para>Retrieves the assets assigned to the user User1234.</para>
@@ -50,10 +53,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public SwitchParameter Locations { get; set; }
         */
 
-        /// <summary>If present, return the result as a <see cref="SnipeSharp.Models.ResponseCollection{T}"/> rather than enumerating.</summary>
-        [Parameter]
-        public SwitchParameter NoEnumerate { get; set; }
-
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
@@ -61,8 +60,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
             {
                 foreach(var item in User)
                 {
-                    if (this.GetSingleValue(item, out var itemValue))
-                        WriteObject(ApiHelper.Instance.Users.GetAssignedAssets(itemValue), !NoEnumerate.IsPresent);
+                    if (this.GetSingleValue(item, out var user))
+                        WriteObject(ApiHelper.Instance.Users.GetAssignedAssets(user), true);
                 }
             }
             /*

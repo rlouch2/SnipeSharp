@@ -12,8 +12,8 @@ using SnipeSharp.Collections;
 namespace SnipeSharp.Models
 {
     /// <summary>
-    /// An Accessory.
-    /// Accessories may be checked out to Users, Locations, or other Assets.
+    /// An Asset.
+    /// Asset may be checked out to Users, Locations, or other Assets.
     /// </summary>
     [PathSegment("hardware")]
     public sealed class Asset : CommonEndPointModel, IAvailableActions, IUpdatable<Asset>

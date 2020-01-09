@@ -9,7 +9,7 @@ namespace SnipeSharp.Models.Enumerations
     /// </summary>
     /// <remarks>This enum has extra values to support the status metas.</remarks>
     /// <seealso cref="StatusType" />
-    /// <seealso cref="FilterStatusMeta" />
+    /// <seealso cref="Filters.FilterStatusMeta" />
     [JsonConverter(typeof(StringEnumConverter))]
     public enum StatusMeta
     {
