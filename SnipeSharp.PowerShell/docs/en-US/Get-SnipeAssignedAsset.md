@@ -13,7 +13,7 @@ Gets the Snipe IT assets assigned to a user.
 ## SYNTAX
 
 ```
-Get-SnipeAssignedAsset [-User] <UserBinding[]> [-NoEnumerate] [<CommonParameters>]
+Get-SnipeAssignedAsset [-User] <UserBinding[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,21 +38,6 @@ PS C:\> Get-Asset User1234, User5678
 Retrieve the assets assigned to the user User1234 or the user User5678.
 
 ## PARAMETERS
-
-### -NoEnumerate
-If present, return the result as a ResponseCollection rather than enumerating.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -User
 The user to find the assets of.
