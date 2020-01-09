@@ -5,8 +5,6 @@ using SnipeSharp.Models;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Serialization;
 using Newtonsoft.Json;
-
-using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -55,8 +53,35 @@ namespace SnipeSharp
             return response.Content;
         }
 
-        internal ApiOptionalResponse<R> Get<R>(string path, ISearchFilter filter = null) where R: ApiObject
-            => ExecuteRequest<R>(CreateRequest(path, Method.GET).Add(filter));
+        internal ApiOptionalResponse<R> Get<R>(string path, ISearchFilter filter = null)
+            where R: ApiObject
+        {
+            var request = CreateRequest(path, Method.GET, filter);
+            SetTokenAndUri();
+#if DEBUG
+            var uri = Client.BuildUri(request);
+            Api.DebugList.Add(uri.ToString());
+#endif
+            var response = Client.Execute(request);
+            if(!response.IsSuccessful)
+                throw new ApiErrorException(response.StatusCode, response.Content);
+#if DEBUG
+            Api.DebugResponseList.Add(response);
+#endif
+            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
+
+            if("error" == asRequestResponse.Status)
+            {
+                return new ApiOptionalResponse<R>
+                {
+                    Exception = asRequestResponse.Messages.ContainsKey("general")
+                        ? new ApiErrorException(asRequestResponse.Messages["general"])
+                        : new ApiErrorException(asRequestResponse.Messages)
+                };
+            }
+
+            return new ApiOptionalResponse<R> { Value = serializerDeserializer.Deserialize<R>(response) };
+        }
 
         internal ApiOptionalMultiResponse<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
         {
@@ -86,50 +111,27 @@ namespace SnipeSharp
             return result;
         }
 
-        internal ApiOptionalResponse<RequestResponse<R>> Post<R>(string path, R @object) where R: ApiObject
-            => Post<R, R>(path, @object);
+        internal ApiOptionalResponse<RequestResponse<R>> Post<R>(string path, R obj)
+            where R: ApiObject
+            => ExecuteRequest<R>(Method.POST, path, obj);
 
-        internal ApiOptionalResponse<RequestResponse<R>> Post<T, R>(string path, T @object) where T: ApiObject where R: ApiObject
-            => ExecuteRequest2<R>(CreateRequest(path, Method.POST).Add(@object));
+        internal ApiOptionalResponse<RequestResponse<R>> Post<T, R>(string path, T obj)
+            where T: ApiObject
+            where R: ApiObject
+            => ExecuteRequest<R>(Method.POST, path, obj);
 
-        internal ApiOptionalResponse<RequestResponse<R>> Patch<R>(string path, R @object) where R: ApiObject
-            => ExecuteRequest2<R>(CreateRequest(path, Method.PATCH).Add(@object));
+        internal ApiOptionalResponse<RequestResponse<R>> Patch<R>(string path, R obj)
+            where R: ApiObject
+            => ExecuteRequest<R>(Method.PATCH, path, obj);
 
-        internal ApiOptionalResponse<RequestResponse<R>> Delete<R>(string path) where R: ApiObject
-            => ExecuteRequest2<R>(CreateRequest(path, Method.DELETE));
+        internal ApiOptionalResponse<RequestResponse<R>> Delete<R>(string path)
+            where R: ApiObject
+            => ExecuteRequest<R>(Method.DELETE, path);
 
-        private ApiOptionalResponse<R> ExecuteRequest<R>(RestRequest request)
+        private ApiOptionalResponse<RequestResponse<R>> ExecuteRequest<R>(Method method, string path, ApiObject obj = null)
             where R: ApiObject
         {
-            SetTokenAndUri();
-#if DEBUG
-            var uri = Client.BuildUri(request);
-            Api.DebugList.Add(uri.ToString());
-#endif
-            var response = Client.Execute(request);
-            if(!response.IsSuccessful)
-                throw new ApiErrorException(response.StatusCode, response.Content);
-#if DEBUG
-            Api.DebugResponseList.Add(response);
-#endif
-            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
-
-            if("error" == asRequestResponse.Status)
-            {
-                return new ApiOptionalResponse<R>
-                {
-                    Exception = asRequestResponse.Messages.ContainsKey("general")
-                        ? new ApiErrorException(asRequestResponse.Messages["general"])
-                        : new ApiErrorException(asRequestResponse.Messages)
-                };
-            }
-
-            return new ApiOptionalResponse<R> { Value = serializerDeserializer.Deserialize<R>(response) };
-        }
-
-        private ApiOptionalResponse<RequestResponse<R>> ExecuteRequest2<R>(RestRequest request)
-            where R: ApiObject
-        {
+            var request = CreateRequest(path, method, obj);
             SetTokenAndUri();
 #if DEBUG
             var uri = Client.BuildUri(request);
@@ -155,49 +157,43 @@ namespace SnipeSharp
             return new ApiOptionalResponse<RequestResponse<R>> { Value = asRequestResponse };
         }
 
-        private RestRequest CreateRequest(string path, Method method)
-            => new RestRequest(path, method)
+        internal RestRequest CreateRequest(string path, Method method, object obj)
+        {
+            var request = new RestRequest(path, method)
             {
                 RequestFormat = DataFormat.Json,
                 JsonSerializer = serializerDeserializer
             };
-    }
 
-    internal static class RestRequestExtensions
-    {
-        internal static RestRequest Add(this RestRequest request, object @object)
-        {
-            if(null != @object)
+            if(null == obj)
+                return request;
+            if(Method.GET != method)
             {
-                if(request.Method == Method.GET)
+                request.AddJsonBody(obj);
+                return request;
+            }
+            var type = obj.GetType();
+            foreach(var property in type.GetProperties())
+            {
+                if(!(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute))
+                    continue;
+                if(string.IsNullOrEmpty(attribute.SerializeAs))
+                    continue;
+                var value = property.GetValue(obj);
+                if(attribute.IsRequired && null == value)
+                    throw new MissingRequiredFieldException<object>(type.Name, property.Name);
+                if(null == value)
+                    // early-out, don't try to use converter, don't add parameter
+                    continue;
+                if(SerializationContractResolver.TryGetConverter(property, attribute, out var converter))
                 {
-                    var type = @object.GetType();
-                    foreach(var property in type.GetProperties())
-                    {
-                        if(!(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute))
-                            continue;
-                        if(string.IsNullOrEmpty(attribute.SerializeAs))
-                            continue;
-                        var value = property.GetValue(@object);
-                        if(attribute.IsRequired && null == value)
-                            throw new MissingRequiredFieldException<object>(type.Name, property.Name);
-                        if(null == value)
-                            // early-out, don't try to use converter, don't add parameter
-                            continue;
-                        if(SerializationContractResolver.TryGetConverter(attribute, out var converter))
-                        {
-                            var stringBuilder = new StringBuilder();
-                            using(var stringWriter = new StringWriter(stringBuilder))
-                            using(var jsonWriter = new JsonTextWriter(stringWriter))
-                                converter.WriteJson(jsonWriter, value, JsonSerializer.CreateDefault(NewtonsoftJsonSerializer.SerializerSettings));
-                            value = stringBuilder.ToString();
-                        }
-                        request.AddParameter(attribute.SerializeAs, value);
-                    }
-                } else
-                {
-                    request.AddJsonBody(@object);
+                    var stringBuilder = new StringBuilder();
+                    using(var stringWriter = new StringWriter(stringBuilder))
+                    using(var jsonWriter = new JsonTextWriter(stringWriter))
+                        converter.WriteJson(jsonWriter, value, NewtonsoftJsonSerializer.Serializer);
+                    value = stringBuilder.ToString();
                 }
+                request.AddParameter(attribute.SerializeAs, value);
             }
             return request;
         }

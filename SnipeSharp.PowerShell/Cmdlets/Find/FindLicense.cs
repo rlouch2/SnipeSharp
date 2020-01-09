@@ -16,12 +16,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.Find, nameof(License), SupportsPaging = true)]
     [OutputType(typeof(License))]
-    public class FindLicense: FindObject<License, string, SearchFilter>
+    public class FindLicense: FindObject<License>
     {
-        /// <inheritdoc />
-        protected override bool PopulateFilter(SearchFilter filter)
-        {
-            return true;
-        }
     }
 }

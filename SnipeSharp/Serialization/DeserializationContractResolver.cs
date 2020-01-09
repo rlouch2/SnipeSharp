@@ -7,8 +7,6 @@ namespace SnipeSharp.Serialization
 {
     internal sealed class DeserializationContractResolver : DefaultContractResolver
     {
-        public static readonly DeserializationContractResolver Instance = new DeserializationContractResolver();
-
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);

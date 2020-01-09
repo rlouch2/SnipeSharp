@@ -2,6 +2,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Collections.Generic;
 
 namespace SnipeSharp.Filters
 {
@@ -62,7 +63,7 @@ namespace SnipeSharp.Filters
         /// Only search for assets assigned to this type (user, asset, or location).
         /// </summary>
         [Field("assigned_type")]
-        public AssignedToType AssignedToType { get; set; }
+        public AssignedToType? AssignedToType { get; set; } = null;
 
         /// <summary>
         /// Only search for assets owned by this company.
@@ -87,6 +88,13 @@ namespace SnipeSharp.Filters
         /// </summary>
         [Field("order_number")]
         public string OrderNumber { get; set; }
+
+        /// <summary>Additional filtering by custom fields using exact column names as keys.</summary>
+        public Dictionary<string, string> CustomFields { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>Internal serialization dictionary for <see cref="CustomFields"/>.</summary>
+        [Field("filter")]
+        protected Dictionary<string, string> _customFields { get; set; } = null;
 
         internal AbstractAssetSearchFilter()
         {

@@ -6,7 +6,7 @@ namespace SnipeSharp.Filters
     /// <summary>
     /// A filter for manufacturers, featuring manufacturer-only search fields.
     /// </summary>
-    public sealed class ManufacturerSearchFilter : ISortableSearchFilter<ManufacturerSearchColumn>
+    public sealed class ManufacturerSearchFilter : ISortableSearchFilter<ManufacturerSearchColumn?>
     {
         /// <inheritdoc />
         [Field("limit")]
@@ -22,16 +22,16 @@ namespace SnipeSharp.Filters
 
         /// <inheritdoc />
         [Field("sort")]
-        public ManufacturerSearchColumn SortColumn { get; set; }
+        public ManufacturerSearchColumn? SortColumn { get; set; }
 
         /// <inheritdoc />
         [Field("order")]
         public SearchOrder? Order { get; set; }
 
         /// <summary>
-        /// Search only deleted users.
+        /// Search only deleted manufacturers.
         /// </summary>
-        [Field("deleted", Converter = BoolStringConverter)]
+        [Field("deleted")]
         public bool? Deleted { get; set; }
 
         /// <summary>

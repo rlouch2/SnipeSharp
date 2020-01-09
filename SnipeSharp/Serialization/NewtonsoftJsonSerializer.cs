@@ -12,18 +12,23 @@ namespace SnipeSharp.Serialization
         public string RootElement { get; set; }
         public string Namespace { get; set; }
 
-        public static JsonSerializerSettings SerializerSettings =>
+        public static JsonSerializerSettings SerializerSettings { get; } =
             new JsonSerializerSettings {
-                ContractResolver = SerializationContractResolver.Instance,
+                ContractResolver = new SerializationContractResolver(),
                 NullValueHandling = NullValueHandling.Ignore
             };
+
+        public static JsonSerializerSettings DeserializerSettings { get; } =
+            new JsonSerializerSettings {
+                ContractResolver = new DeserializationContractResolver()
+            };
+
+        public static JsonSerializer Serializer { get; } = JsonSerializer.CreateDefault(SerializerSettings);
 
         public string Serialize(object @object)
             => JsonConvert.SerializeObject(@object, SerializerSettings);
 
         public T Deserialize<T>(IRestResponse response)
-            => JsonConvert.DeserializeObject<T>(response.Content, new JsonSerializerSettings {
-                ContractResolver = DeserializationContractResolver.Instance
-            });
+            => JsonConvert.DeserializeObject<T>(response.Content, DeserializerSettings);
     }
 }

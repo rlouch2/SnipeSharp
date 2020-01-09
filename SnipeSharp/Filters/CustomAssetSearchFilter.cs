@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Filters
@@ -40,6 +41,13 @@ namespace SnipeSharp.Filters
         public CustomAssetSearchFilter(string searchString)
         {
             Search = searchString;
+        }
+
+        [OnSerializing]
+        private void OnSerializing(StreamingContext context)
+        {
+            if(null != CustomFields && CustomFields.Count > 0)
+                _customFields = CustomFields;
         }
     }
 }

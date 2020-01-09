@@ -6,7 +6,7 @@ namespace SnipeSharp.Filters
     /// <summary>
     /// A filter for license seats, featuring license-seat-only search fields.
     /// </summary>
-    public sealed class LicenseSeatSearchFilter : ISortableSearchFilter<LicenseSeatSearchColumn>
+    public sealed class LicenseSeatSearchFilter : ISortableSearchFilter<LicenseSeatSearchColumn?>
     {
         /// <summary>
         /// The number of items to return in a single request. By default 50.
@@ -24,7 +24,7 @@ namespace SnipeSharp.Filters
         /// The column to sort on.
         /// </summary>
         [Field("sort")]
-        public LicenseSeatSearchColumn SortColumn { get; set; }
+        public LicenseSeatSearchColumn? SortColumn { get; set; }
 
         /// <summary>
         /// Whether to sort the request in ascending or descending order based on the sort column.

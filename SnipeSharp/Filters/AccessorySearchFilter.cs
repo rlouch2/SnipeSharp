@@ -7,7 +7,7 @@ namespace SnipeSharp.Filters
     /// <summary>
     /// A filter for accessories, featuring accessory-only search fields.
     /// </summary>
-    public sealed class AccessorySearchFilter : ISortableSearchFilter<AccessorySearchColumn>
+    public sealed class AccessorySearchFilter : ISortableSearchFilter<AccessorySearchColumn?>
     {
         /// <inheritdoc />
         [Field("limit")]
@@ -23,7 +23,7 @@ namespace SnipeSharp.Filters
 
         /// <inheritdoc />
         [Field("sort")]
-        public AccessorySearchColumn SortColumn { get; set; }
+        public AccessorySearchColumn? SortColumn { get; set; }
 
         /// <inheritdoc />
         [Field("order")]

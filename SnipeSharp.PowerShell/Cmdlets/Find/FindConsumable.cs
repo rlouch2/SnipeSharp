@@ -16,12 +16,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.Find, nameof(Consumable), SupportsPaging = true)]
     [OutputType(typeof(Consumable))]
-    public class FindConsumable: FindObject<Consumable, string, SearchFilter>
+    public class FindConsumable: FindObject<Consumable>
     {
-        /// <inheritdoc />
-        protected override bool PopulateFilter(SearchFilter filter)
-        {
-            return true;
-        }
     }
 }

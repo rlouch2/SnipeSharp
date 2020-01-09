@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Filters
@@ -6,15 +7,15 @@ namespace SnipeSharp.Filters
     /// <summary>
     /// A filter for assets, featuring asset-only search fields.
     /// </summary>
-    public sealed class AssetSearchFilter : AbstractAssetSearchFilter, ISortableSearchFilter<AssetSearchColumn>
+    public sealed class AssetSearchFilter : AbstractAssetSearchFilter, ISortableSearchFilter<AssetSearchColumn?>
     {
         /// <inheritdoc />
         [Field("limit")]
-        public int? Limit { get; set; }
+        public int? Limit { get; set; } = null;
 
         /// <inheritdoc />
         [Field("offset")]
-        public int? Offset { get; set; }
+        public int? Offset { get; set; } = null;
 
         /// <inheritdoc />
         [Field("search")]
@@ -22,15 +23,11 @@ namespace SnipeSharp.Filters
 
         /// <inheritdoc />
         [Field("sort")]
-        public AssetSearchColumn SortColumn { get; set; }
+        public AssetSearchColumn? SortColumn { get; set; } = null;
 
         /// <inheritdoc />
         [Field("order")]
-        public SearchOrder? Order { get; set; }
-
-        /// <inheritdoc />
-        [Field("filter")]
-        public Dictionary<string, string> CustomFields { get; set; } = new Dictionary<string, string>();
+        public SearchOrder? Order { get; set; } = null;
 
         /// <summary>
         /// Initialize a new instance of the AssetSearchFilter class.
@@ -58,6 +55,13 @@ namespace SnipeSharp.Filters
         {
             CustomFields[name] = value;
             return this;
+        }
+
+        [OnSerializing]
+        private void OnSerializing(StreamingContext context)
+        {
+            if(null != CustomFields && CustomFields.Count > 0)
+                _customFields = CustomFields;
         }
     }
 }

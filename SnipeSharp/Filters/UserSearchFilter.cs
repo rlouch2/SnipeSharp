@@ -7,7 +7,7 @@ namespace SnipeSharp.Filters
     /// <summary>
     /// A filter for users, featuring user-only search fields.
     /// </summary>
-    public sealed class UserSearchFilter : ISortableSearchFilter<UserSearchColumn>
+    public sealed class UserSearchFilter : ISortableSearchFilter<UserSearchColumn?>
     {
         /// <inheritdoc />
         [Field("limit")]
@@ -23,16 +23,16 @@ namespace SnipeSharp.Filters
 
         /// <inheritdoc />
         [Field("sort")]
-        public UserSearchColumn SortColumn { get; set; }
+        public UserSearchColumn? SortColumn { get; set; }
 
         /// <inheritdoc />
         [Field("order")]
-        public SearchOrder? Order { get; set; }
+        public SearchOrder? Order { get; set; } = null;
 
         /// <summary>
         /// Search only deleted users.
         /// </summary>
-        [Field("deleted", Converter = BoolStringConverter)]
+        [Field("deleted")]
         public bool? Deleted { get; set; }
 
         /// <summary>
