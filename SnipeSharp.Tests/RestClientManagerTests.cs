@@ -34,7 +34,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void AddObject_SkipsIfSerializeAsIsNull()
         {
-            var request = new RestClientManager(null, null).CreateRequest(REST_REQUEST_PATH, Method.GET, new AddObjectTestClassNullSerializeAs());
+            var request = SingleUseApi().RequestManager.CreateRequest(REST_REQUEST_PATH, Method.GET, new AddObjectTestClassNullSerializeAs());
             Assert.Empty(request.Parameters);
         }
 
@@ -42,13 +42,13 @@ namespace SnipeSharp.Tests
         public void AddObject_ThrowsMissingRequiredFieldException()
         {
             Assert.Throws<MissingRequiredFieldException<object>>(()
-                => new RestClientManager(null, null).CreateRequest(REST_REQUEST_PATH, Method.GET, new AddObjectTestClassIsRequired()));
+                => SingleUseApi().RequestManager.CreateRequest(REST_REQUEST_PATH, Method.GET, new AddObjectTestClassIsRequired()));
         }
 
         [Fact]
         public void AddObject_UsesConverter()
         {
-            var request = new RestClientManager(null, null).CreateRequest(REST_REQUEST_PATH, Method.GET, new AddObjectTestClassSerializeConverter { User = new User(0) });
+            var request = SingleUseApi().RequestManager.CreateRequest(REST_REQUEST_PATH, Method.GET, new AddObjectTestClassSerializeConverter { User = new User(0) });
             Assert.Single(request.Parameters);
             Assert.Equal(nameof(AddObjectTestClassSerializeConverter.User), request.Parameters[0].Name);
             Assert.Equal(0.ToString(), request.Parameters[0].Value);
