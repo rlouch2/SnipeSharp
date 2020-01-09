@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SnipeSharp.Models;
 using SnipeSharp.Serialization;
 
@@ -42,7 +45,10 @@ namespace SnipeSharp.Filters
         public SearchOrder? Order { get; set; }
 
         /// <inheritdoc />
-        public Dictionary<string, object> CustomFields { get; set; } = new Dictionary<string, object>();
+        public Dictionary<string, string> CustomFields { get; set; } = new Dictionary<string, string>();
+
+        [JsonExtensionData]
+        private Dictionary<string, JToken> _customFields { get; set; }
 
         /// <summary>
         /// Instantiates a new SearchFilter.
@@ -69,10 +75,19 @@ namespace SnipeSharp.Filters
         /// <param name="name">The name of the field.</param>
         /// <param name="value">The value of the field.</param>
         /// <returns>A reference to this instance after the AddField operation has completed.</returns>
-        public SearchFilter AddField(string name, object value)
+        public SearchFilter AddField(string name, string value)
         {
             CustomFields[name] = value;
             return this;
+        }
+
+        [OnSerializing]
+        private void OnSerializing(StreamingContext context)
+        {
+            _customFields = new Dictionary<string, JToken>();
+            if(null != CustomFields)
+                foreach(var pair in CustomFields)
+                    _customFields[pair.Key] = pair.Value;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Filters
@@ -27,6 +28,10 @@ namespace SnipeSharp.Filters
         [Field("order")]
         public SearchOrder? Order { get; set; }
 
+        /// <inheritdoc />
+        [Field("filter")]
+        public Dictionary<string, string> CustomFields { get; set; } = new Dictionary<string, string>();
+
         /// <summary>
         /// Initialize a new instance of the AssetSearchFilter class.
         /// </summary>
@@ -40,6 +45,19 @@ namespace SnipeSharp.Filters
         public AssetSearchFilter(string searchString)
         {
             Search = searchString;
+        }
+
+        /// <summary>
+        /// Adds a custom field to this filter.
+        /// </summary>
+        /// <remarks>These will be passed as a dictionary under the "filter" key.</remarks>
+        /// <param name="name">The name of the field. This is the column name, not the friendly name.</param>
+        /// <param name="value">The value of the field.</param>
+        /// <returns>A reference to this instance after the AddField operation has completed.</returns>
+        public AssetSearchFilter AddField(string name, string value)
+        {
+            CustomFields[name] = value;
+            return this;
         }
     }
 }

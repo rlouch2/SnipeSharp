@@ -4,6 +4,7 @@ using SnipeSharp.Models.Enumerations;
 using SnipeSharp.Filters;
 using SnipeSharp.PowerShell.BindingTypes;
 using SnipeSharp.PowerShell.Attributes;
+using System.Collections.Generic;
 
 namespace SnipeSharp.PowerShell.Cmdlets
 {
@@ -125,6 +126,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
         [ValidateIdentityNotNull]
         public AssetBinding AssignedAsset { get; set; }
 
+        /// <summary>
+        /// Perform additional filtering by custom fields' column names. No validation is done; incorrect column names will cause API errors.
+        /// </summary>
+        public Dictionary<string, string> CustomFields { get; set; }
+
         /// <inheritdoc />
         protected override bool PopulateFilter(AssetSearchFilter filter)
         {
@@ -182,6 +188,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 filter.IsRequestable = IsRequestable;
             if (MyInvocation.BoundParameters.ContainsKey(nameof(OrderNumber)))
                 filter.OrderNumber = OrderNumber;
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(CustomFields)))
+                filter.CustomFields = CustomFields;
             switch(ParameterSetName)
             {
                 case nameof(ParameterSets.AssignedToAsset):
