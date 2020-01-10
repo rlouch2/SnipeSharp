@@ -30,6 +30,10 @@ nuget install SnipeSharp
 
 ## Usage
 
+>
+> The PowerShell examples include the default prefix "Snipe".
+>
+
 ```csharp
 SnipeItApi snipe = new SnipeItApi {
     Token = "XXXXXXXX",
@@ -41,9 +45,9 @@ SnipeItApi snipe = new SnipeItApi {
 > PS C:\> Connect-SnipeIT -Token "XXXXXXXX" -Uri "http://xxxxx.com/api/v1"
 > ```
 
-Each endpoint has its own manager assigned to the SnipeItApi object.  Example, SnipeItApi.Assets 
+Each endpoint has its own manager assigned to the SnipeItApi object. Example, SnipeItApi.Assets
 
-Each endpoint has a common set of actions. Additional methods for each endpoint are made available as extensions in the EndPointExtensions class.
+Each endpoint has a common set of actions. Additional methods for each endpoint are made available in the relevant subclasses.
 
 ##### Common Actions
 Return all objects at this end point
@@ -52,7 +56,7 @@ snipe.Assets.GetAll()
 ```
 
 > ```powershell
-> PS C:\> Get-Asset
+> PS C:\> Get-SnipeAsset
 > ```
 
 Or, in a generic form:
@@ -60,13 +64,13 @@ Or, in a generic form:
 snipe.GetEndPoint<T>().GetAll()
 ```
 
-Find all objects matching certain filtering criteria 
+Find all objects matching certain filtering criteria
 ```csharp
 snipe.GetEndPoint<T>().FindAll(ISearchFilter filter)
 ```
 
 > ```powershell
-> PS C:\> Find-Asset @filter
+> PS C:\> Find-SnipeAsset @filter
 > ```
 
 Find first object matching search criteria
@@ -80,7 +84,7 @@ snipe.GetEndPoint<T>().Get(int Id)
 ```
 
 > ```powershell
-> PS C:\> Get-Asset $Id
+> PS C:\> Get-SnipeAsset $Id
 > ```
 
 Search for object with given name
@@ -94,7 +98,7 @@ snipe.GetEndPoint<T>().Create(T item)
 ```
 
 > ```powershell
-> PS C:\> New-Asset @properties
+> PS C:\> New-SnipeAsset @properties
 > ```
 
 Update an object
@@ -112,7 +116,7 @@ snipe.GetEndPoint<T>().Delete(int id)
 ```
 
 > ```powershell
-> PS C:\> Remove-Asset $Id
+> PS C:\> Remove-SnipeAsset $Id
 > ```
 
 ## Examples
@@ -131,7 +135,7 @@ snipe.Assets.Create(asset);
 ```
 
 > ```powershell
-> PS C:\> New-Asset -Name "Loaner1" -AssetTag 12345678 -Model Lenovo -Status "Ready to Deploy" -Location Maine
+> PS C:\> New-SnipeAsset -Name "Loaner1" -AssetTag 12345678 -Model Lenovo -Status "Ready to Deploy" -Location Maine
 > ```
 
 Update an Asset
@@ -142,7 +146,7 @@ snipe.Assets.Update(asset);
 ```
 
 > ```powershell
-> PS C:\> Set-Asset -Name "Loaner1" -NewSerial "1i37dpc3k"
+> PS C:\> Set-SnipeAsset -Name "Loaner1" -NewSerial "1i37dpc3k"
 > ```
 
 Update an asset with a Custom Field
@@ -153,7 +157,7 @@ snipe.Assets.Update(asset);
 ```
 
 > ```powershell
-> PS C:\> Set-Asset -Name "BurnerPhone-1234" -CustomField @{ "_snipeit_imei_number_37" = "01-234567-890123-4" }
+> PS C:\> Set-SnipeAsset -Name "BurnerPhone-1234" -CustomField @{ "_snipeit_imei_number_37" = "01-234567-890123-4" }
 > ```
 
 Get all assets from made by a certain manufacturer
@@ -166,8 +170,9 @@ var result = snipe.Assets.FindAll(filter);
 ```
 
 > ```powershell
-> PS C:\> Find-Asset -Manufacturer Lenovo
+> PS C:\> Find-SnipeAsset -Manufacturer Lenovo
 > ```
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
@@ -179,7 +184,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Matthew 'Barry' Carey** - *Initial work* - [BarryCarey](https://github.com/barrycarey)
-* **Christian LaCourt** - *Cleaning, Refactoring, and PowerShell* [cofl](https://github.com/cofl)
+* **Christian LaCourt** - *Rewrite for v2, and PowerShell* [cofl](https://github.com/cofl)
 
 See also the list of [contributors](./SnipeSharp/contributors) who participated in this project.
 
