@@ -1,5 +1,12 @@
 using namespace System.IO
 using namespace System.Text
+using namespace System.Net.Http
+
+PARAM (
+    [Parameter(Mandatory=$true)][string]$Token,
+    [Parameter(Mandatory=$true)][string]$Uri
+)
+
 # TODO: populate Resources/Integration with responses for integration testing.
 # This script should only be run against fresh installs of Snipe-IT, with only an admin account. See: docker
 function MakeDirectory
@@ -14,6 +21,37 @@ function MakeDirectory
         $null = mkdir -m 0755 -p $Path
         Get-Item -LiteralPath $Path
     }
+}
+[StreamWriter]$ResourceStream = $null
+function Register-String
+{
+    # Provides registration capabilities to called scripts.
+    PARAM (
+        [Parameter(Mandatory=$true, Position=0)][string]$Name,
+        [Parameter(Mandatory=$true, Position=1)][string]$Path
+    )
+    $ResourceStream.Write("            internal const string ");
+    $ResourceStream.Write($Name)
+    $ResourceStream.Write(" = """)
+    $ResourceStream.Write($Path)
+    $ResourceStream.Write(""";`n")
+}
+[hashtable]$Headers = @{
+    Headers = @{
+        Authorization = "Bearer $Token"
+        'content-type' = 'application/json'
+    }
+    UseBasicParsing = $true
+}
+function Get-APIResponse
+{
+    PARAM (
+        [Parameter(Mandatory=$true, Position=0)]
+            [ValidateSet('Get','Post','Put','Delete','Patch')]
+            [string]$Method,
+        [Parameter(Mandatory=$true, Position=1)][string]$Path
+    )
+    Invoke-WebRequest @Headers -Uri $Path | Select-Object -ExpandProperty Content
 }
 [string]$TempDirectoryPath = "$PSScriptRoot/Resources/_TempIntegration"
 [string]$FinalDirectoryPath = "$PSScriptRoot/Resources/Integration"
@@ -41,7 +79,9 @@ try
         $Stream.Write("namespace SnipeSharp.Tests`n{`n")
         $Stream.Write("    internal static partial class Resources`n    {`n")
         $Stream.Write("        internal static class $($ScriptFile.BaseName)`n        {`n")
-        & $ScriptFile.FullName -Directory $TempDirectory -ResourceStream $Stream
+        $ResourceStream = $Stream
+        & $ScriptFile.FullName -Directory $TempDirectory
+        $ResourceStream = $null
         $Stream.Write("        }`n    }`n}`n")
         $Stream.Dispose()
     }

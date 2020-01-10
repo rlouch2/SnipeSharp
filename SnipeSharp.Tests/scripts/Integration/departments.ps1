@@ -1,8 +1,7 @@
 using namespace System.IO
 
 PARAM (
-    [Parameter(Mandatory = $true)][ValidateNotNull()][DirectoryInfo]$Directory,
-    [Parameter(Mandatory = $true)][ValidateNotNull()][StreamWriter]$ResourceStream
+    [Parameter(Mandatory = $true)][ValidateNotNull()][DirectoryInfo]$Directory
 )
 # TODO: /departments
 #           GET /
