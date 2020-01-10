@@ -26,8 +26,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// How many of the accessory there are.
         /// </summary>
         [Parameter(Mandatory = true, Position = 1)]
-        [ValidateRange(1, int.MaxValue)]
-        public int Quantity { get; set; }
+        [ValidateRange(1, uint.MaxValue)]
+        public uint Quantity { get; set; }
 
         /// <summary>
         /// The manufacturer who made the accessory.
@@ -87,7 +87,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// When to start warning that the accessory is running low.
         /// </summary>
         [Parameter]
-        public int MinimumQuantity { get; set; }
+        public uint MinimumQuantity { get; set; }
 
         /// <summary>
         /// The uri of the image for the accessory.

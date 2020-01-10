@@ -61,7 +61,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// The updated quantity of the accessory.
         /// </summary>
         [Parameter]
-        public int Quantity { get; set; }
+        [ValidateRange(1, uint.MaxValue)]
+        public uint Quantity { get; set; }
 
         /// <summary>
         /// The updated date of purchase for the accessory.
@@ -85,7 +86,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// The updated minimum quantity before warning for the accessory.
         /// </summary>
         [Parameter]
-        public int MinimumQuantity { get; set; }
+        public uint MinimumQuantity { get; set; }
 
         /// <summary>
         /// The updated uri of the image for the accessory.

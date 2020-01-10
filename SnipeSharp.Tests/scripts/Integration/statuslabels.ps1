@@ -1,9 +1,8 @@
 using namespace System.IO
 
 PARAM (
-    [Parameter(Mandatory = $true, Position = 0)]
-    [ValidateNotNull()]
-    [DirectoryInfo]$Directory
+    [Parameter(Mandatory = $true)][ValidateNotNull()][DirectoryInfo]$Directory,
+    [Parameter(Mandatory = $true)][ValidateNotNull()][StreamWriter]$ResourceStream
 )
 # TODO: /statuslabels
 #           GET /assets
