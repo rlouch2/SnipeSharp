@@ -13,14 +13,14 @@ Creates a new Snipe-IT accessory.
 ## SYNTAX
 
 ```
-New-SnipeAccessory [-Name] <String> [-Quantity] <Int32>
+New-SnipeAccessory [-Name] <String> [-Quantity] <UInt32>
  [-Manufacturer] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>
  [-Category] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>]
  [-ModelNumber <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>] [-MinimumQuantity <Int32>]
+ [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>] [-MinimumQuantity <UInt32>]
  [-ImageUri <Uri>] [<CommonParameters>]
 ```
 
@@ -117,7 +117,7 @@ Accept wildcard characters: False
 When to start warning that the accessory is running low.
 
 ```yaml
-Type: Int32
+Type: UInt32
 Parameter Sets: (All)
 Aliases:
 
@@ -207,7 +207,7 @@ Accept wildcard characters: False
 How many of the accessory there are.
 
 ```yaml
-Type: Int32
+Type: UInt32
 Parameter Sets: (All)
 Aliases:
 

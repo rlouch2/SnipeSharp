@@ -21,8 +21,8 @@ Set-SnipeAccessory [-NewName <String>]
  [-ModelNumber <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Quantity <Int32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <Int32>] [-ImageUri <Uri>]
+ [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
+ [-MinimumQuantity <UInt32>] [-ImageUri <Uri>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]> [-ShowResponse]
  [<CommonParameters>]
 ```
@@ -36,8 +36,8 @@ Set-SnipeAccessory [-NewName <String>]
  [-ModelNumber <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Quantity <Int32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <Int32>] [-ImageUri <Uri>] -Name <String> [-ShowResponse] [<CommonParameters>]
+ [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
+ [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Name <String> [-ShowResponse] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -49,8 +49,8 @@ Set-SnipeAccessory [-NewName <String>]
  [-ModelNumber <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Quantity <Int32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <Int32>] [-ImageUri <Uri>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
+ [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -176,7 +176,7 @@ Accept wildcard characters: False
 The updated minimum quantity before warning for the accessory.
 
 ```yaml
-Type: Int32
+Type: UInt32
 Parameter Sets: (All)
 Aliases:
 
@@ -281,7 +281,7 @@ Accept wildcard characters: False
 The updated quantity of the accessory.
 
 ```yaml
-Type: Int32
+Type: UInt32
 Parameter Sets: (All)
 Aliases:
 

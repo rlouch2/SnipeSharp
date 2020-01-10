@@ -58,6 +58,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <inheritdoc />
         protected override void EndProcessing()
         {
+            WriteWarning("This software is considered pre-alpha and is not ready for production use. Proceed with caution, and use at your own risk.");
             var instance = new SnipeItApi {
                 Token = this.Token,
                 Uri = this.Uri
