@@ -150,7 +150,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
-        public HashSet<AvailableAction> AvailableActions { get; private set; }
+        public AvailableAction AvailableActions { get; private set; }
 
         /// <summary>
         /// Indicates that this accessory is available to be checked out.

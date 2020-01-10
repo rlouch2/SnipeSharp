@@ -174,7 +174,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
-        public HashSet<AvailableAction> AvailableActions { get; private set; }
+        public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets the groups this user is a member of.</value>
         [Field("groups", Converter = CommonModelArrayConverter)]

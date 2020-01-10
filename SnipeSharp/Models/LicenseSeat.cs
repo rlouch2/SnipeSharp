@@ -49,7 +49,7 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         /// <seealso cref="License" />
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
-        public HashSet<AvailableAction> AvailableActions { get; private set; }
+        public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets if this seat is checked out to an asset or user or not.</value>
         public bool IsCheckedOut => null != AssignedUser || null != AssignedAsset;

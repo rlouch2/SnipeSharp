@@ -52,6 +52,6 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field(DeserializeAs = "available_actions", Converter = FieldConverter.AvailableActionsConverter)]
-        public HashSet<AvailableAction> AvailableActions { get; private set; }
+        public AvailableAction AvailableActions { get; private set; }
     }
 }

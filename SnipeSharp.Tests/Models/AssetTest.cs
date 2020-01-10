@@ -3,6 +3,7 @@ using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
 using Xunit;
 using static SnipeSharp.Tests.Utility;
+using static SnipeSharp.Models.Enumerations.AvailableAction;
 
 namespace SnipeSharp.Tests
 {
@@ -76,12 +77,7 @@ namespace SnipeSharp.Tests
                 Assert.Equal("_snipeit_ipv4_address_3", ipVal.Field);
                 Assert.Null(ipVal.Value);
                 Assert.Equal("ANY", ipVal.Format);
-            Assert.Contains(result.AvailableActions, a => a == AvailableAction.CheckOut);
-            Assert.Contains(result.AvailableActions, a => a == AvailableAction.CheckIn);
-            Assert.Contains(result.AvailableActions, a => a == AvailableAction.Clone);
-            Assert.DoesNotContain(result.AvailableActions, a => a == AvailableAction.Restore);
-            Assert.Contains(result.AvailableActions, a => a == AvailableAction.Update);
-            Assert.Contains(result.AvailableActions, a => a == AvailableAction.Delete);
+            Assert.Equal(CheckOut | CheckIn | Clone | Update | Delete, result.AvailableActions);
         }
     }
 }
