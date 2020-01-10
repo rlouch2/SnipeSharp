@@ -8,7 +8,6 @@ namespace SnipeSharp.Serialization
         public string SerializeAs { get; set; }
         public FieldConverter Converter { get; set; } = FieldConverter.None;
         public bool IsRequired { get; set; } = false;
-        public bool OverrideAffinity { get; set; } = false;
 
         internal FieldAttribute()
         {

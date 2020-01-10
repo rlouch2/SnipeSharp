@@ -35,10 +35,6 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.AvailableActionsConverter:
                         property.Converter = CustomAvailableActionsConverter.Instance;
                         break;
-                    case FieldConverter.CommonModelConverter:
-                        if(attribute.OverrideAffinity)
-                            property.Converter = CustomCommonModelConverter.Instance;
-                        break;
                     case FieldConverter.CustomFieldDictionaryConverter:
                         property.Converter = CustomFieldDictionaryConverter.Instance;
                         break;

@@ -8,8 +8,13 @@ namespace SnipeSharp.Serialization
     {
         internal static readonly CustomCommonModelConverter Instance = new CustomCommonModelConverter();
         public override CommonEndPointModel ReadJson(JsonReader reader, Type objectType, CommonEndPointModel existingValue, bool hasExistingValue, JsonSerializer serializer)
-            => serializer.Deserialize<GenericEndPointModel>(reader);
+            => throw new NotImplementedException();
         public override void WriteJson(JsonWriter writer, CommonEndPointModel value, JsonSerializer serializer)
-            => writer.WriteValue(value?.Id);
+        {
+            if(null == value)
+                writer.WriteNull();
+            else
+                writer.WriteValue(value.Id);
+        }
     }
 }
