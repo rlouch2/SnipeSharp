@@ -11,7 +11,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void DeserializeAsset()
         {
-            var result = SingleUseApiFromFile("./Resources/IndividualModels/asset.json").Assets.Get(0);
+            var result = SingleUseApiFromFile(Resources.IndividualModels.Asset).Assets.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Asset>(result);
             Assert.Equal(1, result.Id);

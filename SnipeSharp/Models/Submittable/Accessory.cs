@@ -100,7 +100,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field("qty", IsRequired = true)]
-        public int? Quantity { get; set; }
+        public uint? Quantity { get; set; }
 
         /// <summary>
         /// The date this Accessory was purchased.
@@ -126,7 +126,7 @@ namespace SnipeSharp.Models
         /// </summary>
         /// <remarks>Supposedly this is setable, but the field is not fillable in Snipe-IT.</remarks>
         [Field(DeserializeAs = "min_qty", SerializeAs = "min_amt")]
-        public int? MinimumQuantity { get; set; }
+        public uint? MinimumQuantity { get; set; }
 
         /// <summary>
         /// The quantity of this Accessory that has not yet been checked out.

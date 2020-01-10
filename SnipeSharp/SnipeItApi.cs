@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using RestSharp;
 using SnipeSharp.EndPoint;
+using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
 
 namespace SnipeSharp
@@ -60,6 +62,7 @@ namespace SnipeSharp
         /// <para>Tests if the Token and Uri are set and connect to the API.</para>
         /// <para>This method may produce false negatives if there are other issues with the network or computer.</para>
         /// </summary>
+        /// <remarks>This method returns true if the user is able to access /users/me, or if they receive a 403 error from that endpoint.</remarks>
         /// <returns>If the API is accessible or not.</returns>
         public bool TestConnection()
         {
@@ -67,8 +70,15 @@ namespace SnipeSharp
             {
                 RequestManager.SetTokenAndUri();
                 Users.Me();
+            } catch(ApiErrorException ex)
+            {
+                if(ex.IsHttpError && HttpStatusCode.Forbidden == ex.HttpStatusCode)
+                    // return true if we *could* connect, but our user was not allowed to view users (403)
+                    return true;
+                return false;
             } catch
             {
+                // any other error return false
                 return false;
             }
             return true;

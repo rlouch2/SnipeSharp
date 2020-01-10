@@ -7,17 +7,17 @@ using static SnipeSharp.Serialization.FieldConverter;
 namespace SnipeSharp.Models
 {
     /// <summary>
-    /// A relation between a Component and an Assignee.
+    /// A relation between a Component and an Asset.
     /// </summary>
-    public sealed class ComponentAssignee : ApiObject, IAvailableActions
+    public sealed class ComponentAsset : ApiObject, IAvailableActions
     {
-        /// <value>The ID number of the component.</value>
+        /// <value>The ID number of the association row.</value>
         [Field(DeserializeAs = "assigned_pivot_id")]
-        public int ComponentId { get; private set; }
+        public int AssignedPivotId { get; private set; }
 
-        /// <value>The ID number of the assignee.</value>
+        /// <value>The ID number of the asset.</value>
         [Field(DeserializeAs = "id")]
-        public int AssigneeId { get; private set; }
+        public int AssetId { get; private set; }
 
         /// <value>A name describing the asset.</value>
         [Field(DeserializeAs = "name")]

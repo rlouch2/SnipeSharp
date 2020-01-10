@@ -16,7 +16,7 @@ namespace SnipeSharp.EndPoint
         /// </summary>
         /// <param name="component">The component to get the assignee list of.</param>
         /// <returns>A ResponseCollection list of ComponentAssignees.</returns>
-        public ResponseCollection<ComponentAssignee> GetAssignedAssets(Component component)
-            => Api.RequestManager.GetAll<ComponentAssignee>($"{EndPointInfo.BaseUri}/{component.Id}/assets").RethrowExceptionIfAny().Value;
+        public ResponseCollection<ComponentAsset> GetAssignedAssets(Component component)
+            => Api.RequestManager.GetAll<ComponentAsset>($"{EndPointInfo.BaseUri}/{component.Id}/assets").RethrowExceptionIfAny().Value;
     }
 }
