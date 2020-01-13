@@ -19,12 +19,12 @@ namespace SnipeSharp.Models
         /// <summary>
         /// Backing field for <see cref="IsRequired"/>
         /// </summary>
-        [Field("required")]
         private IsRequiredType _isRequired;
 
         /// <summary>
         /// Whether or not the field is required in the fieldset.
         /// </summary>
+        [Field("required")]
         public bool IsRequired {
             get => _isRequired == IsRequiredType.On;
             set => _isRequired = value ? IsRequiredType.On : IsRequiredType.Off;

@@ -1,5 +1,7 @@
 using SnipeSharp.Models;
 using SnipeSharp.Filters;
+using SnipeSharp.Serialization;
+using SnipeSharp.Exceptions;
 
 namespace SnipeSharp.EndPoint
 {
@@ -14,7 +16,7 @@ namespace SnipeSharp.EndPoint
         /// </summary>
         /// <param name="toCreate">An instance of the generic type with serializable fields.</param>
         /// <returns>A stub of the object, indicating that the creation was successful.</returns>
-        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">When the request was not successful.</exception>
+        /// <exception cref="ApiErrorException">When the request was not successful.</exception>
         T Create(T toCreate);
 
         /// <summary>
@@ -22,15 +24,24 @@ namespace SnipeSharp.EndPoint
         /// </summary>
         /// <param name="toUpdate">An instance of the generic type with serializable fields.</param>
         /// <returns>A stub of the object, indicating that the update was successful.</returns>
-        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">When the request was not successful.</exception>
+        /// <exception cref="ApiErrorException">When the request was not successful.</exception>
         T Update(T toUpdate);
+
+        /// <summary>
+        /// Replace an existing object of the generic type.
+        /// </summary>
+        /// <remarks>After this operation, if the generic type implements <see cref="IPatchable" />, all patchable fields will be marked modified.</remarks>
+        /// <param name="toSet">An instance of the generic type with serializable fields.</param>
+        /// <returns>A stub of the object, indicating that the update was successful.</returns>
+        /// <exception cref="ApiErrorException">When the request was not successful.</exception>
+        T SetAll(T toSet);
 
         /// <summary>
         /// Delete an object of the generic type by Id.
         /// </summary>
         /// <param name="id">The Id of an object of the generic type.</param>
         /// <returns>A response indicating that the deletion was successful.</returns>
-        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">When the request was not successful.</exception>
+        /// <exception cref="ApiErrorException">When the request was not successful.</exception>
         RequestResponse<T> Delete(int id);
 
         /// <summary>
@@ -38,7 +49,7 @@ namespace SnipeSharp.EndPoint
         /// </summary>
         /// <param name="id">The Id of the object to fetch from the EndPoint.</param>
         /// <returns>The object with the supplied Id.</returns>
-        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">When the request was not successful or the object does not exist.</exception>
+        /// <exception cref="ApiErrorException">When the request was not successful or the object does not exist.</exception>
         T Get(int id);
 
         /// <summary>
@@ -55,7 +66,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="caseSensitive">If true, perform a case-sensitive match. Default false.</param>
         /// <returns>The object with the supplied name, or null if it does not exist.</returns>
         /// <param name="filter">A filter for specifying further options; the search string will be overridden.</param>
-        /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">When the request was not successful.</exception>
+        /// <exception cref="ApiErrorException">When the request was not successful.</exception>
         T Get(string name, bool caseSensitive = false, ISearchFilter filter = null);
 
         /// <summary>

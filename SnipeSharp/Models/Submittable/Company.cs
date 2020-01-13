@@ -12,7 +12,7 @@ namespace SnipeSharp.Models
     /// Companies own assets, licenses, components, etc., and has users that work for it.
     /// </summary>
     [PathSegment("companies")]
-    public sealed class Company : CommonEndPointModel, IAvailableActions, IUpdatable<Company>
+    public sealed class Company : CommonEndPointModel, IAvailableActions, IUpdatable<Company>, IPatchable
     {
         /// <summary>Create a new Company object.</summary>
         public Company() { }
@@ -27,16 +27,38 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "id")]
         public override int Id { get; set; }
 
+        private string name;
+        private bool isNameModified;
         /// <inheritdoc />
         /// <remarks>This field is required, and must be unique.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
 
+        private Uri imageUri;
+        private bool isImageUriModified;
         /// <summary>
         /// The url for the image of this company.
         /// </summary>
         [Field(DeserializeAs = "image")]
-        public Uri ImageUri { get; set; }
+        [Patch(nameof(isImageUriModified))]
+        public Uri ImageUri
+        {
+            get => imageUri;
+            set
+            {
+                isImageUriModified = true;
+                imageUri = value;
+            }
+        }
 
         /// <inheritdoc />
         [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
@@ -84,5 +106,11 @@ namespace SnipeSharp.Models
                 Name = other.Name,
                 ImageUri = other.ImageUri
             };
+
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isImageUriModified = isModified;
+        }
     }
 }

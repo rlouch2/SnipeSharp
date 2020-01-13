@@ -2,6 +2,7 @@ using System;
 
 namespace SnipeSharp.Serialization
 {
+    [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
     internal sealed class FieldAttribute : Attribute
     {
         public string DeserializeAs { get; set; }

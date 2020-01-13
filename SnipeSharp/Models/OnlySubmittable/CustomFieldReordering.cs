@@ -13,6 +13,6 @@ namespace SnipeSharp.Models
         /// The fields of the set, in the order they will appear.
         /// </summary>
         [Field("item", Converter = CommonModelArrayConverter, IsRequired = true)]
-        public CustomField[] Fields;
+        public CustomField[] Fields { get; set; }
     }
 }

@@ -120,6 +120,10 @@ namespace SnipeSharp
             where R: ApiObject
             => ExecuteRequest<R>(Method.POST, path, obj);
 
+        internal ApiOptionalResponse<RequestResponse<R>> Put<R>(string path, R obj)
+            where R: ApiObject
+            => ExecuteRequest<R>(Method.PUT, path, obj);
+
         internal ApiOptionalResponse<RequestResponse<R>> Patch<R>(string path, R obj)
             where R: ApiObject
             => ExecuteRequest<R>(Method.PATCH, path, obj);
@@ -179,6 +183,7 @@ namespace SnipeSharp
                     continue;
                 if(string.IsNullOrEmpty(attribute.SerializeAs))
                     continue;
+                // don't need to bother with PatchAttribute because it only applies to Post and Put (this is Get).
                 var value = property.GetValue(obj);
                 if(attribute.IsRequired && null == value)
                     throw new MissingRequiredFieldException<object>(type.Name, property.Name);

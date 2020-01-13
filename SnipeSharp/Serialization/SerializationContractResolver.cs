@@ -60,6 +60,12 @@ namespace SnipeSharp.Serialization
             {
                 property.PropertyName = attribute.SerializeAs;
                 property.Readable = true;
+                var patch = member.GetCustomAttribute<PatchAttribute>(true);
+                if(null != patch)
+                {
+                    var targetField = member.DeclaringType.GetField(patch.IndicatorFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+                    property.ShouldSerialize = (instance) => (bool)targetField.GetValue(instance);
+                }
                 if(TryGetConverter(member as PropertyInfo, attribute, out var converter))
                     property.Converter = converter;
             } else
