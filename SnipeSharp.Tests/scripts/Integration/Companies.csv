@@ -1,0 +1,10 @@
+Name,Method,Path,FileName,Body
+GetAll_PartOne,Get,/companies?limit=50
+GetAll_PartTwo,Get,/companies?limit=50&offset=50
+Individual,Get,/companies/0
+Create_Ok,Post,/companies,"{""name"":""Test Co""}"
+Create_MissingName,Post,/companies,{}
+Update,Patch,/companies/101,"{""name"":""Test Co.""}"
+Replace,Put,/companies/101,"{""name"":""Test & Example Co.""}"
+Delete,Delete,/companies/101
+Delete_NotExist,Delete,/companies/102

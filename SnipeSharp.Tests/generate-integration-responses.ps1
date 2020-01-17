@@ -1,3 +1,22 @@
+# Generate Integration Responses:
+# This script should only be run against fresh installs of Snipe-IT, with only an admin account. See: docker
+# How it works:
+#    1. Filler data is populated into the instance in an explicit order,
+#       respecting the partial ordering of dependencies:
+#         - Category, Company, CustomField, Depreciation, FieldSet, Group, Manufacturer, StatusLabel, Supplier
+#         - PATCH: FieldSet/CustomField associations
+#         - Model, Location, License
+#         - PATCH: Child Locations
+#         - Accessory, Asset, Component, Consumable, Department
+#         - User, AssetAudit
+#         - PATCH: Location managers, Department managers, Assets checked out to users
+#         - Consumable
+#    2. Test information is loaded from CSV files; the tests are performed,
+#       then the responses recorded to json files in a temporary directory,
+#       and a mapping defined in generated C# files from c# names to test file names.
+#    3. The temp directory is moved to the real location
+#    4. In the C# tests, the tests are written to expect the exact data in the files.
+#       If the mock data is changed, the tests must be updated to match.
 using namespace System.IO
 using namespace System.Text
 using namespace System.Net.Http
@@ -22,36 +41,12 @@ function MakeDirectory
         Get-Item -LiteralPath $Path
     }
 }
-[StreamWriter]$ResourceStream = $null
-function Register-String
-{
-    # Provides registration capabilities to called scripts.
-    PARAM (
-        [Parameter(Mandatory=$true, Position=0)][string]$Name,
-        [Parameter(Mandatory=$true, Position=1)][string]$Path
-    )
-    $ResourceStream.Write("            internal const string ");
-    $ResourceStream.Write($Name)
-    $ResourceStream.Write(" = """)
-    $ResourceStream.Write($Path)
-    $ResourceStream.Write(""";`n")
-}
 [hashtable]$Headers = @{
     Headers = @{
         Authorization = "Bearer $Token"
         'content-type' = 'application/json'
     }
     UseBasicParsing = $true
-}
-function Get-APIResponse
-{
-    PARAM (
-        [Parameter(Mandatory=$true, Position=0)]
-            [ValidateSet('Get','Post','Put','Delete','Patch')]
-            [string]$Method,
-        [Parameter(Mandatory=$true, Position=1)][string]$Path
-    )
-    Invoke-WebRequest @Headers -Uri $Path | Select-Object -ExpandProperty Content
 }
 [string]$TempDirectoryPath = "$PSScriptRoot/Resources/_TempIntegration"
 [string]$FinalDirectoryPath = "$PSScriptRoot/Resources/Integration"
@@ -67,21 +62,56 @@ try
         Remove-Item -Recurse -Force -LiteralPath $TempDirectoryPath
     }
     [DirectoryInfo]$TempDirectory = MakeDirectory -Path $TempDirectoryPath
-    # now do requests and record results
 
-    [FileInfo[]]$Scripts = Get-Item -Path "$PSScriptRoot/scripts/Integration/*.ps1"
-    foreach($Script in $Scripts)
+    # Populate the instance with test data
+    # Data was mostly generated with https://mockaroo.com
+    function Populate
     {
-        [FileInfo]$ScriptFile = $Script
-        [FileInfo]$CsFile = Get-Item -LiteralPath (Join-Path -Path $TempDirectory.FullName -ChildPath "Resources.$($ScriptFile.BaseName).cs" )
-        [StreamWriter]$Stream = $CsFile.CreateText()
-        $Stream.Encoding = [Encoding]::UTF8
-        $Stream.Write("namespace SnipeSharp.Tests`n{`n")
-        $Stream.Write("    internal static partial class Resources`n    {`n")
-        $Stream.Write("        internal static class $($ScriptFile.BaseName)`n        {`n")
-        $ResourceStream = $Stream
-        & $ScriptFile.FullName -Directory $TempDirectory
-        $ResourceStream = $null
+        PARAM (
+            [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)][string]$Path,
+            [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)][string]$Body
+        )
+        $null = Invoke-WebRequest @Headers -Uri "$Uri$Path" -Body $Body
+    }
+    Import-Csv "$PSScriptRoot/scripts/Populate/Companies.csv" | Populate
+    Import-Csv "$PSScriptRoot/scripts/Populate/Accessories.csv" | Populate
+
+    # now do requests and record results
+    function Register-Test
+    {
+        # if the line (Name column) starts with #, the test will be skipped. If it starts with '-', the
+        # "test" will be performed, but the results discard; this is useful for resetting something then
+        # doing a similar action
+        PARAM (
+            [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)][string]$Name,
+            [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)][ValidateSet('Get','Post','Put','Delete','Patch')][string]$Method,
+            [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)][string]$Path,
+            [Parameter(ValueFromPipelineByPropertyName=$true)][string]$Body,
+            [Parameter(Mandatory=$true)][StreamWriter]$Stream
+        )
+        if($Name[0] -ne '#')
+        {
+            if(!$Body)
+            {
+                $Body = $null
+            }
+            $JSONContent = Invoke-WebRequest @Headers -Uri "$Uri$Path" -Body $Body | Select-Object -ExpandProperty Content
+            if($Name[0] -ne '-')
+            {
+                $Stream.Write("            internal const string $Name = ""./Resources/Integration/$Method$($Path -replace '/','_').$Name.json"";`n");
+                [File]::WriteAllText((Join-Path -Path $TempDirectory.FullName -ChildPath $FileName), $JSONContent, [Encoding]::UTF8);
+            }
+        }
+    }
+    [FileInfo[]]$DataFiles = Get-Item -Path "$PSScriptRoot/scripts/Integration/*.csv"
+    foreach($DataFile in $DataFiles)
+    {
+        # Make a new stream for the file $TempDir/Resources.TYPE.cs (UTF8) and write out the class info for each file
+        [StreamWriter]$Stream = [StreamWriter]::new((Join-Path -Path $TempDirectory.FullName -ChildPath "Resources.$($DataFile.BaseName).cs"), $false, [Encoding]::UTF8)
+        $Stream.Write("namespace SnipeSharp.Tests`n{`n    internal static partial class Resources`n    {`n        internal static class $($DataFile.BaseName)`n        {`n")
+        # then read all the tests and gather data
+        Import-Csv $DataFile.FullName | Register-Test -Stream $Stream
+        # then clean up
         $Stream.Write("        }`n    }`n}`n")
         $Stream.Dispose()
     }
