@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
 using Xunit;

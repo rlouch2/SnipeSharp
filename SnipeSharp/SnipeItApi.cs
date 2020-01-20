@@ -70,12 +70,6 @@ namespace SnipeSharp
             {
                 RequestManager.SetTokenAndUri();
                 Users.Me();
-            } catch(ApiErrorException ex)
-            {
-                if(ex.IsHttpError && HttpStatusCode.Forbidden == ex.HttpStatusCode)
-                    // return true if we *could* connect, but our user was not allowed to view users (403)
-                    return true;
-                return false;
             } catch
             {
                 // any other error return false

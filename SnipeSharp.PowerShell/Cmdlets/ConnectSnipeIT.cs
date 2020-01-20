@@ -55,6 +55,13 @@ namespace SnipeSharp.PowerShell.Cmdlets
         )]
         public SwitchParameter DisableLookupVerification { get; set; }
 
+        /// <summary>When provided, don't check that the API URI and Token are valid.</summary>
+        /// <remarks>This is useful if it is certain that they are valid, but for some reason the user does not have access to view their own account.</remarks>
+        [Parameter(
+            HelpMessage = "Don't check that the API URI and Token are valid"
+        )]
+        public SwitchParameter SkipConnectionCheck { get; set; }
+
         /// <inheritdoc />
         protected override void EndProcessing()
         {
@@ -64,8 +71,9 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 Uri = this.Uri
             };
 
-            if(!instance.TestConnection())
-                throw new ApiErrorException($"Could not validate a connection to Snipe-IT at Uri \"{Uri}\".");
+            if(!SkipConnectionCheck)
+                if(!instance.TestConnection())
+                    throw new ApiErrorException($"Could not validate a connection to Snipe-IT at Uri \"{Uri}\".");
             if(Force && ApiHelper.HasApiInstance)
                 ApiHelper.Reset();
             ApiHelper.Instance = instance;
