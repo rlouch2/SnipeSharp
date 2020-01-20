@@ -4,6 +4,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +13,7 @@ namespace SnipeSharp.Models
     /// Depreciations are associated with objects and determine when End-Of-Life is relative to the PurchaseDate.
     /// </summary>
     [PathSegment("depreciations")]
-    public sealed class Depreciation : CommonEndPointModel, IAvailableActions, IUpdatable<Depreciation>
+    public sealed class Depreciation : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Depreciation object.</summary>
         public Depreciation() { }
@@ -30,12 +31,34 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
         [Field("months", Converter = MonthsConverter, IsRequired = true)]
-        public int? Months { get; set; }
+        [Patch(nameof(isMonthsModified))]
+        public int? Months
+        {
+            get => months;
+            set
+            {
+                isMonthsModified = true;
+                months = value;
+            }
+        }
+        private bool isMonthsModified = false;
+        private int? months;
 
         /// <inheritdoc />
         [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
@@ -49,15 +72,16 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
-        /// <inheritdoc />
-        public Depreciation CloneForUpdate() => new Depreciation(this.Id);
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isMonthsModified = isModified;
+        }
 
-        /// <inheritdoc />
-        public Depreciation WithValuesFrom(Depreciation other)
-            => new Depreciation(this.Id)
-            {
-                Name = other.Name,
-                Months = other.Months
-            };
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
+        }
     }
 }

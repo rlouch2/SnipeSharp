@@ -35,6 +35,23 @@ namespace SnipeSharp.Collections
                 yield return value.Value;
         }
 
+        /// <summary>Has the dictionary been modified?</summary>
+        internal bool IsModified
+        {
+            get
+            {
+                foreach(var val in Values)
+                    if(val.IsModified)
+                        return true;
+                return false;
+            }
+            set
+            {
+                foreach(var val in Values)
+                    val.IsModified = value;
+            }
+        }
+
         /// <inheritdoc />
         public ICollection<string> Keys => BackingDictionary.Keys;
 
@@ -95,6 +112,7 @@ namespace SnipeSharp.Collections
                 var hasFriendlyName = FriendlyNames.TryGetValue(value.FriendlyName, out var existingKey);
                 if(hasFriendlyName && existingKey != value.Field)
                     throw new ArgumentException($"The dictionary already contains a friendly name \"{value.FriendlyName}\"");
+                value.IsModified = true;
                 if(!BackingDictionary.ContainsKey(key))
                 {
                     Add(value);
@@ -169,6 +187,7 @@ namespace SnipeSharp.Collections
                     Value = value.Value
                 };
             }
+            value.IsModified = true;
             if(ContainsKey(value.Field))
                 throw new ArgumentException($"The dictionary already contains a key \"{value.Field}\"");
             if(FriendlyNames.ContainsKey(value.FriendlyName))
@@ -195,22 +214,13 @@ namespace SnipeSharp.Collections
         void ICollection<KeyValuePair<string, AssetCustomField>>.CopyTo(KeyValuePair<string, AssetCustomField>[] array, int arrayIndex)
             => ((IDictionary<string,AssetCustomField>)BackingDictionary).CopyTo(array, arrayIndex);
 
-        /// <inheritdoc />
-        public bool Remove(string key)
-        {
-            if(BackingDictionary.TryGetValue(key, out var value))
-                FriendlyNames.Remove(value.FriendlyName);
-            return BackingDictionary.Remove(key);
-        }
+        /// <summary>It is not possible to remove fields from a CustomFieldDictionary.</summary>
+        bool IDictionary<string, AssetCustomField>.Remove(string key)
+            => throw new NotImplementedException();
 
+        /// <summary>It is not possible to remove fields from a CustomFieldDictionary.</summary>
         bool ICollection<KeyValuePair<string, AssetCustomField>>.Remove(KeyValuePair<string, AssetCustomField> item)
-        {
-            if(!Contains(item))
-                return false;
-            if(BackingDictionary.TryGetValue(item.Key, out var value))
-                FriendlyNames.Remove(value.FriendlyName);
-            return ((IDictionary<string,AssetCustomField>)BackingDictionary).Remove(item);
-        }
+            => throw new NotImplementedException();
 
         /// <inheritdoc />
         public IEnumerator<KeyValuePair<string, AssetCustomField>> GetEnumerator()

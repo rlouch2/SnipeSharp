@@ -4,6 +4,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +13,7 @@ namespace SnipeSharp.Models
     /// Companies own assets, licenses, components, etc., and has users that work for it.
     /// </summary>
     [PathSegment("companies")]
-    public sealed class Company : CommonEndPointModel, IAvailableActions, IUpdatable<Company>, IPatchable
+    public sealed class Company : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Company object.</summary>
         public Company() { }
@@ -96,21 +97,16 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
-        /// <inheritdoc />
-        public Company CloneForUpdate() => new Company(this.Id);
-
-        /// <inheritdoc />
-        public Company WithValuesFrom(Company other)
-            => new Company(this.Id)
-            {
-                Name = other.Name,
-                ImageUri = other.ImageUri
-            };
-
         void IPatchable.SetAllModifiedState(bool isModified)
         {
             isNameModified = isModified;
             isImageUriModified = isModified;
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
         }
     }
 }

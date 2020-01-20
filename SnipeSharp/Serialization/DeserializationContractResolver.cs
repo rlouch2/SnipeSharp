@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
-using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization
 {
@@ -40,6 +39,9 @@ namespace SnipeSharp.Serialization
                         break;
                     case FieldConverter.FalseyUriConverter:
                         property.Converter = FalseyUriConverter.Instance;
+                        break;
+                    case FieldConverter.ReadOnlyResponseCollectionConverter:
+                        property.Converter = CustomReadOnlyResponseCollectionConverter.Instance;
                         break;
                     default:
                         break;

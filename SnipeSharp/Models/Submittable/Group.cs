@@ -4,6 +4,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +13,7 @@ namespace SnipeSharp.Models
     /// Groups are used to grant permissions to users in Snipe-IT.
     /// </summary>
     [PathSegment("groups")]
-    public sealed class Group : CommonEndPointModel, IAvailableActions, IUpdatable<Group>
+    public sealed class Group : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Group object.</summary>
         public Group() { }
@@ -30,7 +31,18 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <inheritdoc />
         // TODO: change this to a more explicit "GroupPermissions" type and make it required (I think it may need to be required)
@@ -53,14 +65,15 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
-        /// <inheritdoc />
-        public Group CloneForUpdate() => new Group(this.Id);
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+        }
 
-        /// <inheritdoc />
-        public Group WithValuesFrom(Group other)
-            => new Group(this.Id)
-            {
-                Name = other.Name
-            };
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
+        }
     }
 }

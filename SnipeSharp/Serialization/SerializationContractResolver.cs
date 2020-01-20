@@ -31,6 +31,7 @@ namespace SnipeSharp.Serialization
                 case FieldConverter.MessagesConverter:
                 case FieldConverter.MonthsConverter:
                 case FieldConverter.FalseyUriConverter:
+                case FieldConverter.ReadOnlyResponseCollectionConverter:
                     converter = null;
                     return false;
                 case FieldConverter.None:
@@ -64,7 +65,13 @@ namespace SnipeSharp.Serialization
                 if(null != patch)
                 {
                     var targetField = member.DeclaringType.GetField(patch.IndicatorFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
-                    property.ShouldSerialize = (instance) => (bool)targetField.GetValue(instance);
+                    if(null != targetField)
+                        property.ShouldSerialize = (instance) => (bool)targetField.GetValue(instance);
+                    else
+                    {
+                        var targetProperty = member.DeclaringType.GetProperty(patch.IndicatorFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+                        property.ShouldSerialize = (instance) => (bool)targetProperty.GetValue(instance);
+                    }
                 }
                 if(TryGetConverter(member as PropertyInfo, attribute, out var converter))
                     property.Converter = converter;

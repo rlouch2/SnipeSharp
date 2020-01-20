@@ -34,7 +34,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="toSet">An instance of the generic type with serializable fields.</param>
         /// <returns>A stub of the object, indicating that the update was successful.</returns>
         /// <exception cref="ApiErrorException">When the request was not successful.</exception>
-        T SetAll(T toSet);
+        T Set(T toSet);
 
         /// <summary>
         /// Delete an object of the generic type by Id.

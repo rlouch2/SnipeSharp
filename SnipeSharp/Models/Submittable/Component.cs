@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +12,7 @@ namespace SnipeSharp.Models
     /// Components may be checked out to Assets.
     /// </summary>
     [PathSegment("components")]
-    public sealed class Component : CommonEndPointModel, IAvailableActions, IUpdatable<Component>
+    public sealed class Component : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Component object.</summary>
         public Component() { }
@@ -30,15 +30,48 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <value>The URL of the image for the component.</value>
         [Field(DeserializeAs = "image")]
-        public Uri ImageUri { get; private set; }
+        [Patch(nameof(isImageUriModified))]
+        public Uri ImageUri
+        {
+            get => imageUri;
+            private set
+            {
+                isImageUriModified = true;
+                imageUri = value;
+            }
+        }
+        private bool isImageUriModified = false;
+        private Uri imageUri;
 
         /// <value>Gets/sets the serial number for the component.</value>
         [Field("serial")]
-        public string Serial { get; set; }
+        [Patch(nameof(isSerialModified))]
+        public string Serial
+        {
+            get => serial;
+            set
+            {
+                isSerialModified = true;
+                serial = value;
+            }
+        }
+        private bool isSerialModified = false;
+        private string serial;
 
         /// <value>Gets/sets the component's location.</value>
         /// <remarks>
@@ -46,7 +79,18 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
-        public Location Location { get; set; }
+        [Patch(nameof(isLocationModified))]
+        public Location Location
+        {
+            get => location;
+            set
+            {
+                isLocationModified = true;
+                location = value;
+            }
+        }
+        private bool isLocationModified = false;
+        private Location location;
 
         /// <value>Gets/sets the total quantity of this component.</value>
         /// <remarks>
@@ -54,11 +98,33 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field("qty", IsRequired = true)]
-        public int? Quantity { get; set; }
+        [Patch(nameof(isQuantityModified))]
+        public int? Quantity
+        {
+            get => quantity;
+            set
+            {
+                isQuantityModified = true;
+                quantity = value;
+            }
+        }
+        private bool isQuantityModified = false;
+        private int? quantity;
 
         /// <value>Gets/sets the minimum quantity before an alert should pop up</value>
         [Field("min_amt")]
-        public int? MinimumQuantity { get; set; }
+        [Patch(nameof(isMinimumQuantityModified))]
+        public int? MinimumQuantity
+        {
+            get => minimumQuantity;
+            set
+            {
+                isMinimumQuantityModified = true;
+                minimumQuantity = value;
+            }
+        }
+        private bool isMinimumQuantityModified = false;
+        private int? minimumQuantity;
 
         /// <value>Gets/sets the Category this Component is in.</value>
         /// <remarks>
@@ -68,19 +134,63 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
-        public Category Category { get; set; }
+        [Patch(nameof(isCategoryModified))]
+        public Category Category
+        {
+            get => category;
+            set
+            {
+                isCategoryModified = true;
+                category = value;
+            }
+        }
+        private bool isCategoryModified = false;
+        private Category category;
 
         /// <value>The order number associated with this Components's purchase.</value>
         [Field("order_number")]
-        public string OrderNumber { get; set; }
+        [Patch(nameof(isOrderNumberModified))]
+        public string OrderNumber
+        {
+            get => orderNumber;
+            set
+            {
+                isOrderNumberModified = true;
+                orderNumber = value;
+            }
+        }
+        private bool isOrderNumberModified = false;
+        private string orderNumber;
 
         /// <value>The date this Component was purchased.</value>
         [Field("purchase_date", Converter = DateTimeConverter)]
-        public DateTime? PurchaseDate { get; set; }
+        [Patch(nameof(isPurchaseDateModified))]
+        public DateTime? PurchaseDate
+        {
+            get => purchaseDate;
+            set
+            {
+                isPurchaseDateModified = true;
+                purchaseDate = value;
+            }
+        }
+        private bool isPurchaseDateModified = false;
+        private DateTime? purchaseDate;
 
         /// <value>Gets/sets the cost of this Component when purchased.</value>
         [Field("purchase_cost")]
-        public decimal? PurchaseCost { get; set; }
+        [Patch(nameof(isPurchaseCostModified))]
+        public decimal? PurchaseCost
+        {
+            get => purchaseCost;
+            set
+            {
+                isPurchaseCostModified = true;
+                purchaseCost = value;
+            }
+        }
+        private bool isPurchaseCostModified = false;
+        private decimal? purchaseCost;
 
         /// <value>The quantity of this Component that has not yet been checked out.</value>
         [Field(DeserializeAs = "remaining")]
@@ -92,7 +202,18 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
-        public Company Company { get; set; }
+        [Patch(nameof(isCompanyModified))]
+        public Company Company
+        {
+            get => company;
+            set
+            {
+                isCompanyModified = true;
+                company = value;
+            }
+        }
+        private bool isCompanyModified = false;
+        private Company company;
 
         /// <inheritdoc />
         [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
@@ -110,23 +231,25 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
-        /// <inheritdoc />
-        public Component CloneForUpdate() => new Component(this.Id);
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isImageUriModified = isModified;
+            isSerialModified = isModified;
+            isLocationModified = isModified;
+            isQuantityModified = isModified;
+            isMinimumQuantityModified = isModified;
+            isCategoryModified = isModified;
+            isOrderNumberModified = isModified;
+            isPurchaseDateModified = isModified;
+            isPurchaseCostModified = isModified;
+            isCompanyModified = isModified;
+        }
 
-        /// <inheritdoc />
-        public Component WithValuesFrom(Component other)
-            => new Component(this.Id)
-            {
-                Name = other.Name,
-                Serial = other.Serial,
-                Location = other.Location,
-                Quantity = other.Quantity,
-                MinimumQuantity = other.MinimumQuantity,
-                Category = other.Category,
-                OrderNumber = other.OrderNumber,
-                PurchaseDate = other.PurchaseDate,
-                PurchaseCost = other.PurchaseCost,
-                Company = other.Company
-            };
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
+        }
     }
 }

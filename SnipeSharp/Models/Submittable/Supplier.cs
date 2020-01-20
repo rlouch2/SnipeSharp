@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +12,7 @@ namespace SnipeSharp.Models
     /// Suppliers sell assets, licenses, and accessories.
     /// </summary>
     [PathSegment("suppliers")]
-    public sealed class Supplier : CommonEndPointModel, IAvailableActions, IUpdatable<Supplier>
+    public sealed class Supplier : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Supplier object.</summary>
         public Supplier() { }
@@ -30,51 +30,183 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         /// <remarks>This field is required and must be unique among undeleted suppliers.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <value>The URL of the image for this supplier.</value>
         [Field("image")]
-        public Uri ImageUri { get; set; }
+        [Patch(nameof(isImageUriModified))]
+        public Uri ImageUri
+        {
+            get => imageUri;
+            set
+            {
+                isImageUriModified = true;
+                imageUri = value;
+            }
+        }
+        private bool isImageUriModified = false;
+        private Uri imageUri;
 
         /// <value>Gets/sets the first address line for this supplier.</value>
         [Field("address")]
-        public string Address { get; set; }
+        [Patch(nameof(isAddressModified))]
+        public string Address
+        {
+            get => address;
+            set
+            {
+                isAddressModified = true;
+                address = value;
+            }
+        }
+        private bool isAddressModified = false;
+        private string address;
 
         /// <value>Gets/sets the second address line for this supplier.</value>
         [Field("address2")]
-        public string Address2 { get; set; }
+        [Patch(nameof(isAddress2Modified))]
+        public string Address2
+        {
+            get => address2;
+            set
+            {
+                isAddress2Modified = true;
+                address2 = value;
+            }
+        }
+        private bool isAddress2Modified = false;
+        private string address2;
 
         /// <value>Gets/sets the city this supplier is in.</value>
         [Field("city")]
-        public string City { get; set; }
+        [Patch(nameof(isCityModified))]
+        public string City
+        {
+            get => city;
+            set
+            {
+                isCityModified = true;
+                city = value;
+            }
+        }
+        private bool isCityModified = false;
+        private string city;
 
         /// <value>Gets/sets the state this supplier is in.</value>
         [Field("state")]
-        public string State { get; set; }
+        [Patch(nameof(isStateModified))]
+        public string State
+        {
+            get => state;
+            set
+            {
+                isStateModified = true;
+                state = value;
+            }
+        }
+        private bool isStateModified = false;
+        private string state;
 
         /// <value>Gets/sets the country this supplier is in.</value>
         [Field("country")]
-        public string Country { get; set; }
+        [Patch(nameof(isCountryModified))]
+        public string Country
+        {
+            get => country;
+            set
+            {
+                isCountryModified = true;
+                country = value;
+            }
+        }
+        private bool isCountryModified = false;
+        private string country;
 
         /// <value>Gets/sets the Zip Code area this supplier is in.</value>
         [Field("zip")]
-        public string ZipCode { get; set; }
+        [Patch(nameof(isZipCodeModified))]
+        public string ZipCode
+        {
+            get => zipCode;
+            set
+            {
+                isZipCodeModified = true;
+                zipCode = value;
+            }
+        }
+        private bool isZipCodeModified = false;
+        private string zipCode;
 
         /// <value>Gets/sets the fax number for this supplier.</value>
         [Field("fax")]
-        public string FaxNumber { get; set; }
+        [Patch(nameof(isFaxNumberModified))]
+        public string FaxNumber
+        {
+            get => faxNumber;
+            set
+            {
+                isFaxNumberModified = true;
+                faxNumber = value;
+            }
+        }
+        private bool isFaxNumberModified = false;
+        private string faxNumber;
 
         /// <value>Gets/sets the phone number for this supplier.</value>
         [Field("phone")]
-        public string PhoneNumber { get; set; }
+        [Patch(nameof(isPhoneNumberModified))]
+        public string PhoneNumber
+        {
+            get => phoneNumber;
+            set
+            {
+                isPhoneNumberModified = true;
+                phoneNumber = value;
+            }
+        }
+        private bool isPhoneNumberModified = false;
+        private string phoneNumber;
 
         /// <value>Gets/sets the contact email address for this supplier.</value>
         [Field("email")]
-        public string EmailAddress { get; set; }
+        [Patch(nameof(isEmailAddressModified))]
+        public string EmailAddress
+        {
+            get => emailAddress;
+            set
+            {
+                isEmailAddressModified = true;
+                emailAddress = value;
+            }
+        }
+        private bool isEmailAddressModified = false;
+        private string emailAddress;
 
         /// <value>Gets the contact for this supplier.</value>
         [Field("contact")]
-        public string Contact { get; set; }
+        [Patch(nameof(isContactModified))]
+        public string Contact
+        {
+            get => contact;
+            set
+            {
+                isContactModified = true;
+                contact = value;
+            }
+        }
+        private bool isContactModified = false;
+        private string contact;
 
         /// <value>Gets the number of assets purchased from this supplier.</value>
         [Field(DeserializeAs = "assets_count")]
@@ -90,7 +222,18 @@ namespace SnipeSharp.Models
 
         /// <value>Gets/sets the notes or description for this supplier.</value>
         [Field("notes")]
-        public string Notes { get; set; }
+        [Patch(nameof(isNotesModified))]
+        public string Notes
+        {
+            get => notes;
+            set
+            {
+                isNotesModified = true;
+                notes = value;
+            }
+        }
+        private bool isNotesModified = false;
+        private string notes;
 
         /// <inheritdoc />
         [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
@@ -104,26 +247,27 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
-        /// <inheritdoc />
-        public Supplier CloneForUpdate() => new Supplier(this.Id);
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isImageUriModified = isModified;
+            isAddressModified = isModified;
+            isAddress2Modified = isModified;
+            isCityModified = isModified;
+            isStateModified = isModified;
+            isCountryModified = isModified;
+            isZipCodeModified = isModified;
+            isFaxNumberModified = isModified;
+            isPhoneNumberModified = isModified;
+            isEmailAddressModified = isModified;
+            isContactModified = isModified;
+            isNotesModified = isModified;
+        }
 
-        /// <inheritdoc />
-        public Supplier WithValuesFrom(Supplier other)
-            => new Supplier(this.Id)
-            {
-                Name = other.Name,
-                ImageUri = other.ImageUri,
-                Address = other.Address,
-                Address2 = other.Address2,
-                City = other.City,
-                State = other.State,
-                Country = other.Country,
-                ZipCode = other.ZipCode,
-                FaxNumber = other.FaxNumber,
-                PhoneNumber = other.PhoneNumber,
-                EmailAddress = other.EmailAddress,
-                Contact = other.Contact,
-                Notes = other.Notes
-            };
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
+        }
     }
 }

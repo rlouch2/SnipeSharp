@@ -4,6 +4,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +13,7 @@ namespace SnipeSharp.Models
     /// Manufacturers create accessories, consumables, licenses, and models (models are associated with assets).
     /// </summary>
     [PathSegment("manufacturers")]
-    public sealed class Manufacturer : CommonEndPointModel, IAvailableActions, IUpdatable<Manufacturer>
+    public sealed class Manufacturer : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Manufacturer object.</summary>
         public Manufacturer() { }
@@ -30,28 +31,94 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <value>Gets/sets the URL for the Manufacturer's website.</value>
         [Field("url")]
-        public Uri Url { get; set; }
+        [Patch(nameof(isUrlModified))]
+        public Uri Url
+        {
+            get => url;
+            set
+            {
+                isUrlModified = true;
+                url = value;
+            }
+        }
+        private bool isUrlModified = false;
+        private Uri url;
 
         /// <value>Gets/sets the URL of the image for the Manufacturer.</value>
         [Field("image")]
-        public Uri ImageUri { get; set; }
+        [Patch(nameof(isImageUriModified))]
+        public Uri ImageUri
+        {
+            get => imageUri;
+            set
+            {
+                isImageUriModified = true;
+                imageUri = value;
+            }
+        }
+        private bool isImageUriModified = false;
+        private Uri imageUri;
 
         /// <value>Gets/sets the url of the manufacturer's support site.</value>
         [Field("support_url")]
-        public Uri SupportUrl { get; set; }
+        [Patch(nameof(isSupportUrlModified))]
+        public Uri SupportUrl
+        {
+            get => supportUrl;
+            set
+            {
+                isSupportUrlModified = true;
+                supportUrl = value;
+            }
+        }
+        private bool isSupportUrlModified = false;
+        private Uri supportUrl;
 
 
         /// <value>Gets/sets the manufacturer's support phone number.</value>
         [Field("support_phone")]
-        public string SupportPhoneNumber { get; set; }
+        [Patch(nameof(isSupportPhoneNumberModified))]
+        public string SupportPhoneNumber
+        {
+            get => supportPhoneNumber;
+            set
+            {
+                isSupportPhoneNumberModified = true;
+                supportPhoneNumber = value;
+            }
+        }
+        private bool isSupportPhoneNumberModified = false;
+        private string supportPhoneNumber;
 
         /// <value>Gets/sets the manufacturer's support email address.</value>
         [Field("support_email")]
-        public string SupportEmailAddress { get; set; }
+        [Patch(nameof(isSupportEmailAddressModified))]
+        public string SupportEmailAddress
+        {
+            get => supportEmailAddress;
+            set
+            {
+                isSupportEmailAddressModified = true;
+                supportEmailAddress = value;
+            }
+        }
+        private bool isSupportEmailAddressModified = false;
+        private string supportEmailAddress;
 
         /// <value>The number of assets produced by this manufacturer.</value>
         [Field(DeserializeAs = "assets_count")]
@@ -85,18 +152,20 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
-        /// <inheritdoc />
-        public Manufacturer CloneForUpdate() => new Manufacturer(this.Id);
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isUrlModified = isModified;
+            isImageUriModified = isModified;
+            isSupportUrlModified = isModified;
+            isSupportPhoneNumberModified = isModified;
+            isSupportEmailAddressModified = isModified;
+        }
 
-        /// <inheritdoc />
-        public Manufacturer WithValuesFrom(Manufacturer other)
-            => new Manufacturer(this.Id)
-            {
-                Name = other.Name,
-                Url = other.Url,
-                SupportUrl = other.SupportUrl,
-                SupportPhoneNumber = other.SupportPhoneNumber,
-                SupportEmailAddress = other.SupportEmailAddress
-            };
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.Serialization;
 using SnipeSharp.Serialization;
 using Xunit;
 
@@ -16,9 +17,27 @@ namespace SnipeSharp.Tests
                 Assert.True(typeof(IPatchable).IsAssignableFrom(type)); // patch attributes can only be used on IPatchable classes
                 Assert.NotNull(attribute.IndicatorFieldName);
                 Assert.NotEmpty(attribute.IndicatorFieldName);
-                var target = type.GetField(attribute.IndicatorFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
-                Assert.NotNull(target); // target field doesn't exist, or is static, or is public.
-                Assert.Equal(typeof(bool), target.FieldType); // and the target field must be a boolean field
+                var target = (MemberInfo)type.GetField(attribute.IndicatorFieldName, BindingFlags.Instance | BindingFlags.NonPublic)
+                                      ?? type.GetProperty(attribute.IndicatorFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+                // target field or property exists, is non-public, and is not static.
+                Assert.NotNull(target);
+                // and the target type is a boolean field or property
+                Assert.Equal(typeof(bool), MemberTypes.Field == target.MemberType ? ((FieldInfo)target).FieldType : ((PropertyInfo)target).PropertyType);
+                // and if the target is a property, it is readable.
+                Assert.True(MemberTypes.Property == target.MemberType ? ((PropertyInfo)target).CanRead : true);
+            });
+        }
+
+        [Fact]
+        public void AllIPatchableTypesHavePrivateOnDeserializedMethod()
+        {
+            Assert.All(GetAllTypes<IPatchable>(), (Type type) => {
+                if(type == typeof(IPatchable))
+                    return;
+                var onDeserializedMethod = type.GetMethod("OnDeserialized", BindingFlags.Instance | BindingFlags.NonPublic);
+                Assert.NotNull(onDeserializedMethod);
+                var onDeserializedAttribute = onDeserializedMethod.GetCustomAttribute<OnDeserializedAttribute>();
+                Assert.NotNull(onDeserializedAttribute);
             });
         }
 
@@ -54,6 +73,15 @@ namespace SnipeSharp.Tests
                         yield return (type, attr);
                 }
             }
+        }
+
+        private IEnumerable<Type> GetAllTypes<T>()
+        {
+            var assembly = Assembly.GetAssembly(typeof(T));
+            var types = assembly.GetTypes();
+            foreach(var type in types)
+                if(typeof(T).IsAssignableFrom(type))
+                    yield return type;
         }
     }
 }

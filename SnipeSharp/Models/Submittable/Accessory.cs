@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Serialization;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +12,7 @@ namespace SnipeSharp.Models
     /// Accessories may be checked out to Users, but unlike Consumables can be checked back in.
     /// </summary>
     [PathSegment("accessories")]
-    public sealed class Accessory : CommonEndPointModel, IAvailableActions, IUpdatable<Accessory>
+    public sealed class Accessory : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Accessory object.</summary>
         public Accessory() { }
@@ -32,7 +32,18 @@ namespace SnipeSharp.Models
         /// </summary>
         /// <remarks>This field is required.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <summary>
         /// The Company this Accessory belongs to.
@@ -42,7 +53,18 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
-        public Company Company { get; set; }
+        [Patch(nameof(isCompanyModified))]
+        public Company Company
+        {
+            get => company;
+            set
+            {
+                isCompanyModified = true;
+                company = value;
+            }
+        }
+        private bool isCompanyModified = false;
+        private Company company;
 
         /// <summary>
         /// The Manufacturer that made this Accessory.
@@ -52,7 +74,18 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "manufacturer", SerializeAs = "manufacturer_id", Converter = CommonModelConverter, IsRequired = true)]
-        public Manufacturer Manufacturer { get; set; }
+        [Patch(nameof(isManufacturerModified))]
+        public Manufacturer Manufacturer
+        {
+            get => manufacturer;
+            set
+            {
+                isManufacturerModified = true;
+                manufacturer = value;
+            }
+        }
+        private bool isManufacturerModified = false;
+        private Manufacturer manufacturer;
 
         /// <summary>
         /// The Supplier that sold this Accessory.
@@ -62,13 +95,35 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "supplier", SerializeAs = "supplier_id", Converter = CommonModelConverter)]
-        public Supplier Supplier { get; set; }
+        [Patch(nameof(isSupplierModified))]
+        public Supplier Supplier
+        {
+            get => supplier;
+            set
+            {
+                isSupplierModified = true;
+                supplier = value;
+            }
+        }
+        private bool isSupplierModified = false;
+        private Supplier supplier;
 
         /// <summary>
         /// The ModelNumber of this Accessory.
         /// </summary>
         [Field("model_number")]
-        public string ModelNumber { get; set; }
+        [Patch(nameof(isModelNumberModified))]
+        public string ModelNumber
+        {
+            get => modelNumber;
+            set
+            {
+                isModelNumberModified = true;
+                modelNumber = value;
+            }
+        }
+        private bool isModelNumberModified = false;
+        private string modelNumber;
 
         /// <summary>
         /// The Category this Accessory is in.
@@ -80,7 +135,18 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
-        public Category Category { get; set; }
+        [Patch(nameof(isCategoryModified))]
+        public Category Category
+        {
+            get => category;
+            set
+            {
+                isCategoryModified = true;
+                category = value;
+            }
+        }
+        private bool isCategoryModified = false;
+        private Category category;
 
         /// <summary>
         /// The Location this Accessory is in.
@@ -90,7 +156,18 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
-        public Location Location { get; set; }
+        [Patch(nameof(isLocationModified))]
+        public Location Location
+        {
+            get => location;
+            set
+            {
+                isLocationModified = true;
+                location = value;
+            }
+        }
+        private bool isLocationModified = false;
+        private Location location;
 
         /// <summary>
         /// The total quantity of this Accessory.
@@ -100,45 +177,122 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field("qty", IsRequired = true)]
-        public uint? Quantity { get; set; }
+        [Patch(nameof(isQuantityModified))]
+        public uint? Quantity
+        {
+            get => quantity;
+            set
+            {
+                isQuantityModified = true;
+                quantity = value;
+            }
+        }
+        private bool isQuantityModified = false;
+        private uint? quantity;
 
         /// <summary>
         /// The date this Accessory was purchased.
         /// </summary>
         [Field("purchase_date", Converter = DateTimeConverter)]
-        public DateTime? PurchaseDate { get; set; }
+        [Patch(nameof(isPurchaseDateModified))]
+        public DateTime? PurchaseDate
+        {
+            get => purchaseDate;
+            set
+            {
+                isPurchaseDateModified = true;
+                purchaseDate = value;
+            }
+        }
+        private bool isPurchaseDateModified = false;
+        private DateTime? purchaseDate;
 
         /// <summary>
         /// The cost of this Accessory when purchased.
         /// </summary>
         [Field("purchase_cost")]
-        public decimal? PurchaseCost { get; set; }
+        [Patch(nameof(isPurchaseCostModified))]
+        public decimal? PurchaseCost
+        {
+            get => purchaseCost;
+            set
+            {
+                isPurchaseCostModified = true;
+                purchaseCost = value;
+            }
+        }
+        private bool isPurchaseCostModified = false;
+        private decimal? purchaseCost;
 
         /// <summary>
         /// The order number associated with this Accessory's purchase.
         /// </summary>
         /// <remarks>A single Accessory only has one OrderNumber field. Multiple orders should use multiple Accessories of the same ModelNumber, IIRC.</remarks>
         [Field("order_number")]
-        public string OrderNumber { get; set; }
+        [Patch(nameof(isOrderNumberModified))]
+        public string OrderNumber
+        {
+            get => orderNumber;
+            set
+            {
+                isOrderNumberModified = true;
+                orderNumber = value;
+            }
+        }
+        private bool isOrderNumberModified = false;
+        private string orderNumber;
 
         /// <summary>
         /// The Minimum quantity of this Accessory before an alert should pop up.
         /// </summary>
         /// <remarks>Supposedly this is setable, but the field is not fillable in Snipe-IT.</remarks>
         [Field(DeserializeAs = "min_qty", SerializeAs = "min_amt")]
-        public uint? MinimumQuantity { get; set; }
+        [Patch(nameof(isMinimumQuantityModified))]
+        public uint? MinimumQuantity
+        {
+            get => minimumQuantity;
+            set
+            {
+                isMinimumQuantityModified = true;
+                minimumQuantity = value;
+            }
+        }
+        private bool isMinimumQuantityModified = false;
+        private uint? minimumQuantity;
 
         /// <summary>
         /// The quantity of this Accessory that has not yet been checked out.
         /// </summary>
         [Field(DeserializeAs = "remaining_qty")]
-        public int? RemainingQuantity { get; private set; }
+        [Patch(nameof(isRemainingQuantityModified))]
+        public int? RemainingQuantity
+        {
+            get => remainingQuantity;
+            set
+            {
+                isRemainingQuantityModified = true;
+                remainingQuantity = value;
+            }
+        }
+        private bool isRemainingQuantityModified = false;
+        private int? remainingQuantity;
 
         /// <summary>
         /// The Url of the image for this Accessory in the web interface.
         /// </summary>
         [Field("image")]
-        public Uri ImageUri { get; set; }
+        [Patch(nameof(isImageUriModified))]
+        public Uri ImageUri
+        {
+            get => imageUri;
+            set
+            {
+                isImageUriModified = true;
+                imageUri = value;
+            }
+        }
+        private bool isImageUriModified = false;
+        private Uri imageUri;
 
         /// <inheritdoc />
         [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
@@ -156,34 +310,47 @@ namespace SnipeSharp.Models
         /// Indicates that this accessory is available to be checked out.
         /// </summary>
         [Field(DeserializeAs = "user_can_checkout")]
-        public bool? UserCanCheckOut { get; private set; }
+        [Patch(nameof(isUserCanCheckOutModified))]
+        public bool? UserCanCheckOut
+        {
+            get => userCanCheckOut;
+            private set
+            {
+                isUserCanCheckOutModified = true;
+                userCanCheckOut = value;
+            }
+        }
+        private bool isUserCanCheckOutModified = false;
+        private bool? userCanCheckOut;
 
         /* NOT_IMPL: This field is currently not readable from the API, nor used in SnipeIT.
          * [Field(null, "requestable")]
          * public bool? IsRequestable { get; set; }
          */
 
-        /// <inheritdoc />
-        public Accessory CloneForUpdate() => new Accessory(this.Id);
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isCompanyModified = isModified;
+            isManufacturerModified = isModified;
+            isSupplierModified = isModified;
+            isModelNumberModified = isModified;
+            isCategoryModified = isModified;
+            isLocationModified = isModified;
+            isQuantityModified = isModified;
+            isPurchaseCostModified = isModified;
+            isPurchaseDateModified = isModified;
+            isOrderNumberModified = isModified;
+            isMinimumQuantityModified = isModified;
+            isRemainingQuantityModified = isModified;
+            isImageUriModified = isModified;
+            isUserCanCheckOutModified = isModified;
+        }
 
-        /// <inheritdoc />
-        public Accessory WithValuesFrom(Accessory other)
-            => new Accessory(this.Id)
-            {
-                Name = other.Name,
-                Company = other.Company,
-                Manufacturer = other.Manufacturer,
-                Supplier = other.Supplier,
-                ModelNumber = other.ModelNumber,
-                Category = other.Category,
-                Location = other.Location,
-                Quantity = other.Quantity,
-                PurchaseDate = other.PurchaseDate,
-                PurchaseCost = other.PurchaseCost,
-                OrderNumber = other.OrderNumber,
-                MinimumQuantity = other.MinimumQuantity,
-                RemainingQuantity = other.RemainingQuantity,
-                ImageUri = other.ImageUri
-            };
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
+        }
     }
 }

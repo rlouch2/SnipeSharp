@@ -41,5 +41,36 @@
             "    filter.${1} = ${1/(.)/${1:/downcase}/};$0",
             "}"
         ]
+    },
+    "PatchableValue": {
+        "scope": "csharp",
+        "prefix": "$PatchableValue",
+        "description": "A Property with backing field and modified field.",
+        "body": [
+            "[Patch(nameof(is${2:$CLIPBOARD}Modified))]",
+            "public ${1:type} ${2}",
+            "{",
+            "    get => ${2/(.)/${1:/downcase}/};",
+            "    set",
+            "    {",
+            "        is$2Modified = true;",
+            "        ${2/(.)/${1:/downcase}/} = value;",
+            "    }",
+            "}",
+            "private bool is$2Modified = false;",
+            "private ${1} ${2/(.)/${1:/downcase}/};"
+        ]
+    },
+    "OnDeserialized": {
+        "scope": "csharp",
+        "prefix": "$OnDeserialized",
+        "description": "OnDeserialized with a call to IPatchable.SetAllModifiedState(bool)",
+        "body": [
+            "[OnDeserialized]",
+            "private void OnDeserialized(StreamingContext context)",
+            "{",
+            "    ((IPatchable)this).SetAllModifiedState(false);",
+            "}"
+        ]
     }
 }

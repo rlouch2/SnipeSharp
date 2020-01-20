@@ -3,6 +3,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using static SnipeSharp.Serialization.FieldConverter;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
 {
@@ -11,7 +12,7 @@ namespace SnipeSharp.Models
     /// Custom fields are in a many-to-many relationship with <see cref="FieldSet">Fieldsets</see>.
     /// </summary>
     [PathSegment("fields")]
-    public sealed class CustomField : CommonEndPointModel, IUpdatable<CustomField>
+    public sealed class CustomField : CommonEndPointModel, IPatchable
     {
         /// <summary>Create a new CustomField object.</summary>
         public CustomField() { }
@@ -29,7 +30,18 @@ namespace SnipeSharp.Models
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
         [Field("name", IsRequired = true)]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <value>Gets the internal column name.</value>
         [Field(DeserializeAs = "db_column_name")]
@@ -94,36 +106,118 @@ namespace SnipeSharp.Models
         /// </summary>
         /// <value>Gets/sets the format of the field.</value>
         [Field("format")]
-        public string Format { get; set; }
+        [Patch(nameof(isFormatModified))]
+        public string Format
+        {
+            get => format;
+            set
+            {
+                isFormatModified = true;
+                format = value;
+            }
+        }
+        private bool isFormatModified = false;
+        private string format;
+
+        private readonly static string[] EndOfLines = new string[]{ "\n", "\r\n" };
 
         /// <value>Gets/sets the raw value of any list type, separated by newlines.</value>
         [Field("field_values")]
-        public string FieldValuesRaw { get; set; }
+        [Patch(nameof(isFieldValuesRawModified))]
+        public string FieldValuesRaw
+        {
+            get => fieldValuesRaw;
+            set
+            {
+                isFieldValuesRawModified = true;
+                fieldValuesRaw = value;
+                if(null == value)
+                    FieldValues = new string[0];
+                else
+                    FieldValues = value.Split(EndOfLines, StringSplitOptions.None);
+            }
+        }
+        private bool isFieldValuesRawModified = false;
+        private string fieldValuesRaw;
 
         /// <value>Gets/sets if the field is encrypted or not.</value>
         [Field("field_encrypted")]
-        public bool? IsFieldEncrypted { get; set; }
+        [Patch(nameof(isIsFieldEncryptedModified))]
+        public bool? IsFieldEncrypted
+        {
+            get => isFieldEncrypted;
+            set
+            {
+                isIsFieldEncryptedModified = true;
+                isFieldEncrypted = value;
+            }
+        }
+        private bool isIsFieldEncryptedModified = false;
+        private bool? isFieldEncrypted;
 
         /// <value>Gets/sets if this field will be listed in emails sent to users.</value>
         [Field("show_in_email")]
-        public bool? ShowInCheckOutEmail { get; set; }
+        [Patch(nameof(isShowInCheckOutEmailModified))]
+        public bool? ShowInCheckOutEmail
+        {
+            get => showInCheckOutEmail;
+            set
+            {
+                isShowInCheckOutEmailModified = true;
+                showInCheckOutEmail = value;
+            }
+        }
+        private bool isShowInCheckOutEmailModified = false;
+        private bool? showInCheckOutEmail;
 
         /// <value>Gets/sets the help text for the field.</value>
         [Field("help_text")]
-        public string HelpText { get; set; }
+        [Patch(nameof(isHelpTextModified))]
+        public string HelpText
+        {
+            get => helpText;
+            set
+            {
+                isHelpTextModified = true;
+                helpText = value;
+            }
+        }
+        private bool isHelpTextModified = false;
+        private string helpText;
 
         /// <value>Gets the values of a list type as an array.</value>
-        /// <remarks>If <see cref="FieldValuesRaw" /> is updated, this will not be!</remarks>
         [Field(DeserializeAs = "field_values_array")]
         public string[] FieldValues { get; private set; }
 
         /// <value>Get/sets what the type of the element is.</value>
         [Field(DeserializeAs = "type", SerializeAs = "element")]
-        public CustomFieldElement Type { get; set; }
+        [Patch(nameof(isTypeModified))]
+        public CustomFieldElement Type
+        {
+            get => type;
+            set
+            {
+                isTypeModified = true;
+                type = value;
+            }
+        }
+        private bool isTypeModified = false;
+        private CustomFieldElement type;
 
         /// <value>Gets if this is a required field.</value>
         [Field("required")]
-        public bool? IsRequired { get; set; }
+        [Patch(nameof(isIsRequiredModified))]
+        public bool? IsRequired
+        {
+            get => isRequired;
+            set
+            {
+                isIsRequiredModified = true;
+                isRequired = value;
+            }
+        }
+        private bool isIsRequiredModified = false;
+        private bool? isRequired;
 
         /// <inheritdoc />
         [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
@@ -133,21 +227,22 @@ namespace SnipeSharp.Models
         [Field(DeserializeAs = "deleted_at", Converter = DateTimeConverter)]
         public override DateTime? UpdatedAt { get; protected set; }
 
-        /// <inheritdoc />
-        public CustomField CloneForUpdate() => new CustomField(this.Id);
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isFormatModified = isModified;
+            isFieldValuesRawModified = isModified;
+            isIsFieldEncryptedModified = isModified;
+            isShowInCheckOutEmailModified = isModified;
+            isHelpTextModified = isModified;
+            isTypeModified = isModified;
+            isIsRequiredModified = isModified;
+        }
 
-        /// <inheritdoc />
-        public CustomField WithValuesFrom(CustomField other)
-            => new CustomField(this.Id)
-            {
-                Name = other.Name,
-                Format = other.Format,
-                FieldValuesRaw = other.FieldValuesRaw,
-                IsFieldEncrypted = other.IsFieldEncrypted,
-                ShowInCheckOutEmail = other.ShowInCheckOutEmail,
-                HelpText = other.HelpText,
-                Type = other.Type,
-                IsRequired = other.IsRequired
-            };
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ((IPatchable)this).SetAllModifiedState(false);
+        }
     }
 }

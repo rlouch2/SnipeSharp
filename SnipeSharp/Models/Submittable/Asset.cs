@@ -16,7 +16,7 @@ namespace SnipeSharp.Models
     /// Asset may be checked out to Users, Locations, or other Assets.
     /// </summary>
     [PathSegment("hardware")]
-    public sealed class Asset : CommonEndPointModel, IAvailableActions, IUpdatable<Asset>
+    public sealed class Asset : CommonEndPointModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Asset object.</summary>
         public Asset() { }
@@ -36,7 +36,18 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         [Field("name")]
-        public override string Name { get; set; }
+        [Patch(nameof(isNameModified))]
+        public override string Name
+        {
+            get => name;
+            set
+            {
+                isNameModified = true;
+                name = value;
+            }
+        }
+        private bool isNameModified = false;
+        private string name;
 
         /// <summary>
         /// The asset tag of the Asset.
@@ -45,14 +56,36 @@ namespace SnipeSharp.Models
         /// <para>This field is required, and must be unique amongst non-deleted assets.</para>
         /// </remarks>
         [Field("asset_tag", IsRequired = true)]
-        public string AssetTag { get; set; }
+        [Patch(nameof(isAssetTagModified))]
+        public string AssetTag
+        {
+            get => assetTag;
+            set
+            {
+                isAssetTagModified = true;
+                assetTag = value;
+            }
+        }
+        private bool isAssetTagModified = false;
+        private string assetTag;
 
         /// <summary>
         /// The serial (number) of the Asset.
         /// </summary>
         /// <remarks>This value must be unique amongst all assets.</remarks>
         [Field("serial")]
-        public string Serial { get; set; }
+        [Patch(nameof(isSerialModified))]
+        public string Serial
+        {
+            get => serial;
+            set
+            {
+                isSerialModified = true;
+                serial = value;
+            }
+        }
+        private bool isSerialModified = false;
+        private string serial;
 
         /// <summary>
         /// The model of the Asset.
@@ -63,7 +96,18 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [Field(DeserializeAs = "model", SerializeAs = "model_id", Converter = CommonModelConverter, IsRequired = true)]
-        public Model Model { get; set; }
+        [Patch(nameof(isModelModified))]
+        public Model Model
+        {
+            get => model;
+            set
+            {
+                isModelModified = true;
+                model = value;
+            }
+        }
+        private bool isModelModified = false;
+        private Model model;
 
         /// <summary>
         /// The model number of the model of the Asset.
@@ -87,7 +131,18 @@ namespace SnipeSharp.Models
         /// <seealso cref="StatusLabelEndPoint.FromAssetStatus(AssetStatus)" />
         /// <seealso cref="StatusLabel.ToAssetStatus" />
         [Field(DeserializeAs = "status_label", SerializeAs = "status_id", Converter = AssetStatusConverter, IsRequired = true)]
-        public AssetStatus Status { get; set; }
+        [Patch(nameof(isStatusModified))]
+        public AssetStatus Status
+        {
+            get => status;
+            set
+            {
+                isStatusModified = true;
+                status = value;
+            }
+        }
+        private bool isStatusModified = false;
+        private AssetStatus status;
 
         /// <summary>
         /// The category of the model of the Asset.
@@ -119,19 +174,52 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "supplier", SerializeAs = "supplier_id", Converter = CommonModelConverter)]
-        public Supplier Supplier { get; set; }
+        [Patch(nameof(isSupplierModified))]
+        public Supplier Supplier
+        {
+            get => supplier;
+            set
+            {
+                isSupplierModified = true;
+                supplier = value;
+            }
+        }
+        private bool isSupplierModified = false;
+        private Supplier supplier;
 
         /// <summary>
         /// Notes for the Asset.
         /// </summary>
         [Field("notes")]
-        public string Notes { get; set; }
+        [Patch(nameof(isNotesModified))]
+        public string Notes
+        {
+            get => notes;
+            set
+            {
+                isNotesModified = true;
+                notes = value;
+            }
+        }
+        private bool isNotesModified = false;
+        private string notes;
 
         /// <summary>
         /// The order number associated with this Asset's purchase.
         /// </summary>
         [Field("order_number")]
-        public string OrderNumber { get; set; }
+        [Patch(nameof(isOrderNumberModified))]
+        public string OrderNumber
+        {
+            get => orderNumber;
+            set
+            {
+                isOrderNumberModified = true;
+                orderNumber = value;
+            }
+        }
+        private bool isOrderNumberModified = false;
+        private string orderNumber;
 
         /// <summary>
         /// The company that owns this Asset.
@@ -141,7 +229,18 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
-        public Company Company { get; set; }
+        [Patch(nameof(isCompanyModified))]
+        public Company Company
+        {
+            get => company;
+            set
+            {
+                isCompanyModified = true;
+                company = value;
+            }
+        }
+        private bool isCompanyModified = false;
+        private Company company;
 
         /// <summary>
         /// <para>The location this asset is currently at.</para>
@@ -154,7 +253,18 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "location", SerializeAs =  "location_id", Converter = CommonModelConverter)]
-        public Location Location { get; set; }
+        [Patch(nameof(isLocationModified))]
+        public Location Location
+        {
+            get => location;
+            set
+            {
+                isLocationModified = true;
+                location = value;
+            }
+        }
+        private bool isLocationModified = false;
+        private Location location;
 
         /// <summary>
         /// The default location for the asset.
@@ -164,14 +274,36 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "rtd_location", SerializeAs = "rtd_location_id", Converter = CommonModelConverter)]
-        public Location DefaultLocation { get; set; }
+        [Patch(nameof(isDefaultLocationModified))]
+        public Location DefaultLocation
+        {
+            get => defaultLocation;
+            set
+            {
+                isDefaultLocationModified = true;
+                defaultLocation = value;
+            }
+        }
+        private bool isDefaultLocationModified = false;
+        private Location defaultLocation;
 
         /// <summary>
         /// The url for the image of the asset.
         /// </summary>
         /// <remarks>If the asset does not have an image set explicitly, it uses its model's image by default.</remarks>
         [Field("image")]
-        public Uri ImageUri { get; set; }
+        [Patch(nameof(isImageUriModified))]
+        public Uri ImageUri
+        {
+            get => imageUri;
+            set
+            {
+                isImageUriModified = true;
+                imageUri = value;
+            }
+        }
+        private bool isImageUriModified = false;
+        private Uri imageUri;
 
         /// <summary>
         /// <para>The object this asset is assigned to; it may be either a <see cref="User">User</see>, a <see cref="Location">Location</see>, or another <see cref="Asset">Asset</see>.</para>
@@ -181,50 +313,61 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [Field(DeserializeAs = "assigned_to", Converter = CommonModelConverter)]
-        public AssetAssignedTo AssignedTo { get; private set; }
-
+        // This property does not have the Patch attribute because we use the OnSerializing
+        // function to set a custom field with its value, depending on its type.
+        public AssetAssignedTo AssignedTo
+        {
+            get => assignedTo;
+            private set
+            {
+                isAssignedToModified = true;
+                assignedTo = value;
+            }
+        }
         /// <value>If the assigned object has been modified.</value>
-        /// <remarks>Tracking this lets us skip it when writing back.</remarks>
-        private bool _updateAssignedTo = false;
+        private bool isAssignedToModified = false;
+        private AssetAssignedTo assignedTo;
 
         /// <summary>
-        /// Assigne this asset to a user.
+        /// Assign this asset to a user.
         /// </summary>
         /// <param ref="user">The user to assign to.</param>
         /// <returns>The stub object representing the user to the API.</returns>
         public AssetAssignedTo AssignTo(User user)
-        {
-            _updateAssignedTo = true;
-            return AssignedTo = new AssetAssignedTo(user);
-        }
+            => AssignedTo = new AssetAssignedTo(user);
 
         /// <summary>
-        /// Assigne this asset to a location.
+        /// Assign this asset to a location.
         /// </summary>
         /// <param ref="location">The location to assign to.</param>
         /// <returns>The stub object representing the location to the API.</returns>
         public AssetAssignedTo AssignTo(Location location)
-        {
-            _updateAssignedTo = true;
-            return AssignedTo = new AssetAssignedTo(location);
-        }
+            => AssignedTo = new AssetAssignedTo(location);
 
         /// <summary>
-        /// Assigne this asset to a asset.
+        /// Assign this asset to a asset.
         /// </summary>
         /// <param ref="asset">The asset to assign to.</param>
         /// <returns>The stub object representing the asset to the API.</returns>
         public AssetAssignedTo AssignTo(Asset asset)
-        {
-            _updateAssignedTo = true;
-            return AssignedTo = new AssetAssignedTo(asset);
-        }
+            => AssignedTo = new AssetAssignedTo(asset);
 
         /// <summary>
         /// The number of months the warranty covers for this asset.
         /// </summary>
         [Field("warranty_months", Converter = MonthsConverter)]
-        public int? WarrantyMonths { get; set; }
+        [Patch(nameof(isWarrantyMonthsModified))]
+        public int? WarrantyMonths
+        {
+            get => warrantyMonths;
+            set
+            {
+                isWarrantyMonthsModified = true;
+                warrantyMonths = value;
+            }
+        }
+        private bool isWarrantyMonthsModified = false;
+        private int? warrantyMonths;
 
         /// <summary>
         /// The date the warranty for this asset expires. This value is calculated from <see cref="PurchaseDate">PurchaseDate</see> and <see cref="WarrantyMonths">WarrantyMonths</see>.
@@ -265,14 +408,36 @@ namespace SnipeSharp.Models
         /// The date this Asset was purchased.
         /// </summary>
         [Field("purchase_date", Converter = DateTimeConverter)]
-        public DateTime? PurchaseDate { get; set; }
+        [Patch(nameof(isPurchaseDateModified))]
+        public DateTime? PurchaseDate
+        {
+            get => purchaseDate;
+            set
+            {
+                isPurchaseDateModified = true;
+                purchaseDate = value;
+            }
+        }
+        private bool isPurchaseDateModified = false;
+        private DateTime? purchaseDate;
 
         /// <summary>
         /// The date this Asset was last checked out.
         /// </summary>
         /// <seealso cref="AssetEndPoint.CheckOut(AssetCheckOutRequest)" />
         [Field(DeserializeAs = "last_checkout", Converter = DateTimeConverter)]
-        public DateTime? LastCheckOut { get; private set; }
+        [Patch(nameof(isLastCheckOutModified))]
+        public DateTime? LastCheckOut
+        {
+            get => lastCheckOut;
+            set
+            {
+                isLastCheckOutModified = true;
+                lastCheckOut = value;
+            }
+        }
+        private bool isLastCheckOutModified = false;
+        private DateTime? lastCheckOut;
 
         /// <summary>
         /// The date this Asset is expected to be checked back in.
@@ -285,7 +450,18 @@ namespace SnipeSharp.Models
         /// The cost of this Asset when purchased.
         /// </summary>
         [Field("purchase_cost")]
-        public decimal? PurchaseCost { get; set; }
+        [Patch(nameof(isPurchaseCostModified))]
+        public decimal? PurchaseCost
+        {
+            get => purchaseCost;
+            set
+            {
+                isPurchaseCostModified = true;
+                purchaseCost = value;
+            }
+        }
+        private bool isPurchaseCostModified = false;
+        private decimal? purchaseCost;
 
         /// <summary>
         /// The number of times this asset has been checked in.
@@ -320,7 +496,18 @@ namespace SnipeSharp.Models
         /// <para>Values in this collection will be serialized with the key <c><see cref="AssetCustomField.Field">value.Field</see> ?? key</c> and the value <see cref="AssetCustomField.Value">value.Value</see>.</para>
         /// </summary>
         [Field(DeserializeAs = "custom_fields", Converter = FieldConverter.CustomFieldDictionaryConverter)]
+        [Patch(nameof(isCustomFieldsModified))]
         public CustomFieldDictionary CustomFields { get; set; } = new CustomFieldDictionary();
+
+        private bool isCustomFieldsModified
+        {
+            get => CustomFields?.IsModified ?? false;
+            set
+            {
+                if(null != CustomFields)
+                    CustomFields.IsModified = value;
+            }
+        }
 
         [JsonExtensionData]
         private Dictionary<string, JToken> _customFields { get; set; }
@@ -331,8 +518,11 @@ namespace SnipeSharp.Models
             _customFields = new Dictionary<string, JToken>();
             if(null != CustomFields)
                 foreach(var pair in CustomFields)
-                    _customFields[pair.Value?.Field ?? pair.Key] = pair.Value?.Value;
-            if(null != AssignedTo && _updateAssignedTo)
+                    // only serialize modified custom fields
+                    // Value cannot be null, because we check that in CustomFieldDictionary
+                    if(pair.Value!.IsModified)
+                        _customFields[pair.Value!.Field ?? pair.Key] = pair.Value!.Value;
+            if(null != AssignedTo && isAssignedToModified) // TODO: is it possible to un-assign with this method?
             {
                 switch(AssignedTo.Type)
                 {
@@ -374,32 +564,29 @@ namespace SnipeSharp.Models
                 }
                 _customFields = null;
             }
-            return;
+            ((IPatchable)this).SetAllModifiedState(false);
         }
 
-        /// <inheritdoc />
-        public Asset CloneForUpdate() => new Asset(this.Id);
-
-        /// <inheritdoc />
-        public Asset WithValuesFrom(Asset other)
-            => new Asset(this.Id)
-            {
-                AssetTag = other.AssetTag,
-                Name = other.Name,
-                Serial = other.Serial,
-                Model = other.Model,
-                Status = other.Status,
-                Supplier = other.Supplier,
-                Notes = other.Notes,
-                OrderNumber = other.OrderNumber,
-                Company = other.Company,
-                Location = other.Location,
-                DefaultLocation = other.DefaultLocation,
-                ImageUri = other.ImageUri,
-                WarrantyMonths = other.WarrantyMonths,
-                PurchaseDate = other.PurchaseDate,
-                PurchaseCost = other.PurchaseCost,
-                CustomFields = other.CustomFields
-            };
+        void IPatchable.SetAllModifiedState(bool isModified)
+        {
+            isNameModified = isModified;
+            isAssetTagModified = isModified;
+            isSerialModified = isModified;
+            isModelModified = isModified;
+            isStatusModified = isModified;
+            isSupplierModified = isModified;
+            isNotesModified = isModified;
+            isOrderNumberModified = isModified;
+            isCompanyModified = isModified;
+            isLocationModified = isModified;
+            isDefaultLocationModified = isModified;
+            isImageUriModified = isModified;
+            isAssignedToModified = isModified;
+            isWarrantyMonthsModified = isModified;
+            isPurchaseDateModified = isModified;
+            isLastCheckOutModified = isModified;
+            isPurchaseCostModified = isModified;
+            isCustomFieldsModified = isModified;
+        }
     }
 }

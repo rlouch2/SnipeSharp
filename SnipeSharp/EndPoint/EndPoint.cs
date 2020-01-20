@@ -116,7 +116,7 @@ namespace SnipeSharp.EndPoint
             => Api.RequestManager.Patch($"{EndPointInfo.BaseUri}/{toUpdate.Id}", toUpdate).RethrowExceptionIfAny().Value.Payload;
 
         /// <inheritdoc />
-        public T SetAll(T toSet)
+        public T Set(T toSet)
         {
             var patchable = toSet as IPatchable;
             if(null != patchable)

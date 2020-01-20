@@ -30,6 +30,13 @@ namespace SnipeSharp.PowerShell.BindingTypes
             protected set => _objects = value;
         }
 
+        /// <summary>Reset the resolved value, forcing a re-query the next time Value is requested.</summary>
+        internal void Reset()
+        {
+            _objects = null;
+            Error = null;
+        }
+
         /// <summary>
         /// The internal binding query.
         /// </summary>

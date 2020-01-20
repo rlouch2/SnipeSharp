@@ -26,7 +26,16 @@ namespace SnipeSharp.Models
         /// The value of the field.
         /// </summary>
         [Field(DeserializeAs = "value")]
-        public string Value { get; set; }
+        public string Value
+        {
+            get => value;
+            set
+            {
+                this.value = value;
+                IsModified = true;
+            }
+        }
+        private string value;
 
         /// <summary>
         /// The format the field must fit, specified by SnipeIT.
@@ -34,6 +43,11 @@ namespace SnipeSharp.Models
         // TODO: Parse this into a special object that will verify the value matches before updating?
         [Field(DeserializeAs = "field_format")]
         public string Format { get; set; }
+
+        /// <summary>
+        /// Has this field been modified?
+        /// </summary>
+        internal bool IsModified { get; set; } = false;
 
         /// <inheritdoc />
         public override string ToString()

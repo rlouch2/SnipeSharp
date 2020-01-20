@@ -59,7 +59,10 @@ namespace SnipeSharp.Serialization
         /// <seealso cref="CustomFieldDictionaryConverter" />
         CustomFieldDictionaryConverter,
 
-        /// <seealso cref="FalseyUriConverter"/>
+        /// <seealso cref="Serialization.FalseyUriConverter" />
         FalseyUriConverter,
+
+        /// <seealso cref="CustomReadOnlyResponseCollectionConverter" />
+        ReadOnlyResponseCollectionConverter,
     }
 }
