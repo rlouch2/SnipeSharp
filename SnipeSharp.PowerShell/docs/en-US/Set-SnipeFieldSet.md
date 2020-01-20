@@ -17,19 +17,19 @@ Changes the properties of an existing Snipe-IT field set.
 Set-SnipeFieldSet [-NewName <String>] [-Add <ObjectBinding`1[]>] [-AddRequired <ObjectBinding`1[]>]
  [-Remove <ObjectBinding`1[]>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeFieldSet [-NewName <String>] [-Add <ObjectBinding`1[]>] [-AddRequired <ObjectBinding`1[]>]
- [-Remove <ObjectBinding`1[]>] -Name <String> [-ShowResponse] [<CommonParameters>]
+ [-Remove <ObjectBinding`1[]>] -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeFieldSet [-NewName <String>] [-Add <ObjectBinding`1[]>] [-AddRequired <ObjectBinding`1[]>]
- [-Remove <ObjectBinding`1[]>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ [-Remove <ObjectBinding`1[]>] -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -153,6 +153,23 @@ Accept wildcard characters: False
 
 ### -ShowResponse
 If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
 
 ```yaml
 Type: SwitchParameter

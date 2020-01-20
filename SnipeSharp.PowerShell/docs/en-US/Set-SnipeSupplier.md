@@ -18,7 +18,7 @@ Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-FaxNumber <String>]
  [-PhoneNumber <String>] [-EmailAddress <String>] [-Contact <String>] [-Notes <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
@@ -26,7 +26,7 @@ Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-
 Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-FaxNumber <String>]
  [-PhoneNumber <String>] [-EmailAddress <String>] [-Contact <String>] [-Notes <String>] -Name <String>
- [-ShowResponse] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -34,7 +34,7 @@ Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-
 Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-FaxNumber <String>]
  [-PhoneNumber <String>] [-EmailAddress <String>] [-Contact <String>] [-Notes <String>] -Id <Int32>
- [-ShowResponse] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -296,6 +296,23 @@ The supplier's updated address zip code.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

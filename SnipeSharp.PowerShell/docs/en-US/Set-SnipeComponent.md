@@ -21,7 +21,7 @@ Set-SnipeComponent [-NewName <String>] [-Serial <String>]
  [-OrderNumber <String>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Component]> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
@@ -32,7 +32,7 @@ Set-SnipeComponent [-NewName <String>] [-Serial <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-OrderNumber <String>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Name <String>
- [-ShowResponse] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -43,7 +43,7 @@ Set-SnipeComponent [-NewName <String>] [-Serial <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-OrderNumber <String>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>] -Id <Int32>
- [-ShowResponse] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -257,6 +257,23 @@ Accept wildcard characters: False
 
 ### -ShowResponse
 If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
 
 ```yaml
 Type: SwitchParameter

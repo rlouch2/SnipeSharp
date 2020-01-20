@@ -17,21 +17,21 @@ Changes the properties of an existing Snipe-IT custom field.
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.CustomField]>
- [-ShowResponse] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
- -Name <String> [-ShowResponse] [<CommonParameters>]
+ -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
- -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -225,6 +225,23 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

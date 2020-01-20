@@ -22,7 +22,7 @@ Set-SnipeModel [-NewName <String>]
  [-FieldSet <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]>]
  [-EndOfLife <Int32>] [-Notes <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Model]> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
@@ -33,7 +33,7 @@ Set-SnipeModel [-NewName <String>]
  [-Depreciation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-FieldSet <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]>]
- [-EndOfLife <Int32>] [-Notes <String>] -Name <String> [-ShowResponse] [<CommonParameters>]
+ [-EndOfLife <Int32>] [-Notes <String>] -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -44,7 +44,7 @@ Set-SnipeModel [-NewName <String>]
  [-Depreciation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-FieldSet <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]>]
- [-EndOfLife <Int32>] [-Notes <String>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ [-EndOfLife <Int32>] [-Notes <String>] -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -243,6 +243,23 @@ Accept wildcard characters: False
 
 ### -ShowResponse
 If present, write the response from the Api to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
 
 ```yaml
 Type: SwitchParameter

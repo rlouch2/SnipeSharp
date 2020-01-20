@@ -24,7 +24,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
  [-MinimumQuantity <UInt32>] [-ImageUri <Uri>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
@@ -37,7 +37,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Name <String> [-ShowResponse] [<CommonParameters>]
+ [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -50,7 +50,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -312,6 +312,23 @@ The updated supplier who sold the accessory.
 
 ```yaml
 Type: SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

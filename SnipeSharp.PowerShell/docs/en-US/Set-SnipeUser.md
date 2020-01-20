@@ -21,7 +21,7 @@ Set-SnipeUser -UserName <String> [-AvatarUrl <Uri>] [-FirstName <String>] [-Last
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Groups <ObjectBinding`1[]>] [-ShowResponse] [<CommonParameters>]
+ [-Groups <ObjectBinding`1[]>] [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByEmailAddress
@@ -33,7 +33,7 @@ Set-SnipeUser -EmailAddress <String> [-AvatarUrl <Uri>] [-FirstName <String>] [-
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Groups <ObjectBinding`1[]>] [-ShowResponse] [<CommonParameters>]
+ [-Groups <ObjectBinding`1[]>] [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByIdentity
@@ -45,7 +45,7 @@ Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-Ne
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Groups <ObjectBinding`1[]>] [-Identity] <UserBinding> [-ShowResponse] [<CommonParameters>]
+ [-Groups <ObjectBinding`1[]>] [-Identity] <UserBinding> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
@@ -57,7 +57,7 @@ Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-Ne
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Groups <ObjectBinding`1[]>] -Name <String> [-ShowResponse] [<CommonParameters>]
+ [-Groups <ObjectBinding`1[]>] -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -69,7 +69,7 @@ Set-SnipeUser [-AvatarUrl <Uri>] [-FirstName <String>] [-LastName <String>] [-Ne
  [-Department <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Department]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
- [-Groups <ObjectBinding`1[]>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ [-Groups <ObjectBinding`1[]>] -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -451,6 +451,23 @@ The user's updated address zip code.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

@@ -16,19 +16,19 @@ Changes the properties of an existing Snipe-IT status label.
 ```
 Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.StatusLabel]>
- [-ShowResponse] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>] -Name <String> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeStatusLabel [-NewName <String>] [-Type <StatusType>] [-Notes <String>] -Id <Int32> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -143,6 +143,23 @@ Type: StatusType
 Parameter Sets: (All)
 Aliases:
 Accepted values: Pending, Archived, Undeployable, Deployable
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

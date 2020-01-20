@@ -17,19 +17,19 @@ Changes the properties of an existing Snipe-IT category.
 Set-SnipeCategory [-NewName <String>] [-Type <CategoryType>] [-EmailUserOnCheckInOrOut <Boolean>]
  [-IsAcceptanceRequired <Boolean>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeCategory [-NewName <String>] [-Type <CategoryType>] [-EmailUserOnCheckInOrOut <Boolean>]
- [-IsAcceptanceRequired <Boolean>] -Name <String> [-ShowResponse] [<CommonParameters>]
+ [-IsAcceptanceRequired <Boolean>] -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeCategory [-NewName <String>] [-Type <CategoryType>] [-EmailUserOnCheckInOrOut <Boolean>]
- [-IsAcceptanceRequired <Boolean>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ [-IsAcceptanceRequired <Boolean>] -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -159,6 +159,23 @@ Type: CategoryType
 Parameter Sets: (All)
 Aliases:
 Accepted values: Accessory, Asset, Consumable, Component, License
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

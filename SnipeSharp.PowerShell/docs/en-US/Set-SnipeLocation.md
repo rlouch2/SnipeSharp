@@ -19,7 +19,7 @@ Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Ad
  [-ParentLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Manager <UserBinding>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]> [-ShowResponse]
- [<CommonParameters>]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
@@ -27,7 +27,7 @@ Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Ad
 Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-Currency <String>]
  [-ParentLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Manager <UserBinding>] -Name <String> [-ShowResponse] [<CommonParameters>]
+ [-Manager <UserBinding>] -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -35,7 +35,7 @@ Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Ad
 Set-SnipeLocation [-NewName <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-Currency <String>]
  [-ParentLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-Manager <UserBinding>] -Id <Int32> [-ShowResponse] [<CommonParameters>]
+ [-Manager <UserBinding>] -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -267,6 +267,23 @@ The location's updated address zip code.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

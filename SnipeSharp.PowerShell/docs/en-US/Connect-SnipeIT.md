@@ -14,7 +14,7 @@ Connects to Snipe IT.
 
 ```
 Connect-SnipeIT [-Token] <String> [-Uri] <Uri> [-PassThru] [-Force] [-DisableLookupVerification]
- [<CommonParameters>]
+ [-SkipConnectionCheck] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -103,6 +103,23 @@ Aliases:
 
 Required: True
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SkipConnectionCheck
+When provided, don't check that the API URI and Token are valid.
+
+This is useful if it is certain that they are valid, but for some reason the user does not have access to view their own account.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -24,7 +24,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>]
- [-Identity] <AssetBinding> [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Identity] <AssetBinding> [-ShowResponse] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByAssetTag
@@ -39,7 +39,7 @@ Set-SnipeAsset -AssetTag <String> [-NewAssetTag <String>] [-NewName <String>] [-
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### BySerial
@@ -54,7 +54,7 @@ Set-SnipeAsset -Serial <String> [-NewAssetTag <String>] [-NewName <String>] [-Ne
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByName
@@ -69,7 +69,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Name <String>
- [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -84,7 +84,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Id <Int32>
- [-ShowResponse] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -454,6 +454,23 @@ The cmdlet is not run.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

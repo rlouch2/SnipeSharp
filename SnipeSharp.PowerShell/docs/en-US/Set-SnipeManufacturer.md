@@ -17,20 +17,20 @@ Changes the properties of an existing Snipe-IT manufacturer.
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
  [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>]
  [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>
- [-ShowResponse] [<CommonParameters>]
+ [-ShowResponse] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
- [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Name <String> [-ShowResponse]
+ [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Name <String> [-ShowResponse] [-Overwrite]
  [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
- [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Id <Int32> [-ShowResponse]
+ [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Id <Int32> [-ShowResponse] [-Overwrite]
  [<CommonParameters>]
 ```
 
@@ -188,6 +188,23 @@ The updated url for the manufacturer's website.
 
 ```yaml
 Type: Uri
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
