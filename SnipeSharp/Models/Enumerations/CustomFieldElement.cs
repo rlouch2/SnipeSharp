@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models.Enumerations
@@ -8,6 +9,7 @@ namespace SnipeSharp.Models.Enumerations
     /// What the field type of the custom field is.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum CustomFieldElement
     {
         /// <summary>The field type is a list selection.</summary>

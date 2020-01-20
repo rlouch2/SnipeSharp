@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Filters
@@ -9,6 +10,7 @@ namespace SnipeSharp.Filters
     /// </summary>
     /// <seealso cref="Filters.AbstractAssetSearchFilter" />
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum FilterStatusMeta
     {
         /// <summary>Todo: what is this?</summary>

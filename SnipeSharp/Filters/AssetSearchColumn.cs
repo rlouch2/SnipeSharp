@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Filters
@@ -8,6 +9,7 @@ namespace SnipeSharp.Filters
     /// Columns an asset search can be sorted on.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum AssetSearchColumn
     {
         /// <summary>The internal Id number.</summary>

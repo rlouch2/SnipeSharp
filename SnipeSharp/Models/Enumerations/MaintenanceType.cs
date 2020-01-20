@@ -1,6 +1,7 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models.Enumerations
 {
@@ -8,6 +9,7 @@ namespace SnipeSharp.Models.Enumerations
     /// The type of an asset maintenance.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum MaintenanceType
     {
         /// <summary>A general Maintenance.</summary>

@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json.Converters;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace SnipeSharp
 {
@@ -197,6 +200,11 @@ namespace SnipeSharp
                     using(var jsonWriter = new JsonTextWriter(stringWriter))
                         converter.WriteJson(jsonWriter, value, NewtonsoftJsonSerializer.Serializer);
                     value = stringBuilder.ToString();
+                } else if(value.GetType().IsEnum && null != value.GetType().GetCustomAttribute<EnumNameConverterAttribute>())
+                {
+                    value = value.GetType().GetMember(value.ToString(), BindingFlags.Static | BindingFlags.Public).FirstOrDefault()
+                                ?.GetCustomAttribute<EnumMemberAttribute>()?.Value
+                                ?? value.ToString();
                 }
                 request.AddParameter(attribute.SerializeAs, value);
             }

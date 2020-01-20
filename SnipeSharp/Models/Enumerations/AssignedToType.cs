@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models.Enumerations
@@ -8,6 +9,7 @@ namespace SnipeSharp.Models.Enumerations
     /// Indicates what type an Asset or other object is assigned to: a User, a Location, or an Asset.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum AssignedToType
     {
         /// <summary>The object is assigned to a User.</summary>

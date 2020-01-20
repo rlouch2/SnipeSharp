@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models.Enumerations
@@ -8,6 +9,7 @@ namespace SnipeSharp.Models.Enumerations
     /// If a <see cref="CustomField"/> is required in a <see cref="FieldSet"/> or not.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum IsRequired
     {
         /// <summary>The field is required.</summary>

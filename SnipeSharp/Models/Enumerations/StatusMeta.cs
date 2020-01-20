@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models.Enumerations
@@ -11,6 +12,7 @@ namespace SnipeSharp.Models.Enumerations
     /// <seealso cref="StatusType" />
     /// <seealso cref="Filters.FilterStatusMeta" />
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum StatusMeta
     {
         /// <summary>The status if of type pending. The associated object is in limbo.</summary>

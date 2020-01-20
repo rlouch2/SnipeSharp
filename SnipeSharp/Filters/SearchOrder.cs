@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Filters
@@ -8,6 +9,7 @@ namespace SnipeSharp.Filters
     /// Indicates the order to sort by.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum SearchOrder
     {
         /// <summary>Sort the request in ascending order according to the sort column.</summary>

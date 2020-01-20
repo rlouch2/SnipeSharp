@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models.Enumerations
@@ -9,6 +10,7 @@ namespace SnipeSharp.Models.Enumerations
     /// <para>Categories for objects can only be retrieved when the CategoryType matches the object type, but the API won't stop you from setting it wrong.</para>
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum CategoryType
     {
         /// <summary>This Category is for an <see cref="SnipeSharp.Models.Accessory">Accessory</see>.</summary>

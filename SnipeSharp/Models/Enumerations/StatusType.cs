@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnipeSharp.Serialization;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models.Enumerations
@@ -9,6 +10,7 @@ namespace SnipeSharp.Models.Enumerations
     /// </summary>
     /// <seealso cref="StatusMeta" />
     [JsonConverter(typeof(StringEnumConverter))]
+    [EnumNameConverter]
     public enum StatusType
     {
         /// <summary>The status is of type undeployable; the associated object cannot be deployed.</summary>
