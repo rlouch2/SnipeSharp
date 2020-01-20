@@ -7,7 +7,7 @@
     DefaultCommandPrefix = 'Snipe'
 
     # Version number of this module.
-    ModuleVersion = '0.0.6'
+    ModuleVersion = '0.0.7'
     CompatiblePSEditions = @('5.1')
 
     # ID used to uniquely identify this module
@@ -17,7 +17,7 @@
     # Company or vendor of this module
     CompanyName = 'Unknown'
     # Copyright statement for this module
-    Copyright = '(c) 2018 Matthew Barrey and Christian LaCourt. MIT License.' # TODO: fix license line
+    Copyright = '(c) 2020 Matthew Barrey and Christian LaCourt. MIT License.' # TODO: fix license line
 
     # Description of the functionality provided by this module
     Description = 'The SnipeSharp.PowerShell module allows the management of SnipeIT with PowerShell using the SnipeSharp library.'
