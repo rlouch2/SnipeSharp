@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Newtonsoft.Json.Converters;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -177,6 +176,9 @@ namespace SnipeSharp
             if(Method.GET != method)
             {
                 request.AddJsonBody(obj);
+                #if DEBUG
+                Api.DebugRequestList.Add(serializerDeserializer.Serialize(obj));
+                #endif
                 return request;
             }
             var type = obj.GetType();

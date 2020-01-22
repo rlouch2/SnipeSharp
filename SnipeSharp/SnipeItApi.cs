@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
 using RestSharp;
 using SnipeSharp.EndPoint;
-using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
 
 namespace SnipeSharp
@@ -23,6 +21,12 @@ namespace SnipeSharp
         /// A list of responses from the RestClientManager. Used for debugging purposes.
         /// </summary>
         public List<IRestResponse> DebugResponseList = new List<IRestResponse>();
+
+        /// <summary>
+        /// A list of request bodies from the RestClientManager. Used for debugging purposes.
+        /// Does not include bodies from GET requests.
+        /// </summary>
+        public List<string> DebugRequestList = new List<string>();
 #endif
         private string _token;
 
