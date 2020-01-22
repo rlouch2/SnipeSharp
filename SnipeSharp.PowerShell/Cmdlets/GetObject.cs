@@ -33,29 +33,23 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// <summary>The internal Id of the Object.</summary>
         [Parameter(
             Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByInternalId),
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
+            ParameterSetName = nameof(ParameterSets.ByInternalId)
         )]
         public int[] InternalId { get; set; }
 
         /// <summary>The name of the Object.</summary>
         [Parameter(
             Mandatory = true,
-            ParameterSetName = nameof(ParameterSets.ByName),
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
+            ParameterSetName = nameof(ParameterSets.ByName)
         )]
         public string[] Name { get; set; }
-
 
         /// <summary>An identity for an object.</summary>
         [Parameter(
             Mandatory = true,
             ParameterSetName = nameof(ParameterSets.ByIdentity),
             Position = 0,
-            ValueFromPipeline = true,
-            ValueFromPipelineByPropertyName = true
+            ValueFromPipeline = true
         )]
         public TBinding[] Identity { get; set; }
 
@@ -105,13 +99,11 @@ namespace SnipeSharp.PowerShell.Cmdlets
             foreach(var name in Name)
             {
                 filter.Search = name;
-                var item = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter).Where(i => StringComparer.OrdinalIgnoreCase.Compare(i.Name, name) == 0).First();
-                if(null == item)
-                {
-                    this.WriteNotFoundError<TObject>("name", name);
+                var items = ApiHelper.Instance.GetEndPoint<TObject>().FindAll(filter).Where(i => StringComparer.OrdinalIgnoreCase.Compare(i.Name, name) == 0).ToList();
+                if(this.ValidateHasExactlyOneValue(items, "name", name))
                     continue;
-                }
-                yield return item;
+                foreach(var value in items)
+                    yield return value;
             }
         }
 
@@ -125,11 +117,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
             foreach(var item in bindings)
             {
                 item.Resolve(filter);
-                if(!item.HasValue)
-                {
-                    this.WriteNotFoundError<TObject>("identity", item.Query, item.Error);
+                if(!this.ValidateHasExactlyOneValue(item, value: item.Query))
                     continue;
-                }
                 foreach(var value in item.Value)
                     yield return value;
             }

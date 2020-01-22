@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Management.Automation;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
@@ -66,6 +67,31 @@ namespace SnipeSharp.PowerShell
                 return false;
             }
             if(binding.Value.Count > 1)
+            {
+                cmdlet.WriteTooManyFoundError<T>(queryType, value);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Validates that a collection of items has one and exactly one value.
+        /// </summary>
+        /// <param name="cmdlet">The cmdlet to operate on.</param>
+        /// <param name="items">The collection of items to validate.</param>
+        /// <param name="queryType">What type of query was it?</param>
+        /// <param name="value">What was the query value?</param>
+        /// <typeparam name="T">The type of object the binding is for.</typeparam>
+        /// <returns>True if the binding is valid, else false.</returns>
+        internal static bool ValidateHasExactlyOneValue<T>(this Cmdlet cmdlet, IReadOnlyCollection<T> items, string queryType = "query", string value = null)
+            where T : CommonEndPointModel, new()
+        {
+            if(0 == items.Count)
+            {
+                cmdlet.WriteNotFoundError<T>(queryType, value);
+                return false;
+            }
+            if(items.Count > 1)
             {
                 cmdlet.WriteTooManyFoundError<T>(queryType, value);
                 return false;
