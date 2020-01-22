@@ -13,8 +13,9 @@ namespace SnipeSharp.PowerShell.Attributes
                 throw new ValidationMetadataException();
             if(!(element is IObjectBinding))
                 throw new ValidationMetadataException($"Object {element} is not an ObjectBinding.");
-            if(!((IObjectBinding)element).HasValue)
-                throw new ValidationMetadataException($"Object {element} has a null inner object.");
+            var binding = (IObjectBinding)element;
+            if(!binding.HasValue)
+                throw new ValidationMetadataException($"Could not resolve a binding of type {binding.Type}.", binding.Error);
         }
     }
 }

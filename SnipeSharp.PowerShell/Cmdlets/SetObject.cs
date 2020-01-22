@@ -90,6 +90,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     }
                     break;
             }
+
+            // any errors that occur during lookup will be written to the error stream, and GetSingleValue will return false
             if(!this.GetSingleValue(Object, out var value))
                 return;
 

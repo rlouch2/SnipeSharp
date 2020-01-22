@@ -1,3 +1,4 @@
+using System;
 using SnipeSharp.PowerShell.Attributes;
 
 namespace SnipeSharp.PowerShell.BindingTypes
@@ -9,11 +10,21 @@ namespace SnipeSharp.PowerShell.BindingTypes
     ///    Only one thing, <see cref="ObjectBinding{T}" />, should implement this. It's used in
     ///    <see cref="ValidateIdentityNotNullAttribute" /> for internal validation.
     /// </remarks>
-    public interface IObjectBinding
+    internal interface IObjectBinding
     {
         /// <summary>
         /// Does the binding have a value?
         /// </summary>
         bool HasValue { get; }
+
+        /// <summary>
+        /// Did an error occur during resolution?
+        /// </summary>
+        Exception Error { get; }
+
+        /// <summary>
+        /// What type does this binding resolve?
+        /// </summary>
+        Type Type { get; }
     }
 }

@@ -53,8 +53,11 @@ namespace SnipeSharp.PowerShell.BindingTypes
                 };
         }
 
-        /// <value>Gets the exception thrown during retrieval, or null.</value>
+        /// <inheritdoc />
         public Exception Error { get; protected set; }
+
+        /// <inheritdoc />
+        public Type Type { get; } = typeof(T);
 
         /// <summary>
         /// Fetches a single Object by its internal Id.
@@ -187,25 +190,35 @@ namespace SnipeSharp.PowerShell.BindingTypes
             // fix note: use _objects instead of Value because Value calls this function if it is null.
             if(null != _objects)
                 return;
-            ApiOptionalResponse<T> result;
-            switch(QueryUnion.Type)
+            try
             {
-                case BindingType.Integer:
-                    result = ApiHelper.Instance.GetEndPoint<T>().GetOptional(QueryUnion.IntegerValue);
-                    break;
-                default:
-                    result = new ApiOptionalResponse<T> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
-                    break;
-                case BindingType.String:
+                if(BindingType.Integer == QueryUnion.Type)
+                {
+                    var result = ApiHelper.Instance.GetEndPoint<T>().GetOptional(QueryUnion.IntegerValue);
+                    Value = result.HasValue ? new T[] { result.Value } : new T[0];
+                    Error = result.Exception;
+                } else if(BindingType.String == QueryUnion.Type)
+                {
                     var endPoint = ApiHelper.Instance.GetEndPoint<T>();
                     int id; // used later for parsing integers
+                    ApiOptionalResponse<T> result;
                     switch(ParseQuery(QueryUnion.StringValue, out var tag, out var value))
                     {
                         case BindingQueryType.Absent:
+                        case BindingQueryType.Id:
                             if(int.TryParse(value, out id))
                                 result = endPoint.GetOptional(id);
+                            else if(null != tag)
+                                // we're dealing with a direct ID query and couldn't find it -- stop.
+                                result = new ApiOptionalResponse<T> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
                             else
+                            {
+                                // maybe the whole thing is a name?
                                 result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
+                                if(!result.HasValue)
+                                    // fall back to search if we couldn't find it by name.
+                                    goto case BindingQueryType.Search;
+                            }
                             break;
                         case BindingQueryType.CaseSensitiveName:
                             QueryUnion.CaseSensitive = true;
@@ -213,42 +226,30 @@ namespace SnipeSharp.PowerShell.BindingTypes
                         case BindingQueryType.CaseInsensitiveName:
                             result = endPoint.GetOptional(value, QueryUnion.CaseSensitive, filter);
                             break;
-                        case BindingQueryType.Id:
-                            if(int.TryParse(value, out id))
-                                result = endPoint.GetOptional(id);
-                            else
-                                result = new ApiOptionalResponse<T> { Exception = new ArgumentException($"Id is not an integer: {value}", "query") };
-                            break;
-                        case BindingQueryType.Search:
-                            try
-                            {
-                                filter.Search = value;
-                                result = endPoint.FindOneOptional(filter);
-                            } catch(Exception e)
-                            {
-                                result = new ApiOptionalResponse<T> { Exception = e };
-                            }
-                            break;
                         default:
-                            result = new ApiOptionalResponse<T> { Exception = new ArgumentException($"Query does not have a proper type: {tag}", "query") };
-                            break;
-                    }
-                    if(null != result.Exception)
-                    {
-                        try
-                        {
+                            // by default, try searching for the whole thing
+                        case BindingQueryType.Search:
+                            if(null == filter)
+                                filter = new SearchFilter();
                             filter.Search = value;
-                            result = endPoint.FindOneOptional(filter);
-                        } catch(Exception e)
-                        {
-                            result = new ApiOptionalResponse<T> { Exception = e };
-                        }
+                            var allResults = endPoint.FindAllOptional(filter);
+                            Error = allResults.Exception;
+                            Value = allResults.HasValue ? allResults.Value : (IReadOnlyList<T>)new T[0];
+                            return;
                     }
-                    break;
+                    Value = result.HasValue ? new T[] { result.Value } : new T[0];
+                    Error = result.Exception;
+                } else
+                {
+                    Value = new T[0];
+                    Error = new InvalidOperationException("Cannot resolve an invalid binding.");
+                }
+            } catch(Exception ex)
+            {
+                // let later error-handling mechanisms deal with any errors we encountered.
+                Value = new T[0];
+                Error = ex;
             }
-
-            Value = new T[] { result.Value };
-            Error = result.Exception;
         }
 
         internal static ObjectBinding<T> FromId(int id)

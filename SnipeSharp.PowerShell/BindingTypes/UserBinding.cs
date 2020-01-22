@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using SnipeSharp.Filters;
 using SnipeSharp.Models;
 
@@ -54,20 +55,19 @@ namespace SnipeSharp.PowerShell.BindingTypes
         {
             if(null != _objects)
                 return;
-            var endPoint = ApiHelper.Instance.Users;
-            ApiOptionalResponse<User> result;
-            var userFilter = filter as UserSearchFilter;
-
-            switch(QueryUnion.Type)
+            try
             {
-                case BindingType.Integer:
-                    result = endPoint.GetOptional(QueryUnion.IntegerValue);
-                    break;
-                default:
-                    result = new ApiOptionalResponse<User> { Exception = new InvalidOperationException("Cannot resolve an invalid binding.") };
-                    break;
-                case BindingType.String:
+                var endPoint = ApiHelper.Instance.Users;
+                if(BindingType.Integer == QueryUnion.Type)
+                {
+                    var result = endPoint.GetOptional(QueryUnion.IntegerValue);
+                    Value = result.HasValue ? new User[] { result.Value } : new User[0];
+                    Error = result.Exception;
+                } else if(BindingType.String == QueryUnion.Type)
+                {
                     int id; // used later for parsing integers
+                    ApiOptionalResponse<User> result;
+                    var userFilter = filter as UserSearchFilter ?? new UserSearchFilter();
                     switch(ParseQuery(QueryUnion.StringValue, out var tag, out var value))
                     {
                         case BindingQueryType.Absent:
@@ -84,7 +84,8 @@ namespace SnipeSharp.PowerShell.BindingTypes
                             else if(int.TryParse(value, out id))
                                 result = endPoint.GetOptional(id);
                             else
-                                result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Cannot find an object for query: {value}", "query") };
+                                // fall back to search as the last-ditch try.
+                                goto case BindingQueryType.Search;
                             break;
                         case BindingQueryType.CaseSensitiveName:
                             QueryUnion.CaseSensitive = true;
@@ -104,36 +105,28 @@ namespace SnipeSharp.PowerShell.BindingTypes
                         case BindingQueryType.Email:
                             result = endPoint.GetByEmailAddressOptional(value, userFilter);
                             break;
-                        case BindingQueryType.Search:
-                            try
-                            {
-                                filter.Search = value;
-                                result = endPoint.FindOneOptional(filter);
-                            } catch(Exception e)
-                            {
-                                result = new ApiOptionalResponse<User> { Exception = e };
-                            }
-                            break;
                         default:
-                            result = new ApiOptionalResponse<User> { Exception = new ArgumentException($"Query does not have a proper type: {tag}", "query") };
-                            break;
-                    }
-                    if(null != result.Exception)
-                    {
-                        try
-                        {
+                            // by default, try searching for the whole thing
+                        case BindingQueryType.Search:
                             filter.Search = value;
-                            result = endPoint.FindOneOptional(filter);
-                        } catch(Exception e)
-                        {
-                            result = new ApiOptionalResponse<User> { Exception = e };
-                        }
+                            var allResults = endPoint.FindAllOptional(filter);
+                            Error = allResults.Exception;
+                            Value = allResults.HasValue ? allResults.Value : (IReadOnlyList<User>)new User[0];
+                            return;
                     }
-                    break;
+                    Value = result.HasValue ? new User[] { result.Value } : new User[0];
+                    Error = result.Exception;
+                } else
+                {
+                    Value = new User[0];
+                    Error = new InvalidOperationException("Cannot resolve an invalid binding.");
+                }
+            } catch(Exception ex)
+            {
+                // let later error-handling mechanisms deal with any errors we encountered.
+                Value = new User[0];
+                Error = ex;
             }
-
-            Value = new User[] { result.Value };
-            Error = result.Exception;
         }
 
         internal static UserBinding FromUserName(string username, UserSearchFilter filter = null)

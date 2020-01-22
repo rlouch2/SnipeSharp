@@ -211,7 +211,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                     return false;
                 item.Groups = groups;
             }
-            return false;
+            return true;
         }
 
         /// <inheritdoc />
