@@ -15,19 +15,19 @@ Changes the properties of an existing Snipe-IT depreciation.
 ### ByIdentity
 ```
 Set-SnipeDepreciation [-NewName <String>] [-Months <Int32>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]>
- [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Depreciation]> [-PassThru]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Set-SnipeDepreciation [-NewName <String>] [-Months <Int32>] -Name <String> [-ShowResponse] [-Overwrite]
+Set-SnipeDepreciation [-NewName <String>] [-Months <Int32>] -Name <String> [-PassThru] [-Overwrite]
  [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Set-SnipeDepreciation [-NewName <String>] [-Months <Int32>] -Id <Int32> [-ShowResponse] [-Overwrite]
+Set-SnipeDepreciation [-NewName <String>] [-Months <Int32>] -Id <Int32> [-PassThru] [-Overwrite]
  [<CommonParameters>]
 ```
 
@@ -120,8 +120,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
 
 ```yaml
 Type: SwitchParameter
@@ -135,10 +137,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Overwrite
-If present, completely overwrite all properties the remote object with the current or provided values.
-
-The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

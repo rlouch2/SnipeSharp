@@ -15,19 +15,18 @@ Changes the order of fields in an existing Snipe-IT field set.
 ### ByIdentity
 ```
 Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]>
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]> [-ShowResponse]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.FieldSet]> [-PassThru]
  [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
-Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Name <String> [-ShowResponse] [-Overwrite]
- [<CommonParameters>]
+Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Name <String> [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
-Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
+Set-SnipeFieldSetOrder -Order <ObjectBinding`1[]> -Id <Int32> [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,8 +103,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
 
 ```yaml
 Type: SwitchParameter
@@ -119,10 +120,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Overwrite
-If present, completely overwrite all properties the remote object with the current or provided values.
-
-The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

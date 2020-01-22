@@ -24,7 +24,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>]
- [-Identity] <AssetBinding> [-ShowResponse] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Identity] <AssetBinding> [-PassThru] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByAssetTag
@@ -38,7 +38,7 @@ Set-SnipeAsset -AssetTag <String> [-NewAssetTag <String>] [-NewName <String>] [-
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-PassThru]
  [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -53,7 +53,7 @@ Set-SnipeAsset -Serial <String> [-NewAssetTag <String>] [-NewName <String>] [-Ne
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-ShowResponse]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [-PassThru]
  [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -69,7 +69,7 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Name <String>
- [-ShowResponse] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-PassThru] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -83,8 +83,8 @@ Set-SnipeAsset [-NewAssetTag <String>] [-NewName <String>] [-NewSerial <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-ImageUri <Uri>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
- [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Id <Int32>
- [-ShowResponse] [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] -Id <Int32> [-PassThru]
+ [-Overwrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -386,21 +386,6 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Status
 The updated status label of the asset.
 
@@ -466,6 +451,21 @@ Accept wildcard characters: False
 If present, completely overwrite all properties the remote object with the current or provided values.
 
 The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

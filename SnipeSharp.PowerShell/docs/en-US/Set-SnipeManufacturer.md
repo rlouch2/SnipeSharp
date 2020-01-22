@@ -16,21 +16,21 @@ Changes the properties of an existing Snipe-IT manufacturer.
 ```
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
  [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>
- [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]> [-PassThru]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
- [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Name <String> [-ShowResponse] [-Overwrite]
+ [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Name <String> [-PassThru] [-Overwrite]
  [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeManufacturer [-NewName <String>] [-Url <Uri>] [-ImageUri <Uri>] [-SupportUrl <Uri>]
- [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Id <Int32> [-ShowResponse] [-Overwrite]
+ [-SupportPhoneNumber <String>] [-SupportEmailAddress <String>] -Id <Int32> [-PassThru] [-Overwrite]
  [<CommonParameters>]
 ```
 
@@ -123,21 +123,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -SupportEmailAddress
 The updated email address to contact the manufacturer by for support.
 
@@ -202,6 +187,21 @@ Accept wildcard characters: False
 If present, completely overwrite all properties the remote object with the current or provided values.
 
 The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

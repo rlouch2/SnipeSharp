@@ -24,7 +24,7 @@ Set-SnipeLicense [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-IsReassignable <Boolean>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.License]> [-ShowResponse]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.License]> [-PassThru]
  [-Overwrite] [<CommonParameters>]
 ```
 
@@ -40,7 +40,7 @@ Set-SnipeLicense [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-IsReassignable <Boolean>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] -Name <String>
- [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -55,7 +55,7 @@ Set-SnipeLicense [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-IsReassignable <Boolean>]
  [-Supplier <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]>] -Id <Int32>
- [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -357,21 +357,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Supplier
 The updated supplier that sold the license.
 
@@ -391,6 +376,21 @@ Accept wildcard characters: False
 If present, completely overwrite all properties the remote object with the current or provided values.
 
 The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

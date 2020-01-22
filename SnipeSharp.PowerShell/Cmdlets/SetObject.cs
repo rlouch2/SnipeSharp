@@ -39,9 +39,8 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public int Id { get; set; }
 
         /// <summary>If present, write the response from the Api to the pipeline.</summary>
-        // This isn't PassThru because the object is not equivalent -- we would need to Get it again for that.
         [Parameter]
-        public SwitchParameter ShowResponse { get; set; }
+        public SwitchParameter PassThru { get; set; }
 
         /// <summary>
         ///     <para>If present, completely overwrite all properties the remote object with the current or provided values.</para>
@@ -101,7 +100,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
             //TODO: error handling
             var response = Overwrite ? ApiHelper.Instance.GetEndPoint<TObject>().Set(value) // write all fields
                                      : ApiHelper.Instance.GetEndPoint<TObject>().Update(value); // write only modified fields
-            if(ShowResponse)
+            if(PassThru)
                 WriteObject(response);
         }
 

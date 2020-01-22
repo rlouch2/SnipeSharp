@@ -22,7 +22,7 @@ Set-SnipeConsumable [-NewName <String>]
  [-Manufacturer <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>]
  [-Quantity <Int32>] [-MinimumQuantity <Int32>] [-ModelNumber <String>] [-OrderNumber <String>]
  [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Consumable]> [-ShowResponse]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Consumable]> [-PassThru]
  [-Overwrite] [<CommonParameters>]
 ```
 
@@ -35,7 +35,7 @@ Set-SnipeConsumable [-NewName <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Manufacturer <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>]
  [-Quantity <Int32>] [-MinimumQuantity <Int32>] [-ModelNumber <String>] [-OrderNumber <String>]
- [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Name <String> [-ShowResponse]
+ [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Name <String> [-PassThru]
  [-Overwrite] [<CommonParameters>]
 ```
 
@@ -48,7 +48,7 @@ Set-SnipeConsumable [-NewName <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Manufacturer <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Manufacturer]>]
  [-Quantity <Int32>] [-MinimumQuantity <Int32>] [-ModelNumber <String>] [-OrderNumber <String>]
- [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Id <Int32> [-ShowResponse]
+ [-PurchaseCost <Decimal>] [-PurchaseDate <DateTime>] [-IsRequestable <Boolean>] -Id <Int32> [-PassThru]
  [-Overwrite] [<CommonParameters>]
 ```
 
@@ -306,8 +306,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
+### -Overwrite
+If present, completely overwrite all properties the remote object with the current or provided values.
+
+The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
 
 ```yaml
 Type: SwitchParameter
@@ -321,10 +323,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Overwrite
-If present, completely overwrite all properties the remote object with the current or provided values.
-
-The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

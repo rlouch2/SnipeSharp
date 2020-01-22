@@ -17,7 +17,7 @@ Changes the properties of an existing Snipe-IT supplier.
 Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-FaxNumber <String>]
  [-PhoneNumber <String>] [-EmailAddress <String>] [-Contact <String>] [-Notes <String>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]> [-ShowResponse]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Supplier]> [-PassThru]
  [-Overwrite] [<CommonParameters>]
 ```
 
@@ -26,15 +26,15 @@ Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-
 Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-FaxNumber <String>]
  [-PhoneNumber <String>] [-EmailAddress <String>] [-Contact <String>] [-Notes <String>] -Name <String>
- [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeSupplier [[-NewName] <String>] [-ImageUri <Uri>] [-Address <String>] [-Address2 <String>]
  [-City <String>] [-State <String>] [-Country <String>] [-ZipCode <String>] [-FaxNumber <String>]
- [-PhoneNumber <String>] [-EmailAddress <String>] [-Contact <String>] [-Notes <String>] -Id <Int32>
- [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-PhoneNumber <String>] [-EmailAddress <String>] [-Contact <String>] [-Notes <String>] -Id <Int32> [-PassThru]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -261,21 +261,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -State
 The supplier's updated address state.
 
@@ -310,6 +295,21 @@ Accept wildcard characters: False
 If present, completely overwrite all properties the remote object with the current or provided values.
 
 The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

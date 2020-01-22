@@ -16,22 +16,22 @@ Changes the properties of an existing Snipe-IT custom field.
 ```
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.CustomField]>
- [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.CustomField]> [-PassThru]
+ [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByName
 ```
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
- -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ -Name <String> [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
 ```
 Set-SnipeCustomField [[-NewName] <String>] [-Type <CustomFieldElement>] [-Format <String>]
  [-FieldValue <String[]>] [-IsFieldEncrypted <Boolean>] [-ShowInCheckOutEmail <Boolean>] [-HelpText <String>]
- -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ -Id <Int32> [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -197,21 +197,6 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Type
 The type of the field.
 
@@ -232,6 +217,21 @@ Accept wildcard characters: False
 If present, completely overwrite all properties the remote object with the current or provided values.
 
 The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter

@@ -23,7 +23,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
  [-MinimumQuantity <UInt32>] [-ImageUri <Uri>]
- [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]> [-ShowResponse]
+ [-Identity] <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Accessory]> [-PassThru]
  [-Overwrite] [<CommonParameters>]
 ```
 
@@ -37,7 +37,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Name <String> [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Name <String> [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ### ByInternalId
@@ -50,7 +50,7 @@ Set-SnipeAccessory [-NewName <String>]
  [-Category <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Category]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-Quantity <UInt32>] [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-OrderNumber <String>]
- [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Id <Int32> [-ShowResponse] [-Overwrite] [<CommonParameters>]
+ [-MinimumQuantity <UInt32>] [-ImageUri <Uri>] -Id <Int32> [-PassThru] [-Overwrite] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -292,21 +292,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ShowResponse
-If present, write the response from the Api to the pipeline.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Supplier
 The updated supplier who sold the accessory.
 
@@ -326,6 +311,21 @@ Accept wildcard characters: False
 If present, completely overwrite all properties the remote object with the current or provided values.
 
 The provided object will be fetched, its values updated with the ones provided to the cmdlet, then all values given to the API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+If present, write the response from the Api to the pipeline.
 
 ```yaml
 Type: SwitchParameter
