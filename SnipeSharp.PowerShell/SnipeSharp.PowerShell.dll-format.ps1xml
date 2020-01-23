@@ -50,7 +50,7 @@
         <TableHeaders>
           <TableColumnHeader /> <!-- Name -->
           <TableColumnHeader /> <!-- AssetTag -->
-          <TableColumnHeader /> <!-- Model -->
+          <TableColumnHeader /> <!-- MakeModel (defined in types.ps1xml, "Manf. Model") -->
           <TableColumnHeader /> <!-- Serial -->
           <TableColumnHeader /> <!-- Status = StatusLabel -->
           <TableColumnHeader /> <!-- Location -->
@@ -66,7 +66,7 @@
                 <PropertyName>AssetTag</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Model</PropertyName>
+                <PropertyName>MakeModel</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Serial</PropertyName>

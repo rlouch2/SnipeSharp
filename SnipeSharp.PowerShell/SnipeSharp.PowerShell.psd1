@@ -7,12 +7,15 @@
     DefaultCommandPrefix = 'Snipe'
 
     # Version number of this module.
-    ModuleVersion = '0.0.9'
-    CompatiblePSEditions = @('5.1')
+    ModuleVersion = '0.0.10'
+    CompatiblePSEditions = @(
+        'Desktop'
+        'Core'
+    )
 
     # ID used to uniquely identify this module
     GUID = 'd16d3f92-561f-4c81-8cb2-73e11cbbff51'
-    Author = 'Christian LaCourt' # TODO: include Barrey?
+    Author = 'Christian LaCourt'
 
     # Company or vendor of this module
     CompanyName = 'Unknown'

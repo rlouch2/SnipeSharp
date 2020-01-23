@@ -62,6 +62,10 @@
           </PropertySet>
         </Members>
       </MemberSet>
+      <ScriptProperty>
+        <Name>MakeModel</Name>
+        <GetScriptBlock>"$($this.Manufacturer.Name) $($this.Model.Name)"</GetScriptBlock>
+      </ScriptProperty>
     </Members>
   </Type>
   <Type>
