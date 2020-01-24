@@ -10,12 +10,12 @@ namespace SnipeSharp.Serialization
 
         public bool IsRequired { get; set; } = false;
 
-        internal SerializeAsAttribute(string key, FieldConverter? converter = null)
+        internal SerializeAsAttribute(string key, FieldConverter converter = FieldConverter.None)
         {
             if(string.IsNullOrEmpty(key))
                 throw new ArgumentException("Key cannot be null or empty.", paramName: nameof(key));
             Key = key;
-            Converter = converter ?? FieldConverter.None;
+            Converter = converter;
         }
     }
 }

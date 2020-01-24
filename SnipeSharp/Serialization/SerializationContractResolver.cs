@@ -25,6 +25,9 @@ namespace SnipeSharp.Serialization
                 case FieldConverter.AssetStatusConverter:
                     converter = CustomAssetStatusConverter.Instance;
                     return true;
+                case FieldConverter.SimpleDate:
+                    converter = SimpleDateConverter.Instance;
+                    return true;
                 case FieldConverter.CustomFieldDictionaryConverter:
                 case FieldConverter.AvailableActionsConverter:
                 case FieldConverter.PermissionsConverter:

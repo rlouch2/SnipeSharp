@@ -19,6 +19,9 @@ namespace SnipeSharp.Serialization
                     case FieldConverter.MonthsConverter:
                         property.Converter = CustomMonthsConverter.Instance;
                         break;
+                    case FieldConverter.SimpleDate:
+                        property.Converter = SimpleDateConverter.Instance;
+                        break;
                     case FieldConverter.DateTimeConverter:
                         property.Converter = CustomDateTimeConverter.Instance;
                         break;

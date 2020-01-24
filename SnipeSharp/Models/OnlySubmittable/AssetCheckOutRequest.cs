@@ -31,11 +31,11 @@ namespace SnipeSharp.Models
         public AssignedToType AssignedToType { get; private set; }
 
         /// <value>The date the asset was checked out; if null, then the current timestamp.</value>
-        [Field("checkout_at", Converter = DateTimeConverter)]
+        [SerializeAs("checkout_at", SimpleDate)]
         public DateTime? CheckOutAt { get; set; }
 
         /// <value>The date the asset is expected to be checked back in.</value>
-        [Field("expected_checkin", Converter = DateTimeConverter)]
+        [SerializeAs("expected_checkin", SimpleDate)]
         public DateTime? ExpectedCheckIn { get; set; }
 
         /// <value>The note to put in the log for this check-out event.</value>
@@ -75,10 +75,13 @@ namespace SnipeSharp.Models
         /// </summary>
         /// <param name="asset">The asset to assign.</param>
         /// <param name="assignedAsset">The asset to assign the asset to.</param>
+        /// <exception cref="ArgumentException">If <paramref name="assignedAsset"/> refers to a deleted asset.</exception>
         public AssetCheckOutRequest(Asset asset, Asset assignedAsset)
         {
             Asset = asset;
             AssignedAsset = assignedAsset;
+            if(assignedAsset.IsDeleted)
+                throw new ArgumentException("Cannot check out to a deleted asset.", paramName: nameof(assignedAsset));
             AssignedToType = AssignedToType.Asset;
         }
     }

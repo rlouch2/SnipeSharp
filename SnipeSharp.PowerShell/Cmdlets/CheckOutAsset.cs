@@ -98,6 +98,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 if(!this.GetSingleValue(AssignedAsset, out var assignedAsset, queryType: "Identity"))
                     return;
                 if(assignedAsset.IsDeleted)
+                    // InvalidOperation here masks ArgumentException in the constructor for AssetCheckOutRequest(Asset,Asset)
                     throw new InvalidOperationException($"Cannot checkout to asset {assignedAsset.Name} because it has been deleted.");
                 request = new AssetCheckOutRequest(asset, assignedAsset);
             }
