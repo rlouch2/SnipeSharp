@@ -25,12 +25,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required and must have a unique value.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -45,7 +42,8 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>Indicates the type of label; valid values are <see cref="StatusType.Pending"/>, <see cref="StatusType.Deployable"/>, <see cref="StatusType.Undeployable"/> and <see cref="StatusType.Archived"/></value>
-        [Field("type", IsRequired = true)]
+        [DeserializeAs("type")]
+        [SerializeAs("type", IsRequired = true)]
         [Patch(nameof(isTypeModified))]
         public StatusType? Type
         {
@@ -69,23 +67,24 @@ namespace SnipeSharp.Models
         public bool IsPending => type == StatusType.Pending;
 
         /// <value>The color of the lable in the web navigation.</value>
-        [Field(DeserializeAs = "color")]
+        [DeserializeAs("color")]
         public string Color { get; private set; }
 
         /// <value>Whether or not this label shows in the web navigation.</value>
-        [Field(DeserializeAs = "show_in_nav")]
+        [DeserializeAs("show_in_nav")]
         public bool? ShouldShowInNav { get; private set; }
 
         /// <value>Whether or not this label is a default label.</value>
-        [Field(DeserializeAs = "default_lable")]
+        [DeserializeAs("default_lable")]
         public bool? IsDefaultLabel { get; private set; }
 
         /// <value>The number of assets with this label.</value>
-        [Field(DeserializeAs = "assets_count")]
+        [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>Description of the label.</value>
-        [Field("notes")]
+        [DeserializeAs("notes")]
+        [SerializeAs("notes")]
         [Patch(nameof(isNotesModified))]
         public string Notes
         {
@@ -100,15 +99,7 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <summary>Converts this label into an AssetStatus, for use with Assets.</summary>

@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -44,7 +41,8 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>The URL of the image for this location.</value>
-        [Field("image")]
+        [DeserializeAs("image")]
+        [SerializeAs("image")]
         [Patch(nameof(isImageUriModified))]
         public Uri ImageUri
         {
@@ -59,7 +57,8 @@ namespace SnipeSharp.Models
         private Uri imageUri;
 
         /// <value>Gets/sets the first address line for this location.</value>
-        [Field("address")]
+        [DeserializeAs("address")]
+        [SerializeAs("address")]
         [Patch(nameof(isAddressModified))]
         public string Address
         {
@@ -74,7 +73,8 @@ namespace SnipeSharp.Models
         private string address;
 
         /// <value>Gets/sets the second address line for this location.</value>
-        [Field("address2")]
+        [DeserializeAs("address2")]
+        [SerializeAs("address2")]
         [Patch(nameof(isAddress2Modified))]
         public string Address2
         {
@@ -89,7 +89,8 @@ namespace SnipeSharp.Models
         private string address2;
 
         /// <value>Gets/sets the city this location is in.</value>
-        [Field("city")]
+        [DeserializeAs("city")]
+        [SerializeAs("city")]
         [Patch(nameof(isCityModified))]
         public string City
         {
@@ -104,7 +105,8 @@ namespace SnipeSharp.Models
         private string city;
 
         /// <value>Gets/sets the city this location is in.</value>
-        [Field("state")]
+        [DeserializeAs("state")]
+        [SerializeAs("state")]
         [Patch(nameof(isStateModified))]
         public string State
         {
@@ -119,7 +121,8 @@ namespace SnipeSharp.Models
         private string state;
 
         /// <value>Gets/sets the city this location is in.</value>
-        [Field("country")]
+        [DeserializeAs("country")]
+        [SerializeAs("country")]
         [Patch(nameof(isCountryModified))]
         public string Country
         {
@@ -134,7 +137,8 @@ namespace SnipeSharp.Models
         private string country;
 
         /// <value>Gets/sets the Zip Code area this location is in.</value>
-        [Field("zip")]
+        [DeserializeAs("zip")]
+        [SerializeAs("zip")]
         [Patch(nameof(isZipCodeModified))]
         public string ZipCode
         {
@@ -149,19 +153,20 @@ namespace SnipeSharp.Models
         private string zipCode;
 
         /// <value>The number of assets assigned to this location.</value>
-        [Field(DeserializeAs = "assigned_assets_count")]
+        [DeserializeAs("assigned_assets_count")]
         public int? AssignedAssetsCount { get; private set; }
 
         /// <value>The number of assets at this location.</value>
-        [Field(DeserializeAs = "assets_count")]
+        [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>The number of users at this location.</value>
-        [Field(DeserializeAs = "users_count")]
+        [DeserializeAs("users_count")]
         public int? UsersCount { get; private set; }
 
         /// <value>Gets/sets the type of currency used at this location.</value>
-        [Field("currency", IsRequired = true)]
+        [DeserializeAs("currency")]
+        [SerializeAs("currency", IsRequired = true)]
         [Patch(nameof(isCurrencyModified))]
         public string Currency
         {
@@ -175,20 +180,13 @@ namespace SnipeSharp.Models
         private bool isCurrencyModified = false;
         private string currency;
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
         /// <value>Gets/sets the parent location for this location.</value>
         /// <remarks>
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "parent", SerializeAs = "parent_id", Converter = CommonModelConverter)]
+        [DeserializeAs("parent")]
+        [SerializeAs("parent_id", CommonModelConverter)]
         [Patch(nameof(isParentLocationModified))]
         public Location ParentLocation
         {
@@ -207,7 +205,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "manager", SerializeAs = "manager_id", Converter = CommonModelConverter)]
+        [DeserializeAs("manager")]
+        [SerializeAs("manager_id", CommonModelConverter)]
         [Patch(nameof(isManagerModified))]
         public User Manager
         {
@@ -223,11 +222,11 @@ namespace SnipeSharp.Models
 
         /// <value>The list of child locations for this location.</value>
         /// <remarks>When deserialized, these values do not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</remarks>
-        [Field(DeserializeAs = "children")]
+        [DeserializeAs("children")]
         public List<Location> ChildLocations { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

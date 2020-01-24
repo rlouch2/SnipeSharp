@@ -26,12 +26,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -47,20 +44,12 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the CustomFields in this FieldSet.</value>
         /// <remarks>To set the fields in a set, see <see cref="CustomFieldEndPoint.Associate(CustomField, FieldSet, bool, int?)"/> and <see cref="CustomFieldEndPoint.Disassociate(CustomField, FieldSet)" />.</remarks>
-        [Field(DeserializeAs = "fields")]
+        [DeserializeAs("fields")]
         public IReadOnlyCollection<CustomField> Fields { get; private set; }
 
         /// <value>Gets the Models this FieldSet applies to.</value>
-        [Field(DeserializeAs = "models", Converter = ReadOnlyResponseCollectionConverter)]
+        [DeserializeAs("models", ReadOnlyResponseCollectionConverter)]
         public IReadOnlyCollection<Model> Models { get; private set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)
         {

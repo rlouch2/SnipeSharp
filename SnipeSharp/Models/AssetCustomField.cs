@@ -19,13 +19,13 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The Database column name in SnipeIT.
         /// </summary>
-        [Field(DeserializeAs = "field")]
+        [DeserializeAs("field")]
         public string Field { get; set; }
 
         /// <summary>
         /// The value of the field.
         /// </summary>
-        [Field(DeserializeAs = "value")]
+        [DeserializeAs("value")]
         public string Value
         {
             get => value;
@@ -41,7 +41,7 @@ namespace SnipeSharp.Models
         /// The format the field must fit, specified by SnipeIT.
         /// </summary>
         // TODO: Parse this into a special object that will verify the value matches before updating?
-        [Field(DeserializeAs = "field_format")]
+        [DeserializeAs("field_format")]
         public string Format { get; set; }
 
         /// <summary>

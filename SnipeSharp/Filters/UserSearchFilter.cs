@@ -10,53 +10,53 @@ namespace SnipeSharp.Filters
     public sealed class UserSearchFilter : ISortableSearchFilter<UserSearchColumn?>
     {
         /// <inheritdoc />
-        [Field("limit")]
+        [SerializeAs("limit")]
         public int? Limit { get; set; }
 
         /// <inheritdoc />
-        [Field("offset")]
+        [SerializeAs("offset")]
         public int? Offset { get; set; }
 
         /// <inheritdoc />
-        [Field("search")]
+        [SerializeAs("search")]
         public string Search { get; set; }
 
         /// <inheritdoc />
-        [Field("sort")]
+        [SerializeAs("sort")]
         public UserSearchColumn? SortColumn { get; set; }
 
         /// <inheritdoc />
-        [Field("order")]
+        [SerializeAs("order")]
         public SearchOrder? Order { get; set; } = null;
 
         /// <summary>
         /// Search only deleted users.
         /// </summary>
-        [Field("deleted")]
+        [SerializeAs("deleted")]
         public bool? Deleted { get; set; }
 
         /// <summary>
         /// Only search for users that work for this company.
         /// </summary>
-        [Field("company_id", Converter = CommonModelConverter)]
+        [SerializeAs("company_id", CommonModelConverter)]
         public Company Company { get; set; }
 
         /// <summary>
         /// Only search for users at this location.
         /// </summary>
-        [Field("location_id", Converter = CommonModelConverter)]
+        [SerializeAs("location_id", CommonModelConverter)]
         public Location Location { get; set; }
 
         /// <summary>
         /// Only search for users in this group.
         /// </summary>
-        [Field("group_id", Converter = CommonModelConverter)]
+        [SerializeAs("group_id", CommonModelConverter)]
         public Group Group { get; set; }
 
         /// <summary>
         /// Only search for users in this department.
         /// </summary>
-        [Field("department_id", Converter = CommonModelConverter)]
+        [SerializeAs("department_id", CommonModelConverter)]
         public Department Department { get; set; }
 
         /// <summary>

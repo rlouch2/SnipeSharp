@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -44,7 +41,7 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>Gets the internal column name.</value>
-        [Field(DeserializeAs = "db_column_name")]
+        [DeserializeAs("db_column_name")]
         public string ColumnName { get; private set; }
 
         /// <summary>
@@ -105,7 +102,8 @@ namespace SnipeSharp.Models
         /// </list>
         /// </summary>
         /// <value>Gets/sets the format of the field.</value>
-        [Field("format")]
+        [DeserializeAs("format")]
+        [SerializeAs("format")]
         [Patch(nameof(isFormatModified))]
         public string Format
         {
@@ -122,7 +120,8 @@ namespace SnipeSharp.Models
         private readonly static string[] EndOfLines = new string[]{ "\n", "\r\n" };
 
         /// <value>Gets/sets the raw value of any list type, separated by newlines.</value>
-        [Field("field_values")]
+        [DeserializeAs("field_values")]
+        [SerializeAs("field_values")]
         [Patch(nameof(isFieldValuesRawModified))]
         public string FieldValuesRaw
         {
@@ -141,7 +140,8 @@ namespace SnipeSharp.Models
         private string fieldValuesRaw;
 
         /// <value>Gets/sets if the field is encrypted or not.</value>
-        [Field("field_encrypted")]
+        [DeserializeAs("field_encrypted")]
+        [SerializeAs("field_encrypted")]
         [Patch(nameof(isIsFieldEncryptedModified))]
         public bool? IsFieldEncrypted
         {
@@ -156,7 +156,8 @@ namespace SnipeSharp.Models
         private bool? isFieldEncrypted;
 
         /// <value>Gets/sets if this field will be listed in emails sent to users.</value>
-        [Field("show_in_email")]
+        [DeserializeAs("show_in_email")]
+        [SerializeAs("show_in_email")]
         [Patch(nameof(isShowInCheckOutEmailModified))]
         public bool? ShowInCheckOutEmail
         {
@@ -171,7 +172,8 @@ namespace SnipeSharp.Models
         private bool? showInCheckOutEmail;
 
         /// <value>Gets/sets the help text for the field.</value>
-        [Field("help_text")]
+        [DeserializeAs("help_text")]
+        [SerializeAs("help_text")]
         [Patch(nameof(isHelpTextModified))]
         public string HelpText
         {
@@ -186,11 +188,12 @@ namespace SnipeSharp.Models
         private string helpText;
 
         /// <value>Gets the values of a list type as an array.</value>
-        [Field(DeserializeAs = "field_values_array")]
+        [DeserializeAs("field_values_array")]
         public string[] FieldValues { get; private set; }
 
         /// <value>Get/sets what the type of the element is.</value>
-        [Field(DeserializeAs = "type", SerializeAs = "element")]
+        [DeserializeAs("type")]
+        [SerializeAs("element")]
         [Patch(nameof(isTypeModified))]
         public CustomFieldElement Type
         {
@@ -205,7 +208,8 @@ namespace SnipeSharp.Models
         private CustomFieldElement type;
 
         /// <value>Gets if this is a required field.</value>
-        [Field("required")]
+        [DeserializeAs("required")]
+        [SerializeAs("required")]
         [Patch(nameof(isIsRequiredModified))]
         public bool? IsRequired
         {
@@ -218,14 +222,6 @@ namespace SnipeSharp.Models
         }
         private bool isIsRequiredModified = false;
         private bool? isRequired;
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "deleted_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)
         {

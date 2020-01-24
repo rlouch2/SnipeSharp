@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -48,7 +45,8 @@ namespace SnipeSharp.Models
         /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "manufacturer", SerializeAs = "manufacturer_id", Converter = CommonModelConverter, IsRequired = true)]
+        [DeserializeAs("manufacturer")]
+        [SerializeAs("manufacturer_id", CommonModelConverter, IsRequired = true)]
         [Patch(nameof(isManufacturerModified))]
         public Manufacturer Manufacturer
         {
@@ -63,7 +61,8 @@ namespace SnipeSharp.Models
         private Manufacturer manufacturer;
 
         /// <value>The url for the image of the asset.</value>
-        [Field("image")]
+        [DeserializeAs("image")]
+        [SerializeAs("image")]
         [Patch(nameof(isImageUriModified))]
         public Uri ImageUri
         {
@@ -78,7 +77,8 @@ namespace SnipeSharp.Models
         private Uri imageUri;
 
         /// <value>The model number for this asset.</value>
-        [Field("model_number")]
+        [DeserializeAs("model_number")]
+        [SerializeAs("model_number")]
         [Patch(nameof(isModelNumberModified))]
         public string ModelNumber
         {
@@ -97,7 +97,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "depreciation", SerializeAs = "depreciation_id", Converter = CommonModelConverter)]
+        [DeserializeAs("depreciation")]
+        [SerializeAs("depreciation_id", CommonModelConverter)]
         [Patch(nameof(isDepreciationModified))]
         public Depreciation Depreciation
         {
@@ -112,7 +113,7 @@ namespace SnipeSharp.Models
         private Depreciation depreciation;
 
         /// <value>The number of assets with this model.</value>
-        [Field(DeserializeAs = "assets_count")]
+        [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>Gets/sets the category for this model</value>
@@ -120,7 +121,8 @@ namespace SnipeSharp.Models
         /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
+        [DeserializeAs("category")]
+        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -140,7 +142,8 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         // TODO: update function has "custom_fieldset_id" as request name. Is this compatible w/ store? What changes need to be made for that?
-        [Field(DeserializeAs = "fieldset", SerializeAs = "fieldset_id", Converter = CommonModelConverter)]
+        [DeserializeAs("fieldset")]
+        [SerializeAs("fieldset_id", CommonModelConverter)]
         [Patch(nameof(isFieldSetModified))]
         public FieldSet FieldSet
         {
@@ -155,7 +158,8 @@ namespace SnipeSharp.Models
         private FieldSet fieldSet;
 
         /// <value>Gets/sets the lifetime for this model in months.</value>
-        [Field("eol", Converter = MonthsConverter)]
+        [DeserializeAs("eol", MonthsConverter)]
+        [SerializeAs("eol", MonthsConverter)]
         [Patch(nameof(isEndOfLifeModified))]
         public int? EndOfLife
         {
@@ -170,7 +174,8 @@ namespace SnipeSharp.Models
         private int? endOfLife;
 
         /// <value>Gets/sets the notes for this model.</value>
-        [Field("notes")]
+        [DeserializeAs("notes")]
+        [SerializeAs("notes")]
         [Patch(nameof(isNotesModified))]
         public string Notes
         {
@@ -184,20 +189,12 @@ namespace SnipeSharp.Models
         private bool isNotesModified = false;
         private string notes;
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
         /// <value>The date this object was soft-deleted in Snipe-IT, or null if it has not been deleted.</value>
-        [Field(DeserializeAs = "deleted_at", Converter = DateTimeConverter)]
+        [DeserializeAs("deleted_at", DateTimeConverter)]
         public DateTime? DeletedAt { get ;set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

@@ -10,47 +10,47 @@ namespace SnipeSharp.Filters
     public sealed class AccessorySearchFilter : ISortableSearchFilter<AccessorySearchColumn?>
     {
         /// <inheritdoc />
-        [Field("limit")]
+        [SerializeAs("limit")]
         public int? Limit { get; set; }
 
         /// <inheritdoc />
-        [Field("offset")]
+        [SerializeAs("offset")]
         public int? Offset { get; set; }
 
         /// <inheritdoc />
-        [Field("search")]
+        [SerializeAs("search")]
         public string Search { get; set; }
 
         /// <inheritdoc />
-        [Field("sort")]
+        [SerializeAs("sort")]
         public AccessorySearchColumn? SortColumn { get; set; }
 
         /// <inheritdoc />
-        [Field("order")]
+        [SerializeAs("order")]
         public SearchOrder? Order { get; set; }
 
         /// <summary>
         /// Only search for accessories owned by this Company if set.
         /// </summary>
-        [Field("company_id", Converter = CommonModelConverter)]
+        [SerializeAs("company_id", CommonModelConverter)]
         public Company Company { get; set; }
 
         /// <summary>
         /// Only search for accessories in this category if set.
         /// </summary>
-        [Field("category_id", Converter = CommonModelConverter)]
+        [SerializeAs("category_id", CommonModelConverter)]
         public Category Category { get; set; }
 
         /// <summary>
         /// Only search for accessories by this manufacturer if set.
         /// </summary>
-        [Field("manufacturer_id", Converter = CommonModelConverter)]
+        [SerializeAs("manufacturer_id", CommonModelConverter)]
         public Manufacturer Manufacturer { get; set; }
 
         /// <summary>
         /// Only search for accessories by this supplier if set.
         /// </summary>
-        [Field("supplier_id", Converter = CommonModelConverter)]
+        [SerializeAs("supplier_id", CommonModelConverter)]
         public Supplier Supplier { get; set; }
 
         /// <summary>

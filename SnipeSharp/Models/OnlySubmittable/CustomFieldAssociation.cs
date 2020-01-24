@@ -13,7 +13,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// FieldSet to (dis)associate to/from.
         /// </summary>
-        [Field("fieldset_id", Converter =  CommonModelConverter, IsRequired = true)]
+        [SerializeAs("fieldset_id", CommonModelConverter, IsRequired = true)]
         public FieldSet FieldSet { get; set; }
 
         /// <summary>
@@ -24,7 +24,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// Whether or not the field is required in the fieldset.
         /// </summary>
-        [Field("required")]
+        [DeserializeAs("required")]
+        [SerializeAs("required")]
         public bool IsRequired {
             get => _isRequired == IsRequiredType.On;
             set => _isRequired = value ? IsRequiredType.On : IsRequiredType.Off;
@@ -33,7 +34,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The order of the field in the fieldset.
         /// </summary>
-        [Field("order")]
+        [SerializeAs("order")]
         public int Order { get; set ;}
     }
 }

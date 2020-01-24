@@ -23,12 +23,8 @@ namespace SnipeSharp.Models
             Id = id;
         }
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
         /// <value>The URL of the user's gravatar.</value>
-        [Field(DeserializeAs = "gravatar")]
+        [DeserializeAs("avatar")]
         [Patch(nameof(isAvatarUrlModified))]
         public Uri AvatarUrl
         {
@@ -43,24 +39,20 @@ namespace SnipeSharp.Models
         private Uri avatarUrl;
 
         /// <value>Gets the user's name.</value>
-        /// <remarks>This field cannot be used to set a user's name.</remarks>
-        [Field(DeserializeAs = "name")]
-        [Patch(nameof(isNameModified))]
-        public override string Name
-        {
+        /// <remarks>This field cannot be used to set a user's name; it is constructed from the <see cref="FirstName"/> and <see cref="LastName"/> by the API.</remarks>
+        /// <seealso cref="name"/>
+        public override string Name {
             get => name;
-            set
-            {
-                isNameModified = true;
-                name = value;
-            }
+            set => throw new InvalidOperationException();
         }
-        private bool isNameModified = false;
-        private string name;
+
+        [DeserializeAs("name")]
+        private string name { get; set; }
 
         /// <value>Gets/sets the user's first name.</value>
         /// <remarks>This field is required.</remarks>
-        [Field("first_name", IsRequired = true)]
+        [DeserializeAs("first_name")]
+        [SerializeAs("first_name", IsRequired = true)]
         [Patch(nameof(isFirstNameModified))]
         public string FirstName
         {
@@ -75,7 +67,8 @@ namespace SnipeSharp.Models
         private string firstName;
 
         /// <value>Gets/sets the user's last name.</value>
-        [Field("last_name")]
+        [DeserializeAs("last_name")]
+        [SerializeAs("last_name")]
         [Patch(nameof(isLastNameModified))]
         public string LastName
         {
@@ -91,7 +84,8 @@ namespace SnipeSharp.Models
 
         /// <value>Gets/sets the user's username.</value>
         /// <remarks>This field is required.</remarks>
-        [Field("username", IsRequired = true)]
+        [DeserializeAs("username")]
+        [SerializeAs("username", IsRequired = true)]
         [Patch(nameof(isUserNameModified))]
         public string UserName
         {
@@ -107,7 +101,7 @@ namespace SnipeSharp.Models
 
         /// <value>Sets the user's password.</value>
         /// <remarks>This field is required.</remarks>
-        [Field("password", IsRequired = true)]
+        [SerializeAs("password", IsRequired = true)]
         [Patch(nameof(isPasswordModified))]
         public string Password
         {
@@ -123,7 +117,7 @@ namespace SnipeSharp.Models
 
         /// <summary>Confirms the user's password.</summary>
         /// <remarks>Must match <see cref="Password"/>.</remarks>
-        [Field(SerializeAs = "password_confirmation", IsRequired = true)]
+        [SerializeAs("password_confirmation", IsRequired = true)]
         [Patch(nameof(isPasswordConfirmationModified))]
         public string PasswordConfirmation
         {
@@ -138,7 +132,8 @@ namespace SnipeSharp.Models
         private string passwordConfirmation;
 
         /// <value>Gets/sets the user's employee number.</value>
-        [Field("employee_num")]
+        [DeserializeAs("employee_num")]
+        [SerializeAs("employee_num")]
         [Patch(nameof(isEmployeeNumberModified))]
         public string EmployeeNumber
         {
@@ -157,7 +152,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "manager", SerializeAs = "manager_id", Converter = CommonModelConverter)]
+        [DeserializeAs("manager")]
+        [SerializeAs("manager_id", CommonModelConverter)]
         [Patch(nameof(isManagerModified))]
         public User Manager
         {
@@ -172,7 +168,8 @@ namespace SnipeSharp.Models
         private User manager;
 
         /// <value>Gets/sets the title of the user's job.</value>
-        [Field("jobtitle")]
+        [DeserializeAs("jobtitle")]
+        [SerializeAs("jobtitle")]
         [Patch(nameof(isJobTitleModified))]
         public string JobTitle
         {
@@ -187,7 +184,8 @@ namespace SnipeSharp.Models
         private string jobTitle;
 
         /// <value>Gets/sets the user's phone number.</value>
-        [Field("phone")]
+        [DeserializeAs("phone")]
+        [SerializeAs("phone")]
         [Patch(nameof(isPhoneNumberModified))]
         public string PhoneNumber
         {
@@ -202,7 +200,8 @@ namespace SnipeSharp.Models
         private string phoneNumber;
 
         /// <value>Gets/sets the user's address.</value>
-        [Field("address")]
+        [DeserializeAs("address")]
+        [SerializeAs("address")]
         [Patch(nameof(isAddressModified))]
         public string Address
         {
@@ -217,7 +216,8 @@ namespace SnipeSharp.Models
         private string address;
 
         /// <value>Gets/sets the city of the user's address.</value>
-        [Field("city")]
+        [DeserializeAs("city")]
+        [SerializeAs("city")]
         [Patch(nameof(isCityModified))]
         public string City
         {
@@ -232,7 +232,8 @@ namespace SnipeSharp.Models
         private string city;
 
         /// <value>Gets/sets the state of the user's address.</value>
-        [Field("state")]
+        [DeserializeAs("state")]
+        [SerializeAs("state")]
         [Patch(nameof(isStateModified))]
         public string State
         {
@@ -247,7 +248,8 @@ namespace SnipeSharp.Models
         private string state;
 
         /// <value>Gets/sets the country of the user's address.</value>
-        [Field("country")]
+        [DeserializeAs("country")]
+        [SerializeAs("country")]
         [Patch(nameof(isCountryModified))]
         public string Country
         {
@@ -262,7 +264,8 @@ namespace SnipeSharp.Models
         private string country;
 
         /// <value>Gets/sets the zip code of the user's address.</value>
-        [Field("zip")]
+        [DeserializeAs("zip")]
+        [SerializeAs("zip")]
         [Patch(nameof(isZipCodeModified))]
         public string ZipCode
         {
@@ -277,7 +280,8 @@ namespace SnipeSharp.Models
         private string zipCode;
 
         /// <value>Gets/sets the user's email address.</value>
-        [Field("email")]
+        [DeserializeAs("email")]
+        [SerializeAs("email")]
         [Patch(nameof(isEmailAddressModified))]
         public string EmailAddress
         {
@@ -296,7 +300,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "department", SerializeAs = "department_id", Converter = CommonModelConverter)]
+        [DeserializeAs("department")]
+        [SerializeAs("department_id", CommonModelConverter)]
         [Patch(nameof(isDepartmentModified))]
         public Department Department
         {
@@ -315,7 +320,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
+        [DeserializeAs("location")]
+        [SerializeAs("location_id", CommonModelConverter)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -331,7 +337,7 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the user's notes or description.</value>
         /// <remarks>Currently, this field cannot be set.</remarks>
-        [Field(DeserializeAs = "notes")]
+        [DeserializeAs("notes")]
         [Patch(nameof(isNotesModified))]
         public string Notes
         {
@@ -346,11 +352,12 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <value>Gets the user's permissions.</value>
-        [Field(DeserializeAs = "permissions", Converter = PermissionsConverter)]
+        [DeserializeAs("permissions", PermissionsConverter)]
         public Dictionary<string, bool> Permissions { get; private set; }
 
         /// <value>Gets/sets if this user has been activated.</value>
-        [Field("activated")]
+        [DeserializeAs("activated")]
+        [SerializeAs("activated")]
         [Patch(nameof(isIsActivatedModified))]
         public bool? IsActivated
         {
@@ -365,23 +372,23 @@ namespace SnipeSharp.Models
         private bool? isActivated;
 
         /// <value>Gets if the user has activated two-factor authentication.</value>
-        [Field(DeserializeAs = "two_factor_activated")]
+        [DeserializeAs("two_factor_activated")]
         public bool? IsTwoFactorActivated { get; private set; }
 
         /// <value>Gets the number of assets assigned to this user.</value>
-        [Field(DeserializeAs = "assets_count")]
+        [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>Gets the number of licenses assigned to this user.</value>
-        [Field(DeserializeAs = "licenses_count")]
+        [DeserializeAs("licenses_count")]
         public int? LicensesCount { get; private set; }
 
         /// <value>Gets the number of accessories assigned to this user.</value>
-        [Field(DeserializeAs = "accessories_count")]
+        [DeserializeAs("accessories_count")]
         public int? AccessoriesCount { get; private set; }
 
         /// <value>Gets the number of consumables assigned to this user.</value>
-        [Field(DeserializeAs = "consumables_count")]
+        [DeserializeAs("consumables_count")]
         public int? ConsumablesCount { get; private set; }
 
         /// <value>Gets/sets the company this user works for.</value>
@@ -389,7 +396,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
+        [DeserializeAs("company")]
+        [SerializeAs("company_id", CommonModelConverter)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -403,24 +411,17 @@ namespace SnipeSharp.Models
         private bool isCompanyModified = false;
         private Company company;
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
         /// <value>Gets the date this user last logged on.</value>
-        [Field(DeserializeAs = "last_login", Converter = DateTimeConverter)]
+        [DeserializeAs("last_login", DateTimeConverter)]
         public DateTime? LastLogin { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets the groups this user is a member of.</value>
-        [Field("groups", Converter = CommonModelArrayConverter)]
+        [DeserializeAs("groups")]
+        [SerializeAs("groups", CommonModelArrayConverter)]
         [Patch(nameof(isGroupsModified))]
         public ResponseCollection<Group> Groups
         {
@@ -437,7 +438,6 @@ namespace SnipeSharp.Models
         void IPatchable.SetAllModifiedState(bool isModified)
         {
             isAvatarUrlModified = isModified;
-            isNameModified = isModified;
             isFirstNameModified = isModified;
             isLastNameModified = isModified;
             isUserNameModified = isModified;

@@ -32,13 +32,6 @@ namespace SnipeSharp.Tests
         }
 
         [Fact]
-        public void AddObject_SkipsIfSerializeAsIsNull()
-        {
-            var request = SingleUseApi().RequestManager.CreateRequest(REST_REQUEST_PATH, Method.GET, new AddObjectTestClassNullSerializeAs());
-            Assert.Empty(request.Parameters);
-        }
-
-        [Fact]
         public void AddObject_ThrowsMissingRequiredFieldException()
         {
             Assert.Throws<MissingRequiredFieldException<object>>(()
@@ -55,21 +48,15 @@ namespace SnipeSharp.Tests
         }
     }
 
-    internal sealed class AddObjectTestClassNullSerializeAs
-    {
-        [Field(SerializeAs = null)]
-        public string TestProperty { get; set; }
-    }
-
     internal sealed class AddObjectTestClassIsRequired
     {
-        [Field(SerializeAs = nameof(TestProperty), IsRequired = true)]
+        [SerializeAs(nameof(TestProperty), IsRequired = true)]
         public string TestProperty { get; set; }
     }
 
     internal sealed class AddObjectTestClassSerializeConverter
     {
-        [Field(SerializeAs = nameof(User), Converter = FieldConverter.CommonModelConverter)]
+        [SerializeAs(nameof(User), FieldConverter.CommonModelConverter)]
         public User User { get; set; }
     }
 }

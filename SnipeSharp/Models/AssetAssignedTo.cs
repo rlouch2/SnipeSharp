@@ -39,15 +39,15 @@ namespace SnipeSharp.Models
         }
 
         /// <value>The internal Id of the object.</value>
-        [Field(DeserializeAs = "id")]
+        [DeserializeAs("id")]
         public int Id { get; private set; }
 
         /// <value>The name of the object.</value>
-        [Field(DeserializeAs = "name")]
+        [DeserializeAs("name")]
         public string Name { get; set; }
 
         /// <value>The type of object this represents.</value>
-        [Field(DeserializeAs = "type")]
+        [DeserializeAs("type")]
         public AssignedToType Type { get; set; }
 
         /// <inheritdoc />

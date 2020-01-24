@@ -105,7 +105,7 @@ namespace SnipeSharp.EndPoint
 
         /// <inheritdoc />
         public T Create(T toCreate)
-            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate, creating: true)).RethrowExceptionIfAny().Value.Payload;
+            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate)).RethrowExceptionIfAny().Value.Payload;
 
         /// <inheritdoc />
         public RequestResponse<T> Delete(int id)
@@ -121,7 +121,7 @@ namespace SnipeSharp.EndPoint
             var patchable = toSet as IPatchable;
             if(null != patchable)
                 patchable.SetAllModifiedState(true);
-            return Api.RequestManager.Put($"{EndPointInfo.BaseUri}/{toSet.Id}", toSet).RethrowExceptionIfAny().Value.Payload;
+            return Api.RequestManager.Put($"{EndPointInfo.BaseUri}/{toSet.Id}", CheckRequiredFields(toSet)).RethrowExceptionIfAny().Value.Payload;
         }
 
         /// <inheritdoc />
@@ -132,10 +132,10 @@ namespace SnipeSharp.EndPoint
         public T this[string name, bool caseSensitive = false, ISearchFilter filter = null]
             => Get(name, caseSensitive, filter);
 
-        private T CheckRequiredFields(T @object, bool creating = false)
+        private T CheckRequiredFields(T @object)
         {
             foreach(var property in typeof(T).GetProperties())
-                if((property.GetCustomAttribute<FieldAttribute>(true)?.IsRequired ?? false) && null == property.GetValue(@object)) // if required and null
+                if(property.GetCustomAttribute<SerializeAsAttribute>() is SerializeAsAttribute attribute && attribute.IsRequired && null == property.GetValue(@object))
                     throw new MissingRequiredFieldException<T>(property.Name);
             return @object;
         }

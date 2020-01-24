@@ -25,12 +25,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -46,23 +43,15 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         // TODO: change this to a more explicit "GroupPermissions" type and make it required (I think it may need to be required)
-        [Field(DeserializeAs = "permissions", Converter = PermissionsConverter)]
+        [DeserializeAs("permissions", PermissionsConverter)]
         public Dictionary<string, bool> Permissions { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "users_count")]
+        [DeserializeAs("users_count")]
         public int? UsersCount { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

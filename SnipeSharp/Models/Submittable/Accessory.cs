@@ -23,15 +23,12 @@ namespace SnipeSharp.Models
             Id = id;
         }
 
-        /// <inheritdoc/>
-        [Field("id")]
-        public override int Id { get; set; }
-
         /// <summary>
         /// The Name of the Accessory in Snipe-IT.
         /// </summary>
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -52,7 +49,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
+        [DeserializeAs("company")]
+        [SerializeAs("company_id", CommonModelConverter)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -73,7 +71,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "manufacturer", SerializeAs = "manufacturer_id", Converter = CommonModelConverter, IsRequired = true)]
+        [DeserializeAs("manufacturer")]
+        [SerializeAs("manufacturer_id", CommonModelConverter, IsRequired = true)]
         [Patch(nameof(isManufacturerModified))]
         public Manufacturer Manufacturer
         {
@@ -94,7 +93,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "supplier", SerializeAs = "supplier_id", Converter = CommonModelConverter)]
+        [DeserializeAs("supplier")]
+        [SerializeAs("supplier_id", CommonModelConverter)]
         [Patch(nameof(isSupplierModified))]
         public Supplier Supplier
         {
@@ -111,7 +111,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The ModelNumber of this Accessory.
         /// </summary>
-        [Field("model_number")]
+        [DeserializeAs("model_number")]
+        [SerializeAs("model_number")]
         [Patch(nameof(isModelNumberModified))]
         public string ModelNumber
         {
@@ -134,7 +135,8 @@ namespace SnipeSharp.Models
         /// <para>The Category must have the CategoryType "Accessory" for the change to be realized in the API; the API won't stop you from giving anything a Category of the wrong type, though.</para>
         /// <para>This field is required.</para>
         /// </remarks>
-        [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
+        [DeserializeAs("category")]
+        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -155,7 +157,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
+        [DeserializeAs("location")]
+        [SerializeAs("location_id", CommonModelConverter)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -176,7 +179,8 @@ namespace SnipeSharp.Models
         /// <para>This value must be greater than or equal to one.</para>
         /// <para>This field is required.</para>
         /// </remarks>
-        [Field("qty", IsRequired = true)]
+        [DeserializeAs("qty")]
+        [SerializeAs("qty", IsRequired = true)]
         [Patch(nameof(isQuantityModified))]
         public uint? Quantity
         {
@@ -193,7 +197,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The date this Accessory was purchased.
         /// </summary>
-        [Field("purchase_date", Converter = DateTimeConverter)]
+        [DeserializeAs("purchase_date", DateTimeConverter)]
+        [SerializeAs("purchase_date", DateTimeConverter)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -210,7 +215,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The cost of this Accessory when purchased.
         /// </summary>
-        [Field("purchase_cost")]
+        [DeserializeAs("purchase_cost")]
+        [SerializeAs("purchase_cost")]
         [Patch(nameof(isPurchaseCostModified))]
         public decimal? PurchaseCost
         {
@@ -228,7 +234,8 @@ namespace SnipeSharp.Models
         /// The order number associated with this Accessory's purchase.
         /// </summary>
         /// <remarks>A single Accessory only has one OrderNumber field. Multiple orders should use multiple Accessories of the same ModelNumber, IIRC.</remarks>
-        [Field("order_number")]
+        [DeserializeAs("order_number")]
+        [SerializeAs("order_number")]
         [Patch(nameof(isOrderNumberModified))]
         public string OrderNumber
         {
@@ -246,7 +253,8 @@ namespace SnipeSharp.Models
         /// The Minimum quantity of this Accessory before an alert should pop up.
         /// </summary>
         /// <remarks>Supposedly this is setable, but the field is not fillable in Snipe-IT.</remarks>
-        [Field(DeserializeAs = "min_qty", SerializeAs = "min_amt")]
+        [DeserializeAs("min_qty")]
+        [SerializeAs("min_amt")]
         [Patch(nameof(isMinimumQuantityModified))]
         public uint? MinimumQuantity
         {
@@ -263,7 +271,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The quantity of this Accessory that has not yet been checked out.
         /// </summary>
-        [Field(DeserializeAs = "remaining_qty")]
+        [DeserializeAs("remaining_qty")]
         [Patch(nameof(isRemainingQuantityModified))]
         public int? RemainingQuantity
         {
@@ -280,7 +288,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The Url of the image for this Accessory in the web interface.
         /// </summary>
-        [Field("image")]
+        [DeserializeAs("image")]
+        [SerializeAs("image")]
         [Patch(nameof(isImageUriModified))]
         public Uri ImageUri
         {
@@ -295,21 +304,13 @@ namespace SnipeSharp.Models
         private Uri imageUri;
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <summary>
         /// Indicates that this accessory is available to be checked out.
         /// </summary>
-        [Field(DeserializeAs = "user_can_checkout")]
+        [DeserializeAs("user_can_checkout")]
         [Patch(nameof(isUserCanCheckOutModified))]
         public bool? UserCanCheckOut
         {
@@ -324,7 +325,6 @@ namespace SnipeSharp.Models
         private bool? userCanCheckOut;
 
         /* NOT_IMPL: This field is currently not readable from the API, nor used in SnipeIT.
-         * [Field(null, "requestable")]
          * public bool? IsRequestable { get; set; }
          */
 

@@ -1,5 +1,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace SnipeSharp.Serialization
@@ -9,8 +12,8 @@ namespace SnipeSharp.Serialization
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-            var attribute = member.GetCustomAttribute<FieldAttribute>(true) as IDeserializeAs ?? member.GetCustomAttribute<DeserializeAsAttribute>(true);
-            if(null != attribute && null != attribute.Key)
+            var attribute = member.GetCustomAttribute<DeserializeAsAttribute>(inherit: false);
+            if(null != attribute)
             {
                 property.PropertyName = attribute.Key;
                 property.Writable = true;
@@ -54,6 +57,17 @@ namespace SnipeSharp.Serialization
                 property.Ignored = true;
             }
             return property;
+        }
+
+        protected override List<MemberInfo> GetSerializableMembers(Type objectType)
+        {
+            // start with the defaults
+            var list = base.GetSerializableMembers(objectType);
+            // add non-public, readable, serializable properties
+            foreach(var member in objectType.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic))
+                if(member.CanWrite)
+                    list.Add(member);
+            return list;
         }
     }
 }

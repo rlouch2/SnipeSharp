@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -44,7 +41,7 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>The URL of the image for the component.</value>
-        [Field(DeserializeAs = "image")]
+        [DeserializeAs("image")]
         [Patch(nameof(isImageUriModified))]
         public Uri ImageUri
         {
@@ -59,7 +56,8 @@ namespace SnipeSharp.Models
         private Uri imageUri;
 
         /// <value>Gets/sets the serial number for the component.</value>
-        [Field("serial")]
+        [DeserializeAs("serial")]
+        [SerializeAs("serial")]
         [Patch(nameof(isSerialModified))]
         public string Serial
         {
@@ -78,7 +76,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
+        [DeserializeAs("location")]
+        [SerializeAs("location_id", CommonModelConverter)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -97,7 +96,8 @@ namespace SnipeSharp.Models
         /// <para>This value must be greater than or equal to one.</para>
         /// <para>This field is required.</para>
         /// </remarks>
-        [Field("qty", IsRequired = true)]
+        [DeserializeAs("qty")]
+        [SerializeAs("qty", IsRequired = true)]
         [Patch(nameof(isQuantityModified))]
         public int? Quantity
         {
@@ -112,7 +112,8 @@ namespace SnipeSharp.Models
         private int? quantity;
 
         /// <value>Gets/sets the minimum quantity before an alert should pop up</value>
-        [Field("min_amt")]
+        [DeserializeAs("min_amt")]
+        [SerializeAs("min_amt")]
         [Patch(nameof(isMinimumQuantityModified))]
         public int? MinimumQuantity
         {
@@ -133,7 +134,8 @@ namespace SnipeSharp.Models
         /// <para>The Category must have the CategoryType "Component" for the change to be realized in the API; the API won't stop you from giving anything a Category of the wrong type, though.</para>
         /// <para>This field is required.</para>
         /// </remarks>
-        [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
+        [DeserializeAs("category")]
+        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -148,7 +150,8 @@ namespace SnipeSharp.Models
         private Category category;
 
         /// <value>The order number associated with this Components's purchase.</value>
-        [Field("order_number")]
+        [DeserializeAs("order_number")]
+        [SerializeAs("order_number")]
         [Patch(nameof(isOrderNumberModified))]
         public string OrderNumber
         {
@@ -163,7 +166,8 @@ namespace SnipeSharp.Models
         private string orderNumber;
 
         /// <value>The date this Component was purchased.</value>
-        [Field("purchase_date", Converter = DateTimeConverter)]
+        [DeserializeAs("purchase_date", DateTimeConverter)]
+        [SerializeAs("purchase_date", DateTimeConverter)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -178,7 +182,8 @@ namespace SnipeSharp.Models
         private DateTime? purchaseDate;
 
         /// <value>Gets/sets the cost of this Component when purchased.</value>
-        [Field("purchase_cost")]
+        [DeserializeAs("purchase_cost")]
+        [SerializeAs("purchase_cost")]
         [Patch(nameof(isPurchaseCostModified))]
         public decimal? PurchaseCost
         {
@@ -193,7 +198,7 @@ namespace SnipeSharp.Models
         private decimal? purchaseCost;
 
         /// <value>The quantity of this Component that has not yet been checked out.</value>
-        [Field(DeserializeAs = "remaining")]
+        [DeserializeAs("remaining")]
         public int? RemainingQuantity { get; private set; }
 
         /// <value>The Company this Accessory belongs to.</value>
@@ -201,7 +206,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
+        [DeserializeAs("company")]
+        [SerializeAs("company_id", CommonModelConverter)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -215,20 +221,12 @@ namespace SnipeSharp.Models
         private bool isCompanyModified = false;
         private Company company;
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
         /// <value>Indicates that this accessory is available to be checked out.</value>
-        [Field(DeserializeAs = "user_can_checkout")]
+        [DeserializeAs("user_can_checkout")]
         public bool? UserCanCheckOut { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -45,7 +42,7 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the URL of the image for this consumable.</value>
         /// <remarks>Currently, this field is not fillable.</remarks>
-        [Field(DeserializeAs = "image")]
+        [DeserializeAs("image")]
         [Patch(nameof(isImageUriModified))]
         public Uri ImageUri
         {
@@ -66,7 +63,8 @@ namespace SnipeSharp.Models
         /// <para>The Category must have the CategoryType "Consumable" for the change to be realized in the API; the API won't stop you from giving anything a Category of the wrong type, though.</para>
         /// <para>This field is required.</para>
         /// </remarks>
-        [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
+        [DeserializeAs("category")]
+        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -85,7 +83,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
+        [DeserializeAs("company")]
+        [SerializeAs("company_id", CommonModelConverter)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -100,7 +99,8 @@ namespace SnipeSharp.Models
         private Company company;
 
         /// <value>Gets/sets the item number of this consumable.</value>
-        [Field("item_no")]
+        [DeserializeAs("item_no")]
+        [SerializeAs("item_no")]
         [Patch(nameof(isItemNumberModified))]
         public string ItemNumber
         {
@@ -119,7 +119,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "location", SerializeAs = "location_id", Converter = CommonModelConverter)]
+        [DeserializeAs("location")]
+        [SerializeAs("location_id", CommonModelConverter)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -138,7 +139,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "manufacturer", SerializeAs = "manufacturer_id", Converter = CommonModelConverter)]
+        [DeserializeAs("manufacturer")]
+        [SerializeAs("manufacturer_id", CommonModelConverter)]
         [Patch(nameof(isManufacturerModified))]
         public Manufacturer Manufacturer
         {
@@ -154,7 +156,8 @@ namespace SnipeSharp.Models
 
         /// <value>Gets/sets the total quantity of this consumable.</value>
         /// <remarks>This field is required.</remarks>
-        [Field("qty", IsRequired = true)]
+        [DeserializeAs("qty")]
+        [SerializeAs("qty", IsRequired = true)]
         [Patch(nameof(isQuantityModified))]
         public int? Quantity
         {
@@ -169,7 +172,7 @@ namespace SnipeSharp.Models
         private int? quantity;
 
         /// <value>Gets/sets the minimum quantity of this consumable before an alert is raised.</value>
-        [Field(DeserializeAs = "min_amt")]
+        [DeserializeAs("min_amt")]
         [Patch(nameof(isMinimumQuantityModified))]
         public int? MinimumQuantity
         {
@@ -184,7 +187,8 @@ namespace SnipeSharp.Models
         private int? minimumQuantity;
 
         /// <value>Gets/sets the model number of this consumable.</value>
-        [Field("model_number")]
+        [DeserializeAs("model_number")]
+        [SerializeAs("model_number")]
         [Patch(nameof(isModelNumberModified))]
         public string ModelNumber
         {
@@ -199,11 +203,12 @@ namespace SnipeSharp.Models
         private string modelNumber;
 
         /// <value>Gets the remaining quantity of this consumable.</value>
-        [Field(DeserializeAs = "remaining")]
+        [DeserializeAs("remaining")]
         public int? RemainingQuantity { get; private set; }
 
         /// <value>Gets/sets the order number associated with this consumable's purchase.</value>
-        [Field("order_number")]
+        [DeserializeAs("order_number")]
+        [SerializeAs("order_number")]
         [Patch(nameof(isOrderNumberModified))]
         public string OrderNumber
         {
@@ -218,7 +223,8 @@ namespace SnipeSharp.Models
         private string orderNumber;
 
         /// <value>The cost of this Consumable when purchased.</value>
-        [Field("purchase_cost")]
+        [DeserializeAs("purchase_cost")]
+        [SerializeAs("purchase_cost")]
         [Patch(nameof(isPurchaseCostModified))]
         public decimal? PurchaseCost
         {
@@ -233,7 +239,8 @@ namespace SnipeSharp.Models
         private decimal? purchaseCost;
 
         /// <value>The date this Consumable was purchased.</value>
-        [Field("purchase_date", Converter = DateTimeConverter)]
+        [DeserializeAs("purchase_date", DateTimeConverter)]
+        [SerializeAs("purchase_date", DateTimeConverter)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -247,24 +254,17 @@ namespace SnipeSharp.Models
         private bool isPurchaseDateModified = false;
         private DateTime? purchaseDate;
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
         /// <value>Gets whether this consumable can be checked out or not.</value>
-        [Field(DeserializeAs = "user_can_checkout")]
+        [DeserializeAs("user_can_checkout")]
         public bool? UserCanCheckOut { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets/sets if this consumable is requestable or not.</value>
-        [Field("requestable")]
+        [DeserializeAs("requestable")]
+        [SerializeAs("requestable")]
         [Patch(nameof(isIsRequestableModified))]
         public bool? IsRequestable
         {

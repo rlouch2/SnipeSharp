@@ -15,19 +15,19 @@ namespace SnipeSharp.Models
         public Asset Asset { get; private set; }
 
         /// <value>The assigned object, if it is a Location.</value>
-        [Field("assigned_location", Converter = CommonModelConverter)]
+        [SerializeAs("assigned_location", CommonModelConverter)]
         public Location AssignedLocation { get; private set; }
 
         /// <value>The assigned object, if it is an Asset.</value>
-        [Field("assigned_asset", Converter = CommonModelConverter)]
+        [SerializeAs("assigned_asset", CommonModelConverter)]
         public Asset AssignedAsset { get; private set; }
 
         /// <value>The assigned object, if it is a User.</value>
-        [Field("assigned_user", Converter = CommonModelConverter)]
+        [SerializeAs("assigned_user", CommonModelConverter)]
         public User AssignedUser { get; private set; }
 
         /// <value>What the type of the assigned object is.</value>
-        [Field("checkout_to_type")]
+        [SerializeAs("checkout_to_type")]
         public AssignedToType AssignedToType { get; private set; }
 
         /// <value>The date the asset was checked out; if null, then the current timestamp.</value>
@@ -39,11 +39,11 @@ namespace SnipeSharp.Models
         public DateTime? ExpectedCheckIn { get; set; }
 
         /// <value>The note to put in the log for this check-out event.</value>
-        [Field("note")]
+        [SerializeAs("note")]
         public string Note { get; set; }
 
         /// <value>The new name of the Asset once it is checked out.</value>
-        [Field("name")]
+        [SerializeAs("name")]
         public string AssetName { get; set; }
 
         /// <summary>

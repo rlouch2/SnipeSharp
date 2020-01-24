@@ -15,11 +15,11 @@ namespace SnipeSharp.Models
     {
         /// <value>The total number of objects available from the endpoint for whatever filters were applied.</value>
         /// <remarks>This value may not be the same as <see cref="Count"/>.</remarks>
-        [Field("total")]
+        [DeserializeAs("total")]
         public long Total { get; set; }
 
         /// <value>The elements in this collection, as returned by the API.</value>
-        [Field("rows")]
+        [DeserializeAs("rows")]
         public List<T> Rows { get; set; } = new List<T>();
 
         /// <inheritdoc />

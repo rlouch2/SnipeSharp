@@ -9,29 +9,29 @@ namespace SnipeSharp.Filters
     public sealed class ManufacturerSearchFilter : ISortableSearchFilter<ManufacturerSearchColumn?>
     {
         /// <inheritdoc />
-        [Field("limit")]
+        [SerializeAs("limit")]
         public int? Limit { get; set; }
 
         /// <inheritdoc />
-        [Field("offset")]
+        [SerializeAs("offset")]
         public int? Offset { get; set; }
 
         /// <inheritdoc />
-        [Field("search")]
+        [SerializeAs("search")]
         public string Search { get; set; }
 
         /// <inheritdoc />
-        [Field("sort")]
+        [SerializeAs("sort")]
         public ManufacturerSearchColumn? SortColumn { get; set; }
 
         /// <inheritdoc />
-        [Field("order")]
+        [SerializeAs("order")]
         public SearchOrder? Order { get; set; }
 
         /// <summary>
         /// Search only deleted manufacturers.
         /// </summary>
-        [Field("deleted")]
+        [SerializeAs("deleted")]
         public bool? Deleted { get; set; }
 
         /// <summary>

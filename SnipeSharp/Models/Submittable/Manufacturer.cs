@@ -25,12 +25,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -45,7 +42,8 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>Gets/sets the URL for the Manufacturer's website.</value>
-        [Field("url")]
+        [DeserializeAs("url")]
+        [SerializeAs("url")]
         [Patch(nameof(isUrlModified))]
         public Uri Url
         {
@@ -60,7 +58,8 @@ namespace SnipeSharp.Models
         private Uri url;
 
         /// <value>Gets/sets the URL of the image for the Manufacturer.</value>
-        [Field("image")]
+        [DeserializeAs("image")]
+        [SerializeAs("image")]
         [Patch(nameof(isImageUriModified))]
         public Uri ImageUri
         {
@@ -75,7 +74,8 @@ namespace SnipeSharp.Models
         private Uri imageUri;
 
         /// <value>Gets/sets the url of the manufacturer's support site.</value>
-        [Field("support_url")]
+        [DeserializeAs("support_url")]
+        [SerializeAs("support_url")]
         [Patch(nameof(isSupportUrlModified))]
         public Uri SupportUrl
         {
@@ -91,7 +91,8 @@ namespace SnipeSharp.Models
 
 
         /// <value>Gets/sets the manufacturer's support phone number.</value>
-        [Field("support_phone")]
+        [DeserializeAs("support_phone")]
+        [SerializeAs("support_phone")]
         [Patch(nameof(isSupportPhoneNumberModified))]
         public string SupportPhoneNumber
         {
@@ -106,7 +107,8 @@ namespace SnipeSharp.Models
         private string supportPhoneNumber;
 
         /// <value>Gets/sets the manufacturer's support email address.</value>
-        [Field("support_email")]
+        [DeserializeAs("support_email")]
+        [SerializeAs("support_email")]
         [Patch(nameof(isSupportEmailAddressModified))]
         public string SupportEmailAddress
         {
@@ -121,35 +123,27 @@ namespace SnipeSharp.Models
         private string supportEmailAddress;
 
         /// <value>The number of assets produced by this manufacturer.</value>
-        [Field(DeserializeAs = "assets_count")]
+        [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>The number of licenses produced by this manufacturer.</value>
-        [Field(DeserializeAs = "licenses_count")]
+        [DeserializeAs("licenses_count")]
         public int? LicensesCount { get; private set; }
 
         /// <value>The number of consumables produced by this manufacturer.</value>
-        [Field(DeserializeAs = "consumables_count")]
+        [DeserializeAs("consumables_count")]
         public int? ConsumablesCount { get; private set; }
 
         /// <value>The number of accessories produced by this manufacturer.</value>
-        [Field(DeserializeAs = "accessories_count")]
+        [DeserializeAs("accessories_count")]
         public int? AccessoriesCount { get; private set; }
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
         /// <value>Gets the date this manufacturer was deleted.</value>
-        [Field(DeserializeAs = "deleted_at", Converter = DateTimeConverter)]
+        [DeserializeAs("deleted_at", DateTimeConverter)]
         public DateTime? DeletedAt { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

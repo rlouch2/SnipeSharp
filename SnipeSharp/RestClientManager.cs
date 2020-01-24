@@ -184,8 +184,8 @@ namespace SnipeSharp
             var type = obj.GetType();
             foreach(var property in type.GetProperties())
             {
-                var attribute = property.GetCustomAttribute<FieldAttribute>(true) as ISerializeAs ?? property.GetCustomAttribute<SerializeAsAttribute>();
-                if(string.IsNullOrEmpty(attribute.Key))
+                var attribute = property.GetCustomAttribute<SerializeAsAttribute>(inherit: false);
+                if(null == attribute)
                     continue;
                 // don't need to bother with PatchAttribute because it only applies to Post and Put (this is Get).
                 var value = property.GetValue(obj);

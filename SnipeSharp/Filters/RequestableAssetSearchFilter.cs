@@ -10,18 +10,18 @@ namespace SnipeSharp.Filters
     public sealed class RequestableAssetSearchFilter : ISortableSearchFilter<RequestableAssetSearchColumn?>
     {
         /// <inheritdoc />
-        [Field("limit")]
+        [SerializeAs("limit")]
         public int? Limit { get; set; }
 
         /// <inheritdoc />
-        [Field("offset")]
+        [SerializeAs("offset")]
         public int? Offset { get; set; }
 
         /// <summary>Backing field for <see cref="Search"/>.</summary>
         private string _SearchString;
         /// <inheritdoc />
         /// <exception cref="System.ArgumentNullException">If attempting to set a null value.</exception>
-        [Field("search")]
+        [SerializeAs("search")]
         public string Search {
             get => _SearchString;
             set
@@ -33,11 +33,11 @@ namespace SnipeSharp.Filters
         }
 
         /// <inheritdoc />
-        [Field("sort")]
+        [SerializeAs("sort")]
         public RequestableAssetSearchColumn? SortColumn { get; set; }
 
         /// <inheritdoc />
-        [Field("order")]
+        [SerializeAs("order")]
         public SearchOrder? Order { get; set; }
 
         /// <summary>

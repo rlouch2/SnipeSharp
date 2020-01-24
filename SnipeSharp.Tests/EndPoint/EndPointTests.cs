@@ -29,17 +29,9 @@ namespace SnipeSharp.Tests
         [JsonConstructor]
         internal TestModel() { }
 
-        [Field("id")]
-        public override int Id { get; set; }
-
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         public override string Name { get; set; }
-
-        [Field(DeserializeAs = "created_at", Converter = FieldConverter.DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        [Field(DeserializeAs = "updated_at", Converter = FieldConverter.DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
 
         public bool Equals([AllowNull] TestModel other)
         {
@@ -57,10 +49,6 @@ namespace SnipeSharp.Tests
 
     internal sealed class FaultyTestModel : CommonEndPointModel
     {
-        public override int Id { get; set; }
-        public override string Name { get; set; }
-        public override DateTime? CreatedAt { get; protected set; }
-        public override DateTime? UpdatedAt { get; protected set; }
     }
 
     internal sealed class CustomEndPoint<T>: EndPoint<T>

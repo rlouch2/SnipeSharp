@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -47,7 +44,8 @@ namespace SnipeSharp.Models
         /// Indicates the type of objects this category may contain.
         /// </summary>
         /// <remarks>Thsi field is required.</remarks>
-        [Field("category_type", IsRequired = true)]
+        [DeserializeAs("category_type")]
+        [SerializeAs("category_type", IsRequired = true)]
         [Patch(nameof(isCategoryTypeModified))]
         public CategoryType? CategoryType
         {
@@ -64,7 +62,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// If true, this Category has a Eula or there is a default Eula.
         /// </summary>
-        [Field("eula")]
+        [DeserializeAs("eula")]
+        [SerializeAs("eula")]
         [Patch(nameof(isHasEulaModified))]
         public bool? HasEula
         {
@@ -80,7 +79,7 @@ namespace SnipeSharp.Models
 
         /// <value>Sets the Eula text for the Category.</value>
         /// <remarks>Can only be used to set the Eula text; this field will never have content after deserialization.</remarks>
-        [Field(SerializeAs = "eula_text")]
+        [SerializeAs("eula_text")]
         [Patch(nameof(isEulaTextModified))]
         public string EulaText
         {
@@ -99,7 +98,7 @@ namespace SnipeSharp.Models
         /// <para>Can only be used to set the Eula text; this field will never have content after deserialization.</para>
         /// <para>(TODO: check)Setting this to true while there is no default Eula set will not throw an error.</para>
         /// </remarks>
-        [Field(SerializeAs = "use_default_eula")]
+        [SerializeAs("use_default_eula")]
         [Patch(nameof(isUsesDefaultEulaModified))]
         public bool? UsesDefaultEula
         {
@@ -114,7 +113,8 @@ namespace SnipeSharp.Models
         private bool? usesDefaultEula;
 
         /// <value>If true, then the user will be emailed with details when the asset is checked in or out.</value>
-        [Field("checkin_email")]
+        [DeserializeAs("checkin_email")]
+        [SerializeAs("checkin_email")]
         [Patch(nameof(isEmailUserOnCheckInOrOutModified))]
         public bool? EmailUserOnCheckInOrOut
         {
@@ -129,7 +129,8 @@ namespace SnipeSharp.Models
         private bool? emailUserOnCheckInOrOut;
 
         /// <value>If true, then the user must confirm acceptance of assets in this category.</value>
-        [Field("require_acceptance")]
+        [DeserializeAs("require_acceptance")]
+        [SerializeAs("require_acceptance")]
         [Patch(nameof(isIsAcceptanceRequiredModified))]
         public bool? IsAcceptanceRequired
         {
@@ -144,23 +145,23 @@ namespace SnipeSharp.Models
         private bool? isAcceptanceRequired;
 
         /// <value>The number of assets in this category.</value>
-        [Field(DeserializeAs = "assets_count")]
+        [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>The number of accessories in this category.</value>
-        [Field(DeserializeAs = "accessories_count")]
+        [DeserializeAs("accessories_count")]
         public int? AccessoriesCount { get; private set; }
 
         /// <value>The number of consumables in this category.</value>
-        [Field(DeserializeAs = "consumables_count")]
+        [DeserializeAs("consumables_count")]
         public int? ConsumablesCount { get; private set; }
 
         /// <value>The number of components in this category.</value>
-        [Field(DeserializeAs = "components_count")]
+        [DeserializeAs("components_count")]
         public int? ComponentsCount { get; private set; }
 
         /// <value>The number of licenses in this category.</value>
-        [Field(DeserializeAs = "licenses_count")]
+        [DeserializeAs("licenses_count")]
         public int? LicensesCount { get; private set; }
 
         /// <value>The number of items in this category</value>
@@ -187,15 +188,7 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

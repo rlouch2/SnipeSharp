@@ -13,7 +13,7 @@ namespace SnipeSharp.Models
         public Accessory Accessory { get; private set; }
 
         /// <value>The note to put in the log for this check-out event.</value>
-        [Field("note")]
+        [SerializeAs("note")]
         public string Note { get; set; }
 
         /// <summary>

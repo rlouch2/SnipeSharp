@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required and must be unique among undeleted suppliers.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -44,7 +41,8 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>The URL of the image for this supplier.</value>
-        [Field("image")]
+        [DeserializeAs("image")]
+        [SerializeAs("image")]
         [Patch(nameof(isImageUriModified))]
         public Uri ImageUri
         {
@@ -59,7 +57,8 @@ namespace SnipeSharp.Models
         private Uri imageUri;
 
         /// <value>Gets/sets the first address line for this supplier.</value>
-        [Field("address")]
+        [DeserializeAs("address")]
+        [SerializeAs("address")]
         [Patch(nameof(isAddressModified))]
         public string Address
         {
@@ -74,7 +73,8 @@ namespace SnipeSharp.Models
         private string address;
 
         /// <value>Gets/sets the second address line for this supplier.</value>
-        [Field("address2")]
+        [DeserializeAs("address2")]
+        [SerializeAs("address2")]
         [Patch(nameof(isAddress2Modified))]
         public string Address2
         {
@@ -89,7 +89,8 @@ namespace SnipeSharp.Models
         private string address2;
 
         /// <value>Gets/sets the city this supplier is in.</value>
-        [Field("city")]
+        [DeserializeAs("city")]
+        [SerializeAs("city")]
         [Patch(nameof(isCityModified))]
         public string City
         {
@@ -104,7 +105,8 @@ namespace SnipeSharp.Models
         private string city;
 
         /// <value>Gets/sets the state this supplier is in.</value>
-        [Field("state")]
+        [DeserializeAs("state")]
+        [SerializeAs("state")]
         [Patch(nameof(isStateModified))]
         public string State
         {
@@ -119,7 +121,8 @@ namespace SnipeSharp.Models
         private string state;
 
         /// <value>Gets/sets the country this supplier is in.</value>
-        [Field("country")]
+        [DeserializeAs("country")]
+        [SerializeAs("country")]
         [Patch(nameof(isCountryModified))]
         public string Country
         {
@@ -134,7 +137,8 @@ namespace SnipeSharp.Models
         private string country;
 
         /// <value>Gets/sets the Zip Code area this supplier is in.</value>
-        [Field("zip")]
+        [DeserializeAs("zip")]
+        [SerializeAs("zip")]
         [Patch(nameof(isZipCodeModified))]
         public string ZipCode
         {
@@ -149,7 +153,8 @@ namespace SnipeSharp.Models
         private string zipCode;
 
         /// <value>Gets/sets the fax number for this supplier.</value>
-        [Field("fax")]
+        [DeserializeAs("fax")]
+        [SerializeAs("fax")]
         [Patch(nameof(isFaxNumberModified))]
         public string FaxNumber
         {
@@ -164,7 +169,8 @@ namespace SnipeSharp.Models
         private string faxNumber;
 
         /// <value>Gets/sets the phone number for this supplier.</value>
-        [Field("phone")]
+        [DeserializeAs("phone")]
+        [SerializeAs("phone")]
         [Patch(nameof(isPhoneNumberModified))]
         public string PhoneNumber
         {
@@ -179,7 +185,8 @@ namespace SnipeSharp.Models
         private string phoneNumber;
 
         /// <value>Gets/sets the contact email address for this supplier.</value>
-        [Field("email")]
+        [DeserializeAs("email")]
+        [SerializeAs("email")]
         [Patch(nameof(isEmailAddressModified))]
         public string EmailAddress
         {
@@ -194,7 +201,8 @@ namespace SnipeSharp.Models
         private string emailAddress;
 
         /// <value>Gets the contact for this supplier.</value>
-        [Field("contact")]
+        [DeserializeAs("contact")]
+        [SerializeAs("contact")]
         [Patch(nameof(isContactModified))]
         public string Contact
         {
@@ -209,19 +217,20 @@ namespace SnipeSharp.Models
         private string contact;
 
         /// <value>Gets the number of assets purchased from this supplier.</value>
-        [Field(DeserializeAs = "assets_count")]
+        [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>Gets the number of accessories purchased from this supplier.</value>
-        [Field(DeserializeAs = "accessories_count")]
+        [DeserializeAs("accessories_count")]
         public int? AccessoriesCount { get; private set; }
 
         /// <value>Gets the number of licenses purchased from this supplier</value>
-        [Field(DeserializeAs = "licenses_count")]
+        [DeserializeAs("licenses_count")]
         public int? LicensesCount { get; private set; }
 
         /// <value>Gets/sets the notes or description for this supplier.</value>
-        [Field("notes")]
+        [DeserializeAs("notes")]
+        [SerializeAs("notes")]
         [Patch(nameof(isNotesModified))]
         public string Notes
         {
@@ -236,15 +245,7 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

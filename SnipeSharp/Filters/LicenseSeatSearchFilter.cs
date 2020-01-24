@@ -11,25 +11,25 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// The number of items to return in a single request. By default 50.
         /// </summary>
-        [Field("limit")]
+        [SerializeAs("limit")]
         public int? Limit { get; set; }
 
         /// <summary>
         /// The number of items to skip before taking the limit; for use in pagination and getting more than 1000 objects at once.
         /// </summary>
-        [Field("offset")]
+        [SerializeAs("offset")]
         public int? Offset { get; set; }
 
         /// <summary>
         /// The column to sort on.
         /// </summary>
-        [Field("sort")]
+        [SerializeAs("sort")]
         public LicenseSeatSearchColumn? SortColumn { get; set; }
 
         /// <summary>
         /// Whether to sort the request in ascending or descending order based on the sort column.
         /// </summary>
-        [Field("order")]
+        [SerializeAs("order")]
         public SearchOrder? Order { get; set; }
 
         /// <summary>

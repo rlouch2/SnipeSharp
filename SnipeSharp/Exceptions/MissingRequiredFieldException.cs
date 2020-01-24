@@ -6,7 +6,7 @@ namespace SnipeSharp.Exceptions
     /// The exception that is thrown when a required field is null when serialization occurs.
     /// </summary>
     /// <typeparam name="T">A class that could be missing a required field.</typeparam>
-    /// <seelaso cref="SnipeSharp.Serialization.FieldAttribute.IsRequired"/>
+    /// <seelaso cref="SnipeSharp.Serialization.SerializeAsAttribute.IsRequired"/>
     public sealed class MissingRequiredFieldException<T>: Exception
     {
         /// <summary>

@@ -36,10 +36,12 @@ namespace SnipeSharp.Serialization
 
     internal sealed class DateTimeResponse
     {
-        [Field("datetime")]
+        [DeserializeAs("datetime")]
+        [SerializeAs("datetime")]
         public string DateTime { get; set; }
 
-        [Field("formatted")]
+        [DeserializeAs("formatted")]
+        [SerializeAs("formatted")]
         public string Formatted { get; set; }
 
         public DateTimeResponse()

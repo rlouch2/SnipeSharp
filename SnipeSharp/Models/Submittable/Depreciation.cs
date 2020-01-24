@@ -25,12 +25,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -46,7 +43,8 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("months", Converter = MonthsConverter, IsRequired = true)]
+        [DeserializeAs("months", MonthsConverter)]
+        [SerializeAs("months", MonthsConverter, IsRequired = true)]
         [Patch(nameof(isMonthsModified))]
         public int? Months
         {
@@ -61,15 +59,7 @@ namespace SnipeSharp.Models
         private int? months;
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

@@ -10,23 +10,23 @@ namespace SnipeSharp.Filters
     public sealed class AssetSearchFilter : AbstractAssetSearchFilter, ISortableSearchFilter<AssetSearchColumn?>
     {
         /// <inheritdoc />
-        [Field("limit")]
+        [SerializeAs("limit")]
         public int? Limit { get; set; } = null;
 
         /// <inheritdoc />
-        [Field("offset")]
+        [SerializeAs("offset")]
         public int? Offset { get; set; } = null;
 
         /// <inheritdoc />
-        [Field("search")]
+        [SerializeAs("search")]
         public string Search { get; set; }
 
         /// <inheritdoc />
-        [Field("sort")]
+        [SerializeAs("sort")]
         public AssetSearchColumn? SortColumn { get; set; } = null;
 
         /// <inheritdoc />
-        [Field("order")]
+        [SerializeAs("order")]
         public SearchOrder? Order { get; set; } = null;
 
         /// <summary>

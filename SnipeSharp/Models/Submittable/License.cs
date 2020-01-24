@@ -24,12 +24,9 @@ namespace SnipeSharp.Models
         }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "id")]
-        public override int Id { get; set; }
-
-        /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [Field("name", IsRequired = true)]
+        [DeserializeAs("name")]
+        [SerializeAs("name", IsRequired = true)]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
@@ -48,7 +45,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "company", SerializeAs = "company_id", Converter = CommonModelConverter)]
+        [DeserializeAs("company")]
+        [SerializeAs("company_id", CommonModelConverter)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -67,7 +65,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field("depreciation_id", Converter = CommonModelConverter)]
+        [DeserializeAs("depreciation_id")]
+        [SerializeAs("depreciation_id", CommonModelConverter)]
         [Patch(nameof(isDepreciationModified))]
         public Depreciation Depreciation
         {
@@ -86,7 +85,8 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "manufacturer", SerializeAs = "manufacturer_id", Converter = CommonModelConverter)]
+        [DeserializeAs("manufacturer")]
+        [SerializeAs("manufacturer_id", CommonModelConverter)]
         [Patch(nameof(isManufacturerModified))]
         public Manufacturer Manufacturer
         {
@@ -101,7 +101,8 @@ namespace SnipeSharp.Models
         private Manufacturer manufacturer;
 
         /// <value>The Product Key for this license.</value>
-        [Field(DeserializeAs = "product_key", SerializeAs = "serial")]
+        [DeserializeAs("product_key")]
+        [SerializeAs("serial")]
         [Patch(nameof(isProductKeyModified))]
         public string ProductKey
         {
@@ -116,7 +117,8 @@ namespace SnipeSharp.Models
         private string productKey;
 
         /// <value>The supplier order number associated with this License's purchase.</value>
-        [Field("order_number")]
+        [DeserializeAs("order_number")]
+        [SerializeAs("order_number")]
         [Patch(nameof(isOrderNumberModified))]
         public string OrderNumber
         {
@@ -131,7 +133,8 @@ namespace SnipeSharp.Models
         private string orderNumber;
 
         /// <value>The purchase order associated with this License's purchase.</value>
-        [Field("purchase_order")]
+        [DeserializeAs("purchase_order")]
+        [SerializeAs("purchase_order")]
         [Patch(nameof(isPurchaseOrderModified))]
         public string PurchaseOrder
         {
@@ -146,7 +149,8 @@ namespace SnipeSharp.Models
         private string purchaseOrder;
 
         /// <value>The date this License was purchased.</value>
-        [Field("purchase_date", Converter = DateTimeConverter)]
+        [DeserializeAs("purchase_date", DateTimeConverter)]
+        [SerializeAs("purchase_date", DateTimeConverter)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -161,7 +165,8 @@ namespace SnipeSharp.Models
         private DateTime? purchaseDate;
 
         /// <value>The cost of this License when purchased.</value>
-        [Field("purchase_cost")]
+        [DeserializeAs("purchase_cost")]
+        [SerializeAs("purchase_cost")]
         [Patch(nameof(isPurchaseCostModified))]
         public decimal? PurchaseCost
         {
@@ -176,7 +181,8 @@ namespace SnipeSharp.Models
         private decimal? purchaseCost;
 
         /// <value>The description for this License.</value>
-        [Field("notes")]
+        [DeserializeAs("notes")]
+        [SerializeAs("notes")]
         [Patch(nameof(isNotesModified))]
         public string Notes
         {
@@ -191,12 +197,14 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <value>The date this license expires. This is not the TerminationDate!</value>
-        [Field("expiration_date", Converter = DateTimeConverter)]
+        [DeserializeAs("expiration_date", DateTimeConverter)]
+        [SerializeAs("expiration_date", DateTimeConverter)]
         public DateTime? ExpirationDate { get; private set; }
 
         /// <value>The number of seats this license is good for.</value>
         /// <remarks>This field is required.</remarks>
-        [Field("seats", IsRequired = true)]
+        [DeserializeAs("seats")]
+        [SerializeAs("seats", IsRequired = true)]
         [Patch(nameof(isTotalSeatsModified))]
         public int? TotalSeats
         {
@@ -211,11 +219,12 @@ namespace SnipeSharp.Models
         private int? totalSeats;
 
         /// <value>The number of remaining seats on this license.</value>
-        [Field(DeserializeAs = "free_seats_count")]
+        [DeserializeAs("free_seats_count")]
         public int? FreeSeats { get; private set; }
 
         /// <value>The name of the entity this license is licensed to.</value>
-        [Field("license_name")]
+        [DeserializeAs("license_name")]
+        [SerializeAs("license_name")]
         [Patch(nameof(isLicensedToNameModified))]
         public string LicensedToName
         {
@@ -230,7 +239,8 @@ namespace SnipeSharp.Models
         private string licensedToName;
 
         /// <value>The email address of the entity this license is licensed to.</value>
-        [Field("license_email")]
+        [DeserializeAs("license_email")]
+        [SerializeAs("license_email")]
         [Patch(nameof(isLicensedToEmailAddressModified))]
         public string LicensedToEmailAddress
         {
@@ -245,7 +255,8 @@ namespace SnipeSharp.Models
         private string licensedToEmailAddress;
 
         /// <value>Whether or not this license is maintained.</value>
-        [Field("maintained")]
+        [DeserializeAs("maintained")]
+        [SerializeAs("maintained")]
         [Patch(nameof(isIsMaintainedModified))]
         public bool? IsMaintained
         {
@@ -264,7 +275,8 @@ namespace SnipeSharp.Models
         /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [Field(DeserializeAs = "category", SerializeAs = "category_id", Converter = CommonModelConverter, IsRequired = true)]
+        [DeserializeAs("category")]
+        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -278,24 +290,17 @@ namespace SnipeSharp.Models
         private bool isCategoryModified = false;
         private Category category;
 
-        /// <inheritdoc />
-        [Field(DeserializeAs = "created_at", Converter = DateTimeConverter)]
-        public override DateTime? CreatedAt { get; protected set; }
-
-        /// <inheritdoc />
-        [Field(DeserializeAs = "updated_at", Converter = DateTimeConverter)]
-        public override DateTime? UpdatedAt { get; protected set; }
-
         /// <value>Whether or not there are seats left to check out.</value>
-        [Field(DeserializeAs = "user_can_checkout")]
+        [DeserializeAs("user_can_checkout")]
         public bool? UserCanCheckOut { get; private set; }
 
         /// <inheritdoc />
-        [Field(DeserializeAs = "available_actions", Converter = AvailableActionsConverter)]
+        [DeserializeAs("available_actions", AvailableActionsConverter)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets/sets if sears on this license are reassignable.</value>
-        [Field("reassignable")]
+        [DeserializeAs("reassignable")]
+        [SerializeAs("reassignable")]
         [Patch(nameof(isIsReassignableModified))]
         public bool IsReassignable
         {
@@ -310,7 +315,8 @@ namespace SnipeSharp.Models
         private bool isReassignable;
 
         /// <value>Gets/sets the supplier who sold this license.</value>
-        [Field(DeserializeAs = "supplier", SerializeAs = "supplier_id", Converter = CommonModelConverter)]
+        [DeserializeAs("supplier")]
+        [SerializeAs("supplier_id", CommonModelConverter)]
         [Patch(nameof(isSupplierModified))]
         public Supplier Supplier
         {
