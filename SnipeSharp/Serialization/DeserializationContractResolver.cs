@@ -9,10 +9,10 @@ namespace SnipeSharp.Serialization
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-            var attribute = member.GetCustomAttribute<FieldAttribute>(true);
-            if(null != attribute && null != attribute.DeserializeAs)
+            var attribute = member.GetCustomAttribute<FieldAttribute>(true) as IDeserializeAs ?? member.GetCustomAttribute<DeserializeAsAttribute>(true);
+            if(null != attribute && null != attribute.Key)
             {
-                property.PropertyName = attribute.DeserializeAs;
+                property.PropertyName = attribute.Key;
                 property.Writable = true;
                 switch(attribute.Converter)
                 {

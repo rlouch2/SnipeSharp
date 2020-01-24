@@ -6,9 +6,9 @@ namespace SnipeSharp.Serialization
 {
     internal sealed class SerializationContractResolver : DefaultContractResolver
     {
-        public static bool TryGetConverter(PropertyInfo property, FieldAttribute attribute, out JsonConverter converter)
+        public static bool TryGetConverter(PropertyInfo property, FieldConverter fieldConverter, out JsonConverter converter)
         {
-            switch(attribute.Converter)
+            switch(fieldConverter)
             {
                 case FieldConverter.CommonModelConverter:
                     converter = CustomCommonModelConverter.Instance;
@@ -56,10 +56,10 @@ namespace SnipeSharp.Serialization
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-            var attribute = member.GetCustomAttribute<FieldAttribute>(true);
-            if(null != attribute && !string.IsNullOrEmpty(attribute.SerializeAs))
+            var attribute = member.GetCustomAttribute<FieldAttribute>(true) as ISerializeAs ?? member.GetCustomAttribute<SerializeAsAttribute>();
+            if((null != attribute && !string.IsNullOrEmpty(attribute.Key)))
             {
-                property.PropertyName = attribute.SerializeAs;
+                property.PropertyName = attribute.Key;
                 property.Readable = true;
                 var patch = member.GetCustomAttribute<PatchAttribute>(true);
                 if(null != patch)
@@ -73,7 +73,7 @@ namespace SnipeSharp.Serialization
                         property.ShouldSerialize = (instance) => (bool)targetProperty.GetValue(instance);
                     }
                 }
-                if(TryGetConverter(member as PropertyInfo, attribute, out var converter))
+                if(TryGetConverter(member as PropertyInfo, attribute.Converter, out var converter))
                     property.Converter = converter;
             } else
             {

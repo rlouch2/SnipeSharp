@@ -184,9 +184,8 @@ namespace SnipeSharp
             var type = obj.GetType();
             foreach(var property in type.GetProperties())
             {
-                if(!(property.GetCustomAttribute<FieldAttribute>(true) is FieldAttribute attribute))
-                    continue;
-                if(string.IsNullOrEmpty(attribute.SerializeAs))
+                var attribute = property.GetCustomAttribute<FieldAttribute>(true) as ISerializeAs ?? property.GetCustomAttribute<SerializeAsAttribute>();
+                if(string.IsNullOrEmpty(attribute.Key))
                     continue;
                 // don't need to bother with PatchAttribute because it only applies to Post and Put (this is Get).
                 var value = property.GetValue(obj);
@@ -195,7 +194,7 @@ namespace SnipeSharp
                 if(null == value)
                     // early-out, don't try to use converter, don't add parameter
                     continue;
-                if(SerializationContractResolver.TryGetConverter(property, attribute, out var converter))
+                if(SerializationContractResolver.TryGetConverter(property, attribute.Converter, out var converter))
                 {
                     var stringBuilder = new StringBuilder();
                     using(var stringWriter = new StringWriter(stringBuilder))
@@ -208,7 +207,7 @@ namespace SnipeSharp
                                 ?.GetCustomAttribute<EnumMemberAttribute>()?.Value
                                 ?? value.ToString();
                 }
-                request.AddParameter(attribute.SerializeAs, value);
+                request.AddParameter(attribute.Key, value);
             }
             return request;
         }
