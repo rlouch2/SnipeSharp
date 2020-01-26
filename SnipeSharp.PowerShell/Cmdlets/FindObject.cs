@@ -12,7 +12,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TColumn">Sort column type.</typeparam>
     /// <typeparam name="TFilter">Search filter type.</typeparam>
     public abstract class FindObject<TObject, TColumn, TFilter>: PSCmdlet
-        where TObject: CommonEndPointModel
+        where TObject: AbstractBaseModel
         where TFilter: class, ISortableSearchFilter<TColumn?>, new()
         where TColumn: struct, Enum
     {
@@ -74,7 +74,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </summary>
     /// <typeparam name="TObject">Type of object to find.</typeparam>
     public abstract class FindObject<TObject>: PSCmdlet
-        where TObject: CommonEndPointModel
+        where TObject: AbstractBaseModel
     {
         /// <summary>The string to search for.</summary>
         [Parameter(Position = 0, ValueFromPipeline = true)]

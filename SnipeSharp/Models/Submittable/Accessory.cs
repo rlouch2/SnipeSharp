@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Accessories may be checked out to Users, but unlike Consumables can be checked back in.
     /// </summary>
     [PathSegment("accessories")]
-    public sealed class Accessory : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Accessory : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Accessory object.</summary>
         public Accessory() { }
@@ -44,14 +44,10 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The Company this Accessory belongs to.
         /// </summary>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("company")]
         [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
-        public Company Company
+        public Stub<Company> Company
         {
             get => company;
             set
@@ -61,19 +57,15 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCompanyModified = false;
-        private Company company;
+        private Stub<Company> company;
 
         /// <summary>
         /// The Manufacturer that made this Accessory.
         /// </summary>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("manufacturer")]
         [SerializeAs("manufacturer_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isManufacturerModified))]
-        public Manufacturer Manufacturer
+        public Stub<Manufacturer> Manufacturer
         {
             get => manufacturer;
             set
@@ -83,19 +75,15 @@ namespace SnipeSharp.Models
             }
         }
         private bool isManufacturerModified = false;
-        private Manufacturer manufacturer;
+        private Stub<Manufacturer> manufacturer;
 
         /// <summary>
         /// The Supplier that sold this Accessory.
         /// </summary>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("supplier")]
         [SerializeAs("supplier_id", SerializeAs.IdValue)]
         [Patch(nameof(isSupplierModified))]
-        public Supplier Supplier
+        public Stub<Supplier> Supplier
         {
             get => supplier;
             set
@@ -105,7 +93,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isSupplierModified = false;
-        private Supplier supplier;
+        private Stub<Supplier> supplier;
 
         /// <summary>
         /// The ModelNumber of this Accessory.
@@ -129,15 +117,13 @@ namespace SnipeSharp.Models
         /// The Category this Accessory is in.
         /// </summary>
         /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// <para>The Category must have the CategoryType "Accessory" for the change to be realized in the API; the API won't stop you from giving anything a Category of the wrong type, though.</para>
         /// <para>This field is required.</para>
         /// </remarks>
         [DeserializeAs("category")]
         [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
-        public Category Category
+        public Stub<Category> Category
         {
             get => category;
             set
@@ -147,19 +133,15 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCategoryModified = false;
-        private Category category;
+        private Stub<Category> category;
 
         /// <summary>
         /// The Location this Accessory is in.
         /// </summary>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("location")]
         [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
-        public Location Location
+        public Stub<Location> Location
         {
             get => location;
             set
@@ -169,7 +151,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isLocationModified = false;
-        private Location location;
+        private Stub<Location> location;
 
         /// <summary>
         /// Any notes on the Accessory.
@@ -215,7 +197,7 @@ namespace SnipeSharp.Models
         /// The date this Accessory was purchased.
         /// </summary>
         [DeserializeAs("purchase_date", DeserializeAs.DateObject)]
-        [SerializeAs("purchase_date", SerializeAs.DateObject)]
+        [SerializeAs("purchase_date", SerializeAs.SimpleDate)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -316,23 +298,9 @@ namespace SnipeSharp.Models
         /// <summary>
         /// Indicates that this accessory is available to be checked out.
         /// </summary>
+        /// <remarks>This is the same as <code><see cref="RemainingQuantity"/> &gt; 0</code>.</remarks>
         [DeserializeAs("user_can_checkout")]
-        [Patch(nameof(isUserCanCheckOutModified))]
-        public bool? UserCanCheckOut
-        {
-            get => userCanCheckOut;
-            private set
-            {
-                isUserCanCheckOutModified = true;
-                userCanCheckOut = value;
-            }
-        }
-        private bool isUserCanCheckOutModified = false;
-        private bool? userCanCheckOut;
-
-        /* NOT_IMPL: This field is currently not readable from the API, nor used in SnipeIT.
-         * public bool? IsRequestable { get; set; }
-         */
+        public bool? UserCanCheckOut { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)
         {
@@ -350,7 +318,6 @@ namespace SnipeSharp.Models
             isOrderNumberModified = isModified;
             isMinimumQuantityModified = isModified;
             isImageUriModified = isModified;
-            isUserCanCheckOutModified = isModified;
         }
 
         [OnDeserialized]

@@ -26,22 +26,12 @@ namespace SnipeSharp.Serialization
     {
         Default = 0,
 
-        Timestamp,
-
-        DateObject,
-
         SimpleDate,
 
         Timespan,
 
         IdValue,
 
-        StatusIdValue,
-
         IdValueArray,
-
-        /// <remarks>This should be replaced with <see cref="Converters.DateObjectConverter"/> or <see cref="Converters.TimestampConverter"/></remarks>
-        [Obsolete]
-        DateTimeConverter,
     }
 }

@@ -15,32 +15,15 @@ namespace SnipeSharp.Serialization.Converters
         }
 
         public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)
-        {
-            if(null == value)
-                writer.WriteNull();
-            else
-                serializer.Serialize(writer, new DateObjectResponse(value.Value));
-        }
+            => throw new NotImplementedException();
     }
 
     internal sealed class DateObjectResponse
     {
-        [DeserializeAs("datetime")]
-        [SerializeAs("datetime")]
+        [DeserializeAs("date")]
         public string DateTime { get; set; }
 
         [DeserializeAs("formatted")]
-        [SerializeAs("formatted")]
         public string Formatted { get; set; }
-
-        public DateObjectResponse()
-        {
-        }
-
-        public DateObjectResponse(DateTime dateTime)
-        {
-            DateTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            Formatted = dateTime.ToString("yyyy-MM-dd hh:mm:ss tt");
-        }
     }
 }

@@ -12,7 +12,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TObject">The type of object this cmdlet gets.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
     public abstract class RemoveObject<TObject, TBinding>: PSCmdlet
-        where TObject: CommonEndPointModel, new()
+        where TObject: AbstractBaseModel, new()
         where TBinding: ObjectBinding<TObject>
     {
         /// <summary>

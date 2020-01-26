@@ -58,15 +58,17 @@ namespace SnipeSharp.Models
         private Dictionary<string, JToken> _extensionData { get; set; }
 
         /// <summary>Extra fields that may have been included with the API response not represented by this model.</summary>
-        public Dictionary<string, string> ExtensionData { get; } = new Dictionary<string, string>();
+        public IReadOnlyDictionary<string, string> ExtensionData { get; private set; } = new Dictionary<string, string>();
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
             if(null == _extensionData)
                 return;
+            var dict = new Dictionary<string, string>();
             foreach(var pair in _extensionData)
-                ExtensionData[pair.Key] = pair.Value.ToObject<string>();
+                dict[pair.Key] = pair.Value.ToObject<string>();
+            ExtensionData = dict;
             _extensionData = null;
         }
 
@@ -74,47 +76,42 @@ namespace SnipeSharp.Models
         /// Converts this object into a stub user object that can be used for checking in.
         /// </summary>
         /// <returns>A stub user object, with only the ID field populated.</returns>
-        public User AsUser()
+        public StubUser AsUser()
         {
             if(Type != AssignedToType.User)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a User.");
-            var user = new User(Id)
-            {
-                Name = this.Name
-            };
-            if(ExtensionData.TryGetValue("username", out var username))
-                user.UserName = username;
-            if(ExtensionData.TryGetValue("first_name", out var firstName))
-                user.FirstName = firstName;
-            if(ExtensionData.TryGetValue("last_name", out var lastName))
-                user.LastName = lastName;
-            if(ExtensionData.TryGetValue("employee_number", out var employeeNumber))
-                user.EmployeeNumber = employeeNumber;
-            return user;
+            return new StubUser(
+                id: Id,
+                name: Name,
+                firstName: ExtensionData.TryGetValue("first_name", out var firstName) ? firstName : null,
+                lastName: ExtensionData.TryGetValue("last_name", out var lastName) ? lastName : null,
+                userName: ExtensionData.TryGetValue("username", out var username) ? username : null,
+                employeeNumber: ExtensionData.TryGetValue("employee_number", out var employeeNumber) ? employeeNumber : null
+            );
         }
 
         /// <summary>
         /// Converts this object into a stub location object that can be used for checking in.
         /// </summary>
-        /// <returns>A stub location object, with only the ID field populated.</returns>
-        public Location AsLocation()
+        /// <returns>A stub location object.</returns>
+        public Stub<Location> AsLocation()
         {
             if(Type != AssignedToType.Location)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a Location.");
             // location assignments have no extension data to copy
-            return new Location(Id) { Name = this.Name };
+            return new Stub<Location>(Id, Name);
         }
 
         /// <summary>
         /// Converts this object into a stub asset object that can be used for checking in.
         /// </summary>
-        /// <returns>A stub asset object, with only the ID field populated.</returns>
-        public Asset AsAsset()
+        /// <returns>A stub asset object.</returns>
+        public Stub<Asset> AsAsset()
         {
             if(Type != AssignedToType.Asset)
                 throw new InvalidOperationException($"Object {Id} is a \"{Type}\", not a Asset.");
             // asset assignments have no extension data to copy
-            return new Asset(Id) { Name = this.Name };
+            return new Stub<Asset>(Id, Name);
         }
     }
 }

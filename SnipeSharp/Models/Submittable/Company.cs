@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Companies own assets, licenses, components, etc., and has users that work for it.
     /// </summary>
     [PathSegment("companies")]
-    public sealed class Company : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Company : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Company object.</summary>
         public Company() { }
@@ -39,8 +39,6 @@ namespace SnipeSharp.Models
             }
         }
 
-        private Uri imageUri;
-        private bool isImageUriModified;
         /// <summary>
         /// The url for the image of this company.
         /// </summary>
@@ -55,6 +53,8 @@ namespace SnipeSharp.Models
                 imageUri = value;
             }
         }
+        private bool isImageUriModified;
+        private Uri imageUri;
 
         /// <value>The number of assets this company owns.</value>
         [DeserializeAs("assets_count")]

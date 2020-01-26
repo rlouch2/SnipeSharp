@@ -25,12 +25,6 @@ namespace SnipeSharp.Serialization
 
                     converter = null;
                     return false;
-                case SerializeAs.Timestamp:
-                    converter = TimestampConverter.Instance;
-                    return true;
-                case SerializeAs.DateObject:
-                    converter = DateObjectConverter.Instance;
-                    return true;
                 case SerializeAs.SimpleDate:
                     converter = SimpleDateConverter.Instance;
                     return true;
@@ -40,14 +34,8 @@ namespace SnipeSharp.Serialization
                 case SerializeAs.IdValue:
                     converter = SerializeToIdConverter.Instance;
                     return true;
-                case SerializeAs.StatusIdValue:
-                    converter = SerializeToStatusIdConverter.Instance;
-                    return true;
                 case SerializeAs.IdValueArray:
                     converter = SerializeToIdArrayConverter.Instance;
-                    return true;
-                case SerializeAs.DateTimeConverter:
-                    converter = CustomDateTimeConverter.Instance;
                     return true;
             }
             converter = null;

@@ -31,7 +31,7 @@ namespace SnipeSharp.Tests
         [InlineData(new int[] { 0, 1, 2, 3, 4 })]
         public void WriteJson(int[] ids)
         {
-            var modelArray = new CommonEndPointModel[ids.Length];
+            var modelArray = new AbstractBaseModel[ids.Length];
             for(int i = 0; i < ids.Length; i += 1)
                 modelArray[i] = new GenericEndPointModel { Id = ids[i] };
 

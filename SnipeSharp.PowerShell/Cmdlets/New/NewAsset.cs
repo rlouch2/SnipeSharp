@@ -94,7 +94,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
         /// What the asset is assigned to.
         /// </summary>
         [Parameter(DontShow = true)]
-        public CommonEndPointModel AssignedTo { get; set; }
+        public AbstractBaseModel AssignedTo { get; set; }
 
         /// <summary>
         /// What kind of thing the asset is assigned to.

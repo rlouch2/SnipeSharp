@@ -17,7 +17,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// </example>
     [Cmdlet(VerbsCommon.Find, nameof(RequestableAsset), SupportsPaging = true)]
     [OutputType(typeof(RequestableAsset))]
-    // this isn't a FindObject`3 because RequestableAsset isn't a CommonEndPointModel -- it doesn't have the date fields
+    // this isn't a FindObject`3 because RequestableAsset isn't a AbstractBaseModel -- it doesn't have the date fields
     public class FindRequestableAsset: PSCmdlet
     {
         /// <summary>The string to search for.</summary>

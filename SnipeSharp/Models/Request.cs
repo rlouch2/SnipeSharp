@@ -7,6 +7,7 @@ namespace SnipeSharp.Models
     /// <summary>
     /// A request for an asset or accessory or etc.
     /// </summary>
+    // See App\Http\Controllers\Api\ProfileController#requestedAssets()
     public sealed class Request : ApiObject
     {
         /// <summary>The url for the image of the object.</summary>
@@ -32,11 +33,12 @@ namespace SnipeSharp.Models
         public string LocationName { get; private set; }
 
         /// <summary>The date to the object is expected to be checked back in.</summary>
-        [DeserializeAs("expected_checkin", DeserializeAs.DateTimeConverter)]
+        [DeserializeAs("expected_checkin", DeserializeAs.Timestamp)]
         public DateTime? ExpectedCheckIn { get; private set; }
 
+        // TODO: why is this here? It's not
         /// <summary>The date to the object was requested by the current account.</summary>
-        [DeserializeAs("request_date", DeserializeAs.DateTimeConverter)]
+        [DeserializeAs("request_date", DeserializeAs.Timestamp)]
         public DateTime? RequestDate { get; private set; }
     }
 }

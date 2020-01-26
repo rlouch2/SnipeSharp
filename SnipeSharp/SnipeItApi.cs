@@ -90,9 +90,9 @@ namespace SnipeSharp
         /// <summary>
         /// Constructs or retrieves a cached EndPoint corresponding to the type parameter for use with interacting with the API.
         /// </summary>
-        /// <typeparam name="T">A <see cref="SnipeSharp.Models.CommonEndPointModel">CommonEndPointModel</see> with the attribute <see cref="SnipeSharp.EndPoint.PathSegmentAttribute">PathSegmentAttribute</see>.</typeparam>
+        /// <typeparam name="T">A <see cref="SnipeSharp.Models.AbstractBaseModel">AbstractBaseModel</see> with the attribute <see cref="SnipeSharp.EndPoint.PathSegmentAttribute">PathSegmentAttribute</see>.</typeparam>
         /// <returns>An <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> for the provided type.</returns>
-        public EndPoint<T> GetEndPoint<T>() where T: CommonEndPointModel
+        public EndPoint<T> GetEndPoint<T>() where T: AbstractBaseModel
         {
             if(_typeEndPointObjectMap.TryGetValue(typeof(T), out var endpoint))
                 return (EndPoint<T>)endpoint;

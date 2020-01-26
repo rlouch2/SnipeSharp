@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Custom fields are in a many-to-many relationship with <see cref="FieldSet">Fieldsets</see>.
     /// </summary>
     [PathSegment("fields")]
-    public sealed class CustomField : CommonEndPointModel, IPatchable
+    public sealed class CustomField : AbstractBaseModel, IPatchable
     {
         /// <summary>Create a new CustomField object.</summary>
         public CustomField() { }

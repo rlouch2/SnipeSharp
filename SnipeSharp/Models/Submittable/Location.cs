@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// A Location.
     /// </summary>
     [PathSegment("locations")]
-    public sealed class Location : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Location : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Location object.</summary>
         public Location() { }
@@ -180,14 +180,10 @@ namespace SnipeSharp.Models
         private string currency;
 
         /// <value>Gets/sets the parent location for this location.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("parent")]
         [SerializeAs("parent_id", SerializeAs.IdValue)]
         [Patch(nameof(isParentLocationModified))]
-        public Location ParentLocation
+        public Stub<Location> ParentLocation
         {
             get => parentLocation;
             set
@@ -197,13 +193,10 @@ namespace SnipeSharp.Models
             }
         }
         private bool isParentLocationModified = false;
-        private Location parentLocation;
+        private Stub<Location> parentLocation;
 
         /// <value>The manager for this location.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
+        /// <remarks>This is actually a full user, not a stub user, (see <code>LocationsTransformer.php</code>).</remarks>
         [DeserializeAs("manager")]
         [SerializeAs("manager_id", SerializeAs.IdValue)]
         [Patch(nameof(isManagerModified))]
@@ -220,9 +213,9 @@ namespace SnipeSharp.Models
         private User manager;
 
         /// <value>The list of child locations for this location.</value>
-        /// <remarks>When deserialized, these values do not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</remarks>
+        // this is not a ResponseCollection, so no special deserializer is needed
         [DeserializeAs("children")]
-        public List<Location> ChildLocations { get; private set; }
+        public IReadOnlyList<Stub<Location>> ChildLocations { get; private set; }
 
         /// <inheritdoc />
         [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]

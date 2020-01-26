@@ -29,8 +29,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The next scheduled audit date.
         /// </summary>
-        [DeserializeAs("next_audit_date")]
-        [SerializeAs("next_audit_date", SerializeAs.DateTimeConverter)]
+        [DeserializeAs("next_audit_date", DeserializeAs.Timestamp)]
+        [SerializeAs("next_audit_date", SerializeAs.SimpleDate)]
         public DateTime? NextAuditDate { get; set; }
 
         /// <summary>

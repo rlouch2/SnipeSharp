@@ -4,12 +4,12 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class SerializeToIdConverter : JsonConverter<CommonEndPointModel>
+    internal sealed class SerializeToIdConverter : JsonConverter<IObjectWithId>
     {
         internal static readonly SerializeToIdConverter Instance = new SerializeToIdConverter();
-        public override CommonEndPointModel ReadJson(JsonReader reader, Type objectType, CommonEndPointModel existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override IObjectWithId ReadJson(JsonReader reader, Type objectType, IObjectWithId existingValue, bool hasExistingValue, JsonSerializer serializer)
             => throw new NotImplementedException();
-        public override void WriteJson(JsonWriter writer, CommonEndPointModel value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, IObjectWithId value, JsonSerializer serializer)
         {
             if(null == value)
                 writer.WriteNull();

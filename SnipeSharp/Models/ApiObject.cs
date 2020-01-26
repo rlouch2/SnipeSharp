@@ -6,6 +6,6 @@ namespace SnipeSharp.Models
     /// </summary>
     public class ApiObject
     {
-        // just so there's a base between requestresponse and commonendpointmodel
+        // just so there's a base between requestresponse and AbstractBaseModel
     }
 }

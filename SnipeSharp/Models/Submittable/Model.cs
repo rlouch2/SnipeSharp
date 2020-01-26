@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// All Assets have a model that assigns further properties and defines which FieldSet applies.
     /// </summary>
     [PathSegment("models")]
-    public sealed class Model : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Model : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Model object.</summary>
         public Model() { }
@@ -40,14 +40,10 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>The manufacturer for this model.</value>
-        /// <remarks>
-        /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("manufacturer")]
         [SerializeAs("manufacturer_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isManufacturerModified))]
-        public Manufacturer Manufacturer
+        public Stub<Manufacturer> Manufacturer
         {
             get => manufacturer;
             set
@@ -57,7 +53,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isManufacturerModified = false;
-        private Manufacturer manufacturer;
+        private Stub<Manufacturer> manufacturer;
 
         /// <value>The url for the image of the asset.</value>
         [DeserializeAs("image")]
@@ -92,14 +88,10 @@ namespace SnipeSharp.Models
         private string modelNumber;
 
         /// <value>Gets/sets the depreciation for this model.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("depreciation")]
         [SerializeAs("depreciation_id", SerializeAs.IdValue)]
         [Patch(nameof(isDepreciationModified))]
-        public Depreciation Depreciation
+        public Stub<Depreciation> Depreciation
         {
             get => depreciation;
             set
@@ -109,21 +101,17 @@ namespace SnipeSharp.Models
             }
         }
         private bool isDepreciationModified = false;
-        private Depreciation depreciation;
+        private Stub<Depreciation> depreciation;
 
         /// <value>The number of assets with this model.</value>
         [DeserializeAs("assets_count")]
         public int? AssetsCount { get; private set; }
 
         /// <value>Gets/sets the category for this model</value>
-        /// <remarks>
-        /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("category")]
         [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
-        public Category Category
+        public Stub<Category> Category
         {
             get => category;
             set
@@ -133,18 +121,14 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCategoryModified = false;
-        private Category category;
+        private Stub<Category> category;
 
         /// <value>Gets/sets the fieldset for this model.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         // TODO: update function has "custom_fieldset_id" as request name. Is this compatible w/ store? What changes need to be made for that?
         [DeserializeAs("fieldset")]
         [SerializeAs("fieldset_id", SerializeAs.IdValue)]
         [Patch(nameof(isFieldSetModified))]
-        public FieldSet FieldSet
+        public Stub<FieldSet> FieldSet
         {
             get => fieldSet;
             set
@@ -154,7 +138,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isFieldSetModified = false;
-        private FieldSet fieldSet;
+        private Stub<FieldSet> fieldSet;
 
         /// <value>Gets/sets the lifetime for this model in months.</value>
         [DeserializeAs("eol", DeserializeAs.MonthStringAsInt)]
@@ -189,7 +173,7 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <value>The date this object was soft-deleted in Snipe-IT, or null if it has not been deleted.</value>
-        [DeserializeAs("deleted_at", DeserializeAs.DateTimeConverter)]
+        [DeserializeAs("deleted_at", DeserializeAs.Timestamp)]
         public DateTime? DeletedAt { get ;set; }
 
         /// <inheritdoc />

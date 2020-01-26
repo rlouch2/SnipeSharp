@@ -14,7 +14,7 @@ using SnipeSharp.Filters;
 namespace SnipeSharp.Tests
 {
     [PathSegment(TestModel.PATH_SEGMENT)]
-    internal sealed class TestModel : CommonEndPointModel, IEquatable<TestModel>
+    internal sealed class TestModel : AbstractBaseModel, IEquatable<TestModel>
     {
         public const string PATH_SEGMENT = "test";
 
@@ -47,12 +47,12 @@ namespace SnipeSharp.Tests
         internal static TestModel Test2 { get; } = new TestModel(2, "Test2", new DateTime(2019, 12, 19, 12, 6, 7), null);
     }
 
-    internal sealed class FaultyTestModel : CommonEndPointModel
+    internal sealed class FaultyTestModel : AbstractBaseModel
     {
     }
 
     internal sealed class CustomEndPoint<T>: EndPoint<T>
-        where T: CommonEndPointModel
+        where T: AbstractBaseModel
     {
         internal CustomEndPoint(SnipeItApi api) : base(api) { }
         internal new PathSegmentAttribute EndPointInfo => base.EndPointInfo;

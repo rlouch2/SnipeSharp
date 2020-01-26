@@ -22,7 +22,7 @@ New-SnipeAsset [-AssetTag] <String>
  [-Company <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Company]>]
  [-Location <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
  [-DefaultLocation <SnipeSharp.PowerShell.BindingTypes.ObjectBinding`1[SnipeSharp.Models.Location]>]
- [-ImageUri <Uri>] [-AssignedTo <CommonEndPointModel>] [-AssignedType <AssignedToType>]
+ [-ImageUri <Uri>] [-AssignedTo <AbstractBaseModel>] [-AssignedType <AssignedToType>]
  [-PurchaseDate <DateTime>] [-PurchaseCost <Decimal>] [-WarrantyMonths <Int32>]
  [-CustomFields <System.Collections.Generic.Dictionary`2[System.String,System.String]>] [<CommonParameters>]
 ```
@@ -60,7 +60,7 @@ Accept wildcard characters: False
 What the asset is assigned to.
 
 ```yaml
-Type: CommonEndPointModel
+Type: AbstractBaseModel
 Parameter Sets: (All)
 Aliases:
 

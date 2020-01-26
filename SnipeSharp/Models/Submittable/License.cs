@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Licenses may be checked out to Assets or Users.
     /// </summary>
     [PathSegment("licenses")]
-    public sealed class License : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class License : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new License object.</summary>
         public License() { }
@@ -40,14 +40,10 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>The company that owns this license.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("company")]
         [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
-        public Company Company
+        public Stub<Company> Company
         {
             get => company;
             set
@@ -57,37 +53,13 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCompanyModified = false;
-        private Company company;
-
-        /// <value>The depreciation for this license.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
-        [DeserializeAs("depreciation_id")]
-        [SerializeAs("depreciation_id", SerializeAs.IdValue)]
-        [Patch(nameof(isDepreciationModified))]
-        public Depreciation Depreciation
-        {
-            get => depreciation;
-            set
-            {
-                isDepreciationModified = true;
-                depreciation = value;
-            }
-        }
-        private bool isDepreciationModified = false;
-        private Depreciation depreciation;
+        private Stub<Company> company;
 
         /// <value>The manufacturer that produced this license.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("manufacturer")]
         [SerializeAs("manufacturer_id", SerializeAs.IdValue)]
         [Patch(nameof(isManufacturerModified))]
-        public Manufacturer Manufacturer
+        public Stub<Manufacturer> Manufacturer
         {
             get => manufacturer;
             set
@@ -97,7 +69,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isManufacturerModified = false;
-        private Manufacturer manufacturer;
+        private Stub<Manufacturer> manufacturer;
 
         /// <value>The Product Key for this license.</value>
         [DeserializeAs("product_key")]
@@ -148,8 +120,8 @@ namespace SnipeSharp.Models
         private string purchaseOrder;
 
         /// <value>The date this License was purchased.</value>
-        [DeserializeAs("purchase_date", DeserializeAs.DateTimeConverter)]
-        [SerializeAs("purchase_date", SerializeAs.DateTimeConverter)]
+        [DeserializeAs("purchase_date", DeserializeAs.DateObject)]
+        [SerializeAs("purchase_date", SerializeAs.SimpleDate)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -196,8 +168,8 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <value>The date this license expires. This is not the TerminationDate!</value>
-        [DeserializeAs("expiration_date", DeserializeAs.DateTimeConverter)]
-        [SerializeAs("expiration_date", SerializeAs.DateTimeConverter)]
+        [DeserializeAs("expiration_date", DeserializeAs.DateObject)]
+        [SerializeAs("expiration_date", SerializeAs.SimpleDate)]
         public DateTime? ExpirationDate { get; private set; }
 
         /// <value>The number of seats this license is good for.</value>
@@ -270,14 +242,10 @@ namespace SnipeSharp.Models
         private bool? isMaintained;
 
         /// <value>The category this license is in.</value>
-        /// <remarks>
-        /// <para>This field is required, and will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("category")]
         [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
-        public Category Category
+        public Stub<Category> Category
         {
             get => category;
             set
@@ -287,11 +255,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCategoryModified = false;
-        private Category category;
-
-        /// <value>Whether or not there are seats left to check out.</value>
-        [DeserializeAs("user_can_checkout")]
-        public bool? UserCanCheckOut { get; private set; }
+        private Stub<Category> category;
 
         /// <inheritdoc />
         [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
@@ -317,7 +281,7 @@ namespace SnipeSharp.Models
         [DeserializeAs("supplier")]
         [SerializeAs("supplier_id", SerializeAs.IdValue)]
         [Patch(nameof(isSupplierModified))]
-        public Supplier Supplier
+        public Stub<Supplier> Supplier
         {
             get => supplier;
             set
@@ -327,13 +291,16 @@ namespace SnipeSharp.Models
             }
         }
         private bool isSupplierModified = false;
-        private Supplier supplier;
+        private Stub<Supplier> supplier;
+
+        /// <value>Whether or not there are seats left to check out.</value>
+        [DeserializeAs("user_can_checkout")]
+        public bool? UserCanCheckOut { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)
         {
             isNameModified = isModified;
             isCompanyModified = isModified;
-            isDepreciationModified = isModified;
             isManufacturerModified = isModified;
             isProductKeyModified = isModified;
             isOrderNumberModified = isModified;

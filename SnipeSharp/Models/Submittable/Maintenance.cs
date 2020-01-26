@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Maintenances are operations performed on Assets, such as repair or reimaging.
     /// </summary>
     [PathSegment("maintenances")]
-    public sealed class Maintenance : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Maintenance : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Maintenance object.</summary>
         public Maintenance() { }
@@ -24,14 +24,12 @@ namespace SnipeSharp.Models
 
         /// <value>Gets/sets asset this maintenance was performed on.</value>
         /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// <para>This field is required.</para>
         /// </remarks>
         [DeserializeAs("asset")]
         [SerializeAs("asset_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isAssetModified))]
-        public Asset Asset
+        public StubAsset Asset
         {
             get => asset;
             set
@@ -41,7 +39,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isAssetModified = false;
-        private Asset asset;
+        private StubAsset asset;
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
@@ -64,7 +62,7 @@ namespace SnipeSharp.Models
         [DeserializeAs("location")]
         [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
-        public Location Location
+        public Stub<Location> Location
         {
             get => location;
             set
@@ -74,7 +72,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isLocationModified = false;
-        private Location location;
+        private Stub<Location> location;
 
         /// <value>Gets/sets the notes for the maintenance.</value>
         [DeserializeAs("notes")]
@@ -85,7 +83,7 @@ namespace SnipeSharp.Models
         [DeserializeAs("supplier")]
         [SerializeAs("supplier_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isSupplierModified))]
-        public Supplier Supplier
+        public Stub<Supplier> Supplier
         {
             get => supplier;
             set
@@ -95,7 +93,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isSupplierModified = false;
-        private Supplier supplier;
+        private Stub<Supplier> supplier;
 
         /// <value>Gets/sets the cost of the maintenance.</value>
         [DeserializeAs("cost")]
@@ -146,8 +144,8 @@ namespace SnipeSharp.Models
         private bool? isWarranty;
 
         /// <value>Gets/sets the date the maintenance begins.</value>
-        [DeserializeAs("start_date", DeserializeAs.DateTimeConverter)]
-        [SerializeAs("start_date", SerializeAs.DateTimeConverter, IsRequired = true)]
+        [DeserializeAs("start_date", DeserializeAs.DateObject)]
+        [SerializeAs("start_date", SerializeAs.SimpleDate, IsRequired = true)]
         [Patch(nameof(isStartDateModified))]
         public DateTime? StartDate
         {
@@ -166,8 +164,8 @@ namespace SnipeSharp.Models
         public TimeSpan? MaintenanceDuration { get; private set; }
 
         /// <value>Gets/sets the date the maintenance ends.</value>
-        [DeserializeAs("completion_date", DeserializeAs.DateTimeConverter)]
-        [SerializeAs("completion_date", SerializeAs.DateTimeConverter)]
+        [DeserializeAs("completion_date", DeserializeAs.DateObject)]
+        [SerializeAs("completion_date", SerializeAs.SimpleDate)]
         [Patch(nameof(isCompletionDateModified))]
         public DateTime? CompletionDate
         {
@@ -183,7 +181,7 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the user who created the maintenance.</value>
         [DeserializeAs("user_id")]
-        public User User { get; private set; }
+        public Stub<User> User { get; private set; }
 
         /// <inheritdoc />
         [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]

@@ -11,9 +11,9 @@ namespace SnipeSharp.EndPoint
     /// <summary>
     /// Implements <see cref="IEndPoint{T}" />.
     /// </summary>
-    /// <typeparam name="T">A <see cref="Models.CommonEndPointModel">CommonEndPointModel</see> with the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</typeparam>
+    /// <typeparam name="T">A <see cref="Models.AbstractBaseModel">AbstractBaseModel</see> with the <see cref="PathSegmentAttribute">PathSegmentAttribute</see> attribute.</typeparam>
     public class EndPoint<T> : IEndPoint<T>
-        where T: CommonEndPointModel
+        where T: AbstractBaseModel
     {
         /// <summary>The API instance this endpoint is a part of.</summary>
         protected readonly SnipeItApi Api;

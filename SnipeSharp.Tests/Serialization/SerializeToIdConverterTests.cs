@@ -41,5 +41,20 @@ namespace SnipeSharp.Tests
                 Assert.Equal(value.ToString(), stringWriter.ToString());
             }
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void WriteJson_WritesStatusId(int value)
+        {
+            var converter = new SerializeToIdConverter();
+            using(var stringWriter = new StringWriter())
+            using(var jsonWriter = new JsonTextWriter(stringWriter))
+            {
+                converter.WriteJson(jsonWriter, new AssetStatus { StatusId = value }, null);
+                Assert.Equal(value.ToString(), stringWriter.ToString());
+            }
+        }
     }
 }

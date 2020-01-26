@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Groups are used to grant permissions to users in Snipe-IT.
     /// </summary>
     [PathSegment("groups")]
-    public sealed class Group : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Group : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Group object.</summary>
         public Group() { }

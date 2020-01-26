@@ -10,7 +10,7 @@ namespace SnipeSharp.PowerShell.BindingTypes
     /// </summary>
     /// <typeparam name="T">The type of object being bound to.</typeparam>
     public class ObjectBinding<T> : IObjectBinding
-        where T: CommonEndPointModel, new()
+        where T: AbstractBaseModel, new()
     {
         /// <inheritdoc />
         public bool HasValue

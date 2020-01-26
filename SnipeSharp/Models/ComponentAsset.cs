@@ -30,7 +30,7 @@ namespace SnipeSharp.Models
         public AssignedToType Type { get; private set; }
 
         /// <value>The creation date of this object in Snipe-IT.</value>
-        [DeserializeAs("created_at", DeserializeAs.DateTimeConverter)]
+        [DeserializeAs("created_at", DeserializeAs.SimpleDate)]
         public DateTime? CreatedAt { get; private set; }
 
         /// <inheritdoc />

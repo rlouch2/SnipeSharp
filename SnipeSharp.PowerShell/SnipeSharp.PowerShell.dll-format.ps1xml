@@ -206,9 +206,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>SnipeSharpCommonEndpointModel</Name>
+      <Name>SnipeSharpAbstractBaseModel</Name>
       <ViewSelectedBy>
-        <TypeName>SnipeSharp.Models.CommonEndpointModel</TypeName>
+        <TypeName>SnipeSharp.Models.AbstractBaseModel</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>

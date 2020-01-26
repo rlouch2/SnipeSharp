@@ -2,6 +2,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
 using System.Runtime.Serialization;
+using System;
 
 namespace SnipeSharp.Models
 {
@@ -10,7 +11,7 @@ namespace SnipeSharp.Models
     /// Categories may be checked out to Assets, Accessories, Consumables and Components.
     /// </summary>
     [PathSegment("categories")]
-    public sealed class Category : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Category : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Category object.</summary>
         public Category() { }
@@ -37,6 +38,10 @@ namespace SnipeSharp.Models
         }
         private bool isNameModified = false;
         private string name;
+
+        /// <summary>The image of this category.</summary>
+        [DeserializeAs("image")]
+        public Uri Image { get; private set; } //TODO: is this settable in the API?
 
         /// <summary>
         /// Indicates the type of objects this category may contain.

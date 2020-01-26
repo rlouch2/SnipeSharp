@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Suppliers sell assets, licenses, and accessories.
     /// </summary>
     [PathSegment("suppliers")]
-    public sealed class Supplier : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Supplier : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Supplier object.</summary>
         public Supplier() { }

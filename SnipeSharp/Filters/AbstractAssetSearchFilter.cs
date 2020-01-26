@@ -56,7 +56,7 @@ namespace SnipeSharp.Filters
         /// Only search for assets assigned to this user/asset/location.
         /// </summary>
         [SerializeAs("assigned_to", SerializeAs.IdValue)]
-        public CommonEndPointModel AssignedTo { get; set; }
+        public AbstractBaseModel AssignedTo { get; set; }
 
         /// <summary>
         /// Only search for assets assigned to this type (user, asset, or location).

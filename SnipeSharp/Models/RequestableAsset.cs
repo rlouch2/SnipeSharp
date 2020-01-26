@@ -46,7 +46,7 @@ namespace SnipeSharp.Models
         public StatusMeta StatusMeta { get; private set; }
 
         /// <summary>The date to the Asset is expected to be checked back in.</summary>
-        [DeserializeAs("expected_checkin", DeserializeAs.DateTimeConverter)]
+        [DeserializeAs("expected_checkin", DeserializeAs.DateObject)]
         public DateTime? ExpectedCheckIn { get; private set; }
 
         /// <inheritdoc />

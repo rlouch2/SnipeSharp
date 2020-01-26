@@ -4,13 +4,13 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class SerializeToIdArrayConverter : JsonConverter<CommonEndPointModel[]>
+    internal sealed class SerializeToIdArrayConverter : JsonConverter<AbstractBaseModel[]>
     {
         internal static readonly SerializeToIdArrayConverter Instance = new SerializeToIdArrayConverter();
-        public override CommonEndPointModel[] ReadJson(JsonReader reader, Type objectType, CommonEndPointModel[] existingValue, bool hasExistingValue, JsonSerializer serializer)
-            => (CommonEndPointModel[]) serializer.Deserialize<GenericEndPointModel[]>(reader);
+        public override AbstractBaseModel[] ReadJson(JsonReader reader, Type objectType, AbstractBaseModel[] existingValue, bool hasExistingValue, JsonSerializer serializer)
+            => (AbstractBaseModel[]) serializer.Deserialize<GenericEndPointModel[]>(reader);
 
-        public override void WriteJson(JsonWriter writer, CommonEndPointModel[] value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, AbstractBaseModel[] value, JsonSerializer serializer)
         {
             writer.WriteStartArray();
             if(null != value)

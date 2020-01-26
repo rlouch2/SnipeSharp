@@ -43,12 +43,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
         public ObjectBinding<Company> Company { get; set; }
 
         /// <summary>
-        /// The depreciation to use for the license.
-        /// </summary>
-        [Parameter(ValueFromPipelineByPropertyName = true)]
-        public ObjectBinding<Depreciation> Depreciation { get; set; }
-
-        /// <summary>
         /// The manufacturer of the product the license is for.
         /// </summary>
         [Parameter(ValueFromPipelineByPropertyName = true)]
@@ -155,12 +149,6 @@ namespace SnipeSharp.PowerShell.Cmdlets
                 if (!this.GetSingleValue(Company, out var company))
                     return;
                 item.Company = company;
-            }
-            if (MyInvocation.BoundParameters.ContainsKey(nameof(Depreciation)))
-            {
-                if (!this.GetSingleValue(Depreciation, out var depreciation))
-                    return;
-                item.Depreciation = depreciation;
             }
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Manufacturer)))
             {

@@ -4,9 +4,9 @@ using SnipeSharp.Serialization;
 namespace SnipeSharp.Models
 {
     /// <summary>
-    /// CommonEndPointModel is an ApiObject associated with an Api EndPoint.
+    /// AbstractBaseModel is an ApiObject associated with an Api EndPoint.
     /// </summary>
-    public abstract class CommonEndPointModel: ApiObject
+    public abstract class AbstractBaseModel: ApiObject, IObjectWithId
     {
         /// <value>The internal Id of the object.</value>
         [DeserializeAs("id")]

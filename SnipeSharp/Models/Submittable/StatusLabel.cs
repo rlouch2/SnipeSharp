@@ -10,7 +10,7 @@ namespace SnipeSharp.Models
     /// Status labels are used out to organize Assets and manage their state.
     /// </summary>
     [PathSegment("statuslabels")]
-    public sealed class StatusLabel : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class StatusLabel : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new StatusLabel object.</summary>
         public StatusLabel() { }

@@ -11,7 +11,7 @@ namespace SnipeSharp.PowerShell.Cmdlets
     /// <typeparam name="TObject">Type of object to set.</typeparam>
     /// <typeparam name="TBinding">The type of the Identity property.</typeparam>
     public abstract class SetObject<TObject, TBinding>: PSCmdlet
-        where TObject: CommonEndPointModel, new()
+        where TObject: AbstractBaseModel, new()
         where TBinding: ObjectBinding<TObject>
     {
         /// <summary>

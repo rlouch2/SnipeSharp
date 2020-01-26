@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Components may be checked out to Assets.
     /// </summary>
     [PathSegment("components")]
-    public sealed class Component : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Component : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Component object.</summary>
         public Component() { }
@@ -78,7 +78,7 @@ namespace SnipeSharp.Models
         [DeserializeAs("location")]
         [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
-        public Location Location
+        public Stub<Location> Location
         {
             get => location;
             set
@@ -88,7 +88,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isLocationModified = false;
-        private Location location;
+        private Stub<Location> location;
 
         /// <value>Gets/sets the total quantity of this component.</value>
         /// <remarks>
@@ -128,15 +128,13 @@ namespace SnipeSharp.Models
 
         /// <value>Gets/sets the Category this Component is in.</value>
         /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// <para>The Category must have the CategoryType "Component" for the change to be realized in the API; the API won't stop you from giving anything a Category of the wrong type, though.</para>
         /// <para>This field is required.</para>
         /// </remarks>
         [DeserializeAs("category")]
         [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
-        public Category Category
+        public Stub<Category> Category
         {
             get => category;
             set
@@ -146,7 +144,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCategoryModified = false;
-        private Category category;
+        private Stub<Category> category;
 
         /// <value>The order number associated with this Components's purchase.</value>
         [DeserializeAs("order_number")]
@@ -165,8 +163,8 @@ namespace SnipeSharp.Models
         private string orderNumber;
 
         /// <value>The date this Component was purchased.</value>
-        [DeserializeAs("purchase_date", DeserializeAs.DateTimeConverter)]
-        [SerializeAs("purchase_date", SerializeAs.DateTimeConverter)]
+        [DeserializeAs("purchase_date", DeserializeAs.DateObject)]
+        [SerializeAs("purchase_date", SerializeAs.SimpleDate)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -201,14 +199,10 @@ namespace SnipeSharp.Models
         public int? RemainingQuantity { get; private set; }
 
         /// <value>The Company this Accessory belongs to.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("company")]
         [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
-        public Company Company
+        public Stub<Company> Company
         {
             get => company;
             set
@@ -218,7 +212,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCompanyModified = false;
-        private Company company;
+        private Stub<Company> company;
 
         /// <value>Indicates that this accessory is available to be checked out.</value>
         [DeserializeAs("user_can_checkout")]

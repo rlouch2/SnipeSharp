@@ -54,9 +54,6 @@ namespace SnipeSharp.Serialization
                     case DeserializeAs.PermissionDictionary:
                         property.Converter = PermissionDictionaryConverter.Instance;
                         break;
-                    case DeserializeAs.DateTimeConverter:
-                        property.Converter = CustomDateTimeConverter.Instance;
-                        break;
                 }
             } else
             {

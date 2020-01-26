@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Manufacturers create accessories, consumables, licenses, and models (models are associated with assets).
     /// </summary>
     [PathSegment("manufacturers")]
-    public sealed class Manufacturer : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Manufacturer : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Manufacturer object.</summary>
         public Manufacturer() { }
@@ -137,7 +137,7 @@ namespace SnipeSharp.Models
         public int? AccessoriesCount { get; private set; }
 
         /// <value>Gets the date this manufacturer was deleted.</value>
-        [DeserializeAs("deleted_at", DeserializeAs.DateTimeConverter)]
+        [DeserializeAs("deleted_at", DeserializeAs.Timestamp)]
         public DateTime? DeletedAt { get; private set; }
 
         /// <inheritdoc />

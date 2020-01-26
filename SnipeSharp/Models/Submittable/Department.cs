@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// Departments structure Users within a Company.
     /// </summary>
     [PathSegment("departments")]
-    public sealed class Department : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Department : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Department object.</summary>
         public Department() { }
@@ -59,7 +59,7 @@ namespace SnipeSharp.Models
         [DeserializeAs("company")]
         [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
-        public Company Company
+        public Stub<Company> Company
         {
             get => company;
             set
@@ -69,13 +69,13 @@ namespace SnipeSharp.Models
             }
         }
         private bool isCompanyModified = false;
-        private Company company;
+        private Stub<Company> company;
 
         /// <value>The manager of the department.</value>
         [DeserializeAs("manager")]
         [SerializeAs("manager_id", SerializeAs.IdValue)]
         [Patch(nameof(isManagerModified))]
-        public User Manager
+        public StubUser Manager
         {
             get => manager;
             set
@@ -85,13 +85,13 @@ namespace SnipeSharp.Models
             }
         }
         private bool isManagerModified = false;
-        private User manager;
+        private StubUser manager;
 
         /// <value>Where this department is located.</value>
         [DeserializeAs("location")]
         [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
-        public Location Location
+        public Stub<Location> Location
         {
             get => location;
             set
@@ -101,7 +101,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isLocationModified = false;
-        private Location location;
+        private Stub<Location> location;
 
         /* Disabled here until we can also read it from the API.
          * /// <value>The description for this department.</value>

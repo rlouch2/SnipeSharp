@@ -12,7 +12,7 @@ namespace SnipeSharp.Models
     /// <seealso cref="Model" />
     /// <seealso cref="Asset.CustomFields" />
     [PathSegment("fieldsets")]
-    public sealed class FieldSet : CommonEndPointModel, IPatchable
+    public sealed class FieldSet : AbstractBaseModel, IPatchable
     {
         /// <summary>Create a new FieldSet object.</summary>
         public FieldSet() { }
@@ -47,7 +47,7 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the Models this FieldSet applies to.</value>
         [DeserializeAs("models", DeserializeAs.ReadOnlyCollection)]
-        public IReadOnlyCollection<Model> Models { get; private set; }
+        public IReadOnlyCollection<Stub<Model>> Models { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)
         {

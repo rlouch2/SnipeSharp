@@ -1,4 +1,3 @@
-using RestSharp;
 using SnipeSharp.Models;
 using Xunit;
 

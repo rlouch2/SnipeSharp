@@ -11,7 +11,7 @@ namespace SnipeSharp.Models
     /// A user.
     /// </summary>
     [PathSegment("users")]
-    public sealed class User : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class User : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new User object.</summary>
         public User() { }
@@ -39,14 +39,11 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the user's name.</value>
         /// <remarks>This field cannot be used to set a user's name; it is constructed from the <see cref="FirstName"/> and <see cref="LastName"/> by the API.</remarks>
-        /// <seealso cref="name"/>
-        public override string Name {
-            get => name;
-            set => throw new InvalidOperationException();
-        }
-
         [DeserializeAs("name")]
-        private string name { get; set; }
+        public override string Name {
+            get => base.Name;
+            set => base.Name = value;
+        }
 
         /// <value>Gets/sets the user's first name.</value>
         /// <remarks>This field is required.</remarks>
@@ -147,14 +144,10 @@ namespace SnipeSharp.Models
         private string employeeNumber;
 
         /// <value>Gets/sets the user's manager.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("manager")]
         [SerializeAs("manager_id", SerializeAs.IdValue)]
         [Patch(nameof(isManagerModified))]
-        public User Manager
+        public Stub<User> Manager
         {
             get => manager;
             set
@@ -164,7 +157,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isManagerModified = false;
-        private User manager;
+        private Stub<User> manager;
 
         /// <value>Gets/sets the title of the user's job.</value>
         [DeserializeAs("jobtitle")]
@@ -295,14 +288,10 @@ namespace SnipeSharp.Models
         private string emailAddress;
 
         /// <value>Gets/sets the user's department.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("department")]
         [SerializeAs("department_id", SerializeAs.IdValue)]
         [Patch(nameof(isDepartmentModified))]
-        public Department Department
+        public Stub<Department> Department
         {
             get => department;
             set
@@ -312,17 +301,13 @@ namespace SnipeSharp.Models
             }
         }
         private bool isDepartmentModified = false;
-        private Department department;
+        private Stub<Department> department;
 
         /// <value>Gets/sets the user's location.</value>
-        /// <remarks>
-        /// <para>This field will be converted to the value of its Id when serialized.</para>
-        /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
-        /// </remarks>
         [DeserializeAs("location")]
         [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
-        public Location Location
+        public Stub<Location> Location
         {
             get => location;
             set
@@ -332,7 +317,7 @@ namespace SnipeSharp.Models
             }
         }
         private bool isLocationModified = false;
-        private Location location;
+        private Stub<Location> location;
 
         /// <value>Gets the user's notes or description.</value>
         /// <remarks>Currently, this field cannot be set.</remarks>
@@ -411,7 +396,7 @@ namespace SnipeSharp.Models
         private Company company;
 
         /// <value>Gets the date this user last logged on.</value>
-        [DeserializeAs("last_login", DeserializeAs.DateTimeConverter)]
+        [DeserializeAs("last_login", DeserializeAs.Timestamp)]
         public DateTime? LastLogin { get; private set; }
 
         /// <inheritdoc />

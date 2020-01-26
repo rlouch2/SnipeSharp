@@ -10,7 +10,7 @@ namespace SnipeSharp.Models
     /// Depreciations are associated with objects and determine when End-Of-Life is relative to the PurchaseDate.
     /// </summary>
     [PathSegment("depreciations")]
-    public sealed class Depreciation : CommonEndPointModel, IAvailableActions, IPatchable
+    public sealed class Depreciation : AbstractBaseModel, IAvailableActions, IPatchable
     {
         /// <summary>Create a new Depreciation object.</summary>
         public Depreciation() { }

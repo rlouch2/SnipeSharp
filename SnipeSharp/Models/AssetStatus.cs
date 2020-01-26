@@ -9,7 +9,7 @@ namespace SnipeSharp.Models
     /// <remarks>Yes, it's not a <see cref="StatusLabel">StatusLabel</see>, but the Id's are the same.</remarks>
     /// <seealso cref="SnipeSharp.EndPoint.StatusLabelEndPoint.FromAssetStatus(AssetStatus)" />
     /// <seealso cref="SnipeSharp.Models.StatusLabel.ToAssetStatus" />
-    public sealed class AssetStatus
+    public sealed class AssetStatus : IObjectWithId
     {
         /// <summary>
         /// The Id of the <see cref="StatusLabel">StatusLabel</see> in the SnipeIT database.
@@ -35,6 +35,8 @@ namespace SnipeSharp.Models
         /// </summary>
         [DeserializeAs("status_meta")]
         public StatusMeta? StatusMeta { get; internal set; }
+
+        int IObjectWithId.Id => StatusId;
 
         /// <inheritdoc />
         public override string ToString()

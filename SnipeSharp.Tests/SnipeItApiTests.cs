@@ -136,6 +136,6 @@ namespace SnipeSharp.Tests
 
         [Fact]
         public void GenericEndPoint_FailsOnOther()
-            => Assert.Throws<ArgumentException>(() => Api.GetEndPoint<CommonEndPointModel>() );
+            => Assert.Throws<ArgumentException>(() => Api.GetEndPoint<AbstractBaseModel>() );
     }
 }

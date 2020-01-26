@@ -58,7 +58,7 @@ namespace SnipeSharp.PowerShell
         /// <typeparam name="T">The type of object the binding is for.</typeparam>
         /// <returns>True if the binding is valid, else false.</returns>
         internal static bool ValidateHasExactlyOneValue<T>(this Cmdlet cmdlet, ObjectBinding<T> binding, string queryType = "query", string value = null)
-            where T : CommonEndPointModel, new()
+            where T : AbstractBaseModel, new()
         {
             value = value ?? binding.Query;
             if(!binding.HasValue)
@@ -84,7 +84,7 @@ namespace SnipeSharp.PowerShell
         /// <typeparam name="T">The type of object the binding is for.</typeparam>
         /// <returns>True if the binding is valid, else false.</returns>
         internal static bool ValidateHasExactlyOneValue<T>(this Cmdlet cmdlet, IReadOnlyCollection<T> items, string queryType = "query", string value = null)
-            where T : CommonEndPointModel, new()
+            where T : AbstractBaseModel, new()
         {
             if(0 == items.Count)
             {
@@ -110,7 +110,7 @@ namespace SnipeSharp.PowerShell
         /// <typeparam name="R">The type of object to retrieve</typeparam>
         /// <returns>True if a valid value was retrieved.</returns>
         internal static bool GetSingleValue<R>(this Cmdlet cmdlet, ObjectBinding<R> binding, out R value, string queryType = "identity", string queryValue = null)
-            where R : CommonEndPointModel, new()
+            where R : AbstractBaseModel, new()
         {
             value = null;
             if (null == binding)
@@ -143,7 +143,7 @@ namespace SnipeSharp.PowerShell
         /// <returns>True if all valid values were retrieved; false if any binding was not resolved.</returns>
         internal static bool GetManyValues<R>(this Cmdlet cmdlet, ObjectBinding<R>[] bindings, out ResponseCollection<R> values,
                                                 string queryType = "identity", string queryValue = null)
-            where R: CommonEndPointModel, new()
+            where R: AbstractBaseModel, new()
         {
             var result = true;
             values = new ResponseCollection<R>();

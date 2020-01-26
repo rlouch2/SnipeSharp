@@ -45,9 +45,5 @@ namespace SnipeSharp.Serialization
         CustomFieldDictionary,
 
         PermissionDictionary,
-
-        /// <remarks>This should be replaced with <see cref="Converters.DateObjectConverter"/> or <see cref="Converters.TimestampConverter"/></remarks>
-        [Obsolete]
-        DateTimeConverter,
     }
 }
