@@ -1,11 +1,11 @@
 using System;
 using Newtonsoft.Json;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class CustomNullableBooleanConverter : JsonConverter<bool?>
+    internal sealed class NullableBooleanConverter : JsonConverter<bool?>
     {
-        internal static readonly CustomNullableBooleanConverter Instance = new CustomNullableBooleanConverter();
+        internal static readonly NullableBooleanConverter Instance = new NullableBooleanConverter();
         public override bool? ReadJson(JsonReader reader, Type objectType, bool? existingValue, bool hasExistingValue, JsonSerializer serializer)
             => serializer.Deserialize<bool?>(reader);
 

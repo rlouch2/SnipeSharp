@@ -2,7 +2,6 @@ using System;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Serialization;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -50,7 +49,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("company")]
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -72,7 +71,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("manufacturer")]
-        [SerializeAs("manufacturer_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("manufacturer_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isManufacturerModified))]
         public Manufacturer Manufacturer
         {
@@ -94,7 +93,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("supplier")]
-        [SerializeAs("supplier_id", CommonModelConverter)]
+        [SerializeAs("supplier_id", SerializeAs.IdValue)]
         [Patch(nameof(isSupplierModified))]
         public Supplier Supplier
         {
@@ -136,7 +135,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [DeserializeAs("category")]
-        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -158,7 +157,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("location")]
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {

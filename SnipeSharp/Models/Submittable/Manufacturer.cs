@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -139,7 +137,7 @@ namespace SnipeSharp.Models
         public int? AccessoriesCount { get; private set; }
 
         /// <value>Gets the date this manufacturer was deleted.</value>
-        [DeserializeAs("deleted_at", DateTimeConverter)]
+        [DeserializeAs("deleted_at", DeserializeAs.DateTimeConverter)]
         public DateTime? DeletedAt { get; private set; }
 
         /// <inheritdoc />

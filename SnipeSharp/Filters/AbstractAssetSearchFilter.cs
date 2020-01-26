@@ -1,7 +1,6 @@
 using SnipeSharp.Serialization;
 using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Collections.Generic;
 
 namespace SnipeSharp.Filters
@@ -14,7 +13,7 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// Only search for assets with this status label.
         /// </summary>
-        [SerializeAs("status_id", CommonModelConverter)]
+        [SerializeAs("status_id", SerializeAs.IdValue)]
         public StatusLabel StatusLabel { get; set; }
 
         /// <summary>
@@ -32,31 +31,31 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// Only search for assets of this model.
         /// </summary>
-        [SerializeAs("model_id", CommonModelConverter)]
+        [SerializeAs("model_id", SerializeAs.IdValue)]
         public Model Model { get; set; }
 
         /// <summary>
         /// Only search for assets in this category.
         /// </summary>
-        [SerializeAs("category_id", CommonModelConverter)]
+        [SerializeAs("category_id", SerializeAs.IdValue)]
         public Category Category { get; set; }
 
         /// <summary>
         /// Only search for assets at this location.
         /// </summary>
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         public Location Location { get; set; }
 
         /// <summary>
         /// Only search for assets purchased from this supplier.
         /// </summary>
-        [SerializeAs("supplier_id", CommonModelConverter)]
+        [SerializeAs("supplier_id", SerializeAs.IdValue)]
         public Supplier Supplier { get; set; }
 
         /// <summary>
         /// Only search for assets assigned to this user/asset/location.
         /// </summary>
-        [SerializeAs("assigned_to", CommonModelConverter)]
+        [SerializeAs("assigned_to", SerializeAs.IdValue)]
         public CommonEndPointModel AssignedTo { get; set; }
 
         /// <summary>
@@ -68,19 +67,19 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// Only search for assets owned by this company.
         /// </summary>
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         public Company Company { get; set; }
 
         /// <summary>
         /// Only search for assets built by this manufacturer.
         /// </summary>
-        [SerializeAs("manufacturer_id", CommonModelConverter)]
+        [SerializeAs("manufacturer_id", SerializeAs.IdValue)]
         public Manufacturer Manufacturer { get; set; }
 
         /// <summary>
         /// Only search for assets with this depreciation.
         /// </summary>
-        [SerializeAs("depreciation_id", CommonModelConverter)]
+        [SerializeAs("depreciation_id", SerializeAs.IdValue)]
         public Depreciation Depreciation { get; set; }
 
         /// <summary>

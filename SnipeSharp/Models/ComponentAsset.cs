@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {
@@ -32,7 +30,7 @@ namespace SnipeSharp.Models
         public AssignedToType Type { get; private set; }
 
         /// <value>The creation date of this object in Snipe-IT.</value>
-        [DeserializeAs("created_at", FieldConverter.DateTimeConverter)]
+        [DeserializeAs("created_at", DeserializeAs.DateTimeConverter)]
         public DateTime? CreatedAt { get; private set; }
 
         /// <inheritdoc />

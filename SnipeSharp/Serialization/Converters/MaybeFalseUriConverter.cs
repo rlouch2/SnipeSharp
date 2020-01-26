@@ -1,11 +1,11 @@
 using System;
 using Newtonsoft.Json;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class FalseyUriConverter : JsonConverter<Uri>
+    internal sealed class MaybeFalseUriConverter : JsonConverter<Uri>
     {
-        public static readonly FalseyUriConverter Instance = new FalseyUriConverter();
+        public static readonly MaybeFalseUriConverter Instance = new MaybeFalseUriConverter();
         public override Uri ReadJson(JsonReader reader, Type objectType, Uri existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var obj = serializer.Deserialize(reader) as string;

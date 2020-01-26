@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization;
@@ -95,7 +94,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [DeserializeAs("model")]
-        [SerializeAs("model_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("model_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isModelModified))]
         public Model Model
         {
@@ -119,7 +118,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The End-of-life date for the Asset, based on its purchase date an the end-of-life time of its model.
         /// </summary>
-        [DeserializeAs("eol", DateTimeConverter)]
+        [DeserializeAs("eol", DeserializeAs.DateTimeConverter)]
         public DateTime? EndOfLife { get; private set; }
 
         /// <summary>
@@ -131,7 +130,7 @@ namespace SnipeSharp.Models
         /// <seealso cref="StatusLabelEndPoint.FromAssetStatus(AssetStatus)" />
         /// <seealso cref="StatusLabel.ToAssetStatus" />
         [DeserializeAs("status_label")]
-        [SerializeAs("status_id", AssetStatusConverter, IsRequired = true)]
+        [SerializeAs("status_id", SerializeAs.StatusIdValue, IsRequired = true)]
         [Patch(nameof(isStatusModified))]
         public AssetStatus Status
         {
@@ -153,7 +152,8 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// <para>To update this field, see <see cref="Model.Category"/></para>
         /// </remarks>
-        [DeserializeAs("category", CommonModelConverter)]
+        [DeserializeAs("category")]
+        [SerializeAs("category_id", SerializeAs.IdValue)]
         public Category Category { get; private set; }
 
         /// <summary>
@@ -164,7 +164,8 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// <para>To update this field, see <see cref="Model.Manufacturer"/></para>
         /// </remarks>
-        [DeserializeAs("manufacturer", CommonModelConverter)]
+        [DeserializeAs("manufacturer")]
+        [SerializeAs("manufacturer_id", SerializeAs.IdValue)]
         public Manufacturer Manufacturer { get; private set; }
 
         /// <summary>
@@ -175,7 +176,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("supplier")]
-        [SerializeAs("supplier_id", CommonModelConverter)]
+        [SerializeAs("supplier_id", SerializeAs.IdValue)]
         [Patch(nameof(isSupplierModified))]
         public Supplier Supplier
         {
@@ -233,7 +234,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("company")]
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -258,7 +259,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("location")]
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -280,7 +281,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("rtd_location")]
-        [SerializeAs("rtd_location_id", CommonModelConverter)]
+        [SerializeAs("rtd_location_id", SerializeAs.IdValue)]
         [Patch(nameof(isDefaultLocationModified))]
         public Location DefaultLocation
         {
@@ -320,7 +321,7 @@ namespace SnipeSharp.Models
         /// <para>This field will be converted to the value of its Id when serialized.</para>
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
-        [DeserializeAs("assigned_to", CommonModelConverter)]
+        [DeserializeAs("assigned_to")]
         // This property does not have the Patch attribute because we use the OnSerializing
         // function to set a custom field with its value, depending on its type.
         public AssetAssignedTo AssignedTo
@@ -363,8 +364,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The number of months the warranty covers for this asset.
         /// </summary>
-        [DeserializeAs("warranty_months", MonthsConverter)]
-        [SerializeAs("warranty_months", MonthsConverter)]
+        [DeserializeAs("warranty_months", DeserializeAs.MonthStringAsInt)]
+        [SerializeAs("warranty_months")]
         [Patch(nameof(isWarrantyMonthsModified))]
         public int? WarrantyMonths
         {
@@ -381,35 +382,35 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The date the warranty for this asset expires. This value is calculated from <see cref="PurchaseDate">PurchaseDate</see> and <see cref="WarrantyMonths">WarrantyMonths</see>.
         /// </summary>
-        [DeserializeAs("warranty_expires", DateTimeConverter)]
+        [DeserializeAs("warranty_expires", DeserializeAs.DateTimeConverter)]
         public DateTime? WarrantyExpires { get; private set; }
 
         /// <summary>
         /// The date this asset was last audited.
         /// </summary>
         /// <seealso cref="AssetEndPoint.Audit(Asset, Location, DateTime?, string)" />
-        [DeserializeAs("last_audit_date", DateTimeConverter)]
+        [DeserializeAs("last_audit_date", DeserializeAs.DateTimeConverter)]
         public DateTime? LastAuditDate { get; private set; }
 
         /// <summary>
         /// The date this asset will next be audited.
         /// </summary>
         /// <seealso cref="AssetEndPoint.Audit(Asset, Location, DateTime?, string)" />
-        [DeserializeAs("next_audit_date", DateTimeConverter)]
+        [DeserializeAs("next_audit_date", DeserializeAs.DateTimeConverter)]
         public DateTime? NextAuditDate { get; private set; }
 
         /// <summary>
         /// <para>The date this asset was marked deleted.</para>
         /// <para>As assets are never truly deleted, yes, this is a field that can have a value.</para>
         /// </summary>
-        [DeserializeAs("deleted_at", DateTimeConverter)]
+        [DeserializeAs("deleted_at", DeserializeAs.DateTimeConverter)]
         public DateTime? DeletedAt { get; private set; }
 
         /// <summary>
         /// The date this Asset was purchased.
         /// </summary>
-        [DeserializeAs("purchase_date", DateTimeConverter)]
-        [SerializeAs("purchase_date", DateTimeConverter)]
+        [DeserializeAs("purchase_date", DeserializeAs.DateTimeConverter)]
+        [SerializeAs("purchase_date", SerializeAs.DateTimeConverter)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -427,7 +428,7 @@ namespace SnipeSharp.Models
         /// The date this Asset was last checked out.
         /// </summary>
         /// <seealso cref="AssetEndPoint.CheckOut(AssetCheckOutRequest)" />
-        [DeserializeAs("last_checkout", DateTimeConverter)]
+        [DeserializeAs("last_checkout", DeserializeAs.DateTimeConverter)]
         [Patch(nameof(isLastCheckOutModified))]
         public DateTime? LastCheckOut
         {
@@ -445,7 +446,7 @@ namespace SnipeSharp.Models
         /// The date this Asset is expected to be checked back in.
         /// </summary>
         /// <seealso cref="AssetEndPoint.CheckOut(AssetCheckOutRequest)" />
-        [DeserializeAs("expected_checkin", DateTimeConverter)]
+        [DeserializeAs("expected_checkin", DeserializeAs.DateTimeConverter)]
         public DateTime? ExpectedCheckIn { get; private set; }
 
         /// <summary>
@@ -498,7 +499,7 @@ namespace SnipeSharp.Models
         /// <para>Custom fields for this Asset, selected by the Model's FieldSet.</para>
         /// <para>Values in this collection will be serialized with the key <c><see cref="AssetCustomField.Field">value.Field</see> ?? key</c> and the value <see cref="AssetCustomField.Value">value.Value</see>.</para>
         /// </summary>
-        [DeserializeAs("custom_fields", FieldConverter.CustomFieldDictionaryConverter)]
+        [DeserializeAs("custom_fields", DeserializeAs.CustomFieldDictionary)]
         [Patch(nameof(isCustomFieldsModified))]
         public CustomFieldDictionary CustomFields { get; set; } = new CustomFieldDictionary();
 

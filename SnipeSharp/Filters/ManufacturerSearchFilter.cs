@@ -1,5 +1,4 @@
 using SnipeSharp.Serialization;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Filters
 {

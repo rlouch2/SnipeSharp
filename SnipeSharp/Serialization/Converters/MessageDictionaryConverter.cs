@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
     /// <summary>
     /// Convert response messages to a dictionary matching the messages returned in Json
     /// </summary>
-    internal sealed class CustomMessageConverter : JsonConverter<Dictionary<string, string>>
+    internal sealed class MessageDictionaryConverter : JsonConverter<Dictionary<string, string>>
     {
-        internal static readonly CustomMessageConverter Instance = new CustomMessageConverter();
+        internal static readonly MessageDictionaryConverter Instance = new MessageDictionaryConverter();
 
         public override Dictionary<string, string> ReadJson(JsonReader reader, Type objectType, Dictionary<string, string> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {

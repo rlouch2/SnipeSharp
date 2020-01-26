@@ -1,7 +1,6 @@
 using System;
 using SnipeSharp.Serialization;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {
@@ -15,15 +14,15 @@ namespace SnipeSharp.Models
         public Asset Asset { get; private set; }
 
         /// <value>The assigned object, if it is a Location.</value>
-        [SerializeAs("assigned_location", CommonModelConverter)]
+        [SerializeAs("assigned_location", SerializeAs.IdValue)]
         public Location AssignedLocation { get; private set; }
 
         /// <value>The assigned object, if it is an Asset.</value>
-        [SerializeAs("assigned_asset", CommonModelConverter)]
+        [SerializeAs("assigned_asset", SerializeAs.IdValue)]
         public Asset AssignedAsset { get; private set; }
 
         /// <value>The assigned object, if it is a User.</value>
-        [SerializeAs("assigned_user", CommonModelConverter)]
+        [SerializeAs("assigned_user", SerializeAs.IdValue)]
         public User AssignedUser { get; private set; }
 
         /// <value>What the type of the assigned object is.</value>
@@ -31,11 +30,11 @@ namespace SnipeSharp.Models
         public AssignedToType AssignedToType { get; private set; }
 
         /// <value>The date the asset was checked out; if null, then the current timestamp.</value>
-        [SerializeAs("checkout_at", SimpleDate)]
+        [SerializeAs("checkout_at", SerializeAs.SimpleDate)]
         public DateTime? CheckOutAt { get; set; }
 
         /// <value>The date the asset is expected to be checked back in.</value>
-        [SerializeAs("expected_checkin", SimpleDate)]
+        [SerializeAs("expected_checkin", SerializeAs.SimpleDate)]
         public DateTime? ExpectedCheckIn { get; set; }
 
         /// <value>The note to put in the log for this check-out event.</value>

@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models

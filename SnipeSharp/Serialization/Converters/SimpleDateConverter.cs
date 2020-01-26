@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
     internal sealed class SimpleDateConverter : JsonConverter<DateTime?>
     {

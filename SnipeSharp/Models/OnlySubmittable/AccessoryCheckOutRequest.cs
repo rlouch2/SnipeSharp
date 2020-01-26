@@ -1,5 +1,4 @@
 using SnipeSharp.Serialization;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {
@@ -13,7 +12,7 @@ namespace SnipeSharp.Models
         public Accessory Accessory { get; private set; }
 
         /// <value>The assigned user.</value>
-        [SerializeAs("assigned_to", CommonModelConverter)]
+        [SerializeAs("assigned_to", SerializeAs.IdValue)]
         public User AssignedUser { get; private set; }
 
         /// <value>The note to put in the log for this check-out event.</value>

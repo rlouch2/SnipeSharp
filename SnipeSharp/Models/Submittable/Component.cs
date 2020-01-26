@@ -2,7 +2,6 @@ using System;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -77,7 +76,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("location")]
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -135,7 +134,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [DeserializeAs("category")]
-        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -166,8 +165,8 @@ namespace SnipeSharp.Models
         private string orderNumber;
 
         /// <value>The date this Component was purchased.</value>
-        [DeserializeAs("purchase_date", DateTimeConverter)]
-        [SerializeAs("purchase_date", DateTimeConverter)]
+        [DeserializeAs("purchase_date", DeserializeAs.DateTimeConverter)]
+        [SerializeAs("purchase_date", SerializeAs.DateTimeConverter)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -207,7 +206,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("company")]
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {

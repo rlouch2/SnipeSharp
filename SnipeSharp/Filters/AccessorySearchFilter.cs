@@ -1,6 +1,5 @@
 using SnipeSharp.Serialization;
 using SnipeSharp.Models;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Filters
 {
@@ -32,25 +31,25 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// Only search for accessories owned by this Company if set.
         /// </summary>
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         public Company Company { get; set; }
 
         /// <summary>
         /// Only search for accessories in this category if set.
         /// </summary>
-        [SerializeAs("category_id", CommonModelConverter)]
+        [SerializeAs("category_id", SerializeAs.IdValue)]
         public Category Category { get; set; }
 
         /// <summary>
         /// Only search for accessories by this manufacturer if set.
         /// </summary>
-        [SerializeAs("manufacturer_id", CommonModelConverter)]
+        [SerializeAs("manufacturer_id", SerializeAs.IdValue)]
         public Manufacturer Manufacturer { get; set; }
 
         /// <summary>
         /// Only search for accessories by this supplier if set.
         /// </summary>
-        [SerializeAs("supplier_id", CommonModelConverter)]
+        [SerializeAs("supplier_id", SerializeAs.IdValue)]
         public Supplier Supplier { get; set; }
 
         /// <summary>

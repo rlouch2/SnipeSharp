@@ -2,11 +2,11 @@ using System;
 using Newtonsoft.Json;
 using SnipeSharp.Models;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class CustomAssetStatusConverter : JsonConverter<AssetStatus>
+    internal sealed class SerializeToStatusIdConverter : JsonConverter<AssetStatus>
     {
-        internal static readonly CustomAssetStatusConverter Instance = new CustomAssetStatusConverter();
+        internal static readonly SerializeToStatusIdConverter Instance = new SerializeToStatusIdConverter();
 
         public override AssetStatus ReadJson(JsonReader reader, Type objectType, AssetStatus existingValue, bool hasExistingValue, JsonSerializer serializer)
             => throw new NotImplementedException();

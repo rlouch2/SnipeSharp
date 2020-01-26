@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using SnipeSharp.Collections;
 using SnipeSharp.Models;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
     internal sealed class CustomFieldDictionaryConverter : JsonConverter<CustomFieldDictionary>
     {

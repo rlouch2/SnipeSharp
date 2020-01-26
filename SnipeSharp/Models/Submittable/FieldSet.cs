@@ -1,7 +1,5 @@
-using System;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 
@@ -48,7 +46,7 @@ namespace SnipeSharp.Models
         public IReadOnlyCollection<CustomField> Fields { get; private set; }
 
         /// <value>Gets the Models this FieldSet applies to.</value>
-        [DeserializeAs("models", ReadOnlyResponseCollectionConverter)]
+        [DeserializeAs("models", DeserializeAs.ReadOnlyCollection)]
         public IReadOnlyCollection<Model> Models { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

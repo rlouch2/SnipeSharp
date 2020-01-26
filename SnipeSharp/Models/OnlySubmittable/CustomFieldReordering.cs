@@ -1,5 +1,4 @@
 using SnipeSharp.Serialization;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {
@@ -12,7 +11,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The fields of the set, in the order they will appear.
         /// </summary>
-        [SerializeAs("item", CommonModelArrayConverter, IsRequired = true)]
+        [SerializeAs("item", SerializeAs.IdValueArray, IsRequired = true)]
         public CustomField[] Fields { get; set; }
     }
 }

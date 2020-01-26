@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Linq;
 
 namespace SnipeSharp.Models
@@ -12,7 +11,7 @@ namespace SnipeSharp.Models
     public sealed class RequestResponse<T>: ApiObject where T: ApiObject
     {
         /// <value>Any messages returned by the API; the default key is "general".</value>
-        [DeserializeAs("messages", MessagesConverter)]
+        [DeserializeAs("messages", DeserializeAs.MessageDictionary)]
         public Dictionary<string, string> Messages { get; private set; } = new Dictionary<string, string>();
 
         /// <value>Gets the payload value.</value>

@@ -6,24 +6,13 @@ namespace SnipeSharp.Serialization
     internal sealed class DeserializeAsAttribute : Attribute
     {
         public string Key { get; set; }
-        public FieldConverter Converter { get; private set; }
         public DeserializeAs DeserializeAs { get; private set; }
 
-        internal DeserializeAsAttribute(string key, FieldConverter converter = FieldConverter.None)
+        internal DeserializeAsAttribute(string key, DeserializeAs deserializationType = DeserializeAs.Default)
         {
             if(string.IsNullOrEmpty(key))
                 throw new ArgumentException("Key cannot be null or empty.", paramName: nameof(key));
             Key = key;
-            Converter = converter;
-            DeserializeAs = DeserializeAs.Default;
-        }
-
-        internal DeserializeAsAttribute(string key, DeserializeAs deserializationType)
-        {
-            if(string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key cannot be null or empty.", paramName: nameof(key));
-            Key = key;
-            Converter = FieldConverter.None;
             DeserializeAs = deserializationType;
         }
     }
@@ -39,6 +28,26 @@ namespace SnipeSharp.Serialization
 
         DateObject,
 
-        AvailableActions
+        Timespan,
+
+        AvailableActions,
+
+        SimpleDate,
+
+        MonthStringAsInt,
+
+        MessageDictionary,
+
+        ReadOnlyCollection,
+
+        MaybeFalseUri,
+
+        CustomFieldDictionary,
+
+        PermissionDictionary,
+
+        /// <remarks>This should be replaced with <see cref="Converters.DateObjectConverter"/> or <see cref="Converters.TimestampConverter"/></remarks>
+        [Obsolete]
+        DateTimeConverter,
     }
 }

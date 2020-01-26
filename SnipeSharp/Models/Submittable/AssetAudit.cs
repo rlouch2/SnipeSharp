@@ -1,7 +1,6 @@
 using System;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Serialization;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {
@@ -17,21 +16,21 @@ namespace SnipeSharp.Models
         /// </summary>
         /// <remarks>This field is required.</remarks>
         [DeserializeAs("asset_tag")]
-        [SerializeAs("asset_tag", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("asset_tag", SerializeAs.IdValue, IsRequired = true)]
         public Asset Asset { get; set; }
 
         /// <summary>
         /// The audit location.
         /// </summary>
         /// <remarks>This field will not be filled by the API.</remarks>
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         public Location Location { get; set; }
 
         /// <summary>
         /// The next scheduled audit date.
         /// </summary>
         [DeserializeAs("next_audit_date")]
-        [SerializeAs("next_audit_date", DateTimeConverter)]
+        [SerializeAs("next_audit_date", SerializeAs.DateTimeConverter)]
         public DateTime? NextAuditDate { get; set; }
 
         /// <summary>

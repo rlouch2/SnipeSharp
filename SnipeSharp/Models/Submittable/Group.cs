@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -43,7 +41,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         // TODO: change this to a more explicit "GroupPermissions" type and make it required (I think it may need to be required)
-        [DeserializeAs("permissions", PermissionsConverter)]
+        [DeserializeAs("permissions", DeserializeAs.PermissionDictionary)]
         public Dictionary<string, bool> Permissions { get; private set; }
 
         /// <inheritdoc />

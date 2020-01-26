@@ -9,76 +9,47 @@ namespace SnipeSharp.Serialization
     {
         public static bool TryGetConverter(PropertyInfo property, SerializeAsAttribute fieldConverter, out JsonConverter converter)
         {
-            if(FieldConverter.None != fieldConverter.Converter)
-                switch(fieldConverter.Converter)
-                {
-                    case FieldConverter.CommonModelConverter:
-                        converter = CustomCommonModelConverter.Instance;
-                        return true;
-                    case FieldConverter.CommonModelArrayConverter:
-                        converter = CustomCommonModelArrayConverter.Instance;
-                        return true;
-                    case FieldConverter.TimeSpanConverter:
-                        converter = CustomTimeSpanConverter.Instance;
-                        return true;
-                    case FieldConverter.DateTimeConverter:
-                        converter = CustomDateTimeConverter.Instance;
-                        return true;
-                    case FieldConverter.AssetStatusConverter:
-                        converter = CustomAssetStatusConverter.Instance;
-                        return true;
-                    case FieldConverter.SimpleDate:
-                        converter = SimpleDateConverter.Instance;
-                        return true;
-                    case FieldConverter.CustomFieldDictionaryConverter:
-                    case FieldConverter.PermissionsConverter:
-                    case FieldConverter.MessagesConverter:
-                    case FieldConverter.MonthsConverter:
-                    case FieldConverter.FalseyUriConverter:
-                    case FieldConverter.ReadOnlyResponseCollectionConverter:
+            switch(fieldConverter.SerializeAs)
+            {
+                case SerializeAs.Default:
+                    if(null == property)
+                    {
                         converter = null;
                         return false;
-                    case FieldConverter.None:
-                    default:
-                        if(null == property)
-                        {
-                            converter = null;
-                            return false;
-                        }
-                        if(property.PropertyType.IsAssignableFrom(typeof(bool?)))
-                        {
-                            converter = CustomNullableBooleanConverter.Instance;
-                            return true;
-                        }
+                    }
+                    if(property.PropertyType.IsAssignableFrom(typeof(bool?)))
+                    {
+                        converter = NullableBooleanConverter.Instance;
+                        return true;
+                    }
 
-                        // otherwise
-                        converter = null;
-                        return false;
-                }
-            else
-                switch(fieldConverter.SerializeAs)
-                {
-                    case SerializeAs.Default:
-                        if(null == property)
-                        {
-                            converter = null;
-                            return false;
-                        }
-                        if(property.PropertyType.IsAssignableFrom(typeof(bool?)))
-                        {
-                            converter = CustomNullableBooleanConverter.Instance;
-                            return true;
-                        }
-
-                        converter = null;
-                        return false;
-                    case SerializeAs.Timestamp:
-                        converter = TimestampConverter.Instance;
-                        return true;
-                    case SerializeAs.DateObject:
-                        converter = DateObjectConverter.Instance;
-                        return true;
-                }
+                    converter = null;
+                    return false;
+                case SerializeAs.Timestamp:
+                    converter = TimestampConverter.Instance;
+                    return true;
+                case SerializeAs.DateObject:
+                    converter = DateObjectConverter.Instance;
+                    return true;
+                case SerializeAs.SimpleDate:
+                    converter = SimpleDateConverter.Instance;
+                    return true;
+                case SerializeAs.Timespan:
+                    converter = TimeSpanConverter.Instance;
+                    return true;
+                case SerializeAs.IdValue:
+                    converter = SerializeToIdConverter.Instance;
+                    return true;
+                case SerializeAs.StatusIdValue:
+                    converter = SerializeToStatusIdConverter.Instance;
+                    return true;
+                case SerializeAs.IdValueArray:
+                    converter = SerializeToIdArrayConverter.Instance;
+                    return true;
+                case SerializeAs.DateTimeConverter:
+                    converter = CustomDateTimeConverter.Instance;
+                    return true;
+            }
             converter = null;
             return false;
         }

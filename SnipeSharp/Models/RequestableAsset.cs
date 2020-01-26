@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using SnipeSharp.Models.Enumerations;
 using SnipeSharp.Serialization;
 
@@ -47,7 +46,7 @@ namespace SnipeSharp.Models
         public StatusMeta StatusMeta { get; private set; }
 
         /// <summary>The date to the Asset is expected to be checked back in.</summary>
-        [DeserializeAs("expected_checkin", FieldConverter.DateTimeConverter)]
+        [DeserializeAs("expected_checkin", DeserializeAs.DateTimeConverter)]
         public DateTime? ExpectedCheckIn { get; private set; }
 
         /// <inheritdoc />

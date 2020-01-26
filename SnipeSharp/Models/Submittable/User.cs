@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -153,7 +152,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("manager")]
-        [SerializeAs("manager_id", CommonModelConverter)]
+        [SerializeAs("manager_id", SerializeAs.IdValue)]
         [Patch(nameof(isManagerModified))]
         public User Manager
         {
@@ -301,7 +300,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("department")]
-        [SerializeAs("department_id", CommonModelConverter)]
+        [SerializeAs("department_id", SerializeAs.IdValue)]
         [Patch(nameof(isDepartmentModified))]
         public Department Department
         {
@@ -321,7 +320,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("location")]
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -352,7 +351,7 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <value>Gets the user's permissions.</value>
-        [DeserializeAs("permissions", PermissionsConverter)]
+        [DeserializeAs("permissions", DeserializeAs.PermissionDictionary)]
         public Dictionary<string, bool> Permissions { get; private set; }
 
         /// <value>Gets/sets if this user has been activated.</value>
@@ -397,7 +396,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("company")]
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -412,7 +411,7 @@ namespace SnipeSharp.Models
         private Company company;
 
         /// <value>Gets the date this user last logged on.</value>
-        [DeserializeAs("last_login", DateTimeConverter)]
+        [DeserializeAs("last_login", DeserializeAs.DateTimeConverter)]
         public DateTime? LastLogin { get; private set; }
 
         /// <inheritdoc />
@@ -421,7 +420,7 @@ namespace SnipeSharp.Models
 
         /// <value>Gets the groups this user is a member of.</value>
         [DeserializeAs("groups")]
-        [SerializeAs("groups", CommonModelArrayConverter)]
+        [SerializeAs("groups", SerializeAs.IdValueArray)]
         [Patch(nameof(isGroupsModified))]
         public ResponseCollection<Group> Groups
         {

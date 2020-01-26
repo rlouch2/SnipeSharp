@@ -10,7 +10,7 @@ namespace SnipeSharp.Models
     public sealed class Request : ApiObject
     {
         /// <summary>The url for the image of the object.</summary>
-        [DeserializeAs("image", FieldConverter.FalseyUriConverter)]
+        [DeserializeAs("image", DeserializeAs.MaybeFalseUri)]
         public Uri ImageUri { get; private set; }
 
         /// <summary>The name of the request.</summary>
@@ -32,11 +32,11 @@ namespace SnipeSharp.Models
         public string LocationName { get; private set; }
 
         /// <summary>The date to the object is expected to be checked back in.</summary>
-        [DeserializeAs("expected_checkin", FieldConverter.DateTimeConverter)]
+        [DeserializeAs("expected_checkin", DeserializeAs.DateTimeConverter)]
         public DateTime? ExpectedCheckIn { get; private set; }
 
         /// <summary>The date to the object was requested by the current account.</summary>
-        [DeserializeAs("request_date", FieldConverter.DateTimeConverter)]
+        [DeserializeAs("request_date", DeserializeAs.DateTimeConverter)]
         public DateTime? RequestDate { get; private set; }
     }
 }

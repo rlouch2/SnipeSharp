@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Serialization
 {
+    [Obsolete]
     internal sealed class CustomDateTimeConverter : JsonConverter<DateTime?>
     {
         public static readonly CustomDateTimeConverter Instance = new CustomDateTimeConverter();
@@ -31,27 +32,6 @@ namespace SnipeSharp.Serialization
         }
 
         public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)
-            => serializer.Serialize(writer, null == value ? null : new DateTimeResponse(value.Value));
-    }
-
-    internal sealed class DateTimeResponse
-    {
-        [DeserializeAs("datetime")]
-        [SerializeAs("datetime")]
-        public string DateTime { get; set; }
-
-        [DeserializeAs("formatted")]
-        [SerializeAs("formatted")]
-        public string Formatted { get; set; }
-
-        public DateTimeResponse()
-        {
-        }
-
-        public DateTimeResponse(DateTime dateTime)
-        {
-            DateTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            Formatted = dateTime.ToString("yyyy-MM-dd hh:mm:ss tt");
-        }
+            => serializer.Serialize(writer, null == value ? null : new Converters.TimestampResponse(value.Value));
     }
 }

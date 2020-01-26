@@ -1,5 +1,4 @@
 using SnipeSharp.Serialization;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {
@@ -21,11 +20,11 @@ namespace SnipeSharp.Models
         public string Note { get; set; }
 
         /// <value>The new location for the Asset; if null, then the asset's default location will be used.</value>
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         public Location Location { get; set; }
 
         /// <value>The new status for the Asset; if null, the status will not be changed.</value>
-        [SerializeAs("status_id", CommonModelConverter)]
+        [SerializeAs("status_id", SerializeAs.IdValue)]
         public StatusLabel StatusLabel { get; set; }
 
         /// <summary>

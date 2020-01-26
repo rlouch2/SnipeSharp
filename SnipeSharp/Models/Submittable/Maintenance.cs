@@ -2,7 +2,6 @@ using System;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -30,7 +29,7 @@ namespace SnipeSharp.Models
         /// <para>This field is required.</para>
         /// </remarks>
         [DeserializeAs("asset")]
-        [SerializeAs("asset_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("asset_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isAssetModified))]
         public Asset Asset
         {
@@ -62,7 +61,8 @@ namespace SnipeSharp.Models
         private string name;
 
         /// <value>Gets the location for the maintenance.</value>
-        [DeserializeAs("location", CommonModelConverter)]
+        [DeserializeAs("location")]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {
@@ -83,7 +83,7 @@ namespace SnipeSharp.Models
 
         /// <value>Gets/sets the supplier for the maintenance.</value>
         [DeserializeAs("supplier")]
-        [SerializeAs("supplier_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("supplier_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isSupplierModified))]
         public Supplier Supplier
         {
@@ -146,8 +146,8 @@ namespace SnipeSharp.Models
         private bool? isWarranty;
 
         /// <value>Gets/sets the date the maintenance begins.</value>
-        [DeserializeAs("start_date", DateTimeConverter)]
-        [SerializeAs("start_date", DateTimeConverter, IsRequired = true)]
+        [DeserializeAs("start_date", DeserializeAs.DateTimeConverter)]
+        [SerializeAs("start_date", SerializeAs.DateTimeConverter, IsRequired = true)]
         [Patch(nameof(isStartDateModified))]
         public DateTime? StartDate
         {
@@ -162,12 +162,12 @@ namespace SnipeSharp.Models
         private DateTime? startDate;
 
         /// <value>Gets/sets the duration of the maintenance.</value>
-        [DeserializeAs("asset_maintenance_time", TimeSpanConverter)]
+        [DeserializeAs("asset_maintenance_time", DeserializeAs.Timespan)]
         public TimeSpan? MaintenanceDuration { get; private set; }
 
         /// <value>Gets/sets the date the maintenance ends.</value>
-        [DeserializeAs("completion_date", DateTimeConverter)]
-        [SerializeAs("completion_date", DateTimeConverter)]
+        [DeserializeAs("completion_date", DeserializeAs.DateTimeConverter)]
+        [SerializeAs("completion_date", SerializeAs.DateTimeConverter)]
         [Patch(nameof(isCompletionDateModified))]
         public DateTime? CompletionDate
         {

@@ -1,6 +1,5 @@
 using SnipeSharp.Serialization;
 using SnipeSharp.Models;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Filters
 {
@@ -38,25 +37,25 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// Only search for users that work for this company.
         /// </summary>
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         public Company Company { get; set; }
 
         /// <summary>
         /// Only search for users at this location.
         /// </summary>
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         public Location Location { get; set; }
 
         /// <summary>
         /// Only search for users in this group.
         /// </summary>
-        [SerializeAs("group_id", CommonModelConverter)]
+        [SerializeAs("group_id", SerializeAs.IdValue)]
         public Group Group { get; set; }
 
         /// <summary>
         /// Only search for users in this department.
         /// </summary>
-        [SerializeAs("department_id", CommonModelConverter)]
+        [SerializeAs("department_id", SerializeAs.IdValue)]
         public Department Department { get; set; }
 
         /// <summary>

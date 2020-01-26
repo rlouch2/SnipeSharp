@@ -1,5 +1,5 @@
 using System;
-using SnipeSharp.Serialization;
+using SnipeSharp.Serialization.Converters;
 using Xunit;
 
 namespace SnipeSharp.Tests

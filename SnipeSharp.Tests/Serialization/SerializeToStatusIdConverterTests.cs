@@ -2,17 +2,17 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 using SnipeSharp.Models;
-using SnipeSharp.Serialization;
+using SnipeSharp.Serialization.Converters;
 using Xunit;
 
 namespace SnipeSharp.Tests
 {
-    public sealed class CustomAssetStatusConverterTests
+    public sealed class SerializeToStatusIdConverterTests
     {
         [Fact]
         public void ReadJson_IsNotImplemented()
         {
-            Assert.Throws<NotImplementedException>(() => new CustomAssetStatusConverter().ReadJson(null, null, null, false, null));
+            Assert.Throws<NotImplementedException>(() => new SerializeToStatusIdConverter().ReadJson(null, null, null, false, null));
         }
 
         [Theory]
@@ -21,7 +21,7 @@ namespace SnipeSharp.Tests
         [InlineData(2)]
         public void WriteJson_WritesInt(int value)
         {
-            var converter = new CustomAssetStatusConverter();
+            var converter = new SerializeToStatusIdConverter();
             using(var stringWriter = new StringWriter())
             using(var jsonWriter = new JsonTextWriter(stringWriter))
             {

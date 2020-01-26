@@ -6,26 +6,15 @@ namespace SnipeSharp.Serialization
     internal sealed class SerializeAsAttribute : Attribute
     {
         public string Key { get; set; }
-        public FieldConverter Converter { get; private set; }
         public SerializeAs SerializeAs { get; private set; }
 
         public bool IsRequired { get; set; } = false;
 
-        internal SerializeAsAttribute(string key, FieldConverter converter = FieldConverter.None)
+        internal SerializeAsAttribute(string key, SerializeAs serializationType = SerializeAs.Default)
         {
             if(string.IsNullOrEmpty(key))
                 throw new ArgumentException("Key cannot be null or empty.", paramName: nameof(key));
             Key = key;
-            Converter = converter;
-            SerializeAs = SerializeAs.Default;
-        }
-
-        internal SerializeAsAttribute(string key, SerializeAs serializationType)
-        {
-            if(string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key cannot be null or empty.", paramName: nameof(key));
-            Key = key;
-            Converter = FieldConverter.None;
             SerializeAs = serializationType;
         }
     }
@@ -39,6 +28,20 @@ namespace SnipeSharp.Serialization
 
         Timestamp,
 
-        DateObject
+        DateObject,
+
+        SimpleDate,
+
+        Timespan,
+
+        IdValue,
+
+        StatusIdValue,
+
+        IdValueArray,
+
+        /// <remarks>This should be replaced with <see cref="Converters.DateObjectConverter"/> or <see cref="Converters.TimestampConverter"/></remarks>
+        [Obsolete]
+        DateTimeConverter,
     }
 }

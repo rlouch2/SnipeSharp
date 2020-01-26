@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -186,7 +185,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("parent")]
-        [SerializeAs("parent_id", CommonModelConverter)]
+        [SerializeAs("parent_id", SerializeAs.IdValue)]
         [Patch(nameof(isParentLocationModified))]
         public Location ParentLocation
         {
@@ -206,7 +205,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("manager")]
-        [SerializeAs("manager_id", CommonModelConverter)]
+        [SerializeAs("manager_id", SerializeAs.IdValue)]
         [Patch(nameof(isManagerModified))]
         public User Manager
         {

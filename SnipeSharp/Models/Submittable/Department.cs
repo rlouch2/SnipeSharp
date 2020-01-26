@@ -2,7 +2,6 @@ using System;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -58,7 +57,7 @@ namespace SnipeSharp.Models
 
         /// <value>The company this department is a part of.</value>
         [DeserializeAs("company")]
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -74,7 +73,7 @@ namespace SnipeSharp.Models
 
         /// <value>The manager of the department.</value>
         [DeserializeAs("manager")]
-        [SerializeAs("manager_id", CommonModelConverter)]
+        [SerializeAs("manager_id", SerializeAs.IdValue)]
         [Patch(nameof(isManagerModified))]
         public User Manager
         {
@@ -90,7 +89,7 @@ namespace SnipeSharp.Models
 
         /// <value>Where this department is located.</value>
         [DeserializeAs("location")]
-        [SerializeAs("location_id", CommonModelConverter)]
+        [SerializeAs("location_id", SerializeAs.IdValue)]
         [Patch(nameof(isLocationModified))]
         public Location Location
         {

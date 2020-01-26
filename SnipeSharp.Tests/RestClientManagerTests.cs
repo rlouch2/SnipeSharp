@@ -56,7 +56,7 @@ namespace SnipeSharp.Tests
 
     internal sealed class AddObjectTestClassSerializeConverter
     {
-        [SerializeAs(nameof(User), FieldConverter.CommonModelConverter)]
+        [SerializeAs(nameof(User), SerializeAs.IdValue)]
         public User User { get; set; }
     }
 }

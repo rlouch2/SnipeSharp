@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -43,8 +40,8 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [DeserializeAs("months", MonthsConverter)]
-        [SerializeAs("months", MonthsConverter, IsRequired = true)]
+        [DeserializeAs("months", DeserializeAs.MonthStringAsInt)]
+        [SerializeAs("months", IsRequired = true)]
         [Patch(nameof(isMonthsModified))]
         public int? Months
         {

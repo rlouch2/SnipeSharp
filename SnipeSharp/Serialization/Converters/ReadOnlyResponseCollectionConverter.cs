@@ -3,11 +3,11 @@ using SnipeSharp.Models;
 using System;
 using System.Collections.Generic;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class CustomReadOnlyResponseCollectionConverter : JsonConverter
+    internal sealed class ReadOnlyResponseCollectionConverter : JsonConverter
     {
-        public static readonly CustomReadOnlyResponseCollectionConverter Instance = new CustomReadOnlyResponseCollectionConverter();
+        public static readonly ReadOnlyResponseCollectionConverter Instance = new ReadOnlyResponseCollectionConverter();
 
         public override bool CanConvert(Type objectType)
             => objectType.IsGenericType && typeof(IReadOnlyCollection<>) == objectType.GetGenericTypeDefinition();

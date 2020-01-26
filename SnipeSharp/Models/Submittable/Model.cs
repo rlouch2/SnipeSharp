@@ -2,7 +2,6 @@ using System;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -46,7 +45,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("manufacturer")]
-        [SerializeAs("manufacturer_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("manufacturer_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isManufacturerModified))]
         public Manufacturer Manufacturer
         {
@@ -98,7 +97,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("depreciation")]
-        [SerializeAs("depreciation_id", CommonModelConverter)]
+        [SerializeAs("depreciation_id", SerializeAs.IdValue)]
         [Patch(nameof(isDepreciationModified))]
         public Depreciation Depreciation
         {
@@ -122,7 +121,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("category")]
-        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -143,7 +142,7 @@ namespace SnipeSharp.Models
         /// </remarks>
         // TODO: update function has "custom_fieldset_id" as request name. Is this compatible w/ store? What changes need to be made for that?
         [DeserializeAs("fieldset")]
-        [SerializeAs("fieldset_id", CommonModelConverter)]
+        [SerializeAs("fieldset_id", SerializeAs.IdValue)]
         [Patch(nameof(isFieldSetModified))]
         public FieldSet FieldSet
         {
@@ -158,8 +157,8 @@ namespace SnipeSharp.Models
         private FieldSet fieldSet;
 
         /// <value>Gets/sets the lifetime for this model in months.</value>
-        [DeserializeAs("eol", MonthsConverter)]
-        [SerializeAs("eol", MonthsConverter)]
+        [DeserializeAs("eol", DeserializeAs.MonthStringAsInt)]
+        [SerializeAs("eol")]
         [Patch(nameof(isEndOfLifeModified))]
         public int? EndOfLife
         {
@@ -190,7 +189,7 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <value>The date this object was soft-deleted in Snipe-IT, or null if it has not been deleted.</value>
-        [DeserializeAs("deleted_at", DateTimeConverter)]
+        [DeserializeAs("deleted_at", DeserializeAs.DateTimeConverter)]
         public DateTime? DeletedAt { get ;set; }
 
         /// <inheritdoc />

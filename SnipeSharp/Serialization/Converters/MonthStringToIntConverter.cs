@@ -1,11 +1,11 @@
 using Newtonsoft.Json;
 using System;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class CustomMonthsConverter : JsonConverter<int?>
+    internal sealed class MonthStringToIntConverter : JsonConverter<int?>
     {
-        public static readonly CustomMonthsConverter Instance = new CustomMonthsConverter();
+        public static readonly MonthStringToIntConverter Instance = new MonthStringToIntConverter();
 
         public override int? ReadJson(JsonReader reader, Type objectType, int? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {

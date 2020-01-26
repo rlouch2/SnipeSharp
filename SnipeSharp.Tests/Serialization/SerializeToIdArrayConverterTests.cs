@@ -1,4 +1,4 @@
-using SnipeSharp.Serialization;
+using SnipeSharp.Serialization.Converters;
 using Newtonsoft.Json;
 using Xunit;
 using System.IO;
@@ -6,7 +6,7 @@ using SnipeSharp.Models;
 
 namespace SnipeSharp.Tests
 {
-    public sealed class CustomCommonModelArrayConverterTests
+    public sealed class SerializeToIdArrayConverterTests
     {
         [Theory]
         [InlineData(new int[] { }, "[]")]
@@ -14,7 +14,7 @@ namespace SnipeSharp.Tests
         [InlineData(new int[] { 0, 1, 2, 3, 4 }, "[{\"id\":0},{\"id\":1},{\"id\":2},{\"id\":3},{\"id\":4}]")]
         public void ReadJson(int[] ids, string json)
         {
-            var converter = new CustomCommonModelArrayConverter();
+            var converter = new SerializeToIdArrayConverter();
             using(var stringReader = new StringReader(json))
             using(var jsonReader = new JsonTextReader(stringReader))
             {
@@ -35,7 +35,7 @@ namespace SnipeSharp.Tests
             for(int i = 0; i < ids.Length; i += 1)
                 modelArray[i] = new GenericEndPointModel { Id = ids[i] };
 
-            var converter = new CustomCommonModelArrayConverter();
+            var converter = new SerializeToIdArrayConverter();
             using(var stringWriter = new StringWriter())
             using(var jsonWriter = new JsonTextWriter(stringWriter))
             {

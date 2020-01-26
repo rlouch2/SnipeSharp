@@ -1,6 +1,5 @@
 using SnipeSharp.Serialization;
 using IsRequiredType = SnipeSharp.Models.Enumerations.IsRequired;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {
@@ -13,7 +12,7 @@ namespace SnipeSharp.Models
         /// <summary>
         /// FieldSet to (dis)associate to/from.
         /// </summary>
-        [SerializeAs("fieldset_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("fieldset_id", SerializeAs.IdValue, IsRequired = true)]
         public FieldSet FieldSet { get; set; }
 
         /// <summary>

@@ -2,7 +2,6 @@ using System;
 using SnipeSharp.Serialization;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 using System.Runtime.Serialization;
 
 namespace SnipeSharp.Models
@@ -46,7 +45,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("company")]
-        [SerializeAs("company_id", CommonModelConverter)]
+        [SerializeAs("company_id", SerializeAs.IdValue)]
         [Patch(nameof(isCompanyModified))]
         public Company Company
         {
@@ -66,7 +65,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("depreciation_id")]
-        [SerializeAs("depreciation_id", CommonModelConverter)]
+        [SerializeAs("depreciation_id", SerializeAs.IdValue)]
         [Patch(nameof(isDepreciationModified))]
         public Depreciation Depreciation
         {
@@ -86,7 +85,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("manufacturer")]
-        [SerializeAs("manufacturer_id", CommonModelConverter)]
+        [SerializeAs("manufacturer_id", SerializeAs.IdValue)]
         [Patch(nameof(isManufacturerModified))]
         public Manufacturer Manufacturer
         {
@@ -149,8 +148,8 @@ namespace SnipeSharp.Models
         private string purchaseOrder;
 
         /// <value>The date this License was purchased.</value>
-        [DeserializeAs("purchase_date", DateTimeConverter)]
-        [SerializeAs("purchase_date", DateTimeConverter)]
+        [DeserializeAs("purchase_date", DeserializeAs.DateTimeConverter)]
+        [SerializeAs("purchase_date", SerializeAs.DateTimeConverter)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -197,8 +196,8 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <value>The date this license expires. This is not the TerminationDate!</value>
-        [DeserializeAs("expiration_date", DateTimeConverter)]
-        [SerializeAs("expiration_date", DateTimeConverter)]
+        [DeserializeAs("expiration_date", DeserializeAs.DateTimeConverter)]
+        [SerializeAs("expiration_date", SerializeAs.DateTimeConverter)]
         public DateTime? ExpirationDate { get; private set; }
 
         /// <value>The number of seats this license is good for.</value>
@@ -276,7 +275,7 @@ namespace SnipeSharp.Models
         /// <para>When deserialized, this value does not have all properties filled. Fetch the value using the relevant endpoint to gather the rest of the information.</para>
         /// </remarks>
         [DeserializeAs("category")]
-        [SerializeAs("category_id", CommonModelConverter, IsRequired = true)]
+        [SerializeAs("category_id", SerializeAs.IdValue, IsRequired = true)]
         [Patch(nameof(isCategoryModified))]
         public Category Category
         {
@@ -316,7 +315,7 @@ namespace SnipeSharp.Models
 
         /// <value>Gets/sets the supplier who sold this license.</value>
         [DeserializeAs("supplier")]
-        [SerializeAs("supplier_id", CommonModelConverter)]
+        [SerializeAs("supplier_id", SerializeAs.IdValue)]
         [Patch(nameof(isSupplierModified))]
         public Supplier Supplier
         {

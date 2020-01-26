@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using SnipeSharp.Serialization;
 using SnipeSharp.Models.Enumerations;
-using static SnipeSharp.Serialization.FieldConverter;
 
 namespace SnipeSharp.Models
 {

@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 
 namespace SnipeSharp.Serialization
 {
-    internal sealed class CustomIntBoolDictionaryConverter : JsonConverter<Dictionary<string, bool>>
+    internal sealed class PermissionDictionaryConverter : JsonConverter<Dictionary<string, bool>>
     {
-        public static readonly CustomIntBoolDictionaryConverter Instance = new CustomIntBoolDictionaryConverter();
+        public static readonly PermissionDictionaryConverter Instance = new PermissionDictionaryConverter();
         public override Dictionary<string, bool> ReadJson(JsonReader reader, Type objectType, Dictionary<string, bool> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var rawDictionary = serializer.Deserialize<Dictionary<string, int>>(reader);
