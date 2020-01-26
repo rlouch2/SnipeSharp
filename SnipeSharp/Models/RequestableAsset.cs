@@ -51,7 +51,7 @@ namespace SnipeSharp.Models
         public DateTime? ExpectedCheckIn { get; private set; }
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", FieldConverter.AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
     }
 }

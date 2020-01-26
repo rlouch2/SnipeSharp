@@ -48,7 +48,7 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         /// <seealso cref="License" />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets if this seat is checked out to an asset or user or not.</value>

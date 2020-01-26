@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using SnipeSharp.Models.Enumerations;
 using Newtonsoft.Json;
 
-namespace SnipeSharp.Serialization
+namespace SnipeSharp.Serialization.Converters
 {
-    internal sealed class CustomAvailableActionsConverter : JsonConverter<AvailableAction>
+    internal sealed class AvailableActionsConverter : JsonConverter<AvailableAction>
     {
-        public static readonly CustomAvailableActionsConverter Instance = new CustomAvailableActionsConverter();
+        public static readonly AvailableActionsConverter Instance = new AvailableActionsConverter();
         public override AvailableAction ReadJson(JsonReader reader, Type objectType, AvailableAction existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var dictionary = serializer.Deserialize<Dictionary<AvailableAction, bool>>(reader);

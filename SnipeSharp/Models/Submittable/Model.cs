@@ -194,7 +194,7 @@ namespace SnipeSharp.Models
         public DateTime? DeletedAt { get ;set; }
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

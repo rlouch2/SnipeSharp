@@ -1,5 +1,5 @@
 using System;
-using SnipeSharp.Serialization;
+using SnipeSharp.Serialization.Converters;
 using SnipeSharp.Models.Enumerations;
 using Xunit;
 using static SnipeSharp.Models.Enumerations.AvailableAction;
@@ -14,7 +14,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void WriteJson_IsNotImplemented()
         {
-            Assert.Throws<NotImplementedException>(() => new CustomAvailableActionsConverter().WriteJson(null, None, null));
+            Assert.Throws<NotImplementedException>(() => new AvailableActionsConverter().WriteJson(null, None, null));
         }
 
         [Theory]
@@ -32,7 +32,7 @@ namespace SnipeSharp.Tests
         [InlineData(CheckOut | Update | Delete, "{\"checkout\":true,\"checkin\":false,\"clone\":false,\"delete\":true,\"restore\":false,\"update\":true}")]
         public void ReadJson(AvailableAction expected, string json)
         {
-            var converter = new CustomAvailableActionsConverter();
+            var converter = new AvailableActionsConverter();
             using(var stringReader = new StringReader(json))
             using(var jsonReader = new JsonTextReader(stringReader))
             {

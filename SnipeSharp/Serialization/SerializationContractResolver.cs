@@ -1,59 +1,86 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SnipeSharp.Serialization.Converters;
 using System.Reflection;
 
 namespace SnipeSharp.Serialization
 {
     internal sealed class SerializationContractResolver : DefaultContractResolver
     {
-        public static bool TryGetConverter(PropertyInfo property, FieldConverter fieldConverter, out JsonConverter converter)
+        public static bool TryGetConverter(PropertyInfo property, SerializeAsAttribute fieldConverter, out JsonConverter converter)
         {
-            switch(fieldConverter)
-            {
-                case FieldConverter.CommonModelConverter:
-                    converter = CustomCommonModelConverter.Instance;
-                    return true;
-                case FieldConverter.CommonModelArrayConverter:
-                    converter = CustomCommonModelArrayConverter.Instance;
-                    return true;
-                case FieldConverter.TimeSpanConverter:
-                    converter = CustomTimeSpanConverter.Instance;
-                    return true;
-                case FieldConverter.DateTimeConverter:
-                    converter = CustomDateTimeConverter.Instance;
-                    return true;
-                case FieldConverter.AssetStatusConverter:
-                    converter = CustomAssetStatusConverter.Instance;
-                    return true;
-                case FieldConverter.SimpleDate:
-                    converter = SimpleDateConverter.Instance;
-                    return true;
-                case FieldConverter.CustomFieldDictionaryConverter:
-                case FieldConverter.AvailableActionsConverter:
-                case FieldConverter.PermissionsConverter:
-                case FieldConverter.MessagesConverter:
-                case FieldConverter.MonthsConverter:
-                case FieldConverter.FalseyUriConverter:
-                case FieldConverter.ReadOnlyResponseCollectionConverter:
-                    converter = null;
-                    return false;
-                case FieldConverter.None:
-                default:
-                    if(null == property)
-                    {
+            if(FieldConverter.None != fieldConverter.Converter)
+                switch(fieldConverter.Converter)
+                {
+                    case FieldConverter.CommonModelConverter:
+                        converter = CustomCommonModelConverter.Instance;
+                        return true;
+                    case FieldConverter.CommonModelArrayConverter:
+                        converter = CustomCommonModelArrayConverter.Instance;
+                        return true;
+                    case FieldConverter.TimeSpanConverter:
+                        converter = CustomTimeSpanConverter.Instance;
+                        return true;
+                    case FieldConverter.DateTimeConverter:
+                        converter = CustomDateTimeConverter.Instance;
+                        return true;
+                    case FieldConverter.AssetStatusConverter:
+                        converter = CustomAssetStatusConverter.Instance;
+                        return true;
+                    case FieldConverter.SimpleDate:
+                        converter = SimpleDateConverter.Instance;
+                        return true;
+                    case FieldConverter.CustomFieldDictionaryConverter:
+                    case FieldConverter.PermissionsConverter:
+                    case FieldConverter.MessagesConverter:
+                    case FieldConverter.MonthsConverter:
+                    case FieldConverter.FalseyUriConverter:
+                    case FieldConverter.ReadOnlyResponseCollectionConverter:
                         converter = null;
                         return false;
-                    }
-                    if(property.PropertyType.IsAssignableFrom(typeof(bool?)))
-                    {
-                        converter = CustomNullableBooleanConverter.Instance;
-                        return true;
-                    }
+                    case FieldConverter.None:
+                    default:
+                        if(null == property)
+                        {
+                            converter = null;
+                            return false;
+                        }
+                        if(property.PropertyType.IsAssignableFrom(typeof(bool?)))
+                        {
+                            converter = CustomNullableBooleanConverter.Instance;
+                            return true;
+                        }
 
-                    // otherwise
-                    converter = null;
-                    return false;
-            }
+                        // otherwise
+                        converter = null;
+                        return false;
+                }
+            else
+                switch(fieldConverter.SerializeAs)
+                {
+                    case SerializeAs.Default:
+                        if(null == property)
+                        {
+                            converter = null;
+                            return false;
+                        }
+                        if(property.PropertyType.IsAssignableFrom(typeof(bool?)))
+                        {
+                            converter = CustomNullableBooleanConverter.Instance;
+                            return true;
+                        }
+
+                        converter = null;
+                        return false;
+                    case SerializeAs.Timestamp:
+                        converter = TimestampConverter.Instance;
+                        return true;
+                    case SerializeAs.DateObject:
+                        converter = DateObjectConverter.Instance;
+                        return true;
+                }
+            converter = null;
+            return false;
         }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
@@ -76,7 +103,7 @@ namespace SnipeSharp.Serialization
                         property.ShouldSerialize = (instance) => (bool)targetProperty.GetValue(instance);
                     }
                 }
-                if(TryGetConverter(member as PropertyInfo, attribute.Converter, out var converter))
+                if(TryGetConverter(member as PropertyInfo, attribute, out var converter))
                     property.Converter = converter;
             } else
             {

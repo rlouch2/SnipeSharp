@@ -194,7 +194,7 @@ namespace SnipeSharp
                 if(null == value)
                     // early-out, don't try to use converter, don't add parameter
                     continue;
-                if(SerializationContractResolver.TryGetConverter(property, attribute.Converter, out var converter))
+                if(SerializationContractResolver.TryGetConverter(property, attribute, out var converter))
                 {
                     var stringBuilder = new StringBuilder();
                     using(var stringWriter = new StringWriter(stringBuilder))

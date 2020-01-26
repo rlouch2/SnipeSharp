@@ -17,11 +17,11 @@ namespace SnipeSharp.Models
         public virtual string Name { get; set; }
 
         /// <value>The creation date of this object in Snipe-IT.</value>
-        [DeserializeAs("created_at", FieldConverter.DateTimeConverter)]
+        [DeserializeAs("created_at", DeserializeAs.Timestamp)]
         public DateTime? CreatedAt { get; protected set; }
 
         /// <value>The most recent date this object was modified in Snipe-IT.</value>
-        [DeserializeAs("updated_at", FieldConverter.DateTimeConverter)]
+        [DeserializeAs("updated_at", DeserializeAs.Timestamp)]
         public DateTime? UpdatedAt { get; protected set; }
 
         /// <inheritdoc />

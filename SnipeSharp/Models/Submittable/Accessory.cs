@@ -173,6 +173,24 @@ namespace SnipeSharp.Models
         private Location location;
 
         /// <summary>
+        /// Any notes on the Accessory.
+        /// </summary>
+        [DeserializeAs("notes")]
+        [SerializeAs("notes")]
+        [Patch(nameof(isNotesModified))]
+        public string Notes
+        {
+            get => notes;
+            set
+            {
+                isNotesModified = true;
+                notes = value;
+            }
+        }
+        private bool isNotesModified = false;
+        private string notes;
+
+        /// <summary>
         /// The total quantity of this Accessory.
         /// </summary>
         /// <remarks>
@@ -197,8 +215,8 @@ namespace SnipeSharp.Models
         /// <summary>
         /// The date this Accessory was purchased.
         /// </summary>
-        [DeserializeAs("purchase_date", DateTimeConverter)]
-        [SerializeAs("purchase_date", DateTimeConverter)]
+        [DeserializeAs("purchase_date", DeserializeAs.DateObject)]
+        [SerializeAs("purchase_date", SerializeAs.DateObject)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
@@ -272,18 +290,7 @@ namespace SnipeSharp.Models
         /// The quantity of this Accessory that has not yet been checked out.
         /// </summary>
         [DeserializeAs("remaining_qty")]
-        [Patch(nameof(isRemainingQuantityModified))]
-        public int? RemainingQuantity
-        {
-            get => remainingQuantity;
-            set
-            {
-                isRemainingQuantityModified = true;
-                remainingQuantity = value;
-            }
-        }
-        private bool isRemainingQuantityModified = false;
-        private int? remainingQuantity;
+        public int? RemainingQuantity { get; private set; }
 
         /// <summary>
         /// The Url of the image for this Accessory in the web interface.
@@ -304,7 +311,7 @@ namespace SnipeSharp.Models
         private Uri imageUri;
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <summary>
@@ -338,11 +345,11 @@ namespace SnipeSharp.Models
             isCategoryModified = isModified;
             isLocationModified = isModified;
             isQuantityModified = isModified;
+            isNotesModified = isModified;
             isPurchaseCostModified = isModified;
             isPurchaseDateModified = isModified;
             isOrderNumberModified = isModified;
             isMinimumQuantityModified = isModified;
-            isRemainingQuantityModified = isModified;
             isImageUriModified = isModified;
             isUserCanCheckOutModified = isModified;
         }

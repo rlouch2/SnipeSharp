@@ -226,7 +226,7 @@ namespace SnipeSharp.Models
         public List<Location> ChildLocations { get; private set; }
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

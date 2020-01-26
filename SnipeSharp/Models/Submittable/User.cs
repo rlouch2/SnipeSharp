@@ -416,7 +416,7 @@ namespace SnipeSharp.Models
         public DateTime? LastLogin { get; private set; }
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets the groups this user is a member of.</value>

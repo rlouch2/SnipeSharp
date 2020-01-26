@@ -83,7 +83,7 @@ namespace SnipeSharp.Models
         public int UsersCount { get; set; }
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

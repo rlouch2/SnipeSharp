@@ -245,7 +245,7 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         void IPatchable.SetAllModifiedState(bool isModified)

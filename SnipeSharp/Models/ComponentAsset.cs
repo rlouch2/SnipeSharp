@@ -36,7 +36,7 @@ namespace SnipeSharp.Models
         public DateTime? CreatedAt { get; private set; }
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
     }
 }

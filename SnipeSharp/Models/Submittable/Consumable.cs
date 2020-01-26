@@ -259,7 +259,7 @@ namespace SnipeSharp.Models
         public bool? UserCanCheckOut { get; private set; }
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <value>Gets/sets if this consumable is requestable or not.</value>

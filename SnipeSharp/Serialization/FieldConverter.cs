@@ -34,9 +34,6 @@ namespace SnipeSharp.Serialization
         /// <seealso cref="CustomMessageConverter" />
         MessagesConverter,
 
-        /// <seealso cref="CustomAvailableActionsConverter" />
-        AvailableActionsConverter,
-
         /// <seealso cref="CustomFieldDictionaryConverter" />
         CustomFieldDictionaryConverter,
 

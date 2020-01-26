@@ -137,7 +137,10 @@ namespace SnipeSharp.PowerShell.BindingTypes
         internal static UserBinding Me()
         {
             var me = ApiHelper.Instance.Users.MeOptional();
-            return new UserBinding(me.HasValue ? me.Value.UserName : string.Empty, me);
+            if(me.HasValue)
+                return new UserBinding(me.Value.Id);
+            else
+                return new UserBinding(string.Empty, new ApiOptionalResponse<User> { Exception = me.Exception });
         }
     }
 }

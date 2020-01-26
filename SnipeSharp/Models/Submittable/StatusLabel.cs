@@ -99,7 +99,7 @@ namespace SnipeSharp.Models
         private string notes;
 
         /// <inheritdoc />
-        [DeserializeAs("available_actions", AvailableActionsConverter)]
+        [DeserializeAs("available_actions", DeserializeAs.AvailableActions)]
         public AvailableAction AvailableActions { get; private set; }
 
         /// <summary>Converts this label into an AssetStatus, for use with Assets.</summary>

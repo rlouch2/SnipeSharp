@@ -1,8 +1,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SnipeSharp.Serialization.Converters;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace SnipeSharp.Serialization
@@ -17,41 +17,54 @@ namespace SnipeSharp.Serialization
             {
                 property.PropertyName = attribute.Key;
                 property.Writable = true;
-                switch(attribute.Converter)
-                {
-                    case FieldConverter.MonthsConverter:
-                        property.Converter = CustomMonthsConverter.Instance;
-                        break;
-                    case FieldConverter.SimpleDate:
-                        property.Converter = SimpleDateConverter.Instance;
-                        break;
-                    case FieldConverter.DateTimeConverter:
-                        property.Converter = CustomDateTimeConverter.Instance;
-                        break;
-                    case FieldConverter.TimeSpanConverter:
-                        property.Converter = CustomTimeSpanConverter.Instance;
-                        break;
-                    case FieldConverter.PermissionsConverter:
-                        property.Converter = CustomIntBoolDictionaryConverter.Instance;
-                        break;
-                    case FieldConverter.MessagesConverter:
-                        property.Converter = CustomMessageConverter.Instance;
-                        break;
-                    case FieldConverter.AvailableActionsConverter:
-                        property.Converter = CustomAvailableActionsConverter.Instance;
-                        break;
-                    case FieldConverter.CustomFieldDictionaryConverter:
-                        property.Converter = CustomFieldDictionaryConverter.Instance;
-                        break;
-                    case FieldConverter.FalseyUriConverter:
-                        property.Converter = FalseyUriConverter.Instance;
-                        break;
-                    case FieldConverter.ReadOnlyResponseCollectionConverter:
-                        property.Converter = CustomReadOnlyResponseCollectionConverter.Instance;
-                        break;
-                    default:
-                        break;
-                }
+                if(FieldConverter.None != attribute.Converter)
+                    switch(attribute.Converter)
+                    {
+                        case FieldConverter.MonthsConverter:
+                            property.Converter = CustomMonthsConverter.Instance;
+                            break;
+                        case FieldConverter.SimpleDate:
+                            property.Converter = SimpleDateConverter.Instance;
+                            break;
+                        case FieldConverter.DateTimeConverter:
+                            property.Converter = CustomDateTimeConverter.Instance;
+                            break;
+                        case FieldConverter.TimeSpanConverter:
+                            property.Converter = CustomTimeSpanConverter.Instance;
+                            break;
+                        case FieldConverter.PermissionsConverter:
+                            property.Converter = CustomIntBoolDictionaryConverter.Instance;
+                            break;
+                        case FieldConverter.MessagesConverter:
+                            property.Converter = CustomMessageConverter.Instance;
+                            break;
+                        case FieldConverter.CustomFieldDictionaryConverter:
+                            property.Converter = CustomFieldDictionaryConverter.Instance;
+                            break;
+                        case FieldConverter.FalseyUriConverter:
+                            property.Converter = FalseyUriConverter.Instance;
+                            break;
+                        case FieldConverter.ReadOnlyResponseCollectionConverter:
+                            property.Converter = CustomReadOnlyResponseCollectionConverter.Instance;
+                            break;
+                        default:
+                            break;
+                    }
+                else
+                    switch(attribute.DeserializeAs)
+                    {
+                        case DeserializeAs.Default:
+                            break;
+                        case DeserializeAs.Timestamp:
+                            property.Converter = TimestampConverter.Instance;
+                            break;
+                        case DeserializeAs.DateObject:
+                            property.Converter = DateObjectConverter.Instance;
+                            break;
+                        case DeserializeAs.AvailableActions:
+                            property.Converter = AvailableActionsConverter.Instance;
+                            break;
+                    }
             } else
             {
                 property.Ignored = true;
