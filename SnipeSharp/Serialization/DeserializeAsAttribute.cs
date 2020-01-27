@@ -36,8 +36,6 @@ namespace SnipeSharp.Serialization
 
         MonthStringAsInt,
 
-        MessageDictionary,
-
         ReadOnlyCollection,
 
         MaybeFalseUri,

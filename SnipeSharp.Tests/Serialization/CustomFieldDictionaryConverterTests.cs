@@ -9,7 +9,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void WriteJson_IsNotImplemented()
         {
-            Assert.Throws<NotImplementedException>(() => new CustomFieldDictionaryConverter().WriteJson(null, null, null));
+            Assert.Throws<NotImplementedException>(() => CustomFieldDictionaryConverter.Instance.WriteJson(null, null, null));
         }
 
         // TODO: when do we see arrays?

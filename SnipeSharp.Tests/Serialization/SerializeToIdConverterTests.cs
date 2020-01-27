@@ -12,13 +12,13 @@ namespace SnipeSharp.Tests
         [Fact]
         public void ReadJson_IsNotImplemented()
         {
-            Assert.Throws<NotImplementedException>(() => new SerializeToIdConverter().ReadJson(null, null, null, false, null));
+            Assert.Throws<NotImplementedException>(() => SerializeToIdConverter.Instance.ReadJson(null, null, null, false, null));
         }
 
         [Fact]
         public void WriteJson_WritesNull()
         {
-            var converter = new SerializeToIdConverter();
+            var converter = SerializeToIdConverter.Instance;
             using(var stringWriter = new StringWriter())
             using(var jsonWriter = new JsonTextWriter(stringWriter))
             {
@@ -33,7 +33,7 @@ namespace SnipeSharp.Tests
         [InlineData(2)]
         public void WriteJson_WritesId(int value)
         {
-            var converter = new SerializeToIdConverter();
+            var converter = SerializeToIdConverter.Instance;
             using(var stringWriter = new StringWriter())
             using(var jsonWriter = new JsonTextWriter(stringWriter))
             {
@@ -48,7 +48,7 @@ namespace SnipeSharp.Tests
         [InlineData(2)]
         public void WriteJson_WritesStatusId(int value)
         {
-            var converter = new SerializeToIdConverter();
+            var converter = SerializeToIdConverter.Instance;
             using(var stringWriter = new StringWriter())
             using(var jsonWriter = new JsonTextWriter(stringWriter))
             {

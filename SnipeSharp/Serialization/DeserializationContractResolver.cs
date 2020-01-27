@@ -39,9 +39,6 @@ namespace SnipeSharp.Serialization
                     case DeserializeAs.MonthStringAsInt:
                         property.Converter = MonthStringToIntConverter.Instance;
                         break;
-                    case DeserializeAs.MessageDictionary:
-                        property.Converter = MessageDictionaryConverter.Instance;
-                        break;
                     case DeserializeAs.ReadOnlyCollection:
                         property.Converter = ReadOnlyResponseCollectionConverter.Instance;
                         break;

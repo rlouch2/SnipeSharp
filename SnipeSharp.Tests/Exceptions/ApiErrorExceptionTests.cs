@@ -46,7 +46,7 @@ namespace SnipeSharp.Tests
             Assert.False(ex.IsHttpError);
             Assert.Null(ex.HttpStatusCode);
             Assert.NotNull(ex.Messages);
-            Assert.Equal(@"{""Key1"":""Value1"", ""Key2"":""Value2""}", ex.Message);
+            Assert.Equal(@"{""Key1"":""Value1"",""Key2"":""Value2""}", ex.Message);
         }
 
         [Theory]

@@ -10,7 +10,14 @@ namespace SnipeSharp.Serialization.Converters
         public static readonly ReadOnlyResponseCollectionConverter Instance = new ReadOnlyResponseCollectionConverter();
 
         public override bool CanConvert(Type objectType)
-            => objectType.IsGenericType && typeof(IReadOnlyCollection<>) == objectType.GetGenericTypeDefinition();
+        {
+            if(objectType.IsGenericType && typeof(IReadOnlyCollection<>) == objectType.GetGenericTypeDefinition())
+                return true;
+            foreach(var a in objectType.GetInterfaces())
+                if(a.IsGenericType && typeof(IReadOnlyCollection<>) == a.GetGenericTypeDefinition())
+                    return true;
+            return false;
+        }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {

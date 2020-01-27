@@ -69,7 +69,7 @@
             "label": "clean coveragereport",
             "type": "shell",
             "windows": {
-                "command": "Remove-Item -Recurse \"${workspaceFolder}/coveragereport/*\""
+                "command": "Remove-Item -Recurse \"${workspaceFolder}/coveragereport/*\" -ErrorAction SilentlyContinue; exit 0"
             },
             "linux": {
                 "command": "rm -rf \"${workspaceFolder}/coveragereport/*\""

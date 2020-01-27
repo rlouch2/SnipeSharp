@@ -9,14 +9,9 @@ namespace SnipeSharp.Serialization.Converters
 
         public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            if(reader.TokenType == JsonToken.Null)
-                return null;
-            if(reader.TokenType == JsonToken.String)
-            {
-                var str = serializer.Deserialize<string>(reader);
-                if(!string.IsNullOrWhiteSpace(str) && DateTime.TryParse(str, out var datetime))
-                    return datetime;
-            }
+            var str = serializer.Deserialize<string>(reader);
+            if(!string.IsNullOrWhiteSpace(str) && DateTime.TryParse(str, out var datetime))
+                return datetime;
             return null;
         }
 

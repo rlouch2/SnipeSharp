@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
+using Newtonsoft.Json;
 
 namespace SnipeSharp.Exceptions
 {
@@ -18,7 +18,7 @@ namespace SnipeSharp.Exceptions
         /// <summary>
         /// The dictionary of messages from the API. May be null.
         /// </summary>
-        public readonly Dictionary<string, string> Messages;
+        public readonly IReadOnlyDictionary<string, string> Messages;
 
         /// <summary>
         /// The HTTP status code associated with the request. May be null.
@@ -49,7 +49,7 @@ namespace SnipeSharp.Exceptions
         /// Initializes a new instance of the ApiErrorException class with a specified dictionary of messages.
         /// </summary>
         /// <param name="messages">The messages map, if any.</param>
-        public ApiErrorException(Dictionary<string, string> messages) : this(MessagesToString(messages))
+        public ApiErrorException(IReadOnlyDictionary<string, string> messages) : this(JsonConvert.SerializeObject(messages, Formatting.None))
         {
             Messages = messages;
         }
@@ -67,21 +67,6 @@ namespace SnipeSharp.Exceptions
             {
                 return base.ToString();
             }
-        }
-
-        private static string MessagesToString(Dictionary<string, string> messages)
-        {
-            var builder = new StringBuilder("{");
-            var first = true;
-            foreach(var key in messages.Keys)
-            {
-                if(!first)
-                    builder.Append(", ");
-                else
-                    first = false;
-                builder.Append('"').Append(key).Append("\":\"").Append(messages[key]).Append('"');
-            }
-            return builder.Append('}').ToString();
         }
     }
 }

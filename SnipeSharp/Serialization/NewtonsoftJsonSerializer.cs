@@ -25,6 +25,8 @@ namespace SnipeSharp.Serialization
 
         public static JsonSerializer Serializer { get; } = JsonSerializer.CreateDefault(SerializerSettings);
 
+        public static JsonSerializer Deserializer { get; } = JsonSerializer.CreateDefault(DeserializerSettings);
+
         public string Serialize(object @object)
             => JsonConvert.SerializeObject(@object, SerializerSettings);
 

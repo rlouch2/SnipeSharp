@@ -16,14 +16,11 @@ namespace SnipeSharp.Serialization.Converters
 
         public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)
             => throw new NotImplementedException();
-    }
 
-    internal sealed class TimestampResponse
-    {
-        [DeserializeAs("datetime")]
-        public string DateTime { get; set; }
-
-        [DeserializeAs("formatted")]
-        public string Formatted { get; set; }
+        private sealed class TimestampResponse
+        {
+            [DeserializeAs("datetime")]
+            public string DateTime { get; set; }
+        }
     }
 }
