@@ -1,6 +1,7 @@
 {
     "recommendations": [
-        "ms-vscode.csharp",
-        "ryanluker.vscode-coverage-gutters"
+        "ms-dotnettools.csharp",
+        "ryanluker.vscode-coverage-gutters",
+        "mikestead.dotenv"
     ]
 }
