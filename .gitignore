@@ -33,6 +33,7 @@ bld/
 OpenCover.xml
 coveragereport/
 lcov.info
+/coverage.*
 
 # NUNIT
 *.VisualState.xml
