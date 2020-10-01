@@ -4,15 +4,14 @@ using System.Net;
 using SnipeSharp.Models;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Exceptions;
-using static SnipeSharp.Tests.Utility;
 using SnipeSharp.Serialization;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using SnipeSharp.Filters;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
+    using static Utility;
     [PathSegment(TestModel.PATH_SEGMENT)]
     internal sealed class TestModel : AbstractBaseModel, IEquatable<TestModel>
     {
@@ -65,14 +64,14 @@ namespace SnipeSharp.Tests
         public void MissingPathSegmentAttribute_ThrowsException()
         {
             Assert.Throws<MissingRequiredAttributeException>(() => {
-                var endPoint = new EndPoint<FaultyTestModel>(SingleUseApi());
+                var endPoint = new EndPoint<FaultyTestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             });
         }
 
         [Fact]
         public void HasPathSegmentAttribute_DoesNotThrowException()
         {
-            var endPoint = new CustomEndPoint<TestModel>(SingleUseApi());
+            var endPoint = new CustomEndPoint<TestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             Assert.NotNull(endPoint.EndPointInfo);
             Assert.Equal(TestModel.PATH_SEGMENT, endPoint.EndPointInfo.BaseUri);
         }
@@ -126,7 +125,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindAll_None()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_NONE));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_NONE)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindAll();
             Assert.Empty(response);
             Assert.Equal<long>(0L, response.Total);
@@ -135,7 +134,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindAll_Two_NoFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindAll();
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
@@ -146,7 +145,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindAll_Two_StringFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindAll("blah");
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
@@ -157,14 +156,14 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindAll_DoesNotAcceptNullString()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             Assert.Throws<ArgumentNullException>(() => endPoint.FindAll(null as string));
         }
 
         [Fact]
         public void FindAll_DoesAcceptNullFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindAll(null as ISearchFilter);
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
@@ -175,7 +174,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindAllOptional_Two_StringFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindAllOptional("blah");
             Assert.True(response.HasValue);
             Assert.Equal<long>(2L, response.Value.Total);
@@ -187,14 +186,14 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindAllOptional_DoesNotAcceptNullString()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             Assert.Throws<ArgumentNullException>(() => endPoint.FindAllOptional(null as string));
         }
 
         [Fact]
         public void FindAllOptional_DoesAcceptNullFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindAllOptional(null as ISearchFilter);
             Assert.True(response.HasValue);
             Assert.Equal<long>(2L, response.Value.Total);
@@ -206,7 +205,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindOne()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindOne("blah");
             Assert.Equal(TestModel.Test1, response);
         }
@@ -215,7 +214,7 @@ namespace SnipeSharp.Tests
         public void FindOne_Fail()
         {
             Assert.Throws<ApiErrorException>(() => {
-                var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_NONE, isSuccessful: false));
+                var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_NONE, isSuccessful: false)){ Token = TEST_TOKEN, Uri = TEST_URI });
                 endPoint.FindOne("blah");
             });
         }
@@ -223,14 +222,14 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindOne_DoesNotAcceptNullString()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             Assert.Throws<ArgumentNullException>(() => endPoint.FindOne(null as string));
         }
 
         [Fact]
         public void FindOne_DoesAcceptNullFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindOne(null as ISearchFilter);
             Assert.Equal(TestModel.Test1, response);
         }
@@ -238,7 +237,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindOneOptional_StringFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindOneOptional("blah");
             Assert.True(response.HasValue);
             Assert.Equal(response.Value, TestModel.Test1);
@@ -247,7 +246,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindOneOptional_Fail()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ERROR));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ERROR)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindOneOptional("blah");
             Assert.False(response.HasValue);
             Assert.IsType<ApiErrorException>(response.Exception);
@@ -256,14 +255,14 @@ namespace SnipeSharp.Tests
         [Fact]
         public void FindOneOptional_DoesNotAcceptNullString()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             Assert.Throws<ArgumentNullException>(() => endPoint.FindOneOptional(null as string));
         }
 
         [Fact]
         public void FindOneOptional_DoesAcceptNullFilter()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.FindOneOptional(null as ISearchFilter);
             Assert.True(response.HasValue);
             Assert.Equal(response.Value, TestModel.Test1);
@@ -274,7 +273,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetAll()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_NONE));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_NONE)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.GetAll();
             Assert.Empty(response);
             Assert.Equal<long>(0L, response.Total);
@@ -283,9 +282,9 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetAll_MultipleBatches()
         {
-            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
-            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
-            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}"));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out var queue)){ Token = TEST_TOKEN, Uri = TEST_URI });
+            queue.Enqueue($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}");
+            queue.Enqueue($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}");
             var response = endPoint.GetAll();
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
@@ -296,9 +295,9 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetAll_MultipleBatches_DoesNotInfiniteLoop()
         {
-            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
-            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
-            queue.Enqueue(new FakeResponse(@"{ ""total"": 2, ""rows"": [ ] }"));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out var queue)){ Token = TEST_TOKEN, Uri = TEST_URI });
+            queue.Enqueue($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}");
+            queue.Enqueue(@"{ ""total"": 2, ""rows"": [ ] }");
             Assert.Throws<ApiReturnedInsufficientValuesForRequestException>(() => {
                 endPoint.GetAll();
             });
@@ -307,9 +306,9 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetAll_MultipleBatches_ReturnsFailedBatch()
         {
-            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
-            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
-            queue.Enqueue(new FakeResponse(FIND_ERROR));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out var queue)){ Token = TEST_TOKEN, Uri = TEST_URI });
+            queue.Enqueue($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}");
+            queue.Enqueue(FIND_ERROR);
             Assert.Throws<ApiErrorException>(() => {
                 endPoint.GetAll();
             });
@@ -318,10 +317,10 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetAll_MultipleBatches_DoesNotOverfetch()
         {
-            var endPoint = new EndPoint<TestModel>(MultipleUseApi(out var queue));
-            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}"));
-            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}"));
-            queue.Enqueue(new FakeResponse($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}"));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out var queue)){ Token = TEST_TOKEN, Uri = TEST_URI });
+            queue.Enqueue($@"{{ ""total"": 2, ""rows"": [ {TEST1_STRING} ] }}");
+            queue.Enqueue($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}");
+            queue.Enqueue($@"{{ ""total"": 2, ""rows"": [ {TEST2_STRING} ] }}");
             var response = endPoint.GetAll();
             Assert.Equal<long>(2L, response.Total);
             Assert.Collection(response,
@@ -333,7 +332,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetAllOptional()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_NONE));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_NONE)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.GetAllOptional();
             Assert.False(response.HasValue);
         }
@@ -341,7 +340,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Get_ById()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(TEST1_STRING));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(TEST1_STRING)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.Get(1);
             Assert.Equal(TestModel.Test1, response);
         }
@@ -349,7 +348,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Get_ById_WithOperator()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(TEST1_STRING));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(TEST1_STRING)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint[1];
             Assert.Equal(TestModel.Test1, response);
         }
@@ -360,7 +359,7 @@ namespace SnipeSharp.Tests
         public void Get_ByName(bool isCaseSensitive)
         {
             // using FIND_ALL_TWO_ROWS because ByName does a search, not a lookup
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.Get("Test1", caseSensitive: isCaseSensitive);
             Assert.Equal(TestModel.Test1, response);
         }
@@ -371,7 +370,7 @@ namespace SnipeSharp.Tests
         public void Get_ByName_Operator(bool isCaseSensitive)
         {
             // using FIND_ALL_TWO_ROWS because ByName does a search, not a lookup
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ALL_TWO_ROWS));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ALL_TWO_ROWS)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint["Test1", caseSensitive: isCaseSensitive];
             Assert.Equal(TestModel.Test1, response);
         }
@@ -379,14 +378,14 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Get_ByName_DoesNotAcceptNull()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             Assert.Throws<ArgumentNullException>(() => endPoint.Get(null));
         }
 
         [Fact]
         public void GetOptional_ByName_Fail()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(FIND_ERROR));
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(FIND_ERROR)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.GetOptional("Test1");
             Assert.False(response.HasValue);
             Assert.IsType<ApiErrorException>(response.Exception);
@@ -397,13 +396,13 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Create_Successful()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi($@"
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor($@"
             {{
                 ""status"":""success"",
                 ""messages"":""TestModel created successfully."",
                 ""payload"": {TEST1_STRING}
             }}
-            "));
+            ")){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.Create(new TestModel {
                 Name = "Test1"
             });
@@ -413,21 +412,21 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Create_Failure()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi());
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI });
             var ex = Assert.Throws<MissingRequiredFieldException<TestModel>>(() => endPoint.Create(new TestModel()));
-            Assert.Equal("Missing required field \"Name\" in object of type \"SnipeSharp.Tests.TestModel\"", ex.Message);
+            Assert.Equal("Missing required field \"Name\" in object of type \"SnipeSharp.Test.TestModel\"", ex.Message);
         }
 
         [Fact]
         public void Delete()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(@"
             {
                 ""status"": ""success"",
                 ""messages"": ""The TestModel was deleted successfully."",
                 ""payload"": null
             }
-            "));
+            ")){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.Delete(1);
             Assert.Equal("success", response.Status);
             Assert.Null(response.Payload);
@@ -439,26 +438,26 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Delete_ApiFailure()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(@"
             {
                 ""status"": ""error"",
                 ""messages"": ""It didn't work."",
                 ""payload"": null
             }
-            "));
+            ")){ Token = TEST_TOKEN, Uri = TEST_URI });
             Assert.Throws<ApiErrorException>(() => endPoint.Delete(1));
         }
 
         [Fact]
         public void Delete_ApiFailure_MessageDictionary()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(@"
             {
                 ""status"": ""error"",
                 ""messages"": { ""why"": ""It didn't work."" },
                 ""payload"": null
             }
-            "));
+            ")){ Token = TEST_TOKEN, Uri = TEST_URI });
             var ex = Assert.Throws<ApiErrorException>(() => endPoint.Delete(1));
             Assert.Collection(ex.Messages.Keys, a => Assert.Equal("why", a));
             Assert.Collection(ex.Messages.Values, a => Assert.Equal("It didn't work.", a));
@@ -467,7 +466,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void Update()
         {
-            var endPoint = new EndPoint<TestModel>(SingleUseApi(@"
+            var endPoint = new EndPoint<TestModel>(new SnipeItApi(MockClientFor(@"
             {
                 ""status"": ""success"",
                 ""messages"": ""TestModel updated successfully."",
@@ -477,7 +476,7 @@ namespace SnipeSharp.Tests
                     ""name"": ""Test3""
                 }
             }
-            "));
+            ")){ Token = TEST_TOKEN, Uri = TEST_URI });
             var response = endPoint.Update(TestModel.Test1);
             Assert.Equal(new TestModel(1, "Test3", null, null), response);
         }
@@ -486,16 +485,18 @@ namespace SnipeSharp.Tests
         [Fact]
         public void ErrorResponseThrowsException()
         {
+            var api = new SnipeItApi(MockClientFor("{\"status\":\"error\",\"messages\":\"Statuslabel not found\",\"payload\":null}")){ Token = TEST_TOKEN, Uri = TEST_URI };
             Assert.Throws<ApiErrorException>(() => {
-               SingleUseApi("{\"status\":\"error\",\"messages\":\"Statuslabel not found\",\"payload\":null}").StatusLabels.Get(0);
+               api.StatusLabels.Get(0);
             });
         }
 
         [Fact]
         public void HttpErrorThrowsException()
         {
+            var api = new SnipeItApi(MockClientFor("{\"status\":\"error\",\"messages\":\"404 endpoint not found\",\"payload\":null}", false, HttpStatusCode.NotFound)){ Token = TEST_TOKEN, Uri = TEST_URI };
             Assert.Throws<ApiErrorException>(() => {
-                SingleUseApi("{\"status\":\"error\",\"messages\":\"404 endpoint not found\",\"payload\":null}", false, HttpStatusCode.NotFound).StatusLabels.Get(0);
+                api.StatusLabels.Get(0);
             });
         }
     }

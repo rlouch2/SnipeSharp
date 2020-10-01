@@ -5,7 +5,7 @@ using System.IO;
 using SnipeSharp.Models;
 using SnipeSharp.Serialization;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
     public sealed class SerializeToIdArrayConverterTests
     {

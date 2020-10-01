@@ -28,7 +28,7 @@ namespace SnipeSharp.EndPoint
             };
             if(null != order)
                 obj.Order = order.Value;
-            return Api.RequestManager.Post<CustomFieldAssociation, FieldSet>($"{EndPointInfo.BaseUri}/{field.Id}/associate", obj).RethrowExceptionIfAny().Value;
+            return Api.Client.Post<CustomFieldAssociation, FieldSet>($"{EndPointInfo.BaseUri}/{field.Id}/associate", obj).RethrowExceptionIfAny().Value;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="fieldSet">The field set to disassociate from.</param>
         /// <returns>The request status.</returns>
         public RequestResponse<FieldSet> Disassociate(CustomField field, FieldSet fieldSet)
-            => Api.RequestManager.Post<CustomFieldAssociation, FieldSet>($"{EndPointInfo.BaseUri}/{field.Id}/disassociate", new CustomFieldAssociation { FieldSet = fieldSet }).RethrowExceptionIfAny().Value;
+            => Api.Client.Post<CustomFieldAssociation, FieldSet>($"{EndPointInfo.BaseUri}/{field.Id}/disassociate", new CustomFieldAssociation { FieldSet = fieldSet }).RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Reorders the fields in a field set.
@@ -60,6 +60,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="customFields">The fields of the field set in their new order.</param>
         /// <returns>The request status.</returns>
         public RequestResponse<ApiObject> Reorder(FieldSet fieldSet, params CustomField[] customFields)
-            => Api.RequestManager.Post<CustomFieldReordering, ApiObject>($"{EndPointInfo.BaseUri}/fieldsets/{fieldSet.Id}/order", new CustomFieldReordering { Fields = customFields }).RethrowExceptionIfAny().Value;
+            => Api.Client.Post<CustomFieldReordering, ApiObject>($"{EndPointInfo.BaseUri}/fieldsets/{fieldSet.Id}/order", new CustomFieldReordering { Fields = customFields }).RethrowExceptionIfAny().Value;
     }
 }

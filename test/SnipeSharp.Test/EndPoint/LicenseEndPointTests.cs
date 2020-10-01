@@ -1,26 +1,26 @@
 using System;
 using SnipeSharp.Models;
 using Xunit;
-using static SnipeSharp.Tests.Utility;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
+    using static Utility;
     public sealed class LicenseEndPointTests
     {
         [Fact]
         public void GetSeats_DoesNotAcceptNull()
         {
-            Assert.Throws<ArgumentNullException>(() => SingleUseApi().Licenses.GetSeats(null));
+            Assert.Throws<ArgumentNullException>(() => new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI }.Licenses.GetSeats(null));
         }
 
         [Fact]
         public void GetSeats_NoSeats()
         {
-            var api = SingleUseApi(@"
+            var api = new SnipeItApi(MockClientFor(@"
             {
                 ""total"": 0,
                 ""rows"": []
-            }");
+            }")){ Token = TEST_TOKEN, Uri = TEST_URI };
             var results = api.Licenses.GetSeats(new License(1));
             Assert.Equal(0, results.Total);
             Assert.Empty(results);
@@ -29,7 +29,7 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetSeats_Mixed()
         {
-            var api = SingleUseApi(@"
+            var api = new SnipeItApi(MockClientFor(@"
             {
                 ""total"": 2,
                 ""rows"": [
@@ -75,7 +75,7 @@ namespace SnipeSharp.Tests
                         }
                     }
                 ]
-            }");
+            }")){ Token = TEST_TOKEN, Uri = TEST_URI };
             var results = api.Licenses.GetSeats(new License(1));
             Assert.Equal(2, results.Total);
             Assert.Collection(results,

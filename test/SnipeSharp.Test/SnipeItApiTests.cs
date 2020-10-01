@@ -1,12 +1,11 @@
 using System;
-using System.Net;
+using Xunit;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
-using Xunit;
-using static SnipeSharp.Tests.Utility;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
+    using static Utility;
     public sealed class SnipeItApiTests
     {
         [Fact]
@@ -15,7 +14,7 @@ namespace SnipeSharp.Tests
             Assert.Throws<NullApiTokenException>(() => {
                 var snipe = new SnipeItApi();
                 snipe.Uri = TEST_URI;
-                snipe.RequestManager.SetTokenAndUri();
+                snipe.TestConnection();
             });
         }
 
@@ -25,32 +24,30 @@ namespace SnipeSharp.Tests
             Assert.Throws<NullApiUriException>(() => {
                 var snipe = new SnipeItApi();
                 snipe.Token = TEST_TOKEN;
-                snipe.RequestManager.SetTokenAndUri();
+                snipe.TestConnection();
             });
         }
 
         [Fact]
-        public void Init_NoneMissing_NotThrowsException()
+        public void TestConnection_Successful()
         {
             var snipe = new SnipeItApi
             {
                 Token = TEST_TOKEN,
                 Uri = TEST_URI
             };
-            snipe.RequestManager.SetTokenAndUri();
-            Assert.True(true);
-        }
-
-        [Fact]
-        public void TestConnection_Successful()
-        {
-            Assert.True(SingleUseApi(@"{""id"":1}").TestConnection());
+            Assert.True(snipe.TestConnection());
         }
 
         [Fact]
         public void TestConnection_Unsuccessful()
         {
-            Assert.False(SingleUseApi(@"<!DOCTYPE html><html>Nope.</html>").TestConnection());
+            var snipe = new SnipeItApi
+            {
+                Token = "FAKE_TOKEN",
+                Uri = TEST_URI
+            };
+            Assert.False(snipe.TestConnection());
         }
     }
 

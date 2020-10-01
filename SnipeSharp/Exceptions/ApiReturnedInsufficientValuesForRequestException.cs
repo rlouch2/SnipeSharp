@@ -7,7 +7,7 @@ namespace SnipeSharp.Exceptions
     /// for requests, and no values are returned, even though neither the limit
     /// nor the total have been reached.
     /// </summary>
-    /// <seealso cref="RestClientManager.GetAll{R}(string, Filters.ISearchFilter)"/>
+    /// <seealso cref="SnipeSharp.Client.ISnipeItClient.GetMultiple{R}(string, Filters.ISearchFilter)"/>
     public sealed class ApiReturnedInsufficientValuesForRequestException: Exception
     {
     }

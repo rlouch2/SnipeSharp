@@ -10,10 +10,10 @@ services:
             - '3306'
     snipe-it:
         build: .
+        image: snipesharp-snipeit-test
         env_file:
             - ./.env
         ports:
             - target: 80
-              published: 8080
         depends_on:
             - snipe-mariadb

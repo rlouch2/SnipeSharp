@@ -17,7 +17,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="accessory">The accessory to get the check-out list of.</param>
         /// <returns>A ResponseCollection list of AccessoryCheckOuts.</returns>
         public ResponseCollection<AccessoryCheckOut> GetCheckedOut(Accessory accessory)
-            => Api.RequestManager.GetAll<AccessoryCheckOut>($"{EndPointInfo.BaseUri}/{accessory.Id}/checkedout").RethrowExceptionIfAny().Value;
+            => Api.Client.GetMultiple<AccessoryCheckOut>($"{EndPointInfo.BaseUri}/{accessory.Id}/checkedout").RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Check out an accessory.
@@ -35,7 +35,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="request">An accessory check-out request.</param>
         /// <returns></returns>
         public RequestResponse<ApiObject> CheckOut(AccessoryCheckOutRequest request)
-            => Api.RequestManager.Post<AccessoryCheckOutRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Accessory.Id}/checkout", request).RethrowExceptionIfAny().Value;
+            => Api.Client.Post<AccessoryCheckOutRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Accessory.Id}/checkout", request).RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Check in an accessory.
@@ -52,6 +52,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="request">An accessory check-in request.</param>
         /// <returns></returns>
         public RequestResponse<ApiObject> CheckIn(AccessoryCheckInRequest request)
-            => Api.RequestManager.Post<AccessoryCheckInRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Accessory.Id}/checkin", request).RethrowExceptionIfAny().Value;
+            => Api.Client.Post<AccessoryCheckInRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Accessory.Id}/checkin", request).RethrowExceptionIfAny().Value;
     }
 }

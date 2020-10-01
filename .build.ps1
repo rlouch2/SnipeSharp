@@ -10,19 +10,33 @@ task CoverageReport Restore, Test, {
     dotnet reportgenerator @Parameters
     Pop-Location
 }
-task CoverageGutters Restore, Test, {
 
-}
-
-task Test Clean, {
-    $Parameters = @(
+task Test Clean, Build, {
+    Push-Location "$PSScriptRoot/test/docker"
+    docker-compose up --build --detach
+    Pop-Location
+    $MainContainer = (docker ps | Where-Object { $_ -match '\bsnipesharp-snipeit-test\b' }) -split '\s\s+'
+    $null = $MainContainer[5] -match '0.0.0.0:(\d+)->80/tcp'
+    $env:SnipeSharp_TestSite = "http://localhost:$($Matches[1])/api/v1"
+    $Variables = @{}
+    foreach($Line in Get-Content "$PSScriptRoot/test/docker/.env" | Where-Object { $_ -cmatch '^[A-Z]' })
+    {
+        $Key, $Value = $Line -split '='
+        $Variables[$Key] = $Value
+        [Environment]::SetEnvironmentVariable("SnipeSharp_$Key", $Value, 'Process')
+    }
+    $env:SnipeSharp_TestToken = docker exec $MainContainer[0] '/get-token.sh'
+    $TestParameters = @(
         "$PSScriptRoot/test/SnipeSharp.Test/SnipeSharp.Test.csproj"
         '/consoleloggerparameters:NoSummary'
         '/p:CollectCoverage=true'
         '/p:CoverletOutputFormat=\"opencover,lcov\"'
         "/p:CoverletOutput=$PSScriptRoot/"
     )
-    dotnet test @Parameters
+    dotnet test @TestParameters
+    Push-Location "$PSScriptRoot/test/docker"
+    docker-compose down --volumes
+    Pop-Location
 }
 
 task Clean {
@@ -35,6 +49,10 @@ task Clean {
             Remove-Item $Item -Recurse
         }
     }
+}
+
+task Build Restore, {
+    dotnet build
 }
 
 task Restore {

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using RestSharp;
+using SnipeSharp.Client;
 using SnipeSharp.EndPoint;
+using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
 
 namespace SnipeSharp
@@ -11,56 +13,31 @@ namespace SnipeSharp
     /// </summary>
     public sealed class SnipeItApi
     {
-#if DEBUG
-        /// <summary>
-        /// A list of URI's accessed by the RestClientManager. Used for debugging purposes.
-        /// </summary>
-        public List<string> DebugList = new List<string>();
+        internal readonly ISnipeItClient Client;
 
-        /// <summary>
-        /// A list of responses from the RestClientManager. Used for debugging purposes.
-        /// </summary>
-        public List<IRestResponse> DebugResponseList = new List<IRestResponse>();
-
-        /// <summary>
-        /// A list of request bodies from the RestClientManager. Used for debugging purposes.
-        /// Does not include bodies from GET requests.
-        /// </summary>
-        public List<string> DebugRequestList = new List<string>();
-#endif
-        private string _token;
+        private string token;
 
         /// <summary>
         /// The Token property represent the API Token that will be used to authenticate with the Snipe-IT API found at the URI in <see cref="SnipeItApi.Uri">Uri</see>.
         /// </summary>
-        /// <value>The Token property gets/sets the value of the string field, _token, and resets the token in the <see cref="RequestManager">RequestManager</see> when changed.</value>
+        /// <value>The Token property gets/sets the value of the string field, _token, and updates the token of the internal client.</value>
         public string Token
         {
-            get => _token;
-            set
-            {
-                _token = value;
-                RequestManager.ResetToken();
-            }
+            get => token;
+            set => Client.Token = token = value;
         }
 
-        private Uri _uri;
+        private Uri uri;
 
         /// <summary>
         /// The Uri property represent the base Uri of the Snipe-IT API that will be used.
         /// </summary>
-        /// <value>The Uri property gets/sets the value of the Uri field, _uri, and resets the URI in the <see cref="RequestManager">RequestManager</see> when changed.</value>
+        /// <value>The Uri property gets/sets the value of the Uri field, _uri, and updates the base URI of the internal client.</value>
         public Uri Uri
         {
-            get => _uri;
-            set
-            {
-                _uri = value;
-                RequestManager.ResetUri();
-            }
+            get => uri;
+            set => Client.Uri = uri = value;
         }
-
-        internal /* readonly */ RestClientManager RequestManager;
 
         /// <summary>
         /// <para>Tests if the Token and Uri are set and connect to the API.</para>
@@ -70,9 +47,12 @@ namespace SnipeSharp
         /// <returns>If the API is accessible or not.</returns>
         public bool TestConnection()
         {
+            if(!Client.HasUri)
+                throw new NullApiUriException();
+            if(!Client.HasToken)
+                throw new NullApiTokenException();
             try
             {
-                RequestManager.SetTokenAndUri();
                 Users.Me();
             } catch
             {
@@ -207,14 +187,18 @@ namespace SnipeSharp
         {
         }
 
+        public SnipeItApi(IRestClient restClient): this(new RestSharpClient(restClient))
+        {
+        }
+
         /// <summary>
         /// <para>Constructs a wrapper for the Snipe-IT web API.</para>
         /// <para>The Token and Uri must be set either in an initializer or manually after construction.</para>
         /// </summary>
         /// <remarks>This constructor is for internal and testing use.</remarks>
-        internal SnipeItApi(IRestClient restClient)
+        internal SnipeItApi(ISnipeItClient client)
         {
-            RequestManager = new RestClientManager(this, restClient);
+            Client = client;
 
             // endpoints
             Account = new AccountEndPoint(this);

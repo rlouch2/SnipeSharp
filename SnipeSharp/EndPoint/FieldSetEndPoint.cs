@@ -17,7 +17,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="fieldSet">The fieldset to retrieve fields from.</param>
         /// <returns>A response collection with the request status and fields.</returns>
         public ResponseCollection<CustomField> GetFields(FieldSet fieldSet)
-            => Api.RequestManager.GetAll<CustomField>($"{EndPointInfo.BaseUri}/{fieldSet.Id}/fields").RethrowExceptionIfAny().Value;
+            => Api.Client.GetMultiple<CustomField>($"{EndPointInfo.BaseUri}/{fieldSet.Id}/fields").RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Retrieve the fields of a fieldset with the default values of the fields for a given model.
@@ -25,6 +25,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="model">The model to retrieve fields with default values for.</param>
         /// <returns>A response collection with the request status and fields with default values.</returns>
         public ResponseCollection<CustomField> GetFieldsWithDefaults(Model model)
-            => Api.RequestManager.GetAll<CustomField>($"{EndPointInfo.BaseUri}/{model.FieldSet.Id}/fields/{model.Id}").RethrowExceptionIfAny().Value;
+            => Api.Client.GetMultiple<CustomField>($"{EndPointInfo.BaseUri}/{model.FieldSet.Id}/fields/{model.Id}").RethrowExceptionIfAny().Value;
     }
 }

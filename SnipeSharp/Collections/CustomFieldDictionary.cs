@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SnipeSharp.Models;
 
+//#nullable enable
 namespace SnipeSharp.Collections
 {
     /// <summary>A custom dictionary wrapper for asset custom fields, allowing string->string mapping.</summary>
@@ -138,7 +139,7 @@ namespace SnipeSharp.Collections
                 value = model.Value;
                 return true;
             }
-            value = null;
+            value = default!;
             return false;
         }
 
@@ -159,7 +160,11 @@ namespace SnipeSharp.Collections
         /// <exception cref="ArgumentNullException">If <paramref name="value"/> or its <see cref="AssetCustomField.Field"/> property are null.</exception>
         /// <exception cref="ArgumentException">If the dictionary already contains the value's friendly name and the value is not being updated.</exception>
         public void Add(AssetCustomField value)
-            => ((IDictionary<string, AssetCustomField>) this).Add(value?.Field, value);
+        {
+            if(null == value)
+                throw new ArgumentNullException(paramName: nameof(value));
+            ((IDictionary<string, AssetCustomField>) this).Add(value.Field, value);
+        }
 
         /// <inheritdoc />
         void ICollection<KeyValuePair<string, AssetCustomField>>.Add(KeyValuePair<string, AssetCustomField> item)

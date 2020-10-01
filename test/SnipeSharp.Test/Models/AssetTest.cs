@@ -2,17 +2,113 @@ using System;
 using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
 using Xunit;
-using static SnipeSharp.Tests.Utility;
 using static SnipeSharp.Models.Enumerations.AvailableAction;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
+    using static Utility;
     public class AssetTest
     {
+        private const string DEMO_ASSET_JSON_RESPONSE = @"{
+    ""id"": 1,
+    ""name"": ""test-asset"",
+    ""asset_tag"": ""1234"",
+    ""serial"": ""ABCDEFGHIJKLM"",
+    ""model"": {
+        ""id"": 1,
+        ""name"": ""Test Model""
+    },
+    ""model_number"": ""Test Model"",
+    ""eol"": null,
+    ""status_label"": {
+        ""id"": 3,
+        ""name"": ""Deployable"",
+        ""status_type"": ""deployable"",
+        ""status_meta"": ""deployed""
+    },
+    ""category"": {
+        ""id"": 1,
+        ""name"": ""Test Category""
+    },
+    ""manufacturer"": {
+        ""id"": 1,
+        ""name"": ""Test Manufacturer""
+    },
+    ""supplier"": {
+        ""id"": 1,
+        ""name"": ""Test Supplier""
+    },
+    ""notes"": ""This is a note"",
+    ""order_number"": ""abc12345"",
+    ""company"": {
+        ""id"": 3,
+        ""name"": "" test corp""
+    },
+    ""location"": {
+        ""id"": 2,
+        ""name"": ""Maine""
+    },
+    ""rtd_location"": {
+        ""id"": 2,
+        ""name"": ""Maine""
+    },
+    ""image"": null,
+    ""assigned_to"": null,
+    ""warranty_months"": ""36 months"",
+    ""warranty_expires"": {
+        ""date"": ""2021-06-01"",
+        ""formatted"": ""2021-06-01""
+    },
+    ""created_at"": {
+        ""datetime"": ""2020-01-01 12:00:00"",
+        ""formatted"": ""2020-01-01 12:00 AM""
+    },
+    ""updated_at"": {
+        ""datetime"": ""2020-01-01 12:00:00"",
+        ""formatted"": ""2020-01-01 12:00 AM""
+    },
+    ""last_audit_date"": null,
+    ""next_audit_date"": null,
+    ""deleted_at"": null,
+    ""purchase_date"": {
+        ""date"": ""2019-01-01"",
+        ""formatted"": ""2019-01-01""
+    },
+    ""last_checkout"": null,
+    ""expected_checkin"": null,
+    ""purchase_cost"": ""970.00"",
+    ""checkin_counter"": 0,
+    ""checkout_counter"": 0,
+    ""requests_counter"": 0,
+    ""user_can_checkout"": false,
+    ""custom_fields"": {
+        ""LAN MAC Address"": {
+            ""field"": ""_snipeit_lan_mac_address_1"",
+            ""value"": ""00:11:22:33:44:55"",
+            ""field_format"": ""MAC""
+        },
+        ""IPv4 Address"": {
+            ""field"": ""_snipeit_ipv4_address_3"",
+            ""value"": null,
+            ""field_format"": ""ANY""
+        }
+    },
+    ""available_actions"": {
+        ""checkout"": true,
+        ""checkin"": true,
+        ""clone"": true,
+        ""restore"": false,
+        ""update"": true,
+        ""delete"": true
+    }
+}";
         [Fact]
         public void DeserializeAsset()
         {
-            var result = SingleUseApiFromFile(Resources.IndividualModels.Asset).Assets.Get(0);
+            var result = new SnipeItApi(MockClientFor(DEMO_ASSET_JSON_RESPONSE)){
+                Token = TEST_TOKEN,
+                Uri = TEST_URI
+            }.Assets.Get(0);
             Assert.NotNull(result);
             Assert.IsType<Asset>(result);
             Assert.Equal(1, result.Id);

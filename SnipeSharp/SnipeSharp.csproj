@@ -7,6 +7,7 @@
     <LangVersion>8.0</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>warnings</Nullable>
+    <NoWarn>CS1591</NoWarn> <!-- for now, disable missing documentation warnings -->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="106.6.10" />

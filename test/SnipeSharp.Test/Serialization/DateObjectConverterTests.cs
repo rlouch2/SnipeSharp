@@ -5,7 +5,7 @@ using SnipeSharp.Serialization;
 using SnipeSharp.Serialization.Converters;
 using Xunit;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
     public sealed class DateObjectConverterTests
     {

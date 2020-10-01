@@ -18,7 +18,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="request">An asset check-out request.</param>
         /// <returns></returns>
         public RequestResponse<ApiObject> CheckOut(AssetCheckOutRequest request)
-            => Api.RequestManager.Post<AssetCheckOutRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Asset.Id}/checkout", request).RethrowExceptionIfAny().Value;
+            => Api.Client.Post<AssetCheckOutRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Asset.Id}/checkout", request).RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Check in an asset with an optional message.
@@ -37,7 +37,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="request">An asset check-in request.</param>
         /// <returns></returns>
         public RequestResponse<ApiObject> CheckIn(AssetCheckInRequest request)
-            => Api.RequestManager.Post<AssetCheckInRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Asset.Id}/checkin", request).RethrowExceptionIfAny().Value;
+            => Api.Client.Post<AssetCheckInRequest, ApiObject>($"{EndPointInfo.BaseUri}/{request.Asset.Id}/checkin", request).RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Marks an asset as audited.
@@ -56,7 +56,7 @@ namespace SnipeSharp.EndPoint
                 NextAuditDate = nextAuditDate,
                 Note = notes
             };
-            return Api.RequestManager.Post<AssetAudit>($"{EndPointInfo.BaseUri}/audit", audit).RethrowExceptionIfAny().Value;
+            return Api.Client.Post<AssetAudit>($"{EndPointInfo.BaseUri}/audit", audit).RethrowExceptionIfAny().Value;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SnipeSharp.EndPoint
         /// <param name="tag">An asset tag.</param>
         /// <returns>A tuple containing the asset (if it was found), and any error (if there was one).</returns>
         public ApiOptionalResponse<Asset> GetByTagOptional(string tag)
-            => Api.RequestManager.Get<Asset>($"{EndPointInfo.BaseUri}/bytag/{tag}");
+            => Api.Client.Get<Asset>($"{EndPointInfo.BaseUri}/bytag/{tag}");
 
         /// <summary>
         /// Retrieve assets by serial number.
@@ -91,6 +91,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="serial">A serial number.</param>
         /// <returns>An optional response containing the asset (if it was found), and any error (if there was one).</returns>
         public ApiOptionalMultiResponse<Asset> FindBySerialOptional(string serial)
-            => Api.RequestManager.Get<ResponseCollection<Asset>>($"{EndPointInfo.BaseUri}/byserial/{serial}");
+            => Api.Client.Get<ResponseCollection<Asset>>($"{EndPointInfo.BaseUri}/byserial/{serial}");
     }
 }

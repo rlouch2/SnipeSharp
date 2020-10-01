@@ -20,14 +20,14 @@ namespace SnipeSharp.EndPoint
         /// <param name="user">The user to get the assigned assets of.</param>
         /// <returns>A ResponseCollection list of Assets without their assignee data.</returns>
         public ResponseCollection<Asset> GetAssignedAssets(User user)
-            => Api.RequestManager.GetAll<Asset>($"{EndPointInfo.BaseUri}/{user.Id}/assets").RethrowExceptionIfAny().Value;
+            => Api.Client.GetMultiple<Asset>($"{EndPointInfo.BaseUri}/{user.Id}/assets").RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Get the current user of the API.
         /// </summary>
         /// <returns>An optional response representing the user information for the current user of the API, or any error thrown.</returns>
         public ApiOptionalResponse<SelfUser> MeOptional()
-            => Api.RequestManager.Get<SelfUser>($"{EndPointInfo.BaseUri}/me");
+            => Api.Client.Get<SelfUser>($"{EndPointInfo.BaseUri}/me");
 
         /// <summary>
         /// Get the current user of the API.
@@ -101,6 +101,6 @@ namespace SnipeSharp.EndPoint
         /// <param name="user">The user to get the checked-out accessroies of.</param>
         /// <returns>A ResponseCollection list of Accessories.</returns>
         public ResponseCollection<Accessory> GetAssignedAccessories(User user)
-            => Api.RequestManager.GetAll<Accessory>($"{EndPointInfo.BaseUri}/{user.Id}/accessories").RethrowExceptionIfAny().Value;
+            => Api.Client.GetMultiple<Accessory>($"{EndPointInfo.BaseUri}/{user.Id}/accessories").RethrowExceptionIfAny().Value;
     }
 }

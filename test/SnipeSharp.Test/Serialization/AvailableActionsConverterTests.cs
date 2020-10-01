@@ -7,7 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using SnipeSharp.Serialization;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
     public sealed class CustomAvailableActionsConverterTests
     {

@@ -25,7 +25,7 @@ namespace SnipeSharp.EndPoint
         {
             if(null == license)
                 throw new ArgumentNullException(paramName: nameof(license));
-            return Api.RequestManager.GetAll<LicenseSeat>($"{EndPointInfo.BaseUri}/{license.Id}/seats", filter).RethrowExceptionIfAny().Value;
+            return Api.Client.GetMultiple<LicenseSeat>($"{EndPointInfo.BaseUri}/{license.Id}/seats", filter).RethrowExceptionIfAny().Value;
         }
     }
 }

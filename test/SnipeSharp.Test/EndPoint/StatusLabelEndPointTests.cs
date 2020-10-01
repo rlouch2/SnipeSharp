@@ -4,10 +4,10 @@ using SnipeSharp.Exceptions;
 using SnipeSharp.Models;
 using SnipeSharp.Models.Enumerations;
 using Xunit;
-using static SnipeSharp.Tests.Utility;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
+    using static Utility;
     public sealed class StatusLabelEndPointTests
     {
         [Theory]
@@ -15,33 +15,35 @@ namespace SnipeSharp.Tests
         [InlineData("1\n", true)]
         public void IsDeployable_ReturnsBoolean(string response, bool expected)
         {
-            var api = SingleUseApi(response);
+            var api = new SnipeItApi(MockClientFor(response)){ Token = TEST_TOKEN, Uri = TEST_URI };
             Assert.Equal(expected, api.StatusLabels.IsDeployable(new StatusLabel()));
         }
 
         [Fact]
         public void IsDeployable_CanFail()
         {
-            var api = SingleUseApi("{\"status\":\"error\"}", isSuccessful: false, statusCode: HttpStatusCode.NotFound);
+            var api = new SnipeItApi(MockClientFor("{\"status\":\"error\"}", isSuccessful: false, statusCode: HttpStatusCode.NotFound)){ Token = TEST_TOKEN, Uri = TEST_URI };
             Assert.Throws<ApiErrorException>(() => api.StatusLabels.IsDeployable(new StatusLabel()));
         }
 
         [Fact]
         public void IsDeployable_DoesNotAcceptNull()
         {
-            Assert.Throws<ArgumentNullException>(() => SingleUseApi().StatusLabels.IsDeployable(null));
+            var api = new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI };
+            Assert.Throws<ArgumentNullException>(() => api.StatusLabels.IsDeployable(null));
         }
 
         [Fact]
         public void FromAssetStatus_DoesNotAcceptNull()
         {
-            Assert.Throws<ArgumentNullException>(() => SingleUseApi().StatusLabels.FromAssetStatus(null));
+            var api = new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI };
+            Assert.Throws<ArgumentNullException>(() => api.StatusLabels.FromAssetStatus(null));
         }
 
         [Fact]
         public void FromAssetStatus_AcceptsNonNull()
         {
-            var api = SingleUseApi(@"
+            var api = new SnipeItApi(MockClientFor(@"
             {
                 ""id"": 1,
                 ""name"": ""Pending"",
@@ -58,7 +60,7 @@ namespace SnipeSharp.Tests
                     ""delete"": true
                 }
             }
-            ");
+            ")){ Token = TEST_TOKEN, Uri = TEST_URI };
             var result = api.StatusLabels.FromAssetStatus(new AssetStatus { StatusId = 1 });
             Assert.NotNull(result);
             Assert.Equal(1, result.Id);
@@ -68,13 +70,14 @@ namespace SnipeSharp.Tests
         [Fact]
         public void GetAssets_DoesNotAcceptNull()
         {
-            Assert.Throws<ArgumentNullException>(() => SingleUseApi().StatusLabels.GetAssets(null));
+            var api = new SnipeItApi(MockClientFor(out _)){ Token = TEST_TOKEN, Uri = TEST_URI };
+            Assert.Throws<ArgumentNullException>(() => api.StatusLabels.GetAssets(null));
         }
 
         [Fact]
         public void GetAssets()
         {
-            var api = SingleUseApi(@"
+            var api = new SnipeItApi(MockClientFor(@"
             {
                 ""total"": 1,
                 ""rows"": [
@@ -160,7 +163,7 @@ namespace SnipeSharp.Tests
                         }
                     }
                 ]
-            }");
+            }")){ Token = TEST_TOKEN, Uri = TEST_URI };
             var result = api.StatusLabels.GetAssets(new StatusLabel(3));
             Assert.Equal(1, result.Total);
             Assert.Collection(result, (Asset a) => {

@@ -25,12 +25,12 @@ namespace SnipeSharp.EndPoint
         /// Get all assets requestable by this account.
         /// </summary>
         public ResponseCollection<RequestableAsset> GetRequestableAssets(RequestableAssetSearchFilter filter = null)
-            => Api.RequestManager.GetAll<RequestableAsset>("account/requestable/hardware", filter).RethrowExceptionIfAny().Value;
+            => Api.Client.GetMultiple<RequestableAsset>("account/requestable/hardware", filter).RethrowExceptionIfAny().Value;
 
         /// <summary>
         /// Get all assets requested by this account.
         /// </summary>
         public ResponseCollection<Request> GetRequests()
-            => Api.RequestManager.GetAll<Request>("account/requests").RethrowExceptionIfAny().Value;
+            => Api.Client.GetMultiple<Request>("account/requests").RethrowExceptionIfAny().Value;
     }
 }

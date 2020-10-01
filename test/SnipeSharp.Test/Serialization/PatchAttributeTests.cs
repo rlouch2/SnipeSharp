@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using SnipeSharp.Serialization;
 using Xunit;
 
-namespace SnipeSharp.Tests
+namespace SnipeSharp.Test
 {
     public sealed class PatchAttributeTests
     {

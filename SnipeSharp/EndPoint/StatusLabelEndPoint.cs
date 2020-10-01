@@ -23,7 +23,7 @@ namespace SnipeSharp.EndPoint
         {
             if(null == label)
                 throw new ArgumentNullException(paramName: nameof(label));
-            return Api.RequestManager.GetAll<Asset>($"{EndPointInfo.BaseUri}/{label.Id}/assetlist").RethrowExceptionIfAny().Value;
+            return Api.Client.GetMultiple<Asset>($"{EndPointInfo.BaseUri}/{label.Id}/assetlist").RethrowExceptionIfAny().Value;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace SnipeSharp.EndPoint
         {
             if(null == label)
                 throw new ArgumentNullException(paramName: nameof(label));
-            return Api.RequestManager.GetRaw($"{EndPointInfo.BaseUri}/{label.Id}/deployable").Trim() == "1";
+            return Api.Client.GetRaw($"{EndPointInfo.BaseUri}/{label.Id}/deployable").Trim() == "1";
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace SnipeSharp.EndPoint
 
         /// <inheritdoc />
         public ApiOptionalMultiResponse<T> FindAllOptional(ISearchFilter filter = null)
-            => Api.RequestManager.GetAll<T>(EndPointInfo.BaseUri, filter);
+            => Api.Client.GetMultiple<T>(EndPointInfo.BaseUri, filter);
 
         /// <inheritdoc />
         public ResponseCollection<T> FindAll(ISearchFilter filter = null)
@@ -53,7 +53,7 @@ namespace SnipeSharp.EndPoint
             if(null == filter)
                 filter = new SearchFilter();
             filter.Limit = 1;
-            var response = Api.RequestManager.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter);
+            var response = Api.Client.Get<ResponseCollection<T>>(EndPointInfo.BaseUri, filter);
             if(!response.HasValue)
                 return new ApiOptionalResponse<T> { Exception = response.Exception };
             return new ApiOptionalResponse<T> { Value = response.Value.FirstOrDefault() };
@@ -77,7 +77,7 @@ namespace SnipeSharp.EndPoint
 
         /// <inheritdoc />
         public ApiOptionalResponse<T> GetOptional(int id)
-            => Api.RequestManager.Get<T>($"{EndPointInfo.BaseUri}/{id}");
+            => Api.Client.Get<T>($"{EndPointInfo.BaseUri}/{id}");
 
         /// <inheritdoc />
         public T Get(string name, bool caseSensitive = false, ISearchFilter filter = null)
@@ -105,15 +105,15 @@ namespace SnipeSharp.EndPoint
 
         /// <inheritdoc />
         public T Create(T toCreate)
-            => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate)).RethrowExceptionIfAny().Value.Payload;
+            => Api.Client.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate)).RethrowExceptionIfAny().Value.Payload;
 
         /// <inheritdoc />
         public RequestResponse<T> Delete(int id)
-            => Api.RequestManager.Delete<T>($"{EndPointInfo.BaseUri}/{id}").RethrowExceptionIfAny().Value;
+            => Api.Client.Delete<T>($"{EndPointInfo.BaseUri}/{id}").RethrowExceptionIfAny().Value;
 
         /// <inheritdoc />
         public T Update(T toUpdate)
-            => Api.RequestManager.Patch($"{EndPointInfo.BaseUri}/{toUpdate.Id}", toUpdate).RethrowExceptionIfAny().Value.Payload;
+            => Api.Client.Patch($"{EndPointInfo.BaseUri}/{toUpdate.Id}", toUpdate).RethrowExceptionIfAny().Value.Payload;
 
         /// <inheritdoc />
         public T Set(T toSet)
@@ -121,7 +121,7 @@ namespace SnipeSharp.EndPoint
             var patchable = toSet as IPatchable;
             if(null != patchable)
                 patchable.SetAllModifiedState(true);
-            return Api.RequestManager.Put($"{EndPointInfo.BaseUri}/{toSet.Id}", CheckRequiredFields(toSet)).RethrowExceptionIfAny().Value.Payload;
+            return Api.Client.Put($"{EndPointInfo.BaseUri}/{toSet.Id}", CheckRequiredFields(toSet)).RethrowExceptionIfAny().Value.Payload;
         }
 
         /// <inheritdoc />

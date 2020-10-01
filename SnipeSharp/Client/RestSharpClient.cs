@@ -10,19 +10,19 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Runtime.Serialization;
+using System;
 
-namespace SnipeSharp
+#nullable enable
+namespace SnipeSharp.Client
 {
-    internal sealed class RestClientManager
+    internal sealed class RestSharpClient: ISnipeItClient
     {
-        private readonly SnipeItApi Api;
         private readonly IRestClient Client;
 
         private readonly NewtonsoftJsonSerializer serializerDeserializer = new NewtonsoftJsonSerializer();
 
-        internal RestClientManager(SnipeItApi api, IRestClient client)
+        internal RestSharpClient(IRestClient client)
         {
-            this.Api = api;
             this.Client = client;
 
             Client.AddDefaultHeader("Accept", "application/json");
@@ -30,46 +30,36 @@ namespace SnipeSharp
             Client.AddDefaultHeader("Content-type", "application/json");
         }
 
-        internal void SetTokenAndUri()
+        private void TestUriAndToken()
         {
-            if(null == Api.Uri)
+            if(!HasUri)
                 throw new NullApiUriException();
-            if(null == Api.Token)
+            if(!HasToken)
                 throw new NullApiTokenException();
-            if(null == Client.BaseUrl)
-                Client.BaseUrl = Api.Uri;
-            if(null == Client.Authenticator)
-                Client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(Api.Token, "Bearer");
         }
 
-        internal void ResetToken()
-            => Client.Authenticator = null;
-        internal void ResetUri()
-            => Client.BaseUrl = null;
+        public string Token { set => Client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(value ?? throw new NullApiTokenException(), "Bearer"); }
+        public Uri Uri { set => Client.BaseUrl = value; }
+        public bool HasToken => null != Client.Authenticator;
+        public bool HasUri => null != Client.BaseUrl;
 
-        internal string GetRaw(string path)
+        public string GetRaw(string path)
         {
+            TestUriAndToken();
             var response = Client.Execute(new RestRequest(path));
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
             return response.Content;
         }
 
-        internal ApiOptionalResponse<R> Get<R>(string path, ISearchFilter filter = null)
+        public ApiOptionalResponse<R> Get<R>(string path, ISearchFilter? filter = null)
             where R: ApiObject
         {
+            TestUriAndToken();
             var request = CreateRequest(path, Method.GET, filter);
-            SetTokenAndUri();
-#if DEBUG
-            var uri = Client.BuildUri(request);
-            Api.DebugList.Add(uri.ToString());
-#endif
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
-#if DEBUG
-            Api.DebugResponseList.Add(response);
-#endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
 
             if("error" == asRequestResponse.Status)
@@ -85,7 +75,7 @@ namespace SnipeSharp
             return new ApiOptionalResponse<R> { Value = serializerDeserializer.Deserialize<R>(response) };
         }
 
-        internal ApiOptionalMultiResponse<R> GetAll<R>(string path, ISearchFilter filter = null) where R: ApiObject
+        public ApiOptionalMultiResponse<R> GetMultiple<R>(string path, ISearchFilter? filter = null) where R: ApiObject
         {
             var result = Get<ResponseCollection<R>>(path, filter);
             // if we couldn't find a result, don't try to get more.
@@ -113,42 +103,35 @@ namespace SnipeSharp
             return result;
         }
 
-        internal ApiOptionalResponse<RequestResponse<R>> Post<R>(string path, R obj)
+        public ApiOptionalResponse<RequestResponse<R>> Post<R>(string path, R obj)
             where R: ApiObject
             => ExecuteRequest<R>(Method.POST, path, obj);
 
-        internal ApiOptionalResponse<RequestResponse<R>> Post<T, R>(string path, T obj)
+        public ApiOptionalResponse<RequestResponse<R>> Post<T, R>(string path, T obj)
             where T: ApiObject
             where R: ApiObject
             => ExecuteRequest<R>(Method.POST, path, obj);
 
-        internal ApiOptionalResponse<RequestResponse<R>> Put<R>(string path, R obj)
+        public ApiOptionalResponse<RequestResponse<R>> Put<R>(string path, R obj)
             where R: ApiObject
             => ExecuteRequest<R>(Method.PUT, path, obj);
 
-        internal ApiOptionalResponse<RequestResponse<R>> Patch<R>(string path, R obj)
+        public ApiOptionalResponse<RequestResponse<R>> Patch<R>(string path, R obj)
             where R: ApiObject
             => ExecuteRequest<R>(Method.PATCH, path, obj);
 
-        internal ApiOptionalResponse<RequestResponse<R>> Delete<R>(string path)
+        public ApiOptionalResponse<RequestResponse<R>> Delete<R>(string path)
             where R: ApiObject
             => ExecuteRequest<R>(Method.DELETE, path);
 
-        private ApiOptionalResponse<RequestResponse<R>> ExecuteRequest<R>(Method method, string path, ApiObject obj = null)
+        private ApiOptionalResponse<RequestResponse<R>> ExecuteRequest<R>(Method method, string path, ApiObject? obj = null)
             where R: ApiObject
         {
+            TestUriAndToken();
             var request = CreateRequest(path, method, obj);
-            SetTokenAndUri();
-#if DEBUG
-            var uri = Client.BuildUri(request);
-            Api.DebugList.Add(uri.ToString());
-#endif
             var response = Client.Execute(request);
             if(!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
-#if DEBUG
-            Api.DebugResponseList.Add(response);
-#endif
             var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
 
             if("error" == asRequestResponse.Status)
@@ -163,7 +146,7 @@ namespace SnipeSharp
             return new ApiOptionalResponse<RequestResponse<R>> { Value = asRequestResponse };
         }
 
-        internal RestRequest CreateRequest(string path, Method method, object obj)
+        private RestRequest CreateRequest(string path, Method method, object? obj)
         {
             var request = new RestRequest(path, method)
             {
@@ -176,9 +159,6 @@ namespace SnipeSharp
             if(Method.GET != method)
             {
                 request.AddJsonBody(obj);
-                #if DEBUG
-                Api.DebugRequestList.Add(serializerDeserializer.Serialize(obj));
-                #endif
                 return request;
             }
             var type = obj.GetType();
