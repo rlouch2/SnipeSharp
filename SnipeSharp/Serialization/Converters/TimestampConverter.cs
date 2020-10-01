@@ -9,7 +9,13 @@ namespace SnipeSharp.Serialization.Converters
 
         public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            if(serializer.Deserialize<TimestampResponse>(reader) is TimestampResponse response && DateTime.TryParse(response.DateTime, out var datetime))
+            if(reader.TokenType == JsonToken.String)
+            {
+                // This is probably one of the broken API endpoints that returns the model directly
+                // instead of properly transforming it.
+                if(serializer.Deserialize<string>(reader) is string response && DateTime.TryParse(response, out var datetime))
+                    return datetime;
+            } else if(serializer.Deserialize<TimestampResponse>(reader) is TimestampResponse response && DateTime.TryParse(response.DateTime, out var datetime))
                 return datetime;
             return null;
         }
