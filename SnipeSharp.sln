@@ -13,6 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A0A21BB8-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnipeSharp.Test", "test\SnipeSharp.Test\SnipeSharp.Test.csproj", "{5AA40850-0A93-48BE-BBBF-E618A137F341}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{69D26340-09C0-4E28-BAE8-98D66F977A89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnipeSharp", "src\SnipeSharp\SnipeSharp.csproj", "{660DB0D9-684C-4007-82F6-0C1F912B49DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnipeSharp.Test2", "test\SnipeSharp.Test2\SnipeSharp.Test2.csproj", "{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +41,14 @@ Global
 		{5AA40850-0A93-48BE-BBBF-E618A137F341}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AA40850-0A93-48BE-BBBF-E618A137F341}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AA40850-0A93-48BE-BBBF-E618A137F341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660DB0D9-684C-4007-82F6-0C1F912B49DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660DB0D9-684C-4007-82F6-0C1F912B49DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660DB0D9-684C-4007-82F6-0C1F912B49DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660DB0D9-684C-4007-82F6-0C1F912B49DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +58,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5AA40850-0A93-48BE-BBBF-E618A137F341} = {A0A21BB8-F445-4785-B55C-09DF4E4AEAD7}
+		{660DB0D9-684C-4007-82F6-0C1F912B49DE} = {69D26340-09C0-4E28-BAE8-98D66F977A89}
+		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD} = {A0A21BB8-F445-4785-B55C-09DF4E4AEAD7}
 	EndGlobalSection
 EndGlobal

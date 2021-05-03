@@ -1,3 +1,4 @@
+TODO: do I need a local mail server for testing?
 # SnipeSharp
 
 A .NET wrapper for the Snipe IT API written (poorly) in C# for C# and PowerShell.

@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/SnipeSharp.Tests/bin/Debug/netcoreapp3.0/SnipeSharp.Tests.dll",
+            "program": "${workspaceFolder}/SnipeSharp.Tests/bin/Debug/net5.0/SnipeSharp.Tests.dll",
             "args": [],
             "cwd": "${workspaceFolder}/SnipeSharp.Tests",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console

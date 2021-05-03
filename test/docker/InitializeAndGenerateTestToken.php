@@ -44,10 +44,9 @@ class InitializeAndGenerateTestToken extends Command
         $User->permissions = json_encode([ 'superuser' => 1 ]);
         $User->username = $UserName;
         $User->password = bcrypt($Options['password'] ?: 'password');
-        if(!$User->save()){
-            throw new \Exception('Failed to save user.');
+        if(!$User->isValid()){
+            throw new \Exception('User is not valid! ' . var_export($User->getErrors(), true));
         }
-        Auth::login($User, true);
 
         $this->info('Initializing test settings');
         $Settings = new Setting;
@@ -65,6 +64,17 @@ class InitializeAndGenerateTestToken extends Command
         $Settings->pwd_secure_min = 8; # Default from DB
         $Settings->site_name = 'SnipeIT SnipeSharp Test Container';
         $Settings->user_id = 1;
+        if(!$Settings->isValid()){
+            throw new \Exception('Settings are not valid! ' . var_export($Settings->getErrors(), true));
+        }
+
+        $this->info('Saving user.');
+        if(!$User->save()){
+            throw new \Exception('Failed to save user.');
+        }
+        $this->info('Logging in as user.');
+        Auth::login($User, true);
+        $this->info('Saving settings.');
         if(!$Settings->save()){
             throw new \Exception('Failed to save settings.');
         }

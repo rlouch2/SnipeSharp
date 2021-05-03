@@ -15,5 +15,6 @@ services:
             - ./.env
         ports:
             - target: 80
+              published: 8081
         depends_on:
             - snipe-mariadb

@@ -26,15 +26,15 @@ namespace SnipeSharp.EndPoint
         /// Get the current user of the API.
         /// </summary>
         /// <returns>An optional response representing the user information for the current user of the API, or any error thrown.</returns>
-        public ApiOptionalResponse<SelfUser> MeOptional()
-            => Api.Client.Get<SelfUser>($"{EndPointInfo.BaseUri}/me");
+        public ApiOptionalResponse<User> MeOptional()
+            => Api.Client.Get<User>($"{EndPointInfo.BaseUri}/me");
 
         /// <summary>
         /// Get the current user of the API.
         /// </summary>
         /// <returns>The user information for the current user of the API.</returns>
         /// <exception cref="SnipeSharp.Exceptions.ApiErrorException">If there was an error accessing the API.</exception>
-        public SelfUser Me()
+        public User Me()
             => MeOptional().RethrowExceptionIfAny().Value;
 
         /// <summary>
