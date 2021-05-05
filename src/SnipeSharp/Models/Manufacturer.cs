@@ -1,43 +1,68 @@
 using System;
-using System.Collections.Generic;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    public sealed class Manufacturer: IApiObject<Manufacturer>
+    [JsonConverter(typeof(ManufacturerConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Manufacturer: IApiObject<Manufacturer>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.URL)]
         public Uri? Url { get; }
+
+        [DeserializeAs(Static.IMAGE)]
         public Uri? Image { get; }
+
+        [DeserializeAs(Static.Manufacturer.SUPPORT_URL)]
         public Uri? SupportUrl { get; }
+
+        [DeserializeAs(Static.Manufacturer.SUPPORT_PHONE)]
         public string? SupportPhone { get; }
+
+        [DeserializeAs(Static.Manufacturer.SUPPORT_EMAIL)]
         public string? SupportEmail { get; }
+
+        [DeserializeAs(Static.Count.ACCESSORIES, IsNonNullable = true)]
         public int AccessoriesCount { get; }
+
+        [DeserializeAs(Static.Count.ASSETS, IsNonNullable = true)]
         public int AssetsCount { get; }
+
+        [DeserializeAs(Static.Count.CONSUMABLES, IsNonNullable = true)]
         public int ConsumablesCount { get; }
+
+        [DeserializeAs(Static.Count.LICENSES, IsNonNullable = true)]
         public int LicensesCount { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.DELETED_AT)]
         public FormattedDateTime? DeletedAt { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialManufacturer.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Restore { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialManufacturer.Actions actions)
-            {
-                Update = actions.Update;
-                Restore = actions.Restore;
-                Delete = actions.Delete;
-            }
         }
 
-        internal Manufacturer(Serialization.PartialManufacturer partial)
+        internal Manufacturer(PartialManufacturer partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentNullException(nameof(Name));
@@ -57,46 +82,52 @@ namespace SnipeSharp.Models
         }
     }
 
-    public sealed class ManufacturerFilter : IFilter<Manufacturer>
+    [GenerateFilter(typeof(ManufacturerSortOn))]
+    public sealed partial class ManufacturerFilter : IFilter<Manufacturer>
     {
-        public int? Limit { get; set; }
-        public int? Offset { get; set; }
-        public string? SearchString { get; set; }
-        public SortOrder? SortOrder { get; set; }
-        public ManufacturerSortOn? SortOn { get; set; }
         public bool? IsDeleted { get; set; }
-
-        IFilter<Manufacturer> IFilter<Manufacturer>.Clone()
-            => new ManufacturerFilter
-            {
-                Limit = Limit,
-                Offset = Offset,
-                SearchString = SearchString,
-                SortOrder = SortOrder,
-                SortOn = SortOn,
-                IsDeleted = IsDeleted
-            };
-
-        IReadOnlyDictionary<string, string?> IFilter<Manufacturer>.GetParameters()
-        {
-            throw new NotImplementedException();
-        }
     }
 
+    [SortColumn]
     public enum ManufacturerSortOn
     {
+        [EnumMember(Value = Static.CREATED_AT)]
         CreatedAt = 0,
+
+        [EnumMember(Value = Static.ID)]
         Id,
+
+        [EnumMember(Value = Static.NAME)]
         Name,
+
+        [EnumMember(Value = Static.URL)]
         Url,
+
+        [EnumMember(Value = Static.Manufacturer.SUPPORT_URL)]
         SupportUrl,
+
+        [EnumMember(Value = Static.Manufacturer.SUPPORT_PHONE)]
         SupportPhone,
+
+        [EnumMember(Value = Static.Manufacturer.SUPPORT_EMAIL)]
         SupportEmail,
+
+        [EnumMember(Value = Static.UPDATED_AT)]
         UpdatedAt,
+
+        [EnumMember(Value = Static.IMAGE)]
         Image,
+
+        //[EnumMember(Value = Static.Count.ACCESSORIES)]
         //AccessoriesCount, // for some reason, can't actually sort as this, but can sort on components? // TODO: submit patch to SnipeIT
+
+        [EnumMember(Value = Static.Count.ASSETS)]
         AssetsCount,
+
+        [EnumMember(Value = Static.Count.CONSUMABLES)]
         ConsumablesCount,
+
+        [EnumMember(Value = Static.Count.LICENSES)]
         LicensesCount,
     }
 
@@ -150,102 +181,5 @@ namespace SnipeSharp.Models
         public Uri? SupportUrl { get; set; }
         public string? SupportPhone { get; set; }
         public string? SupportEmail { get; set; }
-    }
-
-    public static class ManufacturerSortOnExtensions
-    {
-        public static string? Serialize(this ManufacturerSortOn? column)
-            => column switch
-            {
-                ManufacturerSortOn.CreatedAt => Static.CREATED_AT,
-                ManufacturerSortOn.Id => Static.ID,
-                ManufacturerSortOn.Name => Static.NAME,
-                ManufacturerSortOn.Url => Static.URL,
-                ManufacturerSortOn.Image => Static.IMAGE,
-                ManufacturerSortOn.SupportUrl => Static.Manufacturer.SUPPORT_URL,
-                ManufacturerSortOn.SupportPhone => Static.Manufacturer.SUPPORT_PHONE,
-                ManufacturerSortOn.SupportEmail => Static.Manufacturer.SUPPORT_EMAIL,
-                ManufacturerSortOn.AssetsCount => Static.Count.ASSETS,
-                ManufacturerSortOn.ConsumablesCount => Static.Count.CONSUMABLES,
-                ManufacturerSortOn.LicensesCount => Static.Count.LICENSES,
-                _ => null
-            };
-    }
-
-    namespace Serialization
-    {
-        internal sealed class PartialManufacturer
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; set; }
-
-            [JsonPropertyName(Static.URL)]
-            public Uri? Url { get; set; }
-
-            [JsonPropertyName(Static.IMAGE)]
-            public Uri? Image { get; set; }
-
-            [JsonPropertyName(Static.Manufacturer.SUPPORT_URL)]
-            public Uri? SupportUrl { get; set; }
-
-            [JsonPropertyName(Static.Manufacturer.SUPPORT_PHONE)]
-            public string? SupportPhone { get; set; }
-
-            [JsonPropertyName(Static.Manufacturer.SUPPORT_EMAIL)]
-            public string? SupportEmail { get; set; }
-
-            [JsonPropertyName(Static.Count.ACCESSORIES)]
-            public int AccessoriesCount { get; set; }
-
-            [JsonPropertyName(Static.Count.ASSETS)]
-            public int AssetsCount { get; set; }
-
-            [JsonPropertyName(Static.Count.CONSUMABLES)]
-            public int ConsumablesCount { get; set; }
-
-            [JsonPropertyName(Static.Count.LICENSES)]
-            public int LicensesCount { get; set; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName(Static.DELETED_AT)]
-            public FormattedDateTime? DeletedAt { get; set; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
-
-            public struct Actions
-            {
-                [JsonPropertyName(Static.Actions.UPDATE)]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(Static.Actions.RESTORE)]
-                public bool Restore { get; set; }
-
-                [JsonPropertyName(Static.Actions.DELETE)]
-                public bool Delete { get; set; }
-            }
-        }
-
-        internal sealed class ManufacturerConverter : JsonConverter<Manufacturer>
-        {
-            public override Manufacturer? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialManufacturer>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Manufacturer(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Manufacturer value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
     }
 }

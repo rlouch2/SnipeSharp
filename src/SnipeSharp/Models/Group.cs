@@ -1,30 +1,42 @@
 using System;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.GroupConverter))]
-    public sealed class Group: IApiObject<Group>
+    [JsonConverter(typeof(GroupConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Group: IApiObject<Group>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.Count.USERS, IsNonNullable = true)]
         public int UsersCount { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.PERMISSIONS)]
         public PermissionSet Permissions { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialGroup.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialGroup.Actions partial)
-                => (Update, Delete) = partial;
         }
 
-        internal Group(Serialization.PartialGroup partial)
+        internal Group(PartialGroup partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentNullException(nameof(Name));
@@ -33,59 +45,6 @@ namespace SnipeSharp.Models
             UpdatedAt = partial.UpdatedAt ?? throw new ArgumentNullException(nameof(UpdatedAt));
             Permissions = partial.Permissions ?? new PermissionSet();
             AvailableActions = new Actions(partial.AvailableActions);
-        }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class GroupConverter : JsonConverter<Group>
-        {
-            public override Group? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialGroup>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Group(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Group value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
-
-        internal sealed class PartialGroup
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; set; }
-
-            [JsonPropertyName(Static.Count.USERS)]
-            public int UsersCount { get; set; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName(Static.PERMISSIONS)]
-            public PermissionSet? Permissions { get; set; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
-
-            internal struct Actions
-            {
-                [JsonPropertyName(Static.Actions.UPDATE)]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(Static.Actions.DELETE)]
-                public bool Delete { get; set; }
-
-                public void Deconstruct(out bool update, out bool delete)
-                    => (update, delete) = (Update, Delete);
-            }
         }
     }
 }

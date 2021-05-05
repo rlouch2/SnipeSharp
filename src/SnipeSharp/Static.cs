@@ -10,11 +10,13 @@ namespace SnipeSharp
         public const string AVAILABLE_ACTIONS = "available_actions";
         public const string COST = "cost";
         public const string CREATED_AT = "created_at";
+        public const string CURRENCY = "currency";
         public const string DELETED_AT = "deleted_at";
         public const string EXPECTED_CHECKIN = "expected_checkin";
         public const string ID = "id";
         public const string IMAGE = "image";
         public const string LIMIT = "limit";
+        public const string MANAGER = "manager";
         public const string MODEL_NUMBER = "model_number";
         public const string NAME = "name";
         public const string NOTES = "notes";
@@ -29,6 +31,7 @@ namespace SnipeSharp
         public const string TITLE = "title";
         public const string TYPE = "type";
         public const string UPDATED_AT = "updated_at";
+        public const string USERNAME = "username";
         public const string URL = "url";
 
         internal static class Types
@@ -64,6 +67,7 @@ namespace SnipeSharp
         {
             public const string ACCESSORIES = "accessories_count";
             public const string ASSETS = "assets_count";
+            public const string ASSIGNED_ASSETS = "assigned_assets_count";
             public const string COMPONENTS = "components_count";
             public const string CONSUMABLES = "consumables_count";
             public const string LICENSES = "licenses_count";
@@ -93,6 +97,25 @@ namespace SnipeSharp
         internal static class Depreciation
         {
             public const string MONTHS = "months";
+        }
+
+        internal static class Location
+        {
+            public const string ADDRESS = "address";
+            public const string ADDRESS2 = "address2";
+            public const string CITY = "city";
+            public const string STATE = "state";
+            public const string COUNTRY = "country";
+            public const string ZIP = "zip";
+            public const string PARENT = "parent";
+            public const string CHILDREN = "children";
+        }
+
+        internal static class LoginAttempt
+        {
+            public const string USER_AGENT = "user_agent";
+            public const string REMOTE_IP = "remote_ip";
+            public const string SUCCESSFUL = "successful";
         }
 
         internal static class Maintenance
@@ -141,6 +164,12 @@ namespace SnipeSharp
             public const string COLOR = "color";
             public const string DEFAULT_LABEL = "default_label";
             public const string SHOW_IN_NAV = "show_in_nav";
+        }
+
+        internal static class User
+        {
+            public const string FIRST_NAME = "first_name";
+            public const string LAST_NAME = "last_name";
         }
     }
 }

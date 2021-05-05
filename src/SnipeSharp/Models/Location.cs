@@ -1,40 +1,77 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    public sealed class Location: IApiObject<Location>, IEnumerable<Stub<Location>>
+    [JsonConverter(typeof(LocationConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Location: IApiObject<Location>, IEnumerable<Stub<Location>>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.IMAGE)]
         public Uri? Image { get; }
+
+        [DeserializeAs(Static.Location.ADDRESS)]
         public string? Address { get; }
+
+        [DeserializeAs(Static.Location.ADDRESS2)]
         public string? Address2 { get; }
+
+        [DeserializeAs(Static.Location.CITY)]
         public string? City { get; }
+
+        [DeserializeAs(Static.Location.STATE)]
         public string? State { get; }
+
+        [DeserializeAs(Static.Location.COUNTRY)]
         public string? Country { get; }
+
+        [DeserializeAs(Static.Location.ZIP)]
         public string? ZipCode { get; }
+
+        [DeserializeAs(Static.Count.ASSIGNED_ASSETS, IsNonNullable = true)]
         public int AssignedAssetsCount { get; }
+
+        [DeserializeAs(Static.Count.ASSETS, IsNonNullable = true)]
         public int AssetsCount { get; }
+
+        [DeserializeAs(Static.Count.USERS, IsNonNullable = true)]
         public int UsersCount { get; }
+
+        [DeserializeAs(Static.CURRENCY)]
         public string? Currency { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.Location.PARENT)]
         public Stub<Location>? ParentLocation { get; }
+
+        [DeserializeAs(Static.MANAGER)]
         public StubUser? Manager { get; }
+
+        [DeserializeAs(Static.Location.CHILDREN)]
         public Stub<Location>[] ChildLocations { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialLocation.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialLocation.Actions partial)
-                => (Update, Delete) = partial;
         }
 
         IEnumerator<Stub<Location>> IEnumerable<Stub<Location>>.GetEnumerator()
@@ -43,7 +80,7 @@ namespace SnipeSharp.Models
         IEnumerator IEnumerable.GetEnumerator()
             => ChildLocations.GetEnumerator();
 
-        internal Location(Serialization.PartialLocation partial)
+        internal Location(PartialLocation partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentNullException(nameof(Name));
@@ -64,95 +101,6 @@ namespace SnipeSharp.Models
             Manager = partial.Manager;
             ChildLocations = partial.ChildLocations ?? Array.Empty<Stub<Location>>();
             AvailableActions = new Actions(partial.AvailableActions);
-        }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class LocationConverter : JsonConverter<Location>
-        {
-            public override Location? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialLocation>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Location(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Location value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
-
-        internal sealed class PartialLocation
-        {
-            [JsonPropertyName("id")]
-            public int? Id { get; set; }
-
-            [JsonPropertyName("name")]
-            public string? Name { get; set; }
-
-            [JsonPropertyName("image")]
-            public Uri? Image { get; set; }
-
-            [JsonPropertyName("address")]
-            public string? Address { get; set; }
-
-            [JsonPropertyName("address2")]
-            public string? Address2 { get; set; }
-
-            [JsonPropertyName("city")]
-            public string? City { get; set; }
-
-            [JsonPropertyName("state")]
-            public string? State { get; set; }
-
-            [JsonPropertyName("country")]
-            public string? Country { get; set; }
-
-            [JsonPropertyName("zip")]
-            public string? ZipCode { get; set; }
-
-            [JsonPropertyName("assigned_assets_count")]
-            public int AssignedAssetsCount { get; set; }
-
-            [JsonPropertyName("assets_count")]
-            public int AssetsCount { get; set; }
-
-            [JsonPropertyName("users_count")]
-            public int UsersCount { get; set; }
-
-            [JsonPropertyName("currency")]
-            public string? Currency { get; set; }
-
-            [JsonPropertyName("created_at")]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName("updated_at")]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName("parent")]
-            public Stub<Location>? ParentLocation { get; set; }
-
-            [JsonPropertyName("manager")]
-            public StubUser? Manager { get; set; }
-
-            [JsonPropertyName("children")]
-            public Stub<Location>[]? ChildLocations { get; set; }
-
-            [JsonPropertyName("available_actions")]
-            public Actions AvailableActions { get; set; }
-
-            internal struct Actions
-            {
-                [JsonPropertyName("update")]
-                public bool Update { get; set; }
-
-                [JsonPropertyName("delete")]
-                public bool Delete { get; set; }
-
-                internal void Deconstruct(out bool update, out bool delete)
-                    => (update, delete) = (Update, Delete);
-            }
         }
     }
 }

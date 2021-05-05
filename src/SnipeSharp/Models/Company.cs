@@ -1,48 +1,59 @@
 using System;
-using System.Collections.Generic;
-using System.Text.Json;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using SnipeSharp.Exceptions;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.CompanyConverter))]
-    public sealed class Company: IApiObject<Company>
+    [JsonConverter(typeof(CompanyConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Company: IApiObject<Company>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.IMAGE)]
         public Uri? Image { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDate CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDate UpdatedAt { get; }
+
+        [DeserializeAs(Static.Count.ASSETS, IsNonNullable = true)]
         public int AssetsCount { get; }
+
+        [DeserializeAs(Static.Count.LICENSES, IsNonNullable = true)]
         public int LicensesCount { get; }
+
+        [DeserializeAs(Static.Count.ACCESSORIES, IsNonNullable = true)]
         public int AccessoriesCount { get; }
+
+        [DeserializeAs(Static.Count.CONSUMABLES, IsNonNullable = true)]
         public int ConsumablesCount { get; }
+
+        [DeserializeAs(Static.Count.COMPONENTS, IsNonNullable = true)]
         public int ComponentsCount { get; }
+
+        [DeserializeAs(Static.Count.USERS, IsNonNullable = true)]
         public int UsersCount { get; }
 
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialCompany.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialCompany.Actions partial)
-                => (Update, Delete) = partial;
-
-            public override string ToString()
-            {
-                var joiner = new StringJoiner("{", ",", "}");
-                if(Delete)
-                    joiner.Append(nameof(Delete));
-                if(Update)
-                    joiner.Append(nameof(Update));
-                return joiner.ToString();
-            }
         }
 
-        internal Company(Serialization.PartialCompany partial)
+        internal Company(PartialCompany partial)
         {
             Id = partial.Id ?? throw new MissingRequiredPropertyException(nameof(Id), nameof(Company));
             Name = partial.Name ?? throw new MissingRequiredPropertyException(nameof(Name), nameof(Company));
@@ -59,44 +70,42 @@ namespace SnipeSharp.Models
         }
     }
 
-    public sealed class CompanyFilter : IFilter<Company>
+    [GenerateFilter(typeof(CompanySortOn))]
+    public sealed partial class CompanyFilter: IFilter<Company>
     {
-        public int? Limit { get; set; }
-        public int? Offset { get; set; }
-        public string? SearchString { get; set; }
-        public SortOrder? SortOrder { get; set; }
-        public CompanySortOn? SortOn { get; set; }
-
-        IFilter<Company> IFilter<Company>.Clone()
-            => new CompanyFilter
-            {
-                Limit = Limit,
-                Offset = Offset,
-                SearchString = SearchString,
-                SortOrder = SortOrder,
-                SortOn = SortOn
-            };
-
-        IReadOnlyDictionary<string, string?> IFilter<Company>.GetParameters()
-            => new Dictionary<string, string?>()
-                .AddIfNotNull(Static.LIMIT, Limit?.ToString())
-                .AddIfNotNull(Static.OFFSET, Offset?.ToString())
-                .AddIfNotNull(Static.SEARCH, SearchString)
-                .AddIfNotNull(Static.ORDER, SortOrder.Serialize())
-                .AddIfNotNull(Static.SORT_COLUMN, SortOn.Serialize());
     }
 
+    [SortColumn]
     public enum CompanySortOn
     {
+        [EnumMember(Value = Static.ID)]
         Id,
+
+        [EnumMember(Value = Static.NAME)]
         Name,
+
+        [EnumMember(Value = Static.CREATED_AT)]
         CreatedAt,
+
+        [EnumMember(Value = Static.UPDATED_AT)]
         UpdatedAt,
+
+        [EnumMember(Value = Static.Count.USERS)]
         UsersCount,
+
+        [EnumMember(Value = Static.Count.ASSETS)]
         AssetsCount,
+
+        [EnumMember(Value = Static.Count.LICENSES)]
         Licensescount,
+
+        [EnumMember(Value = Static.Count.ACCESSORIES)]
         AccessoriesCount,
+
+        [EnumMember(Value = Static.Count.COMPONENTS)]
         ComponentsCount,
+
+        [EnumMember(Value = Static.Count.CONSUMABLES)]
         ConsumablesCount
     }
 
@@ -124,92 +133,5 @@ namespace SnipeSharp.Models
     {
         [JsonPropertyName(Static.NAME)]
         public string? Name { get; init; }
-    }
-
-    public static class CompanySortOnExtensions
-    {
-        public static string? Serialize(this CompanySortOn? column)
-            => column switch
-            {
-                CompanySortOn.Id => Static.ID,
-                CompanySortOn.Name => Static.NAME,
-                CompanySortOn.CreatedAt => Static.CREATED_AT,
-                CompanySortOn.UpdatedAt => Static.UPDATED_AT,
-                CompanySortOn.UsersCount => Static.Count.USERS,
-                CompanySortOn.AssetsCount => Static.Count.ASSETS,
-                CompanySortOn.Licensescount => Static.Count.LICENSES,
-                CompanySortOn.AccessoriesCount => Static.Count.ACCESSORIES,
-                CompanySortOn.ComponentsCount => Static.Count.COMPONENTS,
-                CompanySortOn.ConsumablesCount => Static.Count.CONSUMABLES,
-                _ => null
-            };
-    }
-
-    namespace Serialization
-    {
-        internal sealed class PartialCompany
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; set; }
-
-            [JsonPropertyName(Static.IMAGE)]
-            public Uri? Image { get; set; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDate? CreatedAt { get; set; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDate? UpdatedAt { get; set; }
-
-            [JsonPropertyName(Static.Count.ASSETS)]
-            public int AssetsCount { get; set; }
-
-            [JsonPropertyName(Static.Count.LICENSES)]
-            public int LicensesCount { get; set; }
-
-            [JsonPropertyName(Static.Count.ACCESSORIES)]
-            public int AccessoriesCount { get; set; }
-
-            [JsonPropertyName(Static.Count.CONSUMABLES)]
-            public int ConsumablesCount { get; set; }
-
-            [JsonPropertyName(Static.Count.COMPONENTS)]
-            public int ComponentsCount { get; set; }
-
-            [JsonPropertyName(Static.Count.USERS)]
-            public int UsersCount { get; set; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
-
-            public struct Actions
-            {
-                [JsonPropertyName(Static.Actions.UPDATE)]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(Static.Actions.DELETE)]
-                public bool Delete { get; set; }
-
-                internal void Deconstruct(out bool update, out bool delete)
-                    => (update, delete) = (Update, Delete);
-            }
-        }
-
-        internal sealed class CompanyConverter : JsonConverter<Company>
-        {
-            public override Company? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialCompany>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Company(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Company value, JsonSerializerOptions options)
-                => throw new InvalidOperationException($"Cannot serialize {nameof(Company)}; instead use {nameof(CompanyProperty)}.");
-        }
     }
 }

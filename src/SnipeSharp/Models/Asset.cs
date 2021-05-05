@@ -1,50 +1,115 @@
 using System;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.AssetConverter))]
-    public sealed class Asset: IApiObject<Asset>
+    [JsonConverter(typeof(AssetConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Asset: IApiObject<Asset>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string? Name { get; }
+
+        [DeserializeAs(Static.ASSET_TAG)]
         public string AssetTag { get; }
+
+        [DeserializeAs(Static.SERIAL)]
         public string SerialNumber { get; }
+
+        [DeserializeAs(Static.Types.MODEL)]
         public Stub<Model>? Model { get; }
+
+        [DeserializeAs(Static.MODEL_NUMBER)]
         public string? ModelNumber { get; }
+
+        [DeserializeAs(Static.Asset.END_OF_LIFE)]
         public FormattedDate? EndOfLife { get; }
+
+        [DeserializeAs(Static.STATUS)]
         public AssetStatus Status { get; }
+
+        [DeserializeAs(Static.Types.CATEGORY)]
         public Stub<Category>? Category { get; }
+
+        [DeserializeAs(Static.Types.MANUFACTURER)]
         public Stub<Manufacturer>? Manufacturer { get; }
+
+        [DeserializeAs(Static.Types.SUPPLIER)]
         public Stub<Supplier>? Supplier { get; }
+
+        [DeserializeAs(Static.NOTES)]
         public string? Notes { get; }
+
+        [DeserializeAs(Static.Asset.ORDER_NUMBER)]
         public string? OrderNumber { get; }
+
+        [DeserializeAs(Static.Types.COMPANY)]
         public Stub<Company>? Company { get; }
+
+        [DeserializeAs(Static.Types.LOCATION)]
         public Stub<Location>? Location { get; }
+
+        [DeserializeAs(Static.Asset.RTD_LOCATION)]
         public Stub<Location>? RtdLocation { get; }
+
+        [DeserializeAs(Static.IMAGE)]
         public Uri? Image { get; }
         // TODO: assigned_to
+
+        [DeserializeAs(Static.Asset.WARRANTY_MONTHS, Type = typeof(string))]
         public int? WarrantyMonths { get; }
+
+        [DeserializeAs(Static.Asset.WARRANTY_EXPIRES)]
         public FormattedDate? WarrantyExpires { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.Asset.LAST_AUDIT)]
         public FormattedDateTime? LastAudit { get; }
+
+        [DeserializeAs(Static.Asset.NEXT_AUDIT)]
         public FormattedDate? NextAudit { get; }
 
         public bool IsDeleted => null != DeletedAt;
+
+        [DeserializeAs(Static.DELETED_AT)]
         public FormattedDateTime? DeletedAt { get; }
+
+        [DeserializeAs(Static.Asset.PURCHASE_DATE)]
         public FormattedDate? PurchaseDate { get; }
+
+        [DeserializeAs(Static.Asset.LAST_CHECKOUT)]
         public FormattedDateTime? LastCheckout { get; }
+
+        [DeserializeAs(Static.EXPECTED_CHECKIN)]
         public FormattedDate? ExpectedCheckin { get; }
+
+        [DeserializeAs(Static.Asset.PURCHASE_COST)]
         public decimal? PurchaseCost { get; }
+
+        [DeserializeAs(Static.Count.CHECKIN, IsNonNullable = true)]
         public int CheckinCounter { get; }
+
+        [DeserializeAs(Static.Count.CHECKOUT, IsNonNullable = true)]
         public int CheckoutCounter { get; }
+
+        [DeserializeAs(Static.Count.REQUESTS, IsNonNullable = true)]
         public int RequestsCounter { get; }
+
+        [DeserializeAs(Static.Asset.USER_CAN_CHECKOUT, IsNonNullable = true)]
         public bool UserCanCheckout { get; }
         //TODO: custom fields
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Checkout { get; }
             public bool Checkin { get; }
@@ -52,20 +117,12 @@ namespace SnipeSharp.Models
             public bool Restore { get; }
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialAsset.Actions partial)
-            {
-                Checkout = partial.Checkout;
-                Checkin = partial.Checkin;
-                Clone = partial.Clone;
-                Restore = partial.Restore;
-                Update = partial.Update;
-                Delete = partial.Delete;
-            }
         }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialAsset.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        internal Asset(Serialization.PartialAsset partial)
+        internal Asset(PartialAsset partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name;
@@ -104,148 +161,6 @@ namespace SnipeSharp.Models
             UserCanCheckout = partial.UserCanCheckout;
             //TODO
             AvailableActions = new Actions(partial.AvailableActions);
-        }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class AssetConverter : JsonConverter<Asset>
-        {
-            public override Asset? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialAsset>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Asset(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Asset value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
-
-        internal sealed class PartialAsset
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; set; }
-
-            [JsonPropertyName(Static.ASSET_TAG)]
-            public string? AssetTag { get; set; }
-
-            [JsonPropertyName(Static.SERIAL)]
-            public string? SerialNumber { get; set; }
-
-            [JsonPropertyName(Static.Types.MODEL)]
-            public Stub<Model>? Model { get; set; }
-
-            [JsonPropertyName(Static.MODEL_NUMBER)]
-            public string? ModelNumber { get; set; }
-
-            [JsonPropertyName(Static.Asset.END_OF_LIFE)]
-            public FormattedDate? EndOfLife { get; set; }
-
-            [JsonPropertyName(Static.STATUS)]
-            public AssetStatus? Status { get; set; }
-
-            [JsonPropertyName(Static.Types.CATEGORY)]
-            public Stub<Category>? Category { get; set; }
-
-            [JsonPropertyName(Static.Types.MANUFACTURER)]
-            public Stub<Manufacturer>? Manufacturer { get; set; }
-
-            [JsonPropertyName(Static.Types.SUPPLIER)]
-            public Stub<Supplier>? Supplier { get; set; }
-
-            [JsonPropertyName(Static.NOTES)]
-            public string? Notes { get; set; }
-
-            [JsonPropertyName(Static.Asset.ORDER_NUMBER)]
-            public string? OrderNumber { get; set; }
-
-            [JsonPropertyName(Static.Types.COMPANY)]
-            public Stub<Company>? Company { get; set; }
-
-            [JsonPropertyName(Static.Types.LOCATION)]
-            public Stub<Location>? Location { get; set; }
-
-            [JsonPropertyName(Static.Asset.RTD_LOCATION)]
-            public Stub<Location>? RtdLocation { get; set; }
-
-            [JsonPropertyName(Static.IMAGE)]
-            public Uri? Image { get; set; }
-            // TODO: assigned_to
-
-            [JsonPropertyName(Static.Asset.WARRANTY_MONTHS)]
-            public string? WarrantyMonths { get; set; }
-
-            [JsonPropertyName(Static.Asset.WARRANTY_EXPIRES)]
-            public FormattedDate? WarrantyExpires { get; set; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName(Static.Asset.LAST_AUDIT)]
-            public FormattedDateTime? LastAudit { get; }
-
-            [JsonPropertyName(Static.Asset.NEXT_AUDIT)]
-            public FormattedDate? NextAudit { get; set; }
-
-            [JsonPropertyName(Static.DELETED_AT)]
-            public FormattedDateTime? DeletedAt { get; set; }
-
-            [JsonPropertyName(Static.Asset.PURCHASE_DATE)]
-            public FormattedDate? PurchaseDate { get; set; }
-
-            [JsonPropertyName(Static.Asset.LAST_CHECKOUT)]
-            public FormattedDateTime? LastCheckout { get; set; }
-
-            [JsonPropertyName(Static.EXPECTED_CHECKIN)]
-            public FormattedDate? ExpectedCheckin { get; set; }
-
-            [JsonPropertyName(Static.Asset.PURCHASE_COST)]
-            public decimal? PurchaseCost { get; set; }
-
-            [JsonPropertyName(Static.Count.CHECKIN)]
-            public int CheckinCounter { get; set; }
-
-            [JsonPropertyName(Static.Count.CHECKOUT)]
-            public int CheckoutCounter { get; set; }
-
-            [JsonPropertyName(Static.Count.REQUESTS)]
-            public int RequestsCounter { get; set; }
-
-            [JsonPropertyName(Static.Asset.USER_CAN_CHECKOUT)]
-            public bool UserCanCheckout { get; set; }
-            //TODO: custom fields
-
-            public struct Actions
-            {
-                [JsonPropertyName(Static.Actions.CHECKOUT)]
-                public bool Checkout { get; set; }
-
-                [JsonPropertyName(Static.Actions.CHECKIN)]
-                public bool Checkin { get; set; }
-
-                [JsonPropertyName(Static.Actions.CLONE)]
-                public bool Clone { get; set; }
-
-                [JsonPropertyName(Static.Actions.RESTORE)]
-                public bool Restore { get; set; }
-
-                [JsonPropertyName(Static.Actions.UPDATE)]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(Static.Actions.DELETE)]
-                public bool Delete { get; set; }
-            }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
         }
     }
 }

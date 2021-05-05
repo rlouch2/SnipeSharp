@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnipeSharp", "src\SnipeShar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnipeSharp.Test2", "test\SnipeSharp.Test2\SnipeSharp.Test2.csproj", "{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnipeSharp.Generator", "src\SnipeSharp.Generator\SnipeSharp.Generator.csproj", "{873E2F89-9148-4384-849D-90C647224DD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{873E2F89-9148-4384-849D-90C647224DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{873E2F89-9148-4384-849D-90C647224DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{873E2F89-9148-4384-849D-90C647224DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{873E2F89-9148-4384-849D-90C647224DD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{5AA40850-0A93-48BE-BBBF-E618A137F341} = {A0A21BB8-F445-4785-B55C-09DF4E4AEAD7}
 		{660DB0D9-684C-4007-82F6-0C1F912B49DE} = {69D26340-09C0-4E28-BAE8-98D66F977A89}
 		{9D7C6A72-6629-4FA7-96F8-AB7BF04365CD} = {A0A21BB8-F445-4785-B55C-09DF4E4AEAD7}
+		{873E2F89-9148-4384-849D-90C647224DD0} = {69D26340-09C0-4E28-BAE8-98D66F977A89}
 	EndGlobalSection
 EndGlobal

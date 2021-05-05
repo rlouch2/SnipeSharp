@@ -1,46 +1,73 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.MaintenanceConverter))]
-    public sealed class Maintenance: IApiObject<Maintenance>
+    [JsonConverter(typeof(MaintenanceConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Maintenance: IApiObject<Maintenance>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.Types.ASSET)]
         public StubAsset Asset { get; }
+
+        [DeserializeAs(Static.Types.MODEL)]
         public Stub<Model>? Model { get; }
+
+        [DeserializeAs(Static.Types.COMPANY)]
         public Stub<Company>? Company { get; }
+
+        [DeserializeAs(Static.TITLE)]
         public string Title { get; }
+
+        [DeserializeAs(Static.Types.LOCATION)]
         public Stub<Location>? Location { get; }
+
+        [DeserializeAs(Static.NOTES)]
         public string? Notes { get; }
+
+        [DeserializeAs(Static.Types.SUPPLIER)]
         public Stub<Supplier> Supplier { get; }
+
+        [DeserializeAs(Static.COST)]
         public decimal? Cost { get; }
+
+        [DeserializeAs(Static.Maintenance.ASSET_MAINTENANCE_TYPE)]
         public AssetMaintenanceType MaintenanceType { get; }
+
+        [DeserializeAs(Static.Maintenance.ASSET_MAINTENANCE_TIME, Type = typeof(int))]
         public TimeSpan? MaintenanceDuration { get; }
+
+        [DeserializeAs(Static.Maintenance.START_DATE)]
         public FormattedDate StartDate { get; }
+
+        [DeserializeAs(Static.Maintenance.COMPLETION_DATE)]
         public FormattedDate? CompletionDate { get; }
+
+        [DeserializeAs(Static.Types.USER)]
         public Stub<User>? User { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialMaintenance.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialMaintenance.Actions actions)
-            {
-                Update = actions.Update;
-                Delete = actions.Delete;
-            }
         }
 
-        internal Maintenance(Serialization.PartialMaintenance partial)
+        internal Maintenance(PartialMaintenance partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Asset = partial.Asset ?? throw new ArgumentNullException(nameof(Asset));
@@ -51,7 +78,7 @@ namespace SnipeSharp.Models
             Notes = partial.Notes;
             Supplier = partial.Supplier ?? throw new ArgumentNullException(nameof(Supplier));
             Cost = partial.Cost;
-            MaintenanceType = partial.AssetMaintenanceType ?? throw new ArgumentNullException(nameof(AssetMaintenanceType));
+            MaintenanceType = partial.MaintenanceType ?? throw new ArgumentNullException(nameof(MaintenanceType));
             StartDate = partial.StartDate ?? throw new ArgumentNullException(nameof(StartDate));
             CompletionDate = partial.CompletionDate;
             User = partial.User;
@@ -59,55 +86,52 @@ namespace SnipeSharp.Models
             UpdatedAt = partial.UpdatedAt ?? throw new ArgumentNullException(nameof(UpdatedAt));
             AvailableActions = new Actions(partial.AvailableActions);
 
-            if(partial.AssetMaintenanceTime is int days)
+            if(partial.MaintenanceDuration is int days)
                 MaintenanceDuration = StartDate.Date <= CompletionDate!.Date
                     ? new TimeSpan(days, 0, 0, 0, 0)
                     : new TimeSpan(-days, 0, 0, 0, 0);
         }
     }
 
-    public sealed class MaintenanceFilter : IFilter<Maintenance>
+    [GenerateFilter(typeof(MaintenanceSortOn))]
+    public sealed partial class MaintenanceFilter: IFilter<Maintenance>
     {
-        public int? Limit { get; set; }
-        public int? Offset { get; set; }
-        public string? SearchString { get; set; }
-        public SortOrder? SortOrder { get; set; }
-        public MaintenanceSortOn? SortOn { get; set; }
-        public IApiObject<Asset>? Asset { get; set; }
-
-        IFilter<Maintenance> IFilter<Maintenance>.Clone()
-            => new MaintenanceFilter
-            {
-                Limit = Limit,
-                Offset = Offset,
-                SearchString = SearchString,
-                SortOrder = SortOrder,
-                SortOn = SortOn,
-                Asset = Asset
-            };
-
-        IReadOnlyDictionary<string, string?> IFilter<Maintenance>.GetParameters()
-            => new Dictionary<string, string?>()
-                .AddIfNotNull(Static.LIMIT, Limit?.ToString())
-                .AddIfNotNull(Static.OFFSET, Offset?.ToString())
-                .AddIfNotNull(Static.SEARCH, SearchString)
-                .AddIfNotNull(Static.ORDER, SortOrder.Serialize())
-                .AddIfNotNull(Static.SORT_COLUMN, SortOn.Serialize())
-                .AddIfNotNull(Static.Id.ASSET, Asset?.Id.ToString());
     }
 
+    [SortColumn]
     public enum MaintenanceSortOn
     {
+        [EnumMember(Value = Static.ID)]
         Id,
+
+        [EnumMember(Value = Static.TITLE)]
         Title,
+
+        [EnumMember(Value = Static.Maintenance.ASSET_MAINTENANCE_TYPE)]
         AssetMaintenanceType,
+
+        [EnumMember(Value = Static.Maintenance.ASSET_MAINTENANCE_TIME)]
         AssetMaintenanceTime,
+
+        [EnumMember(Value = Static.COST)]
         Cost,
+
+        [EnumMember(Value = Static.Maintenance.START_DATE)]
         StartDate,
+
+        [EnumMember(Value = Static.Maintenance.COMPLETION_DATE)]
         CompletionDate,
+
+        [EnumMember(Value = Static.NOTES)]
         Notes,
+
+        [EnumMember(Value = Static.ASSET_TAG)]
         AssetTag,
+
+        [EnumMember(Value = Static.ASSET_NAME)]
         AssetName,
+
+        [EnumMember(Value = Static.Id.USER)]
         UserId
     }
 
@@ -134,26 +158,6 @@ namespace SnipeSharp.Models
 
         [EnumMember(Value = "Hardware Support")]
         HardwareSupport,
-    }
-
-    public static class MaintenanceSortOnExtensions
-    {
-        public static string? Serialize(this MaintenanceSortOn? column)
-            => column switch
-            {
-                MaintenanceSortOn.Id => Static.ID,
-                MaintenanceSortOn.Title => Static.TITLE,
-                MaintenanceSortOn.AssetMaintenanceTime => Static.Maintenance.ASSET_MAINTENANCE_TIME,
-                MaintenanceSortOn.AssetMaintenanceType => Static.Maintenance.ASSET_MAINTENANCE_TYPE,
-                MaintenanceSortOn.Cost => Static.COST,
-                MaintenanceSortOn.StartDate => Static.Maintenance.START_DATE,
-                MaintenanceSortOn.CompletionDate => Static.Maintenance.COMPLETION_DATE,
-                MaintenanceSortOn.Notes => Static.NOTES,
-                MaintenanceSortOn.AssetTag => Static.ASSET_TAG,
-                MaintenanceSortOn.AssetName => Static.ASSET_NAME,
-                MaintenanceSortOn.UserId => Static.Id.USER,
-                _ => null
-            };
     }
 
     public sealed class MaintenanceProperty: IPutable<Maintenance>, IPostable<Maintenance>, IPatchable<Maintenance>
@@ -249,85 +253,5 @@ namespace SnipeSharp.Models
 
         [JsonPropertyName(Static.NOTES)]
         public string? Notes { get; set; }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class PartialMaintenance
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.Types.ASSET)]
-            public StubAsset? Asset { get; set; }
-
-            [JsonPropertyName(Static.Types.MODEL)]
-            public Stub<Model>? Model { get; set; }
-
-            [JsonPropertyName(Static.Types.COMPANY)]
-            public Stub<Company>? Company { get; set; }
-
-            [JsonPropertyName(Static.TITLE)]
-            public string? Title { get; set;  }
-
-            [JsonPropertyName(Static.Types.LOCATION)]
-            public Stub<Location>? Location { get; set; }
-
-            [JsonPropertyName(Static.NOTES)]
-            public string? Notes { get; set; }
-
-            [JsonPropertyName(Static.Types.SUPPLIER)]
-            public Stub<Supplier>? Supplier { get; set; }
-
-            [JsonPropertyName(Static.COST)]
-            public decimal? Cost { get; set; }
-
-            [JsonPropertyName(Static.Maintenance.ASSET_MAINTENANCE_TYPE)]
-            public AssetMaintenanceType? AssetMaintenanceType { get; set; }
-
-            [JsonPropertyName(Static.Maintenance.ASSET_MAINTENANCE_TIME)]
-            public int? AssetMaintenanceTime { get; set; }
-
-            [JsonPropertyName(Static.Maintenance.START_DATE)]
-            public FormattedDate? StartDate { get; set; }
-
-            [JsonPropertyName(Static.Maintenance.COMPLETION_DATE)]
-            public FormattedDate? CompletionDate { get; set; }
-
-            [JsonPropertyName(Static.Id.USER)]
-            public Stub<User>? User { get; set; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
-
-            public struct Actions
-            {
-                [JsonPropertyName(nameof(Static.Actions.UPDATE))]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(nameof(Static.Actions.DELETE))]
-                public bool Delete { get; set; }
-            }
-        }
-
-        internal sealed class MaintenanceConverter : JsonConverter<Maintenance>
-        {
-            public override Maintenance? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialMaintenance>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Maintenance(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Maintenance value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
     }
 }

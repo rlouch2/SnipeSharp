@@ -1,34 +1,44 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text.Json;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.DepreciationConverter))]
-    public sealed class Depreciation : IApiObject<Depreciation>
+    [JsonConverter(typeof(DepreciationConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Depreciation : IApiObject<Depreciation>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.Depreciation.MONTHS, Type = typeof(string))]
         public int Months { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialDepreciation.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialDepreciation.Actions partial)
-                => (Update, Delete) = partial;
         }
 
         private const NumberStyles MONTHS_STYLE = NumberStyles.Integer;
         private static Regex MONTHS_FORMAT = new Regex(@"^\d+");
-        internal Depreciation(Serialization.PartialDepreciation partial)
+        internal Depreciation(PartialDepreciation partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentNullException(nameof(Name));
@@ -47,50 +57,22 @@ namespace SnipeSharp.Models
         }
     }
 
+    [GenerateFilter(typeof(DepreciationSortOn))]
+    public sealed partial class DepreciationFilter: IFilter<Depreciation>
+    {
+    }
+
+    [SortColumn]
     public enum DepreciationSortOn
     {
+        [EnumMember(Value = Static.CREATED_AT)]
         CreatedAt = 0,
+
+        [EnumMember(Value = Static.ID)]
         Id,
+
+        [EnumMember(Value = Static.NAME)]
         Name
-    }
-
-    internal static class DepreciationSortOnExtensions
-    {
-        internal static string? Serialize(this DepreciationSortOn value)
-            => value switch
-            {
-                DepreciationSortOn.CreatedAt => Static.CREATED_AT,
-                DepreciationSortOn.Id => Static.ID,
-                DepreciationSortOn.Name => Static.NAME,
-                _ => null,
-            };
-    }
-
-    public sealed class DepreciationFilter: IFilter<Depreciation>
-    {
-        public int? Limit { get; set; }
-        public int? Offset { get; set; }
-        public string? SearchString { get; set; }
-        public SortOrder? SortOrder { get; set; }
-        public DepreciationSortOn? SortOn { get; set; }
-
-        IFilter<Depreciation> IFilter<Depreciation>.Clone()
-            => new DepreciationFilter
-            {
-                Limit = Limit,
-                Offset = Offset,
-                SearchString = SearchString,
-                SortOrder = SortOrder,
-                SortOn = SortOn,
-            };
-
-        IReadOnlyDictionary<string, string?> IFilter<Depreciation>.GetParameters()
-            => new Dictionary<string, string?>()
-                .AddIfNotNull(Static.LIMIT, Limit?.ToString())
-                .AddIfNotNull(Static.OFFSET, Offset?.ToString())
-                .AddIfNotNull(Static.SEARCH, SearchString)
-                .AddIfNotNull(Static.ORDER, SortOrder.Serialize())
-                .AddIfNotNull(Static.SORT_COLUMN, SortOn?.Serialize());
     }
 
     public sealed class DepreciationProperty: IPutable<Depreciation>, IPostable<Depreciation>
@@ -148,55 +130,5 @@ namespace SnipeSharp.Models
 
         [JsonPropertyName(Static.Depreciation.MONTHS)]
         public int? Months { get; set; }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class DepreciationConverter : JsonConverter<Depreciation>
-        {
-            public override Depreciation? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialDepreciation>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Depreciation(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Depreciation value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
-
-        internal sealed class PartialDepreciation
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; set; }
-
-            [JsonPropertyName(Static.Depreciation.MONTHS)]
-            public string? Months { get; set; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
-
-            internal struct Actions
-            {
-                [JsonPropertyName(Static.Actions.UPDATE)]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(Static.Actions.DELETE)]
-                public bool Delete { get; set; }
-
-                internal void Deconstruct(out bool update, out bool delete)
-                    => (update, delete) = (Update, Delete);
-            }
-        }
     }
 }

@@ -1,33 +1,51 @@
 using System;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.DepartmentConverter))]
-    public sealed class Department : IApiObject<Department>
+    [JsonConverter(typeof(DepartmentConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Department : IApiObject<Department>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.IMAGE)]
         public Uri? Image { get; }
+
+        [DeserializeAs(Static.Types.COMPANY)]
         public Stub<Company>? Company { get; }
+
+        [DeserializeAs(Static.MANAGER)]
         public StubUser? Manager { get; }
+
+        [DeserializeAs(Static.Types.LOCATION)]
         public Stub<Location>? Location { get; }
+
+        [DeserializeAs(Static.Count.USERS)]
         public string UsersCount { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialDepartment.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialDepartment.Actions partial)
-                => (Update, Delete) = partial;
         }
 
-        internal Department(Serialization.PartialDepartment partial)
+        internal Department(PartialDepartment partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentNullException(nameof(Name));
@@ -39,68 +57,6 @@ namespace SnipeSharp.Models
             CreatedAt = partial.CreatedAt ?? throw new ArgumentNullException(nameof(CreatedAt));
             UpdatedAt = partial.UpdatedAt ?? throw new ArgumentNullException(nameof(UpdatedAt));
             AvailableActions = new Actions(partial.AvailableActions);
-        }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class DepartmentConverter : JsonConverter<Department>
-        {
-            public override Department? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialDepartment>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Department(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Department value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
-
-        internal sealed class PartialDepartment
-        {
-            [JsonPropertyName("id")]
-            public int? Id { get; set; }
-
-            [JsonPropertyName("name")]
-            public string? Name { get; set; }
-
-            [JsonPropertyName("image")]
-            public Uri? Image { get; set; }
-
-            [JsonPropertyName("company")]
-            public Stub<Company>? Company { get; set; }
-
-            [JsonPropertyName("manager")]
-            public StubUser? Manager { get; set; }
-
-            [JsonPropertyName("location")]
-            public Stub<Location>? Location { get; set; }
-
-            [JsonPropertyName("users_count")]
-            public string? UsersCount { get; set; }
-
-            [JsonPropertyName("created_at")]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName("updated_at")]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName("available_actions")]
-            public Actions AvailableActions { get; set; }
-
-            internal struct Actions
-            {
-                [JsonPropertyName("update")]
-                public bool Update { get; set; }
-
-                [JsonPropertyName("delete")]
-                public bool Delete { get; set; }
-
-                internal void Deconstruct(out bool update, out bool delete)
-                    => (update, delete) = (Update, Delete);
-            }
         }
     }
 }
