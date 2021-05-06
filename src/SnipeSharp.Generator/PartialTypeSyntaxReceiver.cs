@@ -65,7 +65,7 @@ namespace SnipeSharp.Generator
         internal PartialProperty(IPropertySymbol symbol, AttributeData attr)
         {
             if(!attr.TryGetOption(0, out var key) || key.IsNull)
-                throw new ArgumentException();
+                throw new ArgumentException($"Value for property key is not valid.", symbol.ToDisplayString());
             Key = key.Value!.ToString();
             Name = symbol.Name;
             var typeName = attr.TryGetOption("Type", out var type) && type.Value is ITypeSymbol typeSymbol
@@ -80,7 +80,7 @@ namespace SnipeSharp.Generator
         internal PartialProperty(IFieldSymbol symbol, AttributeData attr)
         {
             if(!attr.TryGetOption(0, out var key) || key.IsNull)
-                throw new ArgumentException();
+                throw new ArgumentException($"Value for field key is not valid.", symbol.ToDisplayString());
             Key = key.Value!.ToString();
             Name = symbol.Name;
             var typeName = attr.TryGetOption("Type", out var type) && type.Value is ITypeSymbol typeSymbol

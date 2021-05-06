@@ -28,5 +28,7 @@ namespace SnipeSharp.Generator
         internal const string SerializeAsStringAttributeFullName = Namespace + "." + SerializeAsStringAttribute;
 
         internal const string EnumMemberAttributeFullName = "System.Runtime.Serialization." + nameof(EnumMemberAttribute);
+        internal const string IApiObjectFullName = "SnipeSharp.IApiObject";
+        internal const string NullableBoolFullName = "System.Nullable";
     }
 }

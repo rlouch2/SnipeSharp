@@ -1,82 +1,130 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using SnipeSharp.Exceptions;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.UserSerializer))]
-    public sealed class User: IApiObject<User>
+    [JsonConverter(typeof(UserConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class User: IApiObject<User>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.User.AVATAR)]
         public string FirstName { get; }
+
+        [DeserializeAs(Static.User.LAST_NAME)]
         public string LastName { get; }
+
+        [DeserializeAs(Static.USERNAME)]
         public string Username { get; }
+
+        [DeserializeAs(Static.User.EMPLOYEE_NUMBER)]
         public string? EmployeeNumber { get; }
+
+        [DeserializeAs(Static.User.EMAIL)]
         public string EmailAddress { get; }
+
+        [DeserializeAs(Static.NOTES)]
         public string Notes { get; }
 
+        [DeserializeAs(Static.User.ACTIVATED, IsNonNullable = true)]
         public bool IsActivated { get; }
+
+        [DeserializeAs(Static.User.LDAP_IMPORT, IsNonNullable = true)]
         public bool IsImportedFromLDAP { get; }
+
+        [DeserializeAs(Static.User.TWO_FACTOR_ENROLLED, IsNonNullable = true)]
         public bool IsTwoFactorActivated { get; }
+
+        [DeserializeAs(Static.User.TWO_FACTOR_ACTIVATED, IsNonNullable = true)]
         public bool IsTwoFactorEnrolled { get; }
+
+        [DeserializeAs(Static.Count.ASSETS, IsNonNullable = true)]
         public int AssetsCount { get; }
+
+        [DeserializeAs(Static.Count.LICENSES, IsNonNullable = true)]
         public int LicensesCount { get; }
+
+        [DeserializeAs(Static.Count.ACCESSORIES, IsNonNullable = true)]
         public int AccessoriesCount { get; }
+
+        [DeserializeAs(Static.Count.CONSUMABLES, IsNonNullable = true)]
         public int ConsumablesCount { get; }
 
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.User.LAST_LOGIN)]
         public FormattedDateTime? LastLogin { get; }
+
+        [DeserializeAs(Static.DELETED_AT)]
         public FormattedDateTime? DeletedAt { get; }
         public bool IsDeleted => null != DeletedAt;
 
-        public User.Actions AvailableActions { get; }
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialUser.Actions), IsNonNullable = true)]
+        public Actions AvailableActions { get; }
+
+        [DeserializeAs(Static.PERMISSIONS)]
         public PermissionSet Permissions { get; }
 
+        [DeserializeAs(Static.MANAGER)]
         public Stub<User>? Manager { get; }
+
+        [DeserializeAs(Static.User.TITLE)]
         public string? JobTitle { get; }
+
+        [DeserializeAs(Static.User.PHONE)]
         public string? PhoneNumber { get; }
+
+        [DeserializeAs(Static.User.WEBSITE)]
         public string? Website { get; }
+
+        [DeserializeAs(Static.Location.ADDRESS)]
         public string? Address { get; }
+
+        [DeserializeAs(Static.Location.CITY)]
         public string? City { get; }
+
+        [DeserializeAs(Static.Location.STATE)]
         public string? State { get; }
+
+        [DeserializeAs(Static.Location.COUNTRY)]
         public string? Country { get; }
+
+        [DeserializeAs(Static.Location.ZIP)]
         public string? ZipCode { get; }
+
+        [DeserializeAs(Static.Types.DEPARTMENT)]
         public Stub<Department>? Department { get; }
+
+        [DeserializeAs(Static.Types.LOCATION)]
         public Stub<Location>? Location { get; }
+
+        [DeserializeAs(Static.Types.COMPANY)]
         public Stub<Company>? Company { get; }
+
+        [DeserializeAs(Static.Types.GROUP)]
         public DataTable<Stub<Group>>? Groups { get; }
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
             public bool Clone { get; }
             public bool Restore { get; }
-
-            internal Actions(Serialization.PartialUser.Actions partial)
-                => (Update, Delete, Clone, Restore) = partial;
-
-            public override string ToString()
-            {
-                var joiner = new StringJoiner("{", ",", "}");
-                if(Clone)
-                    joiner.Append(nameof(Clone));
-                if(Delete)
-                    joiner.Append(nameof(Delete));
-                if(Restore)
-                    joiner.Append(nameof(Delete));
-                if(Update)
-                    joiner.Append(nameof(Delete));
-                return joiner.ToString();
-            }
         }
 
-        internal User(Serialization.PartialUser partial)
+        internal User(PartialUser partial)
         {
             Id = partial.Id ?? throw new MissingRequiredPropertyException(nameof(Id), nameof(User));
             Name = partial.Name ?? throw new MissingRequiredPropertyException(nameof(Name), nameof(User));
@@ -104,310 +152,144 @@ namespace SnipeSharp.Models
             Country = partial.Country;
             EmployeeNumber = partial.EmployeeNumber;
             JobTitle = partial.JobTitle;
-            PhoneNumber = partial.Phone;
+            PhoneNumber = partial.PhoneNumber;
             State = partial.State;
             Website = partial.Website;
             ZipCode = partial.ZipCode;
 
-            IsActivated = partial.IsActivated ?? false;
-            IsImportedFromLDAP = partial.IsImportedFromLDAP ?? false;
-            IsTwoFactorActivated = partial.IsTwoFactorActivated ?? false;
-            IsTwoFactorEnrolled = partial.IsTwoFactorEnrolled ?? false;
-            AssetsCount = partial.AssetsCount ?? 0;
-            LicensesCount = partial.LicensesCount ?? 0;
-            AccessoriesCount = partial.AccessoriesCount ?? 0;
-            ConsumablesCount = partial.ConsumablesCount ?? 0;
+            IsActivated = partial.IsActivated;
+            IsImportedFromLDAP = partial.IsImportedFromLDAP;
+            IsTwoFactorActivated = partial.IsTwoFactorActivated;
+            IsTwoFactorEnrolled = partial.IsTwoFactorEnrolled;
+            AssetsCount = partial.AssetsCount;
+            LicensesCount = partial.LicensesCount;
+            AccessoriesCount = partial.AccessoriesCount;
+            ConsumablesCount = partial.ConsumablesCount;
         }
     }
 
-    public sealed class UserFilter: IFilter<User>
+    [GenerateFilter(typeof(UserSortOn))]
+    public sealed partial class UserFilter: IFilter<User>
     {
-        public int? Limit { get; set; }
-        public int? Offset { get; set; }
-        public string? SearchString { get; set; }
-        public SortOrder? SortOrder { get; set; }
-        public UserSortOn? SortOn { get; set; }
-
+        [SerializeAsString("deleted")]
         public bool? Deleted { get; set; }
+
+        [SerializeAsString(Static.Id.COMPANY)]
         public IApiObject<Company>? Company { get; set; }
+
+        [SerializeAsString(Static.Id.LOCATION)]
         public IApiObject<Location>? Location { get; set; }
+
+        [SerializeAsString(Static.User.EMAIL)]
         public string? EmailAddress { get; set; }
+
+        [SerializeAsString(Static.USERNAME)]
         public string? Username { get; set; }
+
+        [SerializeAsString(Static.Id.GROUP)]
         public IApiObject<Group>? Group { get; set; }
+
+        [SerializeAsString(Static.Id.DEPARTMENT)]
         public IApiObject<Department>? Department { get; set; }
-
-        IFilter<User> IFilter<User>.Clone()
-            => new UserFilter
-            {
-                Limit = Limit,
-                Offset = Offset,
-                SearchString = SearchString,
-                SortOrder = SortOrder,
-                SortOn = SortOn,
-                Deleted = Deleted,
-                Company = Company,
-                Location = Location,
-                EmailAddress = EmailAddress,
-                Username = Username,
-                Group = Group,
-                Department = Department
-            };
-
-        IReadOnlyDictionary<string, string?> IFilter<User>.GetParameters()
-        {
-            var dict = new Dictionary<string, string?>();
-            if(null != Limit)
-                dict["limit"] = Limit.ToString();
-            if(null != Offset)
-                dict["offset"] = Limit.ToString();
-            if(null != SearchString)
-                dict["search"] = SearchString;
-            var order = SortOrder.Serialize();
-            if(null != order)
-                dict["order"] = order;
-            var column = SortOn.Serialize();
-            if(null != column)
-                dict["sort"] = column;
-            if(null != Deleted)
-                dict["deleted"] = (bool)Deleted ? "true" : "false";
-            if(null != Company)
-                dict["company_id"] = Company.Id.ToString();
-            if(null != Location)
-                dict["location_id"] = Location.Id.ToString();
-            if(null != EmailAddress)
-                dict["email"] = EmailAddress;
-            if(null != Username)
-                dict["username"] = Username;
-            if(null != Group)
-                dict["group_id"] = Group.Id.ToString();
-            if(null != Department)
-                dict["department_id"] = Department.Id.ToString();
-            return dict;
-        }
     }
 
+    [SortColumn]
     public enum UserSortOn
     {
+        [EnumMember(Value = Static.User.FIRST_NAME)]
         FirstName = 0,
+
+        [EnumMember(Value = "accessories")]
         Accessories,
+
+        [EnumMember(Value = Static.Count.ACCESSORIES)]
         AccessoriesCount,
+
+        [EnumMember(Value = Static.Location.ADDRESS)]
         Address,
+
+        [EnumMember(Value = "assets")]
         Assets,
+
+        [EnumMember(Value = Static.Count.ASSETS)]
         AssetsCount,
+
+        [EnumMember(Value = Static.Location.CITY)]
         City,
+
+        [EnumMember(Value = Static.Types.COMPANY)]
         Company,
+
+        [EnumMember(Value = "consumables")]
         Consumables,
+
+        [EnumMember(Value = Static.Count.CONSUMABLES)]
         ConsumablesCount,
+
+        [EnumMember(Value = Static.Location.COUNTRY)]
         Country,
+
+        [EnumMember(Value = Static.CREATED_AT)]
         CreatedAt,
+
+        [EnumMember(Value = Static.Types.DEPARTMENT)]
         Department,
+
+        [EnumMember(Value = Static.User.EMAIL)]
         EmailAddress,
+
+        [EnumMember(Value = Static.User.EMPLOYEE_NUMBER)]
         EmployeeNumber,
+
+        [EnumMember(Value = "groups")]
         Groups,
+
+        [EnumMember(Value = Static.ID)]
         Id,
+
+        [EnumMember(Value = Static.User.ACTIVATED)]
         IsActivated,
+
+        [EnumMember(Value = Static.User.LDAP_IMPORT)]
         IsImportedFromLDAP,
+
+        [EnumMember(Value = Static.User.TWO_FACTOR_ENROLLED)]
         IsTwoFactorEnrolled,
+
+        [EnumMember(Value = "two_factor_optin")]
         IsTwoFactorOptedIn,
+
+        [EnumMember(Value = Static.User.TITLE)]
         JobTitle,
+
+        [EnumMember(Value = Static.User.LAST_LOGIN)]
         LastLogin,
+
+        [EnumMember(Value = Static.User.LAST_NAME)]
         LastName,
+
+        [EnumMember(Value = "licenses")]
         Licenses,
+
+        [EnumMember(Value = Static.Count.LICENSES)]
         LicensesCount,
+
+        [EnumMember(Value = Static.Types.LOCATION)]
         Location,
+
+        [EnumMember(Value = Static.MANAGER)]
         Manager,
+
+        [EnumMember(Value = Static.User.PHONE)]
         PhoneNumber,
+
+        [EnumMember(Value = Static.Location.STATE)]
         State,
+
+        [EnumMember(Value = Static.USERNAME)]
         Username,
+
+        [EnumMember(Value = Static.Location.ZIP)]
         ZipCode,
-    }
-
-    public static class UserSortOnExtensions
-    {
-        public static string? Serialize(this UserSortOn? column)
-            => column switch
-            {
-                UserSortOn.FirstName => "first_name",
-                UserSortOn.Accessories => "accessories",
-                UserSortOn.AccessoriesCount => "accessories_count",
-                UserSortOn.Address => "address",
-                UserSortOn.Assets => "assets",
-                UserSortOn.AssetsCount => "assets_count",
-                UserSortOn.City => "city",
-                UserSortOn.Company => "company",
-                UserSortOn.Consumables => "consumables",
-                UserSortOn.ConsumablesCount => "consumables_count",
-                UserSortOn.Country => "country",
-                UserSortOn.CreatedAt => "created_at",
-                UserSortOn.Department => "department",
-                UserSortOn.EmailAddress => "email",
-                UserSortOn.EmployeeNumber => "employee_num",
-                UserSortOn.Groups => "groups",
-                UserSortOn.Id => "id",
-                UserSortOn.IsActivated => "activated",
-                UserSortOn.IsImportedFromLDAP => "ldap_import",
-                UserSortOn.IsTwoFactorEnrolled => "two_factor_enrolled",
-                UserSortOn.IsTwoFactorOptedIn => "two_factor_optin",
-                UserSortOn.JobTitle => "jobtitle",
-                UserSortOn.LastLogin => "last_login",
-                UserSortOn.LastName => "last_name",
-                UserSortOn.Licenses => "licenses",
-                UserSortOn.LicensesCount => "licenses_count",
-                UserSortOn.Location => "location",
-                UserSortOn.Manager => "manager",
-                UserSortOn.PhoneNumber => "phone",
-                UserSortOn.State => "state",
-                UserSortOn.Username => "username",
-                UserSortOn.ZipCode => "zip",
-                _ => null
-            };
-    }
-
-    namespace Serialization
-    {
-        internal sealed class PartialUser {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName("avatar")]
-            // this isn't a URI because it can be missing a protocol
-            public string? Avatar { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; set; }
-
-            [JsonPropertyName("first_name")]
-            public string? FirstName { get; set; }
-
-            [JsonPropertyName("last_name")]
-            public string? LastName { get; set; }
-
-            [JsonPropertyName("username")]
-            public string? Username { get; set; }
-
-            [JsonPropertyName("manager")]
-            public Stub<User>? Manager { get; set; }
-
-            [JsonPropertyName("employee_num")]
-            public string? EmployeeNumber;
-
-            [JsonPropertyName("jobtitle")]
-            public string? JobTitle { get; set; }
-
-            [JsonPropertyName("phone")]
-            public string? Phone { get; set; }
-
-            [JsonPropertyName("website")] // TODO: URL?
-            public string? Website { get; set; }
-
-            [JsonPropertyName("address")]
-            public string? Address { get; set; }
-
-            [JsonPropertyName("city")]
-            public string? City { get; set; }
-
-            [JsonPropertyName("state")]
-            public string? State { get; set; }
-
-            [JsonPropertyName("country")]
-            public string? Country { get; set; }
-
-            [JsonPropertyName("zip")]
-            public string? ZipCode { get; set; }
-
-            [JsonPropertyName("email")]
-            public string? EmailAddress { get; set; }
-
-            [JsonPropertyName(Static.Types.DEPARTMENT)]
-            public Stub<Department>? Department { get; set; }
-
-            [JsonPropertyName(Static.Types.LOCATION)]
-            public Stub<Location>? Location { get; set; }
-
-            [JsonPropertyName(Static.NOTES)]
-            public string? Notes { get; set; }
-
-            [JsonPropertyName(Static.PERMISSIONS)]
-            public PermissionSet? Permissions { get; set; }
-
-            [JsonPropertyName("activated")]
-            public bool? IsActivated { get; set; }
-
-            [JsonPropertyName("ldap_import")]
-            public bool? IsImportedFromLDAP { get; set; }
-
-            [JsonPropertyName("two_factor_activated")]
-            public bool? IsTwoFactorActivated { get; set; }
-
-            [JsonPropertyName("two_factor_enrolled")]
-            public bool? IsTwoFactorEnrolled { get; set; }
-
-            [JsonPropertyName(Static.Count.ASSETS)]
-            public int? AssetsCount { get; set; }
-
-            [JsonPropertyName(Static.Count.LICENSES)]
-            public int? LicensesCount { get; set; }
-
-            [JsonPropertyName(Static.Count.ACCESSORIES)]
-            public int? AccessoriesCount { get; set; }
-
-            [JsonPropertyName(Static.Count.CONSUMABLES)]
-            public int? ConsumablesCount { get; set; }
-
-            [JsonPropertyName(Static.Types.COMPANY)]
-            public Stub<Company>? Company { get; set; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName("last_login")]
-            public FormattedDateTime? LastLogin { get; set; }
-
-            [JsonPropertyName(Static.DELETED_AT)]
-            public FormattedDateTime? DeletedAt { get; set; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public PartialUser.Actions AvailableActions { get; set; }
-
-            [JsonPropertyName("groups")]
-            public DataTable<Stub<Group>>? Groups { get; set; }
-
-            public struct Actions
-            {
-                [JsonPropertyName(Static.Actions.UPDATE)]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(Static.Actions.DELETE)]
-                public bool Delete { get; set; }
-
-                [JsonPropertyName(Static.Actions.CLONE)]
-                public bool Clone { get; set; }
-
-                [JsonPropertyName(Static.Actions.RESTORE)]
-                public bool Restore { get; set; }
-
-                internal void Deconstruct(out bool update, out bool delete, out bool clone, out bool restore)
-                    => (update, delete, clone, restore) = (Update, Delete, Clone, Restore);
-            }
-        }
-
-        internal sealed class UserSerializer : JsonConverter<User>
-        {
-            public override User? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialUser>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new User(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, User value, JsonSerializerOptions options)
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }

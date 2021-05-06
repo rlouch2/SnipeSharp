@@ -53,7 +53,7 @@ namespace {filter.Symbol.ContainingNamespace.ToDisplayString()}
             => new Dictionary<string, string?>()
                 .AddIfNotNull(Static.LIMIT, Limit?.ToString())
                 .AddIfNotNull(Static.OFFSET, Offset?.ToString())
-                .AddIfNotNull(Static.ORDER, SortOrder.Serialize())
+                .AddIfNotNull(Static.ORDER, SortOrder?.Serialize())
 ");
                     foreach(var property in filter.Properties)
                         builder.Append($".AddIfNotNull(\"{property.Key}\", {property.ConvertWith})\n");

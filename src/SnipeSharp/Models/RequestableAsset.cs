@@ -1,34 +1,54 @@
 using System;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.RequestableAssetConverter))]
-    public sealed class RequestableAsset: IApiObject<RequestableAsset>, IApiObject<Asset>
+    [JsonConverter(typeof(RequestableAssetConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class RequestableAsset: IApiObject<RequestableAsset>, IApiObject<Asset>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.ASSET_TAG)]
         public string AssetTag { get; }
+
+        [DeserializeAs(Static.SERIAL)]
         public string SerialNumber { get; }
+
+        [DeserializeAs(Static.IMAGE)]
         public Uri? Image { get; }
+
+        [DeserializeAs(Static.Types.MODEL)]
         public string? ModelName { get; }
+
+        [DeserializeAs(Static.MODEL_NUMBER)]
         public string? ModelNumber { get; }
+
+        [DeserializeAs(Static.EXPECTED_CHECKIN)]
         public FormattedDate ExpectedCheckIn { get; }
+
+        [DeserializeAs(Static.Types.LOCATION)]
         public string? LocationName { get; }
+
+        [DeserializeAs(Static.STATUS)]
         public StatusMeta Status { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialRequestableAsset.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Cancel { get; }
             public bool Request { get; }
-
-            internal Actions(Serialization.PartialRequestableAsset.Actions partial)
-                => (Cancel, Request) = partial;
         }
 
-        internal RequestableAsset(Serialization.PartialRequestableAsset partial)
+        internal RequestableAsset(PartialRequestableAsset partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentNullException(nameof(Name));
@@ -41,71 +61,6 @@ namespace SnipeSharp.Models
             LocationName = partial.LocationName;
             Status = partial.Status ?? throw new ArgumentNullException(nameof(Status));
             AvailableActions = new Actions(partial.AvailableActions);
-        }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class RequestableAssetConverter : JsonConverter<RequestableAsset>
-        {
-            public override RequestableAsset? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialRequestableAsset>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new RequestableAsset(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, RequestableAsset value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
-
-        internal sealed class PartialRequestableAsset
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; set; }
-
-            [JsonPropertyName(Static.ASSET_TAG)]
-            public string? AssetTag { get; set; }
-
-            [JsonPropertyName(Static.SERIAL)]
-            public string? SerialNumber { get; set; }
-
-            [JsonPropertyName(Static.IMAGE)]
-            public Uri? Image { get; set; }
-
-            [JsonPropertyName(Static.Types.MODEL)]
-            public string? ModelName { get; set; }
-
-            [JsonPropertyName(Static.MODEL_NUMBER)]
-            public string? ModelNumber { get; set; }
-
-            [JsonPropertyName(Static.EXPECTED_CHECKIN)]
-            public FormattedDate? ExpectedCheckIn { get; set; }
-
-            [JsonPropertyName(Static.Types.LOCATION)]
-            public string? LocationName { get; set; }
-
-            [JsonPropertyName(Static.STATUS)]
-            public StatusMeta? Status { get; set; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
-
-            public struct Actions
-            {
-                [JsonPropertyName(Static.Actions.CANCEL)]
-                public bool Cancel { get; }
-
-                [JsonPropertyName(Static.Actions.REQUEST)]
-                public bool Request { get; }
-
-                internal void Deconstruct(out bool cancel, out bool request)
-                    => (cancel, request) = (Cancel, Request);
-            }
         }
     }
 }

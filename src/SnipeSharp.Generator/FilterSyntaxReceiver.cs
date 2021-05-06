@@ -61,8 +61,16 @@ namespace SnipeSharp.Generator
                     Key = keyConstant.Value!.ToString(),
                     Type = memberProperty.Type.ToDisplayString(),
                 };
+
                 if(serializeAsAttr.TryGetOption("With", out var withConstant) && withConstant.Value is string convertWith)
                     property.ConvertWith = convertWith;
+                else if(memberProperty.Type.ToDisplayString().StartsWith(Static.IApiObjectFullName) ||
+                        memberProperty.Type.Interfaces.Any(a => a.ToDisplayString().StartsWith(Static.IApiObjectFullName)))
+                    property.ConvertWith = $"{member.Name}?.Id.ToString()";
+                else if(memberProperty.Type.ToDisplayString() == "bool?")
+                    property.ConvertWith = $"null == {member.Name} ? null : (bool){member.Name} ? \"true\" : \"false\"";
+                else if(memberProperty.Type.ToDisplayString() == "string?")
+                    property.ConvertWith = member.Name;
                 else
                     property.ConvertWith = $"{member.Name}?.ToString()";
             }

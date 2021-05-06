@@ -1,46 +1,85 @@
 using System;
-using System.Collections.Generic;
-using System.Text.Json;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    [JsonConverter(typeof(Serialization.SupplierConverter))]
-    public sealed class Supplier : IApiObject<Supplier>
+    [JsonConverter(typeof(SupplierConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class Supplier : IApiObject<Supplier>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.IMAGE)]
         public Uri? Image { get; }
+
+        [DeserializeAs(Static.URL)]
         public string Url { get; }
+
+        [DeserializeAs(Static.Location.ADDRESS)]
         public string Address { get; }
+
+        [DeserializeAs(Static.Location.ADDRESS2)]
         public string Address2 { get; }
+
+        [DeserializeAs(Static.Location.CITY)]
         public string City { get; }
+
+        [DeserializeAs(Static.Location.STATE)]
         public string State { get; }
+
+        [DeserializeAs(Static.Location.COUNTRY)]
         public string Country { get; }
+
+        [DeserializeAs(Static.Location.ZIP)]
         public string ZipCode { get; }
+
+        [DeserializeAs(Static.Supplier.FAX)]
         public string FaxNumber { get; }
+
+        [DeserializeAs(Static.User.PHONE)]
         public string PhoneNumber { get; }
+
+        [DeserializeAs(Static.User.EMAIL)]
         public string EmailAddress { get; }
+
+        [DeserializeAs(Static.Supplier.CONTACT)]
         public string Contact { get; }
+
+        [DeserializeAs(Static.Count.ASSETS, IsNonNullable = true)]
         public int AssetsCount { get; }
+
+        [DeserializeAs(Static.Count.ACCESSORIES, IsNonNullable = true)]
         public int AccessoriesCount { get; }
+
+        [DeserializeAs(Static.Count.LICENSES, IsNonNullable = true)]
         public int LicensesCount { get; }
+
+        [DeserializeAs(Static.NOTES)]
         public string? Notes { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
 
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialSupplier.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialSupplier.Actions partial)
-                => (Update, Delete) = partial;
         }
 
-        internal Supplier(Serialization.PartialSupplier partial)
+        internal Supplier(PartialSupplier partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentNullException(nameof(Name));
@@ -66,174 +105,51 @@ namespace SnipeSharp.Models
         }
     }
 
-    public sealed class SupplierFilter: IFilter<Supplier>
+    [GenerateFilter(typeof(SupplierSortOn))]
+    public sealed partial class SupplierFilter: IFilter<Supplier>
     {
-        public int? Limit { get; set; }
-        public int? Offset { get; set; }
-        public string? SearchString { get; set; }
-        public SortOrder? SortOrder { get; set; }
-        public SupplierSortOn? SortOn { get; set; }
-
-        IFilter<Supplier> IFilter<Supplier>.Clone()
-            => new SupplierFilter
-            {
-                Limit = Limit,
-                Offset = Offset,
-                SearchString = SearchString,
-                SortOrder = SortOrder,
-                SortOn = SortOn
-            };
-
-        IReadOnlyDictionary<string, string?> IFilter<Supplier>.GetParameters()
-        {
-            var dict = new Dictionary<string, string?>();
-            if(null != Limit)
-                dict["limit"] = Limit.ToString();
-            if(null != Offset)
-                dict["offset"] = Offset.ToString();
-            if(null != SearchString)
-                dict["search"] = SearchString;
-            var order = SortOrder.Serialize();
-            if(null != order)
-                dict["order"] = order;
-            var column = SortOn.Serialize();
-            if(null != column)
-                dict["sort"] = column;
-            return dict;
-        }
     }
 
+    [SortColumn]
     public enum SupplierSortOn
     {
+        [EnumMember(Value = Static.CREATED_AT)]
         CreatedAt = 0,
+
+        [EnumMember(Value = Static.Count.ACCESSORIES)]
         AccessoriesCount,
+
+        [EnumMember(Value = Static.Location.ADDRESS)]
         Address,
+
+        [EnumMember(Value = Static.Count.ASSETS)]
         AssetsCount,
+
+        [EnumMember(Value = Static.Supplier.CONTACT)]
         Contact,
+
+        [EnumMember(Value = Static.User.EMAIL)]
         EmailAddress,
+
+        [EnumMember(Value = Static.Supplier.FAX)]
         FaxNumber,
+
+        [EnumMember(Value = Static.ID)]
         Id,
+
+        [EnumMember(Value = Static.IMAGE)]
         Image,
+
+        [EnumMember(Value = Static.Count.LICENSES)]
         LicensesCount,
+
+        [EnumMember(Value = Static.NAME)]
         Name,
+
+        [EnumMember(Value = Static.User.PHONE)]
         PhoneNumber,
+
+        [EnumMember(Value = Static.URL)]
         Url,
-    }
-
-    public static class SupplierSortOnExtensions
-    {
-        public static string? Serialize(this SupplierSortOn? self)
-            => self switch
-            {
-                SupplierSortOn.CreatedAt => "created_at",
-                SupplierSortOn.AccessoriesCount => "accessories_count",
-                SupplierSortOn.Address => "address",
-                SupplierSortOn.AssetsCount => "assets_count",
-                SupplierSortOn.Contact => "contact",
-                SupplierSortOn.EmailAddress => "email",
-                SupplierSortOn.FaxNumber => "fax",
-                SupplierSortOn.Id => "id",
-                SupplierSortOn.Image => "image",
-                SupplierSortOn.LicensesCount => "licenses_count",
-                SupplierSortOn.Name => "name",
-                SupplierSortOn.PhoneNumber => "phone",
-                SupplierSortOn.Url => "url",
-                _ => null
-            };
-    }
-
-    namespace Serialization
-    {
-        internal sealed class SupplierConverter : JsonConverter<Supplier>
-        {
-            public override Supplier? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                var partial = JsonSerializer.Deserialize<PartialSupplier>(ref reader, options);
-                if(null == partial)
-                    return null;
-                return new Supplier(partial);
-            }
-
-            public override void Write(Utf8JsonWriter writer, Supplier value, JsonSerializerOptions options)
-                => throw new NotImplementedException();
-        }
-
-        internal sealed class PartialSupplier
-        {
-            [JsonPropertyName("id")]
-            public int? Id { get; set; }
-
-            [JsonPropertyName("name")]
-            public string? Name { get; set; }
-
-            [JsonPropertyName("image")]
-            public Uri? Image { get; set; }
-
-            [JsonPropertyName("url")]
-            public string? Url { get; set; }
-
-            [JsonPropertyName("address")]
-            public string? Address { get; set; }
-
-            [JsonPropertyName("address2")]
-            public string? Address2 { get; set; }
-
-            [JsonPropertyName("city")]
-            public string? City { get; set; }
-
-            [JsonPropertyName("state")]
-            public string? State { get; set; }
-
-            [JsonPropertyName("country")]
-            public string? Country { get; set; }
-
-            [JsonPropertyName("zip")]
-            public string? ZipCode { get; set; }
-
-            [JsonPropertyName("fax")]
-            public string? FaxNumber { get; set; }
-
-            [JsonPropertyName("phone")]
-            public string? PhoneNumber { get; set; }
-
-            [JsonPropertyName("email")]
-            public string? EmailAddress { get; set; }
-
-            [JsonPropertyName("contact")]
-            public string? Contact { get; set; }
-
-            [JsonPropertyName("assets_count")]
-            public int AssetsCount { get; set; }
-
-            [JsonPropertyName("accessories_count")]
-            public int AccessoriesCount { get; set; }
-
-            [JsonPropertyName("licenses_count")]
-            public int LicensesCount { get; set; }
-
-            [JsonPropertyName("notes")]
-            public string? Notes { get; set; }
-
-            [JsonPropertyName("created_at")]
-            public FormattedDateTime? CreatedAt { get; set; }
-
-            [JsonPropertyName("updated_at")]
-            public FormattedDateTime? UpdatedAt { get; set; }
-
-            [JsonPropertyName("available_actions")]
-            public Actions AvailableActions { get; set; }
-
-            internal struct Actions
-            {
-                [JsonPropertyName("update")]
-                public bool Update { get; set; }
-
-                [JsonPropertyName("delete")]
-                public bool Delete {get; set; }
-
-                internal void Deconstruct(out bool update, out bool delete)
-                    => (update, delete) = (Update, Delete);
-            }
-        }
     }
 }

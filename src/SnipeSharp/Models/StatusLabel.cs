@@ -1,36 +1,55 @@
 using System;
 using System.Drawing;
 using System.Text.Json.Serialization;
+using SnipeSharp.Serialization;
 
 namespace SnipeSharp.Models
 {
-    public sealed class StatusLabel: IApiObject<StatusLabel>
+    [JsonConverter(typeof(StatusLabelConverter))]
+    [GeneratePartial, GenerateConverter]
+    public sealed partial class StatusLabel: IApiObject<StatusLabel>
     {
+        [DeserializeAs(Static.ID)]
         public int Id { get; }
+
+        [DeserializeAs(Static.NAME)]
         public string Name { get; }
+
+        [DeserializeAs(Static.TYPE)]
         public StatusLabelType Type { get; }
+
+        [DeserializeAs(Static.StatusLabel.COLOR)]
         public Color? Color { get; }
+
+        [DeserializeAs(Static.StatusLabel.SHOW_IN_NAV, IsNonNullable = true)]
         public bool IsShownInNav { get; }
+
+        [DeserializeAs(Static.StatusLabel.DEFAULT_LABEL, IsNonNullable = true)]
         public bool IsDefaultLabel { get; }
+
+        [DeserializeAs(Static.Count.ASSETS, IsNonNullable = true)]
         public int AssetsCount { get; }
+
+        [DeserializeAs(Static.Count.ASSETS)]
         public string Notes { get; }
+
+        [DeserializeAs(Static.CREATED_AT)]
         public FormattedDateTime CreatedAt { get; }
+
+        [DeserializeAs(Static.UPDATED_AT)]
         public FormattedDateTime UpdatedAt { get; }
+
+        [DeserializeAs(Static.AVAILABLE_ACTIONS, Type = typeof(PartialStatusLabel.Actions), IsNonNullable = true)]
         public readonly Actions AvailableActions;
 
-        public struct Actions
+        [GeneratePartialActions]
+        public partial struct Actions
         {
             public bool Update { get; }
             public bool Delete { get; }
-
-            internal Actions(Serialization.PartialStatusLabel.Actions partial)
-            {
-                Update = partial.Update;
-                Delete = partial.Delete;
-            }
         }
 
-        internal StatusLabel(Serialization.PartialStatusLabel partial)
+        internal StatusLabel(PartialStatusLabel partial)
         {
             Id = partial.Id ?? throw new ArgumentNullException(nameof(Id));
             Name = partial.Name ?? throw new ArgumentException(nameof(Name));
@@ -43,54 +62,6 @@ namespace SnipeSharp.Models
             CreatedAt = partial.CreatedAt ?? throw new ArgumentException(nameof(CreatedAt));
             UpdatedAt = partial.UpdatedAt ?? throw new ArgumentException(nameof(UpdatedAt));
             AvailableActions = new Actions(partial.AvailableActions);
-        }
-    }
-
-    namespace Serialization
-    {
-        internal sealed class PartialStatusLabel
-        {
-            [JsonPropertyName(Static.ID)]
-            public int? Id { get; set; }
-
-            [JsonPropertyName(Static.NAME)]
-            public string? Name { get; }
-
-            [JsonPropertyName(Static.TYPE)]
-            public StatusLabelType? Type { get; }
-
-            [JsonPropertyName(Static.StatusLabel.COLOR)]
-            public Color? Color { get; }
-
-            [JsonPropertyName(Static.StatusLabel.SHOW_IN_NAV)]
-            public bool IsShownInNav { get; }
-
-            [JsonPropertyName(Static.StatusLabel.DEFAULT_LABEL)]
-            public bool IsDefaultLabel { get; }
-
-            [JsonPropertyName(Static.Count.ASSETS)]
-            public int AssetsCount { get; }
-
-            [JsonPropertyName(Static.NOTES)]
-            public string? Notes { get; }
-
-            [JsonPropertyName(Static.CREATED_AT)]
-            public FormattedDateTime? CreatedAt { get; }
-
-            [JsonPropertyName(Static.UPDATED_AT)]
-            public FormattedDateTime? UpdatedAt { get; }
-
-            [JsonPropertyName(Static.AVAILABLE_ACTIONS)]
-            public Actions AvailableActions { get; set; }
-
-            internal struct Actions
-            {
-                [JsonPropertyName(Static.Actions.UPDATE)]
-                public bool Update { get; set; }
-
-                [JsonPropertyName(Static.Actions.DELETE)]
-                public bool Delete { get; set; }
-            }
         }
     }
 }

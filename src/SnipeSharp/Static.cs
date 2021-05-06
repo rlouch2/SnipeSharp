@@ -41,6 +41,7 @@ namespace SnipeSharp
             public const string CATEGORY = "category";
             public const string DEPARTMENT = "department";
             public const string LOCATION = "location";
+            public const string GROUP = "groups";
             public const string MANUFACTURER = "manufacturer";
             public const string MODEL = "model";
             public const string SUPPLIER = "supplier";
@@ -50,6 +51,10 @@ namespace SnipeSharp
         internal static class Id
         {
             public const string ASSET = Types.ASSET + "_" + ID;
+            public const string COMPANY = Types.COMPANY + "_" + ID;
+            public const string DEPARTMENT = Types.DEPARTMENT + "_" + ID;
+            public const string GROUP = Types.GROUP + "_" + ID;
+            public const string LOCATION = Types.LOCATION + "_" + ID;
             public const string SUPPLIER = Types.SUPPLIER + "_" + ID;
             public const string USER = Types.USER + "_" + ID;
         }
@@ -166,10 +171,27 @@ namespace SnipeSharp
             public const string SHOW_IN_NAV = "show_in_nav";
         }
 
+        internal static class Supplier
+        {
+            public const string CONTACT = "contact";
+            public const string FAX = "fax";
+        }
+
         internal static class User
         {
+            public const string ACTIVATED = "activated";
+            public const string AVATAR = "avatar";
+            public const string EMAIL = "email";
+            public const string EMPLOYEE_NUMBER = "employee_num";
             public const string FIRST_NAME = "first_name";
+            public const string LAST_LOGIN = "last_login";
             public const string LAST_NAME = "last_name";
+            public const string LDAP_IMPORT = "ldap_import";
+            public const string PHONE = "phone";
+            public const string TITLE = "jobtitle";
+            public const string TWO_FACTOR_ACTIVATED = "two_factor_activated";
+            public const string TWO_FACTOR_ENROLLED = "two_factor_enrolled";
+            public const string WEBSITE = "website";
         }
     }
 }
