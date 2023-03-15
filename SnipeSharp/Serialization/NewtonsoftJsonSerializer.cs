@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Serializers;
 using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace SnipeSharp.Serialization
 {
@@ -13,13 +13,15 @@ namespace SnipeSharp.Serialization
         public string Namespace { get; set; }
 
         public static JsonSerializerSettings SerializerSettings { get; } =
-            new JsonSerializerSettings {
+            new JsonSerializerSettings
+            {
                 ContractResolver = new SerializationContractResolver(),
                 NullValueHandling = NullValueHandling.Ignore
             };
 
         public static JsonSerializerSettings DeserializerSettings { get; } =
-            new JsonSerializerSettings {
+            new JsonSerializerSettings
+            {
                 ContractResolver = new DeserializationContractResolver()
             };
 

@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using RestSharp;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
+using System;
+using System.Collections.Generic;
 
 namespace SnipeSharp
 {
@@ -74,7 +74,8 @@ namespace SnipeSharp
             {
                 RequestManager.SetTokenAndUri();
                 Users.Me();
-            } catch
+            }
+            catch
             {
                 // any other error return false
                 return false;
@@ -92,9 +93,9 @@ namespace SnipeSharp
         /// </summary>
         /// <typeparam name="T">A <see cref="SnipeSharp.Models.AbstractBaseModel">AbstractBaseModel</see> with the attribute <see cref="SnipeSharp.EndPoint.PathSegmentAttribute">PathSegmentAttribute</see>.</typeparam>
         /// <returns>An <see cref="SnipeSharp.EndPoint.EndPoint{T}">EndPoint</see> for the provided type.</returns>
-        public EndPoint<T> GetEndPoint<T>() where T: AbstractBaseModel
+        public EndPoint<T> GetEndPoint<T>() where T : AbstractBaseModel
         {
-            if(_typeEndPointObjectMap.TryGetValue(typeof(T), out var endpoint))
+            if (_typeEndPointObjectMap.TryGetValue(typeof(T), out var endpoint))
                 return (EndPoint<T>)endpoint;
             throw new ArgumentException("Unrecognized end point type", nameof(T), null);
         }
