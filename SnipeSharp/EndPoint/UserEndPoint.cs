@@ -85,7 +85,7 @@ namespace SnipeSharp.EndPoint
         public ApiOptionalResponse<User> GetByEmailAddressOptional(string email, UserSearchFilter filter = null)
         {
             filter = filter ?? new UserSearchFilter();
-            filter.Search = email;
+            filter.Email = email;
             var results = FindAllOptional(filter);
             if (!results.HasValue)
                 return new ApiOptionalResponse<User> { Exception = results.Exception };
