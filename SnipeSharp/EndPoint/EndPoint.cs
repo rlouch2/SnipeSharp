@@ -104,6 +104,10 @@ namespace SnipeSharp.EndPoint
             => FindAllOptional();
 
         /// <inheritdoc />
+        public ApiOptionalMultiResponse<T> GetAllOptional(ISearchFilter filter = null)
+        => FindAllOptional(filter);
+
+        /// <inheritdoc />
         public T Create(T toCreate)
             => Api.RequestManager.Post(EndPointInfo.BaseUri, CheckRequiredFields(toCreate)).RethrowExceptionIfAny().Value.Payload;
 
