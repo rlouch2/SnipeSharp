@@ -1,5 +1,6 @@
 using SnipeSharp.Models;
 using SnipeSharp.Serialization;
+using System;
 
 namespace SnipeSharp.Filters
 {
@@ -19,6 +20,14 @@ namespace SnipeSharp.Filters
         /// <inheritdoc />
         [SerializeAs("search")]
         public string Search { get; set; }
+
+        /// <inheritdoc />
+        [SerializeAs("username")]
+        public string Username { get; set; }
+
+        /// <inheritdoc />
+        [SerializeAs("email")]
+        public string Email { get; set; }
 
         /// <inheritdoc />
         [SerializeAs("sort")]
@@ -57,6 +66,24 @@ namespace SnipeSharp.Filters
         /// </summary>
         [SerializeAs("department_id", SerializeAs.IdValue)]
         public Department Department { get; set; }
+
+        /// <summary>
+        /// Only search for users with the ldap_import
+        /// </summary>
+        public bool LdapImport { private get; set; }
+
+        /// <summary>
+        /// Only search for users with the ldap_import
+        /// </summary>
+        [SerializeAs("ldap_import")]
+        public int _ldapImport
+        {
+            get
+            {
+                return Convert.ToInt32(LdapImport);
+            }
+        }
+
 
         /// <summary>
         /// Initialize a new instance of the UserSearchFilter class.
