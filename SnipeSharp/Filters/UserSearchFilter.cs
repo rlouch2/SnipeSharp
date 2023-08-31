@@ -70,17 +70,21 @@ namespace SnipeSharp.Filters
         /// <summary>
         /// Only search for users with the ldap_import
         /// </summary>
-        public bool LdapImport { private get; set; }
+        public bool? LdapImport { private get; set; } = null;
 
         /// <summary>
         /// Only search for users with the ldap_import
         /// </summary>
         [SerializeAs("ldap_import")]
-        public int _ldapImport
+        public int? _ldapImport
         {
             get
             {
-                return Convert.ToInt32(LdapImport);
+                int? returnVal = null;
+                if (LdapImport != null)
+                    returnVal = Convert.ToInt32(LdapImport);
+
+                return returnVal;
             }
         }
 

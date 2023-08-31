@@ -21,6 +21,10 @@ namespace SnipeSharp.Serialization.Converters
                 if (serializer.Deserialize<DateTime>(reader) is DateTime response && DateTime.TryParse(response.ToString(), out var datetime))
                     return datetime;
             }
+            else if (reader.TokenType == JsonToken.Integer)
+            {
+                return null;
+            }
             else if (serializer.Deserialize<DateObjectResponse>(reader) is DateObjectResponse response && DateTime.TryParse(response.DateTime, out var datetime))
                 return datetime;
             return null;
