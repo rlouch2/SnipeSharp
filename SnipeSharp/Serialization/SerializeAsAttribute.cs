@@ -28,6 +28,8 @@ namespace SnipeSharp.Serialization
 
         SimpleDate,
 
+        SimpleDateOnly,
+
         Timespan,
 
         IdValue,

@@ -28,6 +28,9 @@ namespace SnipeSharp.Serialization
                 case SerializeAs.SimpleDate:
                     converter = SimpleDateConverter.Instance;
                     return true;
+                case SerializeAs.SimpleDateOnly:
+                    converter = SimpleDateOnlyConverter.Instance;
+                    return true;
                 case SerializeAs.Timespan:
                     converter = TimeSpanConverter.Instance;
                     return true;
