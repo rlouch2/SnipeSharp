@@ -1,4 +1,6 @@
+using Newtonsoft.Json.Linq;
 using RestSharp;
+using RestSharp.Authenticators.OAuth2;
 using SnipeSharp.EndPoint;
 using SnipeSharp.Models;
 using System;
@@ -20,7 +22,7 @@ namespace SnipeSharp
         /// <summary>
         /// A list of responses from the RestClientManager. Used for debugging purposes.
         /// </summary>
-        public List<IRestResponse> DebugResponseList = new List<IRestResponse>();
+        public List<RestResponse> DebugResponseList = new List<RestResponse>();
 
         /// <summary>
         /// A list of request bodies from the RestClientManager. Used for debugging purposes.
@@ -40,7 +42,7 @@ namespace SnipeSharp
             set
             {
                 _token = value;
-                RequestManager.ResetToken();
+                //RequestManager.ResetToken();
             }
         }
 
@@ -56,7 +58,7 @@ namespace SnipeSharp
             set
             {
                 _uri = value;
-                RequestManager.ResetUri();
+                //RequestManager.ResetUri();
             }
         }
 
@@ -204,18 +206,15 @@ namespace SnipeSharp
         /// <para>Constructs a wrapper for the Snipe-IT web API.</para>
         /// <para>The Token and Uri must be set either in an initializer or manually after construction.</para>
         /// </summary>
-        public SnipeItApi() : this(new RestClient())
+        public SnipeItApi(System.Uri uri, string token)
         {
-        }
+            this.Uri = uri;
+            this.Token = token;
+            RestClientOptions options = new RestClientOptions(Uri);
+            var authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(Token, "Bearer");
+            options.Authenticator = authenticator;
 
-        /// <summary>
-        /// <para>Constructs a wrapper for the Snipe-IT web API.</para>
-        /// <para>The Token and Uri must be set either in an initializer or manually after construction.</para>
-        /// </summary>
-        /// <remarks>This constructor is for internal and testing use.</remarks>
-        internal SnipeItApi(IRestClient restClient)
-        {
-            RequestManager = new RestClientManager(this, restClient);
+            this.RequestManager = new RestClientManager(this, options);
 
             // endpoints
             Account = new AccountEndPoint(this);

@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Deserializers;
 using RestSharp.Serializers;
 
 namespace SnipeSharp.Serialization
@@ -28,11 +27,14 @@ namespace SnipeSharp.Serialization
         public static JsonSerializer Serializer { get; } = JsonSerializer.CreateDefault(SerializerSettings);
 
         public static JsonSerializer Deserializer { get; } = JsonSerializer.CreateDefault(DeserializerSettings);
+        ContentType ISerializer.ContentType { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         public string Serialize(object @object)
             => JsonConvert.SerializeObject(@object, SerializerSettings);
 
-        public T Deserialize<T>(IRestResponse response)
-            => JsonConvert.DeserializeObject<T>(response.Content, DeserializerSettings);
+        public T Deserialize<T>(RestResponse response)
+        {
+            return JsonConvert.DeserializeObject<T>(response.Content, DeserializerSettings);
+        }
     }
 }
