@@ -197,7 +197,7 @@ namespace SnipeSharp.Models
         /// The date this Accessory was purchased.
         /// </summary>
         [DeserializeAs("purchase_date", DeserializeAs.DateObject)]
-        [SerializeAs("purchase_date", SerializeAs.SimpleDate)]
+        [SerializeAs("purchase_date", SerializeAs.SimpleDateOnly)]
         [Patch(nameof(isPurchaseDateModified))]
         public DateTime? PurchaseDate
         {
