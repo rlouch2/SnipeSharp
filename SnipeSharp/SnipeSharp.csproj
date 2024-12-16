@@ -8,6 +8,14 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>warnings</Nullable>
   </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>SnipeSharp</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Ross Louch</Authors>
+    <Description>C# wrapper for the SnipeIT API.</Description>
+    <PackageRepositoryUrl>https://nuget.pkg.github.com/rlouch2/RS2SwaggerAPI/index.json</PackageRepositoryUrl>
+    <PackageType>NuGet</PackageType>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="112.0.0" />
