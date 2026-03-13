@@ -40,5 +40,8 @@ namespace SnipeSharp.Models.Enumerations
         /// <summary>The associated request may be canceled.</summary>
         [EnumMember(Value = "cancel")]
         CancelRequest = 128,
+        /// <summary>The associated object may be audited.</summary>
+        [EnumMember(Value = "audit")]
+        Audit = 256,
     }
 }
