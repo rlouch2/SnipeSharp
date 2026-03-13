@@ -14,7 +14,7 @@
     <Authors>Ross Louch</Authors>
     <Description>C# wrapper for the SnipeIT API.</Description>
     <PackageRepositoryUrl>https://nuget.pkg.github.com/rlouch2/index.json</PackageRepositoryUrl>
-    <PackageType>NuGet</PackageType>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
