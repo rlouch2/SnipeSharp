@@ -43,8 +43,8 @@ namespace SnipeSharp.Models
 
         /// <inheritdoc />
         /// <remarks>This field is required.</remarks>
-        [DeserializeAs("title")]
-        [SerializeAs("title")]
+        [DeserializeAs("name")]
+        [SerializeAs("name")]
         [Patch(nameof(isNameModified))]
         public override string Name
         {
