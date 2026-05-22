@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using SnipeSharp.Exceptions;
 using SnipeSharp.Filters;
@@ -62,6 +63,7 @@ namespace SnipeSharp
         {
             var request = CreateRequest(path, Method.Get, filter);
             SetTokenAndUri();
+
 #if DEBUG
             try
             {
@@ -73,16 +75,26 @@ namespace SnipeSharp
                 string e = ex.Message.ToString();
             }
 #endif
+
             var response = Client.Execute(request);
+
             if (!response.IsSuccessful)
                 throw new ApiErrorException(response.StatusCode, response.Content);
+
 #if DEBUG
             Api.DebugResponseList.Add(response);
 #endif
-            var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
 
-            if ("error" == asRequestResponse.Status)
+            var responseJson = JObject.Parse(response.Content);
+
+            var statusToken = responseJson["status"];
+
+            if (statusToken != null &&
+                statusToken.Type == JTokenType.String &&
+                statusToken.ToString() == "error")
             {
+                var asRequestResponse = serializerDeserializer.Deserialize<RequestResponse<R>>(response);
+
                 return new ApiOptionalResponse<R>
                 {
                     Exception = asRequestResponse.Messages.ContainsKey("general")
@@ -91,7 +103,10 @@ namespace SnipeSharp
                 };
             }
 
-            return new ApiOptionalResponse<R> { Value = serializerDeserializer.Deserialize<R>(response) };
+            return new ApiOptionalResponse<R>
+            {
+                Value = serializerDeserializer.Deserialize<R>(response)
+            };
         }
 
         internal ApiOptionalMultiResponse<R> GetAll<R>(string path, ISearchFilter filter = null) where R : ApiObject
