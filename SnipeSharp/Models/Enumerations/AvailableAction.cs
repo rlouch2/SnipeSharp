@@ -43,5 +43,8 @@ namespace SnipeSharp.Models.Enumerations
         /// <summary>The associated object may be audited.</summary>
         [EnumMember(Value = "audit")]
         Audit = 256,
+        /// <summary>The associated object may be created.</summary>
+        [EnumMember(Value = "create_asset")]
+        CreateAsset = 512,
     }
 }
